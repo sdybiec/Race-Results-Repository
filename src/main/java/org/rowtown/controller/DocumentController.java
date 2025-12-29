@@ -1,0 +1,98 @@
+package org.rowtown.controller;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.rowtown.domain.Operation;
+import org.rowtown.domain.SerializationFormat;
+import org.rowtown.dto.DocumentRequest;
+import org.rowtown.dto.DocumentResponse;
+import org.rowtown.service.AuthorizationService;
+import org.rowtown.service.DocumentManagerService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * REST controller for document management operations.
+ */
+@RestController
+@RequestMapping("/api/v1/documents")
+@RequiredArgsConstructor
+@Tag(name = "Documents", description = "Document management API")
+public class DocumentController {
+
+    private final DocumentManagerService documentService;
+    private final AuthorizationService authorizationService;
+
+    @PostMapping
+    @Operation(summary = "Create a new document", description = "Creates a new document with an initial version")
+    public ResponseEntity<DocumentResponse> createDocument(@RequestBody DocumentRequest request) {
+        // Check authorization
+        authorizationService.checkAuthorization(request.getRegattaId(), request.getType(), Operation.CREATE);
+
+        DocumentResponse response = documentService.createDocument(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Get document by ID", description = "Retrieves the latest version of a document")
+    public ResponseEntity<DocumentResponse> getDocument(@PathVariable Long id) {
+        DocumentResponse response = documentService.getLatestDocument(id);
+
+        // Check authorization
+        authorizationService.checkDocumentAccess(id, response.getRegattaId(),
+            response.getType(), Operation.READ);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/versions/{version}")
+    @Operation(summary = "Get specific document version", description = "Retrieves a specific version of a document")
+    public ResponseEntity<DocumentResponse> getDocumentVersion(
+            @PathVariable Long id,
+            @PathVariable Long version) {
+        DocumentResponse response = documentService.getDocument(id, version);
+
+        // Check authorization
+        authorizationService.checkDocumentAccess(id, response.getRegattaId(),
+            response.getType(), Operation.READ);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update document", description = "Updates a document, creating a new version")
+    public ResponseEntity<DocumentResponse> updateDocument(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "Updated document") String changeDescription,
+            @RequestParam(defaultValue = "XMI") SerializationFormat format,
+            @RequestBody byte[] modelData) {
+
+        // Get document to check permissions
+        DocumentResponse existingDoc = documentService.getLatestDocument(id);
+
+        // Check authorization
+        authorizationService.checkDocumentAccess(id, existingDoc.getRegattaId(),
+            existingDoc.getType(), Operation.UPDATE);
+
+        String author = authorizationService.getCurrentUser().getUserId();
+        DocumentResponse response = documentService.updateDocument(id, modelData, author, changeDescription, format);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete document", description = "Deletes a document and all its versions")
+    public ResponseEntity<Void> deleteDocument(@PathVariable Long id) {
+        // Get document to check permissions
+        DocumentResponse doc = documentService.getLatestDocument(id);
+
+        // Check authorization
+        authorizationService.checkDocumentAccess(id, doc.getRegattaId(),
+            doc.getType(), Operation.DELETE);
+
+        documentService.deleteDocument(id);
+        return ResponseEntity.noContent().build();
+    }
+}

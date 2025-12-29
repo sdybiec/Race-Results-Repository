@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="timingdatainterchange" nsURI="http://www.rowtown.org/TDI/1.0.0"
+    nsPrefix="tdi">
+  <eClassifiers xsi:type="ecore:EClass" name="TimingRegatta">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingStation" upperBound="-1"
+        eType="#//TimingStation" containment="true" eOpposite="#//TimingStation/timingRegatta"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingRace" upperBound="-1"
+        eType="#//TimingRace" containment="true" resolveProxies="false" eOpposite="#//TimingRace/timingRegatta"
+        eKeys="#//TimingRace/eventId #//TimingRace/raceId #//TimingRace/stageId"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="regattaId" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="day" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="month" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="year" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimingStation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crossing" upperBound="-1"
+        eType="#//Crossing" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceCourseId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="milestoneId" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionId" eType="#//ResultsVersion"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="position" lowerBound="1"
+        eType="#//MilestonePosition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="progressDistance" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingRegatta" eType="#//TimingRegatta"
+        eOpposite="#//TimingRegatta/timingStation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimingRace">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingRacingCrew" upperBound="-1"
+        eType="#//TimingRacingCrew" containment="true" resolveProxies="false" eOpposite="#//TimingRacingCrew/timingRace"
+        eKeys="#//TimingRacingCrew/bowOrLaneNumber"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventId" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stageId" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceId" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="progressionRule" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="winningTime" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Long" unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timingMethod" eType="#//TimingMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="#//RaceStatus"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shellType" eType="#//ShellType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scheduledDate" eType="#//LocalDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scheduledTime" eType="#//LocalTime"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingRegatta" eType="#//TimingRegatta"
+        eOpposite="#//TimingRegatta/timingRace"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimingRacingCrew">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exception" upperBound="-1"
+        eType="#//ResultsException" containment="true" eOpposite="#//ResultsException/timedRacingCrew"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="penalty" upperBound="-1"
+        eType="#//PenaltyAssessment" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bowOrLaneNumber" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="statusId" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="strokeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingRace" eType="#//TimingRace"
+        eOpposite="#//TimingRace/timingRacingCrew"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comments" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timingStatus" eType="#//TimingStatus"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eligibilityStatus" eType="#//EligibilityStatus"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crossing" eType="#//Crossing"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Crossing">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="identification" eType="#//CrewIdentification"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timeCapture" eType="#//TimeCapture"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="captureStatus" eType="#//CaptureStatus"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastModifiedDate" unique="false"
+        eType="#//LocalDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastModifiedTime" eType="#//LocalTime"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CrewIdentifier" abstract="true">
+    <eOperations name="resolveRacingCrew" eType="#//TimingRacingCrew"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RaceCrewIdentifier" eSuperTypes="#//CrewIdentifier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="raceKey" eType="#//TimedRaceKey"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RegattaCrewIdentifier" eSuperTypes="#//CrewIdentifier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regattaKey" eType="#//RegattaKey"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Observation" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimeCapture" eSuperTypes="#//Observation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeContent" eType="#//TimeContent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CrewIdentification" eSuperTypes="#//Observation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="identifier" eType="#//CrewIdentifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RegattaKey">
+    <eOperations name="isFullySpecified" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="getId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="toRegattaNameString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="regattaId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="year" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="month" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="day" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RaceCourseKey" eSuperTypes="#//RegattaKey">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceCourseId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimingMilestoneKey" eSuperTypes="#//RaceCourseKey">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="milestoneId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimingStationKey" eSuperTypes="#//TimingMilestoneKey">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionId" eType="#//ResultsVersion"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimedRaceKey" eSuperTypes="#//TimingStationKey">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stageId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimedRacingCrewKey" eSuperTypes="#//TimedRaceKey">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="laneOrBowNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ResultsException">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="severity" unique="false"
+        eType="#//Severity" defaultValueLiteral="OK"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timedRacingCrew" eType="#//TimingRacingCrew"
+        eOpposite="#//TimingRacingCrew/exception"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ResultsVersion">
+    <eLiterals name="primary" literal="Primary"/>
+    <eLiterals name="firstBackup" value="1" literal="First Backup"/>
+    <eLiterals name="secondBackup" value="2" literal="Second Backup"/>
+    <eLiterals name="checked" value="3" literal="Checked"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MilestonePosition">
+    <eLiterals name="start"/>
+    <eLiterals name="midcourse" value="1"/>
+    <eLiterals name="finish" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TimeContent">
+    <eLiterals name="timeOfDay"/>
+    <eLiterals name="splitInterval" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CaptureStatus">
+    <eLiterals name="expected"/>
+    <eLiterals name="captured" value="1"/>
+    <eLiterals name="missed" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RaceStatus">
+    <eLiterals name="official"/>
+    <eLiterals name="protested" value="1"/>
+    <eLiterals name="preliminary" value="2"/>
+    <eLiterals name="scratched" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EligibilityStatus">
+    <eLiterals name="eligible"/>
+    <eLiterals name="scratched" value="1"/>
+    <eLiterals name="disqualified" value="2"/>
+    <eLiterals name="exhibition" value="3"/>
+    <eLiterals name="excluded" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TimingStatus">
+    <eLiterals name="started"/>
+    <eLiterals name="finished" value="1"/>
+    <eLiterals name="didNotFinish" value="2"/>
+    <eLiterals name="didNotStart" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ShellType">
+    <eLiterals name="single"/>
+    <eLiterals name="pairWithCoxswain" value="1"/>
+    <eLiterals name="pairWithoutCoxswain" value="2"/>
+    <eLiterals name="double" value="3"/>
+    <eLiterals name="fourWithCoxswain" value="4"/>
+    <eLiterals name="fourWithoutCoxswain" value="5"/>
+    <eLiterals name="quadWithCoxswain" value="6"/>
+    <eLiterals name="quadWithoutCoxswain" value="7"/>
+    <eLiterals name="eight" value="8"/>
+    <eLiterals name="octuple" value="9"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TimingMethod">
+    <eLiterals name="splitFinish"/>
+    <eLiterals name="staggeredStart" value="1"/>
+    <eLiterals name="evenStart" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Severity">
+    <eLiterals name="OK"/>
+    <eLiterals name="INFO" value="1"/>
+    <eLiterals name="WARNING" value="2"/>
+    <eLiterals name="ERROR" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="LocalDate" instanceClassName="java.time.LocalDate"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="LocalTime" instanceClassName="java.time.LocalTime"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PenaltyAssessment">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//PenaltyType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assessment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PenaltyType">
+    <eLiterals name="buoyViolation"/>
+    <eLiterals name="bridgeArch" value="1"/>
+    <eLiterals name="nonYield" value="2"/>
+    <eLiterals name="poorCrossing" value="3"/>
+    <eLiterals name="travelLane" value="4"/>
+    <eLiterals name="disregardForSafety" value="5"/>
+    <eLiterals name="unsportsmanlikeConduct" value="6"/>
+    <eLiterals name="interference" value="7"/>
+    <eLiterals name="startOrder" value="8"/>
+  </eClassifiers>
+</ecore:EPackage>
