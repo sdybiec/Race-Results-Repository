@@ -1,0 +1,136 @@
+# Development Profile with H2 Database
+# To use: run with --spring.profiles.active=dev
+
+spring:
+  application:
+    name: race-results-repository
+
+  # H2 Database Configuration
+  datasource:
+    url: jdbc:h2:mem:race_results;DB_CLOSE_DELAY=-1;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  # H2 Console (accessible at /h2-console)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
+
+  # JPA/Hibernate Configuration for H2
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+    open-in-view: false
+
+  # Flyway Migration
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    # H2 is compatible with MySQL mode, so we can use the same migrations
+
+  # Cache Configuration
+  cache:
+    type: simple
+    cache-names: documents,versions,search-results
+
+  # JSON Serialization
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: UTC
+
+server:
+  port: 8080
+
+# JWT Configuration (development only - change in production)
+jwt:
+  secret: dev-secret-key-for-testing-purposes-only-change-in-production-this-must-be-very-long-at-least-256-bits
+  expiration: 86400000      # 24 hours
+  refresh-expiration: 604800000  # 7 days
+
+# MQTT Configuration (development)
+mqtt:
+  broker:
+    url: tcp://localhost:1883
+  client:
+    id: race-results-repository-dev
+  username:
+  password:
+  topic:
+    prefix: regatta
+
+# Webhook Configuration
+webhook:
+  retry:
+    max-attempts: 3
+    initial-delay: 1000
+    max-delay: 8000
+  timeout: 3000
+
+# Backup Configuration (development)
+backup:
+  directory: ./target/backups
+  schedule:
+    full: 0 0 2 * * *
+    incremental: 0 0 */4 * * *
+  retention:
+    days: 7
+
+# Rate Limiting (more permissive for development)
+rate:
+  limit:
+    read:
+      requests: 1000
+      duration: 60
+    write:
+      requests: 200
+      duration: 60
+    search:
+      requests: 300
+      duration: 60
+
+# Logging (verbose for development)
+logging:
+  level:
+    root: INFO
+    org.rowtown: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# OpenAPI/Swagger
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+
+# Development-specific settings
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env,flyway
+  endpoint:
+    health:
+      show-details: always

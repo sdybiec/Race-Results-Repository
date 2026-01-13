@@ -99,8 +99,9 @@ CREATE TABLE mqtt_subscriptions (
     INDEX idx_user (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Full-text search index on description field
-ALTER TABLE documents ADD FULLTEXT INDEX ft_description (description);
+-- Full-text search index on description field (MariaDB only)
+-- Note: H2 does not support FULLTEXT indexes, but regular index will work
+-- ALTER TABLE documents ADD FULLTEXT INDEX ft_description (description);
 
 -- Insert default ACL entries for standard permissions
 INSERT INTO acl_entries (regattaId, resource_type, operation, role, allowed) VALUES
