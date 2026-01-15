@@ -122,11 +122,50 @@ Migrations are written to be compatible with both H2 (MySQL mode) and MariaDB:
 - ⚠️ FULLTEXT indexes are MariaDB-only (commented out for H2)
 - ⚠️ ENGINE and CHARSET clauses are ignored by H2
 
-## MQTT Broker Setup (Optional)
+## MQTT Broker Setup
 
-For testing real-time notifications, you'll need an MQTT broker.
+The application supports MQTT notifications for real-time updates. You have three options:
 
-### Using Eclipse Mosquitto
+### Option 1: Embedded Moquette Broker (Recommended for Development)
+
+The easiest option - no external broker needed! The `dev` profile automatically starts an embedded MQTT broker.
+
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+The embedded broker:
+- ✅ Starts automatically with the application
+- ✅ No installation or configuration required
+- ✅ Runs on `localhost:1883`
+- ✅ In-memory storage (resets on restart)
+- ✅ Perfect for development and testing
+
+**Using embedded broker in other profiles:**
+
+```bash
+# With default profile
+mvn spring-boot:run -Dspring-boot.run.arguments="--mqtt.embedded.enabled=true"
+
+# Or use the embedded profile
+mvn spring-boot:run -Dspring-boot.run.profiles=embedded
+```
+
+**Configuration:**
+
+```yaml
+mqtt:
+  embedded:
+    enabled: true
+    host: localhost
+    port: 1883
+    allow-anonymous: true
+    persistent: false  # Use in-memory storage
+```
+
+### Option 2: Eclipse Mosquitto (Production)
+
+For production deployments, use an external broker like Mosquitto.
 
 **Install:**
 ```bash
@@ -144,20 +183,18 @@ sudo systemctl start mosquitto
 
 **Configuration:**
 
-Default settings in `application-dev.yml`:
-```yaml
-mqtt:
-  broker:
-    url: tcp://localhost:1883
+```properties
+mqtt.embedded.enabled=false
+mqtt.broker.url=tcp://localhost:1883
 ```
 
-### Using Docker
+### Option 3: Docker
 
 ```bash
 docker run -d -p 1883:1883 -p 9001:9001 eclipse-mosquitto
 ```
 
-### Skip MQTT (Development)
+### Skip MQTT
 
 If you don't need MQTT notifications, the application will log warnings but continue to work.
 
@@ -324,11 +361,13 @@ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
 ## Configuration Profiles
 
-| Profile | Database | Use Case |
-|---------|----------|----------|
-| `dev` | H2 in-memory | Local development |
-| `test` | H2 in-memory | Automated testing |
-| `prod` | MariaDB | Production deployment |
+| Profile | Database | MQTT Broker | Use Case |
+|---------|----------|-------------|----------|
+| `dev` | H2 in-memory | Embedded Moquette | Local development |
+| `embedded` | Use default | Embedded Moquette | Dev without external broker |
+| `embedded-prod` | Use default | Embedded (persistent) | Single-server production |
+| `test` | H2 in-memory | Embedded Moquette | Automated testing |
+| `prod` | MariaDB | External (Mosquitto) | Production deployment |
 
 Switch profiles with:
 ```bash

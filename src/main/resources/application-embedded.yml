@@ -1,0 +1,78 @@
+# Profile for running with embedded Moquette MQTT broker
+# Use with: --spring.profiles.active=embedded
+# Or combine with other profiles: --spring.profiles.active=dev,embedded
+
+spring:
+  application:
+    name: race-results-repository
+
+# Embedded MQTT Broker Configuration
+mqtt:
+  # External broker configuration (used by application)
+  broker:
+    url: tcp://localhost:1883
+  client:
+    id: race-results-repository
+  username:
+  password:
+  topic:
+    prefix: regatta
+
+  # Embedded broker settings
+  embedded:
+    enabled: true
+
+    # Bind address
+    # Use 0.0.0.0 to accept connections from any network interface
+    # Use localhost or 127.0.0.1 for local-only connections
+    host: 0.0.0.0
+
+    # MQTT TCP port
+    port: 1883
+
+    # Allow connections without authentication
+    # Set to false in production and configure authentication
+    allow-anonymous: true
+
+    # Enable persistent message storage
+    # When true, messages survive broker restarts
+    persistent: false
+
+    # Path for persistent storage (required if persistent=true)
+    # data-path: /var/lib/race-results/mqtt
+
+    # Enable telemetry reporting
+    telemetry: false
+
+    # Optional: Enable WebSocket support for browser clients
+    # websocket-port: 8080
+
+# Logging
+logging:
+  level:
+    io.moquette: INFO
+    org.rowtown.rms.rrr.config.EmbeddedMqttBrokerAutoConfiguration: INFO
+
+---
+# Production-ready embedded broker configuration
+# Activate with: --spring.profiles.active=embedded-prod
+
+spring:
+  config:
+    activate:
+      on-profile: embedded-prod
+
+mqtt:
+  embedded:
+    enabled: true
+    host: 0.0.0.0
+    port: 1883
+    allow-anonymous: false  # Require authentication in production
+    persistent: true
+    data-path: /var/lib/race-results/mqtt
+    telemetry: false
+    websocket-port: 8083
+
+logging:
+  level:
+    io.moquette: WARN

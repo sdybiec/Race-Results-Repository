@@ -64,7 +64,7 @@ jwt:
   expiration: 86400000      # 24 hours
   refresh-expiration: 604800000  # 7 days
 
-# MQTT Configuration (development)
+# MQTT Configuration (development with embedded broker)
 mqtt:
   broker:
     url: tcp://localhost:1883
@@ -74,6 +74,14 @@ mqtt:
   password:
   topic:
     prefix: regatta
+  # Use embedded Moquette broker for development
+  embedded:
+    enabled: true
+    host: localhost
+    port: 1883
+    allow-anonymous: true
+    persistent: false
+    telemetry: false
 
 # Webhook Configuration
 webhook:
