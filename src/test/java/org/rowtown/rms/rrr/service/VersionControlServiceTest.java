@@ -174,7 +174,7 @@ class VersionControlServiceTest {
 
         // Assert
         assertNotNull(result);
-        verify(versionRepository, times(2)).save(any(Version.class)); // Once for rollback, once in createVersion
+        verify(versionRepository, times(1)).save(any(Version.class)); // Once in createVersion (called by rollback)
     }
 
     @Test
