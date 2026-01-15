@@ -13,9 +13,9 @@ CREATE TABLE documents (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     latest_version BIGINT NOT NULL DEFAULT 1,
     description VARCHAR(2000),
-    INDEX idx_regatta (regattaId),
-    INDEX idx_timer (timerId),
-    INDEX idx_type (documentType)
+    INDEX idx_documents_regatta (regattaId),
+    INDEX idx_documents_timer (timerId),
+    INDEX idx_documents_type (documentType)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Versions table
@@ -61,7 +61,7 @@ CREATE TABLE acl_entries (
     operation VARCHAR(50) NOT NULL,
     role VARCHAR(50) NOT NULL,
     allowed BOOLEAN NOT NULL DEFAULT TRUE,
-    INDEX idx_regatta (regattaId)
+    INDEX idx_acl_regatta (regattaId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Document ownership table
@@ -85,8 +85,8 @@ CREATE TABLE webhook_subscriptions (
     active BOOLEAN NOT NULL DEFAULT TRUE,
     failed_deliveries INT NOT NULL DEFAULT 0,
     last_failure TIMESTAMP,
-    INDEX idx_document (document_id),
-    INDEX idx_regatta (regattaId)
+    INDEX idx_webhooks_document (document_id),
+    INDEX idx_webhooks_regatta (regattaId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- MQTT subscriptions table
