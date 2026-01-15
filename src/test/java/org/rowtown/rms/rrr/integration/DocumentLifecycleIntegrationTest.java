@@ -3,6 +3,7 @@ package org.rowtown.rms.rrr.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.rowtown.rms.rrr.config.EmbeddedMqttBrokerConfig;
+import org.rowtown.rms.rrr.config.TestSecurityConfig;
 import org.rowtown.rms.rrr.domain.DocumentType;
 import org.rowtown.rms.rrr.domain.SerializationFormat;
 import org.rowtown.rms.rrr.dto.DocumentRequest;
@@ -32,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@Import(EmbeddedMqttBrokerConfig.class)
+@Import({EmbeddedMqttBrokerConfig.class, TestSecurityConfig.class})
 @Transactional
 class DocumentLifecycleIntegrationTest {
 

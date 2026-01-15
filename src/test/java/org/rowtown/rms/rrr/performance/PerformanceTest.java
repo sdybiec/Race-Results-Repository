@@ -3,6 +3,7 @@ package org.rowtown.rms.rrr.performance;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.rowtown.rms.rrr.config.EmbeddedMqttBrokerConfig;
+import org.rowtown.rms.rrr.config.TestSecurityConfig;
 import org.rowtown.rms.rrr.domain.DocumentType;
 import org.rowtown.rms.rrr.domain.SerializationFormat;
 import org.rowtown.rms.rrr.domain.entity.Document;
@@ -33,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @SpringBootTest
 @ActiveProfiles("test")
-@Import(EmbeddedMqttBrokerConfig.class)
+@Import({EmbeddedMqttBrokerConfig.class, TestSecurityConfig.class})
 @EnabledIfSystemProperty(named = "performance.tests.enabled", matches = "true")
 class PerformanceTest {
 
