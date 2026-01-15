@@ -63,7 +63,7 @@ public class EmbeddedMqttBrokerAutoConfiguration {
             log.info("Persistent storage enabled at: {}", properties.getDataPath());
         } else {
             brokerProperties.setProperty(IConfig.PERSISTENCE_ENABLED_PROPERTY_NAME, "false");
-            brokerProperties.setProperty(IConfig.DATA_PATH_PROPERTY_NAME, "");
+            // Don't set DATA_PATH_PROPERTY_NAME when persistence is disabled to avoid file loading errors
             log.info("Using in-memory storage (no persistence)");
         }
 

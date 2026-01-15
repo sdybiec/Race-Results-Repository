@@ -30,8 +30,8 @@ public class EmbeddedMqttBrokerConfig {
         properties.setProperty(IConfig.PORT_PROPERTY_NAME, "1883");
         properties.setProperty(IConfig.ALLOW_ANONYMOUS_PROPERTY_NAME, "true");
         properties.setProperty(IConfig.PERSISTENCE_ENABLED_PROPERTY_NAME, "false");
-        properties.setProperty(IConfig.DATA_PATH_PROPERTY_NAME, "");
         properties.setProperty(IConfig.ENABLE_TELEMETRY_NAME, "false");
+        // Don't set DATA_PATH_PROPERTY_NAME when persistence is disabled to avoid file loading errors
 
         IConfig config = new MemoryConfig(properties);
         mqttBroker = new Server();
