@@ -197,8 +197,9 @@
 		<dependency>
 			<groupId>com.github.moquette-io.moquette</groupId>
 			<artifactId>moquette-broker</artifactId>
-			<version>0.18.0</version>
-</dependency>
+			<version>0.18</version>
+			<scope>test</scope>
+		</dependency>
     </dependencies>
 
     <build>
