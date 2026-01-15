@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "webhook_subscriptions",
     indexes = {
-        @Index(name = "idx_document", columnList = "document_id"),
-        @Index(name = "idx_regatta", columnList = "regattaId")
+        @Index(name = "idx_webhooks_document", columnList = "document_id"),
+        @Index(name = "idx_webhooks_regatta", columnList = "regattaId")
     }
 )
 @Data

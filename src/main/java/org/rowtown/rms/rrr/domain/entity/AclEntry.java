@@ -14,7 +14,7 @@ import org.rowtown.rms.rrr.domain.UserRole;
  */
 @Entity
 @Table(name = "acl_entries",
-    indexes = @Index(name = "idx_regatta", columnList = "regattaId")
+    indexes = @Index(name = "idx_acl_regatta", columnList = "regattaId")
 )
 @Data
 @NoArgsConstructor
