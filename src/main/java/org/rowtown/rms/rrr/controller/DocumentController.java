@@ -55,20 +55,6 @@ public class DocumentController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}/versions/{version}")
-    @Operation(summary = "Get specific document version", description = "Retrieves a specific version of a document")
-    public ResponseEntity<DocumentResponse> getDocumentVersion(
-            @PathVariable Long id,
-            @PathVariable Long version) {
-        DocumentResponse response = documentService.getDocument(id, version);
-
-        // Check authorization
-        authorizationService.checkDocumentAccess(id, response.getRegattaId(),
-            response.getType(), org.rowtown.rms.rrr.domain.Operation.READ);
-
-        return ResponseEntity.ok(response);
-    }
-
     @PutMapping("/{id}")
     @Operation(summary = "Update document", description = "Updates a document, creating a new version")
     public ResponseEntity<DocumentResponse> updateDocument(
