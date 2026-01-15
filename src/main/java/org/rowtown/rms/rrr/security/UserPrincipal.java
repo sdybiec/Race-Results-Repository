@@ -71,8 +71,9 @@ public class UserPrincipal implements UserDetails {
 
     /**
      * Check if user has access to a specific regatta.
+     * Supports "*" as a wildcard for access to all regattas.
      */
     public boolean hasAccessToRegatta(String regattaId) {
-        return regattaIds != null && regattaIds.contains(regattaId);
+        return regattaIds != null && (regattaIds.contains(regattaId) || regattaIds.contains("*"));
     }
 }
