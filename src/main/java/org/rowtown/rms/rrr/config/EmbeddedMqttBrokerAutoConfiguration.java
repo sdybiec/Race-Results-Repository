@@ -1,18 +1,19 @@
 package org.rowtown.rms.rrr.config;
 
-import io.moquette.broker.Server;
-import io.moquette.broker.config.IConfig;
-import io.moquette.broker.config.MemoryConfig;
-import jakarta.annotation.PreDestroy;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.util.Properties;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.util.Properties;
+import io.moquette.broker.Server;
+import io.moquette.broker.config.IConfig;
+import io.moquette.broker.config.MemoryConfig;
+import jakarta.annotation.PreDestroy;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Auto-configuration for embedded Moquette MQTT broker.
