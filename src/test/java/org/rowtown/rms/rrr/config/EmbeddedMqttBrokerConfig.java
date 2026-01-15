@@ -21,7 +21,7 @@ public class EmbeddedMqttBrokerConfig {
 
     private Server mqttBroker;
 
-    @Bean(initMethod = "startServer")
+    @Bean
     public Server embeddedMqttBroker() throws IOException {
         log.info("Starting embedded Moquette MQTT broker for tests");
 

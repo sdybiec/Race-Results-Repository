@@ -42,7 +42,7 @@ public class EmbeddedMqttBrokerAutoConfiguration {
         return new EmbeddedMqttBrokerProperties();
     }
 
-    @Bean(initMethod = "startServer")
+    @Bean
     public Server embeddedMqttBroker(EmbeddedMqttBrokerProperties properties) throws IOException {
         log.info("Starting embedded Moquette MQTT broker");
         log.info("Host: {}, Port: {}, Anonymous: {}, Persistence: {}",
