@@ -38,21 +38,38 @@ public class MqttPublishingService {
 
     @PostConstruct
     public void init() {
-        try {
-            mqttClient = new MqttClient(brokerUrl, clientId);
-            MqttConnectOptions options = new MqttConnectOptions();
-            options.setCleanSession(true);
-            options.setAutomaticReconnect(true);
+        int maxRetries = 3;
+        int retryDelayMs = 500;
 
-            if (!username.isEmpty()) {
-                options.setUserName(username);
-                options.setPassword(password.toCharArray());
+        for (int attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                mqttClient = new MqttClient(brokerUrl, clientId);
+                MqttConnectOptions options = new MqttConnectOptions();
+                options.setCleanSession(true);
+                options.setAutomaticReconnect(true);
+
+                if (!username.isEmpty()) {
+                    options.setUserName(username);
+                    options.setPassword(password.toCharArray());
+                }
+
+                mqttClient.connect(options);
+                log.info("Connected to MQTT broker: {}", brokerUrl);
+                return; // Successfully connected
+            } catch (MqttException e) {
+                if (attempt < maxRetries) {
+                    log.debug("MQTT connection attempt {} failed, retrying in {}ms...", attempt, retryDelayMs);
+                    try {
+                        Thread.sleep(retryDelayMs);
+                    } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                        log.error("MQTT connection retry interrupted", ie);
+                        return;
+                    }
+                } else {
+                    log.warn("Failed to connect to MQTT broker after {} attempts. Will retry automatically in background.", maxRetries);
+                }
             }
-
-            mqttClient.connect(options);
-            log.info("Connected to MQTT broker: {}", brokerUrl);
-        } catch (MqttException e) {
-            log.error("Failed to connect to MQTT broker", e);
         }
     }
 
