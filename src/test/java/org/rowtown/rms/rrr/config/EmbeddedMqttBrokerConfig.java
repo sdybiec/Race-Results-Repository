@@ -29,7 +29,8 @@ public class EmbeddedMqttBrokerConfig {
         properties.setProperty(IConfig.HOST_PROPERTY_NAME, "localhost");
         properties.setProperty(IConfig.PORT_PROPERTY_NAME, "1883");
         properties.setProperty(IConfig.ALLOW_ANONYMOUS_PROPERTY_NAME, "true");
-        properties.setProperty(IConfig.PERSISTENT_STORE_PROPERTY_NAME, "");
+        properties.setProperty(IConfig.PERSISTENCE_ENABLED_PROPERTY_NAME, "false");
+        properties.setProperty(IConfig.DATA_PATH_PROPERTY_NAME, "");
         properties.setProperty(IConfig.ENABLE_TELEMETRY_NAME, "false");
 
         IConfig config = new MemoryConfig(properties);

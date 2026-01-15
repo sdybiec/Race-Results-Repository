@@ -58,10 +58,12 @@ public class EmbeddedMqttBrokerAutoConfiguration {
         brokerProperties.setProperty(IConfig.ENABLE_TELEMETRY_NAME, String.valueOf(properties.isTelemetry()));
 
         if (properties.isPersistent() && properties.getDataPath() != null) {
-            brokerProperties.setProperty(IConfig.PERSISTENT_STORE_PROPERTY_NAME, properties.getDataPath());
+            brokerProperties.setProperty(IConfig.PERSISTENCE_ENABLED_PROPERTY_NAME, "true");
+            brokerProperties.setProperty(IConfig.DATA_PATH_PROPERTY_NAME, properties.getDataPath());
             log.info("Persistent storage enabled at: {}", properties.getDataPath());
         } else {
-            brokerProperties.setProperty(IConfig.PERSISTENT_STORE_PROPERTY_NAME, "");
+            brokerProperties.setProperty(IConfig.PERSISTENCE_ENABLED_PROPERTY_NAME, "false");
+            brokerProperties.setProperty(IConfig.DATA_PATH_PROPERTY_NAME, "");
             log.info("Using in-memory storage (no persistence)");
         }
 
