@@ -25,7 +25,7 @@ public interface DocumentRepository extends JpaRepository<Document, Long>, JpaSp
     /**
      * Find all documents of a specific type for a regatta.
      */
-    List<Document> findByRegattaIdAndDocumentType(String regattaId, DocumentType documentType);
+    //List<Document> findByRegattaIdAndDocumentType(String regattaId, DocumentType documentType);
 
     /**
      * Find documents by timer ID.

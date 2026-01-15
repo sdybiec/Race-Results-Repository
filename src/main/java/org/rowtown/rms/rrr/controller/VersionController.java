@@ -78,7 +78,7 @@ public class VersionController {
 
         // Check authorization
         authorizationService.checkDocumentAccess(documentId, doc.getRegattaId(),
-            doc.getType(), org.rowtown.domain.Operation.ROLLBACK);
+            doc.getType(), org.rowtown.rms.rrr.domain.Operation.ROLLBACK);
 
         String author = authorizationService.getCurrentUser().getUserId();
         Version rolledBackVersion = versionControlService.rollback(documentId, targetVersion, author, description);

@@ -24,13 +24,23 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <emf.version>2.35.0</emf.version>
-        <emf.compare.version>3.5.3</emf.compare.version>
+		<emf.common.version>2.44.0</emf.common.version>
+		<emf.ecore.version>2.39.0</emf.ecore.version>
+		<emf.xmi.version>2.39.0</emf.xmi.version>
+		<emf.compare.version>3.5.3-SNAPSHOT</emf.compare.version>
         <hessian.version>4.0.66</hessian.version>
-        <mqtt.version>3.0.1</mqtt.version>
+        <mqtt.version>5.4.13</mqtt.version>
     </properties>
 
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
     <dependencies>
-        <!-- Spring Boot Starters -->
+		<!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -56,7 +66,7 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
-        <!-- Database -->
+		<!-- Database -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
@@ -73,7 +83,7 @@
             <artifactId>flyway-mysql</artifactId>
         </dependency>
 
-        <!-- EMF (Eclipse Modeling Framework) -->
+		<!-- EMF (Eclipse Modeling Framework) -->
         <dependency>
             <groupId>org.eclipse.emf</groupId>
             <artifactId>org.eclipse.emf.ecore</artifactId>
@@ -83,7 +93,7 @@
         <dependency>
             <groupId>org.eclipse.emf</groupId>
             <artifactId>org.eclipse.emf.common</artifactId>
-            <version>${emf.version}</version>
+            <version>${emf.common.version}</version>
         </dependency>
 
         <dependency>
@@ -92,25 +102,25 @@
             <version>${emf.version}</version>
         </dependency>
 
-        <!-- EMF Compare -->
+		<!-- EMF Compare -->
         <dependency>
             <groupId>org.eclipse.emf.compare</groupId>
             <artifactId>org.eclipse.emf.compare</artifactId>
             <version>${emf.compare.version}</version>
         </dependency>
 
-        <!-- Hessian RPC -->
+		<!-- Hessian RPC -->
         <dependency>
             <groupId>com.caucho</groupId>
-            <artifactId>hessian</artifactId>
-            <version>${hessian.version}</version>
+            <artifactId>hessian-jakarta</artifactId>
+            <version>4.0.66</version>
         </dependency>
 
-        <!-- MQTT -->
+
+		<!-- MQTT -->
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-mqtt</artifactId>
-            <version>${mqtt.version}</version>
         </dependency>
 
         <dependency>
@@ -119,7 +129,7 @@
             <version>1.2.5</version>
         </dependency>
 
-        <!-- JWT -->
+		<!-- JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -140,7 +150,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- JSON Processing -->
+		<!-- JSON Processing -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -151,21 +161,21 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
-        <!-- OpenAPI/Swagger Documentation -->
+		<!-- OpenAPI/Swagger Documentation -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.3.0</version>
         </dependency>
 
-        <!-- Lombok -->
+		<!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!-- Testing -->
+		<!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -183,6 +193,12 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+		<dependency>
+			<groupId>com.github.moquette-io.moquette</groupId>
+			<artifactId>moquette-broker</artifactId>
+			<version>0.18.0</version>
+</dependency>
     </dependencies>
 
     <build>

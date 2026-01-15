@@ -112,8 +112,8 @@ public class MqttPublishingService {
     /**
      * Get connection information for clients.
      */
-    public org.rowtown.dto.MqttConnectionInfo getConnectionInfo() {
-        return org.rowtown.dto.MqttConnectionInfo.builder()
+    public org.rowtown.rms.rrr.dto.MqttConnectionInfo getConnectionInfo() {
+        return org.rowtown.rms.rrr.dto.MqttConnectionInfo.builder()
             .brokerUrl(brokerUrl)
             .topicPrefix(topicPrefix)
             .startListTopicPattern(topicPrefix + "/{regattaId}/startlist")

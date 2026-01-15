@@ -1,9 +1,5 @@
 package org.rowtown.rms.rrr.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import org.rowtown.rms.rrr.domain.Operation;
 import org.rowtown.rms.rrr.domain.SerializationFormat;
 import org.rowtown.rms.rrr.dto.DocumentRequest;
 import org.rowtown.rms.rrr.dto.DocumentResponse;
@@ -11,7 +7,19 @@ import org.rowtown.rms.rrr.service.AuthorizationService;
 import org.rowtown.rms.rrr.service.DocumentManagerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
 /**
  * REST controller for document management operations.
@@ -29,7 +37,7 @@ public class DocumentController {
     @Operation(summary = "Create a new document", description = "Creates a new document with an initial version")
     public ResponseEntity<DocumentResponse> createDocument(@RequestBody DocumentRequest request) {
         // Check authorization
-        authorizationService.checkAuthorization(request.getRegattaId(), request.getType(), Operation.CREATE);
+        authorizationService.checkAuthorization(request.getRegattaId(), request.getType(), org.rowtown.rms.rrr.domain.Operation.CREATE);
 
         DocumentResponse response = documentService.createDocument(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -42,7 +50,7 @@ public class DocumentController {
 
         // Check authorization
         authorizationService.checkDocumentAccess(id, response.getRegattaId(),
-            response.getType(), Operation.READ);
+            response.getType(), org.rowtown.rms.rrr.domain.Operation.READ);
 
         return ResponseEntity.ok(response);
     }
@@ -56,7 +64,7 @@ public class DocumentController {
 
         // Check authorization
         authorizationService.checkDocumentAccess(id, response.getRegattaId(),
-            response.getType(), Operation.READ);
+            response.getType(), org.rowtown.rms.rrr.domain.Operation.READ);
 
         return ResponseEntity.ok(response);
     }
@@ -74,7 +82,7 @@ public class DocumentController {
 
         // Check authorization
         authorizationService.checkDocumentAccess(id, existingDoc.getRegattaId(),
-            existingDoc.getType(), Operation.UPDATE);
+            existingDoc.getType(), org.rowtown.rms.rrr.domain.Operation.UPDATE);
 
         String author = authorizationService.getCurrentUser().getUserId();
         DocumentResponse response = documentService.updateDocument(id, modelData, author, changeDescription, format);
@@ -90,7 +98,7 @@ public class DocumentController {
 
         // Check authorization
         authorizationService.checkDocumentAccess(id, doc.getRegattaId(),
-            doc.getType(), Operation.DELETE);
+            doc.getType(), org.rowtown.rms.rrr.domain.Operation.DELETE);
 
         documentService.deleteDocument(id);
         return ResponseEntity.noContent().build();

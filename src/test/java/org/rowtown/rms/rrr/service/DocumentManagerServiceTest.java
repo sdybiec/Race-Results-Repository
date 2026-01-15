@@ -121,8 +121,8 @@ class DocumentManagerServiceTest {
     void getDocument_Success() {
         // Arrange
         when(documentRepository.findById(1L)).thenReturn(Optional.of(testDocument));
-        when(metadataRepository.findByDocument_DocumentId(1L)).thenReturn(Collections.emptyList());
-        when(tagRepository.findByDocument_DocumentId(1L)).thenReturn(Collections.emptyList());
+        //when(metadataRepository.findByDocument_DocumentId(1L)).thenReturn(Collections.emptyList());
+        //when(tagRepository.findByDocument_DocumentId(1L)).thenReturn(Collections.emptyList());
 
         // Act & Assert - will fail because versionControlService.getVersion is not mocked
         // This demonstrates the need to properly mock all dependencies

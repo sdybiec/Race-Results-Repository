@@ -21,7 +21,7 @@ public class HessianConfig {
     public ServletRegistrationBean<HessianServlet> hessianServlet() {
         HessianServlet hessianServlet = new HessianServlet();
 
-        ServletRegistrationBean<HessianServlet> registrationBean = new ServletRegistrationBean<>(hessianServlet, "/hessian/repository");
+        ServletRegistrationBean<HessianServlet> registrationBean = new ServletRegistrationBean<HessianServlet>(hessianServlet, "/hessian/repository");
         registrationBean.addInitParameter("service-class", RepositoryService.class.getName());
         registrationBean.addInitParameter("home-class", RepositoryServiceImpl.class.getName());
         registrationBean.addInitParameter("home-api", RepositoryService.class.getName());

@@ -1,10 +1,11 @@
 package org.rowtown.rms.rrr.backup;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.rowtown.rms.rrr.service.BackupService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Scheduler for automated backups.
@@ -20,7 +21,7 @@ public class BackupScheduler {
      * Full backup - Daily at 2:00 AM
      * Cron: 0 0 2 * * * (second minute hour day month weekday)
      */
-    @Scheduled(cron = "${backup.schedule.full:0 0 2 * * *}")
+    @Scheduled(cron = "${backup.schedule.full}")
     public void scheduledFullBackup() {
         log.info("Starting scheduled full backup");
         try {
@@ -33,9 +34,8 @@ public class BackupScheduler {
 
     /**
      * Incremental backup - Every 4 hours
-     * Cron: 0 0 */4 * * * (second minute hour day month weekday)
      */
-    @Scheduled(cron = "${backup.schedule.incremental:0 0 */4 * * *}")
+    @Scheduled(cron = "${backup.schedule.incremental}")
     public void scheduledIncrementalBackup() {
         log.info("Starting scheduled incremental backup");
         try {
