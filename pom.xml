@@ -199,6 +199,12 @@
 			<artifactId>moquette-broker</artifactId>
 			<version>0.18.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.rowtown.rms.rrr</groupId>
+			<artifactId>tdi-model</artifactId>
+			<version>1.0.0</version>
+		</dependency>
     </dependencies>
 
     <build>
