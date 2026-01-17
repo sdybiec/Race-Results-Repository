@@ -227,8 +227,8 @@ class NotificationSynchronizationTest {
             .withHeader("X-Event-Type", equalTo("DOCUMENT_CREATED"))
             .withHeader("X-Webhook-Signature", matching(".*"))); // HMAC signature present
 
-        // Verify webhook call count
-        verify(exactly(1), postRequestedFor(urlEqualTo("/webhook")));
+        // Verify webhook call count (exactly 1)
+        verify(1, postRequestedFor(urlEqualTo("/webhook")));
     }
 
     @Test
@@ -286,8 +286,8 @@ class NotificationSynchronizationTest {
         // Wait for retries to complete (initial + 2 retries at 100ms + 200ms + processing time)
         Thread.sleep(5000);
 
-        // Verify webhook was called multiple times (initial + retries)
-        verify(atLeast(2), postRequestedFor(urlEqualTo("/failing-webhook")));
+        // Verify webhook was called multiple times (initial + retries, at least 2 times)
+        verify(moreThanOrExactly(2), postRequestedFor(urlEqualTo("/failing-webhook")));
     }
 
     @Test
@@ -488,8 +488,8 @@ class NotificationSynchronizationTest {
 
         Thread.sleep(1000);
 
-        // Verify webhook was called
-        verify(atLeast(1), postRequestedFor(urlEqualTo("/unsubscribe-test")));
+        // Verify webhook was called (at least once)
+        verify(postRequestedFor(urlEqualTo("/unsubscribe-test")));
 
         // Unsubscribe
         mockMvc.perform(delete("/api/v1/webhooks/" + subscriptionId))
@@ -514,8 +514,8 @@ class NotificationSynchronizationTest {
 
         Thread.sleep(1000);
 
-        // Verify webhook was NOT called after unsubscribe
-        verify(exactly(0), postRequestedFor(urlEqualTo("/unsubscribe-test")));
+        // Verify webhook was NOT called after unsubscribe (exactly 0 times)
+        verify(0, postRequestedFor(urlEqualTo("/unsubscribe-test")));
     }
 
     /**
