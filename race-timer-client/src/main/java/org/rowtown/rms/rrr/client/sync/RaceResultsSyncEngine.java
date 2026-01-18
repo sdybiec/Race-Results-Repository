@@ -132,6 +132,10 @@ public class RaceResultsSyncEngine {
 
         RepositoryClient.DocumentResponse response = apiClient.createDocument(request);
 
+        if (response == null) {
+            throw new IOException("Failed to create document on server: response is null");
+        }
+
         // Update local document with server ID and version
         localDoc.setServerId(response.documentId);
         localDoc.setServerVersion(response.latestVersion);
@@ -162,6 +166,10 @@ public class RaceResultsSyncEngine {
             localDoc.getModelData(),
             changeDescription
         );
+
+        if (response == null) {
+            throw new IOException("Failed to update document on server: response is null");
+        }
 
         // Update local document with new server version
         localDoc.setServerVersion(response.latestVersion);
@@ -229,7 +237,12 @@ public class RaceResultsSyncEngine {
         localDoc.setSyncStatus(SyncStatus.FAILED);
         localDoc.setLastSyncError(error);
         localDoc.setRetryCount(localDoc.getRetryCount() != null ? localDoc.getRetryCount() + 1 : 1);
-        storage.save(localDoc);
+
+        try {
+            storage.save(localDoc);
+        } catch (Exception e) {
+            log.error("Failed to save error status to database for document {}", localDoc.getLocalId(), e);
+        }
     }
 
     /**

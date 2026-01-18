@@ -161,7 +161,12 @@ public class StartListSyncEngine {
             localDoc.setSyncStatus(SyncStatus.FAILED);
             localDoc.setLastSyncError(e.getMessage());
             localDoc.setRetryCount(localDoc.getRetryCount() != null ? localDoc.getRetryCount() + 1 : 1);
-            storage.save(localDoc);
+
+            try {
+                storage.save(localDoc);
+            } catch (Exception saveEx) {
+                log.error("Failed to save error status to database", saveEx);
+            }
 
             return false;
         }
