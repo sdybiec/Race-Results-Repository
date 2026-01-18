@@ -107,14 +107,14 @@ public class LastWriteWinsResolver implements ConflictResolver {
             return null;
         }
 
-        // Try lastModified field first
-        if (document.getLastModified() != null) {
-            return document.getLastModified();
+        // Try modifiedAt field first
+        if (document.getModifiedAt() != null) {
+            return document.getModifiedAt();
         }
 
-        // Fall back to syncedAt if available
-        if (document.getSyncedAt() != null) {
-            return document.getSyncedAt();
+        // Fall back to lastSyncedAt if available
+        if (document.getLastSyncedAt() != null) {
+            return document.getLastSyncedAt();
         }
 
         // Fall back to createdAt

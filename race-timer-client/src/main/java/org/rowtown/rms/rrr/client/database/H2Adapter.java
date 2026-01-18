@@ -1,6 +1,7 @@
 package org.rowtown.rms.rrr.client.database;
 
 import lombok.extern.slf4j.Slf4j;
+import org.h2.tools.Server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -231,7 +232,7 @@ public class H2Adapter implements DatabaseAdapter {
     public void startConsole(int port) throws SQLException {
         try {
             // Start H2 web console
-            org.h2.tools.Server server = org.h2.tools.Server.createWebServer(
+            Server server = Server.createWebServer(
                 "-webPort", String.valueOf(port),
                 "-webAllowOthers"
             );

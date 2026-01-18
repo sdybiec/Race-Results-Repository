@@ -257,7 +257,7 @@ public class OperationReplayer {
 
             // Apply resolution
             if (resolution.isRequiresLocalUpdate()) {
-                storageManager.saveDocument(resolution.getResolvedDocument());
+                storageManager.save(resolution.getResolvedDocument());
             }
 
             if (resolution.isRequiresServerUpdate()) {

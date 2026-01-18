@@ -1,5 +1,7 @@
 package org.rowtown.rms.rrr.client.sync.filter;
 
+import org.rowtown.rms.rrr.client.sync.DocumentEvent;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
