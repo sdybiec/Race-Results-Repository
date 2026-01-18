@@ -1,6 +1,8 @@
 package org.rowtown.rms.rrr.client.storage;
 
 import lombok.extern.slf4j.Slf4j;
+import org.rowtown.rms.rrr.client.database.DatabaseAdapter;
+import org.rowtown.rms.rrr.client.database.DatabaseType;
 import org.rowtown.rms.rrr.client.model.LocalDocument;
 import org.rowtown.rms.rrr.client.model.SyncStatus;
 
@@ -11,16 +13,35 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Manages local SQLite storage for offline-first operation.
+ * Manages local database storage for offline-first operation.
+ *
+ * <p>Supports both SQLite and H2 databases for maximum flexibility.</p>
  */
 @Slf4j
 public class LocalStorageManager implements AutoCloseable {
 
     private final String databasePath;
+    private final DatabaseAdapter databaseAdapter;
     private Connection connection;
 
+    /**
+     * Creates a LocalStorageManager with SQLite (default).
+     *
+     * @param databasePath path to the database file
+     */
     public LocalStorageManager(String databasePath) {
+        this(databasePath, DatabaseType.SQLITE);
+    }
+
+    /**
+     * Creates a LocalStorageManager with the specified database type.
+     *
+     * @param databasePath path to the database file
+     * @param databaseType the database type (SQLITE or H2)
+     */
+    public LocalStorageManager(String databasePath, DatabaseType databaseType) {
         this.databasePath = databasePath;
+        this.databaseAdapter = DatabaseAdapter.forType(databaseType);
         initialize();
     }
 
@@ -29,72 +50,78 @@ public class LocalStorageManager implements AutoCloseable {
      */
     private void initialize() {
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
+            connection = databaseAdapter.connect(databasePath);
             createSchema();
-            log.info("Initialized local storage at: {}", databasePath);
+            log.info("Initialized local storage at {} using {}",
+                     databasePath, databaseAdapter.getType().getName());
         } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize local storage", e);
         }
     }
 
     /**
-     * Create database schema.
+     * Create database schema using database-agnostic SQL.
      */
     private void createSchema() throws SQLException {
-        String createDocumentsTable = """
+        String autoIncrement = databaseAdapter.getAutoIncrementSyntax();
+        String textType = databaseAdapter.getTextType(0);
+
+        String createDocumentsTable = String.format("""
             CREATE TABLE IF NOT EXISTS documents (
-                local_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                local_id %s,
                 server_id INTEGER,
-                regatta_id TEXT NOT NULL,
-                timer_id TEXT,
-                milestone_id TEXT,
-                document_type TEXT NOT NULL,
-                version_type TEXT,
-                author TEXT NOT NULL,
-                description TEXT,
-                created_at TEXT,
-                modified_at TEXT,
+                regatta_id %s NOT NULL,
+                timer_id %s,
+                milestone_id %s,
+                document_type %s NOT NULL,
+                version_type %s,
+                author %s NOT NULL,
+                description %s,
+                created_at %s,
+                modified_at %s,
                 local_version INTEGER DEFAULT 1,
                 server_version INTEGER,
-                sync_status TEXT NOT NULL DEFAULT 'PENDING',
-                last_synced_at TEXT,
-                last_sync_error TEXT,
+                sync_status %s NOT NULL DEFAULT 'PENDING',
+                last_synced_at %s,
+                last_sync_error %s,
                 retry_count INTEGER DEFAULT 0,
                 model_data BLOB,
-                serialization_format TEXT DEFAULT 'JSON',
-                local_created_at TEXT NOT NULL
+                serialization_format %s DEFAULT 'JSON',
+                local_created_at %s NOT NULL
             )
-            """;
+            """, autoIncrement, textType, textType, textType, textType,
+                 textType, textType, textType, textType, textType,
+                 textType, textType, textType, textType, textType);
 
-        String createPendingOperationsTable = """
+        String createPendingOperationsTable = String.format("""
             CREATE TABLE IF NOT EXISTS pending_operations (
-                operation_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                operation_id %s,
                 document_id INTEGER,
-                operation_type TEXT NOT NULL,
-                operation_data TEXT,
-                created_at TEXT NOT NULL,
+                operation_type %s NOT NULL,
+                operation_data %s,
+                created_at %s NOT NULL,
                 retry_count INTEGER DEFAULT 0,
-                last_error TEXT,
+                last_error %s,
                 FOREIGN KEY (document_id) REFERENCES documents(local_id) ON DELETE CASCADE
             )
-            """;
+            """, autoIncrement, textType, textType, textType, textType);
 
-        String createSyncLogTable = """
+        String createSyncLogTable = String.format("""
             CREATE TABLE IF NOT EXISTS sync_log (
-                log_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                sync_type TEXT NOT NULL,
-                status TEXT NOT NULL,
-                message TEXT,
+                log_id %s,
+                sync_type %s NOT NULL,
+                status %s NOT NULL,
+                message %s,
                 documents_synced INTEGER DEFAULT 0,
-                started_at TEXT NOT NULL,
-                completed_at TEXT
+                started_at %s NOT NULL,
+                completed_at %s
             )
-            """;
+            """, autoIncrement, textType, textType, textType, textType, textType);
 
         try (Statement stmt = connection.createStatement()) {
-            stmt.execute(createDocumentsTable);
-            stmt.execute(createPendingOperationsTable);
-            stmt.execute(createSyncLogTable);
+            stmt.execute(databaseAdapter.adaptSql(createDocumentsTable));
+            stmt.execute(databaseAdapter.adaptSql(createPendingOperationsTable));
+            stmt.execute(databaseAdapter.adaptSql(createSyncLogTable));
 
             // Create indices for common queries
             stmt.execute("CREATE INDEX IF NOT EXISTS idx_regatta ON documents(regatta_id)");

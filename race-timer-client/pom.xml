@@ -17,6 +17,7 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sqlite.version>3.44.1.0</sqlite.version>
+        <h2.version>2.2.224</h2.version>
         <okhttp.version>4.12.0</okhttp.version>
         <paho.mqtt.version>1.2.5</paho.mqtt.version>
         <jackson.version>2.16.0</jackson.version>
@@ -30,6 +31,13 @@
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>${sqlite.version}</version>
+        </dependency>
+
+        <!-- H2 Database for local storage (alternative to SQLite) -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
         </dependency>
 
         <!-- HTTP Client for REST API -->

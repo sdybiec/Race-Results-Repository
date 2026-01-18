@@ -1,0 +1,188 @@
+package org.rowtown.rms.rrr.client.database;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+/**
+ * Adapter interface for database-specific operations and SQL dialects.
+ *
+ * <p>This interface abstracts away the differences between database engines,
+ * allowing the application to work with SQLite, H2, or other databases
+ * without changing the business logic.</p>
+ *
+ * <p><b>Thread Safety:</b> Implementations must be thread-safe.</p>
+ *
+ * <p><b>Example Usage:</b>
+ * <pre>{@code
+ * DatabaseAdapter adapter = DatabaseAdapter.forType(DatabaseType.H2);
+ * Connection conn = adapter.connect("my_database");
+ *
+ * String createTableSql = adapter.getCreateTableSql("my_table",
+ *     "id INTEGER PRIMARY KEY AUTO_INCREMENT",
+ *     "name TEXT NOT NULL",
+ *     "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+ * );
+ *
+ * try (Statement stmt = conn.createStatement()) {
+ *     stmt.execute(createTableSql);
+ * }
+ * }</pre>
+ */
+public interface DatabaseAdapter {
+
+    /**
+     * Gets the database type for this adapter.
+     *
+     * @return the database type
+     */
+    DatabaseType getType();
+
+    /**
+     * Creates a connection to the database.
+     *
+     * @param databasePath the path to the database file (without JDBC prefix)
+     * @return a JDBC connection
+     * @throws SQLException if connection fails
+     */
+    Connection connect(String databasePath) throws SQLException;
+
+    /**
+     * Creates a connection to an in-memory database (H2 only).
+     *
+     * @param databaseName the name of the in-memory database
+     * @return a JDBC connection
+     * @throws SQLException if connection fails
+     * @throws UnsupportedOperationException if database doesn't support in-memory mode
+     */
+    Connection connectInMemory(String databaseName) throws SQLException;
+
+    /**
+     * Gets the SQL for auto-increment primary key.
+     *
+     * <p>Different databases use different syntax:</p>
+     * <ul>
+     *   <li>SQLite: {@code INTEGER PRIMARY KEY AUTOINCREMENT}</li>
+     *   <li>H2: {@code INTEGER PRIMARY KEY AUTO_INCREMENT}</li>
+     * </ul>
+     *
+     * @return the auto-increment SQL syntax
+     */
+    String getAutoIncrementSyntax();
+
+    /**
+     * Gets the SQL for current timestamp.
+     *
+     * <p>Different databases use different functions:</p>
+     * <ul>
+     *   <li>SQLite: {@code CURRENT_TIMESTAMP}</li>
+     *   <li>H2: {@code CURRENT_TIMESTAMP}</li>
+     * </ul>
+     *
+     * @return the current timestamp SQL syntax
+     */
+    String getCurrentTimestampSyntax();
+
+    /**
+     * Gets the TEXT/VARCHAR type for string columns.
+     *
+     * @param maxLength maximum length (0 for unlimited)
+     * @return the string type SQL syntax
+     */
+    String getTextType(int maxLength);
+
+    /**
+     * Gets the BOOLEAN type syntax.
+     *
+     * <p>Some databases don't have native BOOLEAN:</p>
+     * <ul>
+     *   <li>SQLite: {@code INTEGER} (0/1)</li>
+     *   <li>H2: {@code BOOLEAN}</li>
+     * </ul>
+     *
+     * @return the boolean type SQL syntax
+     */
+    String getBooleanType();
+
+    /**
+     * Gets the TIMESTAMP type syntax.
+     *
+     * @return the timestamp type SQL syntax
+     */
+    String getTimestampType();
+
+    /**
+     * Converts a SQL statement to database-specific dialect.
+     *
+     * <p>This handles common differences like:</p>
+     * <ul>
+     *   <li>AUTO_INCREMENT vs AUTOINCREMENT</li>
+     *   <li>BOOLEAN vs INTEGER</li>
+     *   <li>VARCHAR vs TEXT</li>
+     * </ul>
+     *
+     * @param sql the generic SQL statement
+     * @return the database-specific SQL statement
+     */
+    String adaptSql(String sql);
+
+    /**
+     * Checks if the database supports a specific feature.
+     *
+     * @param feature the feature to check
+     * @return true if supported, false otherwise
+     */
+    boolean supportsFeature(DatabaseFeature feature);
+
+    /**
+     * Features that may be database-specific.
+     */
+    enum DatabaseFeature {
+        /** In-memory database mode */
+        IN_MEMORY,
+
+        /** Native BOOLEAN type */
+        NATIVE_BOOLEAN,
+
+        /** Window functions (OVER, PARTITION BY) */
+        WINDOW_FUNCTIONS,
+
+        /** Common Table Expressions (WITH clause) */
+        CTE,
+
+        /** JSON functions */
+        JSON_FUNCTIONS,
+
+        /** Full-text search */
+        FULL_TEXT_SEARCH,
+
+        /** Stored procedures */
+        STORED_PROCEDURES,
+
+        /** Triggers */
+        TRIGGERS
+    }
+
+    /**
+     * Factory method to create an adapter for a specific database type.
+     *
+     * @param type the database type
+     * @return the corresponding adapter
+     */
+    static DatabaseAdapter forType(DatabaseType type) {
+        return switch (type) {
+            case SQLITE -> new SQLiteAdapter();
+            case H2 -> new H2Adapter();
+        };
+    }
+
+    /**
+     * Factory method to create an adapter from a JDBC URL.
+     *
+     * @param jdbcUrl the JDBC URL
+     * @return the corresponding adapter
+     */
+    static DatabaseAdapter fromJdbcUrl(String jdbcUrl) {
+        DatabaseType type = DatabaseType.fromJdbcUrl(jdbcUrl);
+        return forType(type);
+    }
+}

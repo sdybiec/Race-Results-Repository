@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
+import org.rowtown.rms.rrr.client.database.DatabaseAdapter;
+import org.rowtown.rms.rrr.client.database.DatabaseType;
 import org.rowtown.rms.rrr.client.model.LocalDocument;
 
 import java.sql.*;
@@ -15,8 +17,8 @@ import java.util.UUID;
 /**
  * Manages a persistent queue of offline operations that need to be synchronized with the server.
  *
- * <p>Operations are stored in SQLite and survive application restarts. When connectivity
- * is restored, operations are replayed in the order they were queued.
+ * <p>Operations are stored in a local database (SQLite or H2) and survive application restarts.
+ * When connectivity is restored, operations are replayed in the order they were queued.
  *
  * <p><b>Thread Safety:</b> This class is thread-safe. All database operations are synchronized.
  *
@@ -69,18 +71,31 @@ import java.util.UUID;
 public class OfflineOperationQueue {
 
     private final String dbPath;
+    private final DatabaseAdapter databaseAdapter;
     private final ObjectMapper objectMapper;
     private Connection connection;
 
     /**
-     * Creates an offline operation queue with the specified database path.
+     * Creates an offline operation queue with the specified database path (SQLite by default).
      *
-     * @param dbPath path to the SQLite database file
+     * @param dbPath path to the database file
      */
     public OfflineOperationQueue(String dbPath) {
+        this(dbPath, DatabaseType.SQLITE);
+    }
+
+    /**
+     * Creates an offline operation queue with the specified database path and type.
+     *
+     * @param dbPath path to the database file
+     * @param databaseType the type of database to use (SQLITE or H2)
+     */
+    public OfflineOperationQueue(String dbPath, DatabaseType databaseType) {
         this.dbPath = dbPath;
+        this.databaseAdapter = DatabaseAdapter.forType(databaseType);
         this.objectMapper = new ObjectMapper();
         this.objectMapper.registerModule(new JavaTimeModule());
+        log.debug("Created OfflineOperationQueue with {} database", databaseType.getName());
     }
 
     /**
@@ -90,33 +105,47 @@ public class OfflineOperationQueue {
      */
     public synchronized void initialize() throws SQLException {
         if (connection == null || connection.isClosed()) {
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+            connection = databaseAdapter.connect(dbPath);
         }
 
-        String createTableSql = """
-            CREATE TABLE IF NOT EXISTS pending_operations (
-                operation_id TEXT PRIMARY KEY,
-                operation_type TEXT NOT NULL,
-                document_id INTEGER,
-                regatta_id TEXT,
-                timer_id TEXT,
-                performed_at TEXT NOT NULL,
-                queued_at TEXT NOT NULL,
-                status TEXT NOT NULL,
-                attempt_count INTEGER DEFAULT 0,
-                last_error TEXT,
-                last_attempt_at TEXT,
-                has_dependencies INTEGER DEFAULT 0,
-                depends_on_operation_id TEXT,
-                document_json TEXT,
-                metadata TEXT
-            )
-            """;
+        // Create table with database-specific syntax
+        String createTableSql = buildCreateTableSql();
 
         try (Statement stmt = connection.createStatement()) {
-            stmt.execute(createTableSql);
-            log.info("Initialized offline operation queue at {}", dbPath);
+            stmt.execute(databaseAdapter.adaptSql(createTableSql));
+            log.info("Initialized offline operation queue at {} using {}",
+                     dbPath, databaseAdapter.getType().getName());
         }
+    }
+
+    /**
+     * Builds the CREATE TABLE SQL with database-agnostic syntax.
+     */
+    private String buildCreateTableSql() {
+        String textType = databaseAdapter.getTextType(0);
+        String booleanType = databaseAdapter.getBooleanType();
+
+        return String.format("""
+            CREATE TABLE IF NOT EXISTS pending_operations (
+                operation_id %s PRIMARY KEY,
+                operation_type %s NOT NULL,
+                document_id INTEGER,
+                regatta_id %s,
+                timer_id %s,
+                performed_at %s NOT NULL,
+                queued_at %s NOT NULL,
+                status %s NOT NULL,
+                attempt_count INTEGER DEFAULT 0,
+                last_error %s,
+                last_attempt_at %s,
+                has_dependencies %s DEFAULT 0,
+                depends_on_operation_id %s,
+                document_json %s,
+                metadata %s
+            )
+            """, textType, textType, textType, textType, textType,
+                 textType, textType, textType, textType, booleanType,
+                 textType, textType, textType);
     }
 
     /**
