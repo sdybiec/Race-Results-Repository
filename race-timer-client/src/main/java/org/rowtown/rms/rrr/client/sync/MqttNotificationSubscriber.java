@@ -25,6 +25,7 @@ public class MqttNotificationSubscriber {
     private final ObjectMapper objectMapper;
     private final Map<String, List<DocumentEventListener>> listenersByRegatta;
     private final Set<String> subscribedTopics;
+    private final List<ConnectionListener> connectionListeners;
 
     private MqttClient mqttClient;
     private boolean connected;
@@ -41,6 +42,7 @@ public class MqttNotificationSubscriber {
         this.objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
         this.listenersByRegatta = new ConcurrentHashMap<>();
         this.subscribedTopics = ConcurrentHashMap.newKeySet();
+        this.connectionListeners = new CopyOnWriteArrayList<>();
         this.connected = false;
     }
 
@@ -72,6 +74,7 @@ public class MqttNotificationSubscriber {
                 log.warn("MQTT connection lost", cause);
                 connected = false;
                 notifyAllListeners(listener -> listener.onDisconnected());
+                notifyConnectionListeners(ConnectionListener::onDisconnected);
             }
 
             @Override
@@ -86,13 +89,20 @@ public class MqttNotificationSubscriber {
         });
 
         // Connect
+        boolean wasConnected = connected;
         mqttClient.connect(options);
         connected = true;
 
         log.info("Successfully connected to MQTT broker");
 
         // Notify all listeners
-        notifyAllListeners(listener -> listener.onConnected());
+        if (wasConnected) {
+            notifyAllListeners(listener -> listener.onReconnected());
+            notifyConnectionListeners(ConnectionListener::onReconnected);
+        } else {
+            notifyAllListeners(listener -> listener.onConnected());
+            notifyConnectionListeners(ConnectionListener::onConnected);
+        }
 
         // Resubscribe to all topics if reconnecting
         resubscribeAll();
@@ -333,6 +343,61 @@ public class MqttNotificationSubscriber {
     @FunctionalInterface
     private interface ListenerCallback {
         void call(DocumentEventListener listener);
+    }
+
+    /**
+     * Adds a connection listener to receive connection state changes.
+     *
+     * @param listener the connection listener to add
+     */
+    public void addConnectionListener(ConnectionListener listener) {
+        if (listener != null && !connectionListeners.contains(listener)) {
+            connectionListeners.add(listener);
+        }
+    }
+
+    /**
+     * Removes a connection listener.
+     *
+     * @param listener the connection listener to remove
+     */
+    public void removeConnectionListener(ConnectionListener listener) {
+        connectionListeners.remove(listener);
+    }
+
+    /**
+     * Notifies all connection listeners with a callback.
+     *
+     * @param callback The callback to invoke on each listener
+     */
+    private void notifyConnectionListeners(java.util.function.Consumer<ConnectionListener> callback) {
+        for (ConnectionListener listener : connectionListeners) {
+            try {
+                callback.accept(listener);
+            } catch (Exception e) {
+                log.error("Error notifying connection listener", e);
+            }
+        }
+    }
+
+    /**
+     * Listener interface for connection state changes.
+     */
+    public interface ConnectionListener {
+        /**
+         * Called when initially connected to the MQTT broker.
+         */
+        void onConnected();
+
+        /**
+         * Called when reconnected after a connection loss.
+         */
+        void onReconnected();
+
+        /**
+         * Called when connection to MQTT broker is lost.
+         */
+        void onDisconnected();
     }
 
     /**
