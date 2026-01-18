@@ -39,6 +39,20 @@ public class MqttPublishingService {
 
     @PostConstruct
     public void init() {
+        // Skip if already connected
+        if (mqttClient != null && mqttClient.isConnected()) {
+            return;
+        }
+
+        // Close existing client if present but not connected
+        if (mqttClient != null) {
+            try {
+                mqttClient.close();
+            } catch (Exception e) {
+                log.debug("Error closing existing MQTT client", e);
+            }
+        }
+
         int maxRetries = 3;
         int retryDelayMs = 500;
 
@@ -68,7 +82,7 @@ public class MqttPublishingService {
                         return;
                     }
                 } else {
-                    log.warn("Failed to connect to MQTT broker after {} attempts. Will retry automatically in background.", maxRetries);
+                    log.warn("Failed to connect to MQTT broker after {} attempts. Will retry on next publish.", maxRetries);
                 }
             }
         }
@@ -90,8 +104,20 @@ public class MqttPublishingService {
      * Publish a notification event to MQTT.
      */
     public void publishNotification(NotificationEvent event) {
+        // Try to reconnect if not connected
         if (mqttClient == null || !mqttClient.isConnected()) {
-            log.warn("MQTT client not connected, skipping notification");
+            log.debug("MQTT client not connected, attempting to reconnect...");
+            try {
+                init(); // Attempt to reconnect
+            } catch (Exception e) {
+                log.warn("Failed to reconnect to MQTT broker, skipping notification");
+                return;
+            }
+        }
+
+        // Double-check connection after reconnect attempt
+        if (mqttClient == null || !mqttClient.isConnected()) {
+            log.warn("MQTT client still not connected after reconnect attempt, skipping notification");
             return;
         }
 
