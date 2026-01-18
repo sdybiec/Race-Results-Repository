@@ -42,6 +42,9 @@ class DocumentManagerServiceTest {
     @Mock
     private DocumentOwnershipRepository ownershipRepository;
 
+    @Mock
+    private NotificationService notificationService;
+
     @InjectMocks
     private DocumentManagerService documentManagerService;
 
@@ -91,6 +94,7 @@ class DocumentManagerServiceTest {
         verify(documentRepository).save(any(Document.class));
         verify(versionControlService).createVersion(any(), any(), any(), any(), any());
         verify(ownershipRepository).save(any(DocumentOwnership.class));
+        verify(notificationService).notifyDocumentCreated(any(), any(), any(), any(), any());
     }
 
     @Test

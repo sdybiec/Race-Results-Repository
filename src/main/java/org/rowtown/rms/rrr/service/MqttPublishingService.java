@@ -1,6 +1,7 @@
 package org.rowtown.rms.rrr.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.*;
 import org.rowtown.rms.rrr.domain.DocumentType;
@@ -34,7 +35,7 @@ public class MqttPublishingService {
     private String topicPrefix;
 
     private MqttClient mqttClient;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     @PostConstruct
     public void init() {

@@ -1,6 +1,7 @@
 package org.rowtown.rms.rrr.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rowtown.rms.rrr.domain.entity.WebhookSubscription;
@@ -33,7 +34,7 @@ public class WebhookService {
 
     private final WebhookSubscriptionRepository subscriptionRepository;
     private final RestTemplate restTemplate = new RestTemplate();
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     @Value("${webhook.retry.max-attempts}")
     private int maxRetryAttempts;
@@ -89,16 +90,50 @@ public class WebhookService {
      */
     @Async
     public void deliverNotification(NotificationEvent event) {
-        List<WebhookSubscription> subscriptions;
-
-        if (event.getDocumentId() != null) {
-            subscriptions = subscriptionRepository.findByDocumentIdAndActiveTrue(event.getDocumentId());
-        } else {
-            subscriptions = subscriptionRepository.findByRegattaIdAndActiveTrue(event.getRegattaId());
-        }
+        List<WebhookSubscription> subscriptions = subscriptionRepository.findAll().stream()
+            .filter(sub -> sub.getActive())
+            .filter(sub -> matchesSubscription(sub, event))
+            .collect(Collectors.toList());
 
         for (WebhookSubscription subscription : subscriptions) {
-            deliverToWebhook(subscription, event);
+            // Check if subscription is interested in this event type
+            if (isInterestedInEvent(subscription, event.getEventType().toString())) {
+                deliverToWebhook(subscription, event);
+            }
+        }
+    }
+
+    /**
+     * Check if subscription matches the event.
+     */
+    private boolean matchesSubscription(WebhookSubscription subscription, NotificationEvent event) {
+        // Document-specific subscription
+        if (subscription.getDocumentId() != null) {
+            return subscription.getDocumentId().equals(event.getDocumentId());
+        }
+
+        // Regatta-wide subscription
+        if (subscription.getRegattaId() != null) {
+            return subscription.getRegattaId().equals(event.getRegattaId());
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if subscription is interested in this event type.
+     */
+    private boolean isInterestedInEvent(WebhookSubscription subscription, String eventType) {
+        if (subscription.getEvents() == null || subscription.getEvents().isEmpty()) {
+            return true; // No filter means interested in all events
+        }
+
+        try {
+            String[] events = objectMapper.readValue(subscription.getEvents(), String[].class);
+            return Arrays.asList(events).contains(eventType);
+        } catch (Exception e) {
+            log.error("Failed to parse subscription events", e);
+            return true; // On error, deliver anyway
         }
     }
 
