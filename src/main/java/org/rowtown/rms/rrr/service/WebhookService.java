@@ -55,7 +55,7 @@ public class WebhookService {
             .regattaId(request.getRegattaId())
             .webhookUrl(request.getWebhookUrl())
             .secretKey(request.getSecretKey())
-            .events(objectMapper.valueToTree(request.getEvents()).toString())
+            .events(serializeEvents(request.getEvents()))
             .active(true)
             .failedDeliveries(0)
             .build();
@@ -64,6 +64,21 @@ public class WebhookService {
         log.info("Created webhook subscription: {}", subscription.getSubscriptionId());
 
         return toSubscriptionInfo(subscription);
+    }
+
+    /**
+     * Serialize events list to JSON string.
+     */
+    private String serializeEvents(List<String> events) {
+        if (events == null || events.isEmpty()) {
+            return null;
+        }
+        try {
+            return objectMapper.writeValueAsString(events);
+        } catch (Exception e) {
+            log.error("Failed to serialize events", e);
+            return null;
+        }
     }
 
     /**
