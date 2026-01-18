@@ -3,6 +3,9 @@ package org.rowtown.rms.rrr.client.database;
 import org.rowtown.rms.rrr.client.api.RepositoryClient;
 import org.rowtown.rms.rrr.client.storage.LocalStorageManager;
 import org.rowtown.rms.rrr.client.sync.*;
+import org.rowtown.rms.rrr.client.sync.conflict.LastWriteWinsResolver;
+import org.rowtown.rms.rrr.client.sync.queue.OfflineOperationQueue;
+import org.rowtown.rms.rrr.client.sync.queue.PendingOperation;
 
 /**
  * Comprehensive examples demonstrating H2 database usage with the Race Timer Client.

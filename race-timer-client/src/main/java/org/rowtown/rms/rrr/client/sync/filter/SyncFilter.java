@@ -1,4 +1,4 @@
-package org.rowtown.rms.rrr.client.sync;
+package org.rowtown.rms.rrr.client.sync.filter;
 
 import java.util.Arrays;
 import java.util.HashSet;

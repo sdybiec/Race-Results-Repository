@@ -1,4 +1,4 @@
-package org.rowtown.rms.rrr.client.sync;
+package org.rowtown.rms.rrr.client.sync.queue;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

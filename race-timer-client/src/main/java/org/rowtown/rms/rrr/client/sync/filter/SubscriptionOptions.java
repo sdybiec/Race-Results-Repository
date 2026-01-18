@@ -1,7 +1,8 @@
-package org.rowtown.rms.rrr.client.sync;
+package org.rowtown.rms.rrr.client.sync.filter;
 
 import lombok.Builder;
 import lombok.Data;
+import org.rowtown.rms.rrr.client.sync.conflict.ConflictResolver;
 
 /**
  * Configuration options for document synchronization subscriptions.

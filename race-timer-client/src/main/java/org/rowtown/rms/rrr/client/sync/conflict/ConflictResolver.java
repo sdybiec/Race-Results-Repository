@@ -1,4 +1,4 @@
-package org.rowtown.rms.rrr.client.sync;
+package org.rowtown.rms.rrr.client.sync.conflict;
 
 import java.util.concurrent.CompletableFuture;
 

@@ -3,6 +3,10 @@ package org.rowtown.rms.rrr.client.sync;
 import org.rowtown.rms.rrr.client.api.RepositoryClient;
 import org.rowtown.rms.rrr.client.model.LocalDocument;
 import org.rowtown.rms.rrr.client.storage.LocalStorageManager;
+import org.rowtown.rms.rrr.client.sync.conflict.*;
+import org.rowtown.rms.rrr.client.sync.filter.SyncFilter;
+import org.rowtown.rms.rrr.client.sync.filter.SubscriptionOptions;
+import org.rowtown.rms.rrr.client.sync.queue.PendingOperation;
 
 import java.util.concurrent.CompletableFuture;
 

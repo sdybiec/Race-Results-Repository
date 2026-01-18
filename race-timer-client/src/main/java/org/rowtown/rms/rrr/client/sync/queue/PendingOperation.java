@@ -1,4 +1,4 @@
-package org.rowtown.rms.rrr.client.sync;
+package org.rowtown.rms.rrr.client.sync.queue;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

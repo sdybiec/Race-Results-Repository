@@ -5,6 +5,12 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.rowtown.rms.rrr.client.api.RepositoryClient;
 import org.rowtown.rms.rrr.client.model.LocalDocument;
 import org.rowtown.rms.rrr.client.storage.LocalStorageManager;
+import org.rowtown.rms.rrr.client.sync.conflict.ConflictResolver;
+import org.rowtown.rms.rrr.client.sync.conflict.LastWriteWinsResolver;
+import org.rowtown.rms.rrr.client.sync.filter.SubscriptionOptions;
+import org.rowtown.rms.rrr.client.sync.queue.OfflineOperationQueue;
+import org.rowtown.rms.rrr.client.sync.queue.OperationReplayer;
+import org.rowtown.rms.rrr.client.sync.queue.PendingOperation;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
