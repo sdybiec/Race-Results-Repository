@@ -143,7 +143,7 @@ public class StartListSyncEngine {
             // Update local document with server data
             localDoc.setModelData(serverDoc.modelData);
             localDoc.setServerVersion(serverDoc.latestVersion);
-            localDoc.setLocalVersion(localDoc.getLocalVersion() + 1);
+            localDoc.setLocalVersion(localDoc.getLocalVersion() != null ? localDoc.getLocalVersion() + 1 : 1);
             localDoc.setModifiedAt(LocalDateTime.now());
             localDoc.setSyncStatus(SyncStatus.SYNCED);
             localDoc.setLastSyncedAt(LocalDateTime.now());

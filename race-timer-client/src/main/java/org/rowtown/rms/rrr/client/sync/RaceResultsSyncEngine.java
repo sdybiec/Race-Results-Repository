@@ -216,7 +216,7 @@ public class RaceResultsSyncEngine {
 
         localDoc.setModelData(modelData);
         localDoc.setModifiedAt(LocalDateTime.now());
-        localDoc.setLocalVersion(localDoc.getLocalVersion() + 1);
+        localDoc.setLocalVersion(localDoc.getLocalVersion() != null ? localDoc.getLocalVersion() + 1 : 1);
         localDoc.setSyncStatus(SyncStatus.PENDING);
 
         return storage.save(localDoc);
