@@ -144,7 +144,16 @@ public class WebhookService {
         }
 
         try {
-            String[] events = objectMapper.readValue(subscription.getEvents(), String[].class);
+            String eventsJson = subscription.getEvents();
+
+            // Handle legacy double-encoded data (from old bug)
+            // If it starts with a quote, it's double-encoded, so unwrap it
+            if (eventsJson.startsWith("\"") && eventsJson.endsWith("\"")) {
+                // Remove outer quotes and unescape
+                eventsJson = objectMapper.readValue(eventsJson, String.class);
+            }
+
+            String[] events = objectMapper.readValue(eventsJson, String[].class);
             return Arrays.asList(events).contains(eventType);
         } catch (Exception e) {
             log.error("Failed to parse subscription events", e);
