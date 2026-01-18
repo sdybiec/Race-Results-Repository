@@ -20,7 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -89,7 +88,6 @@ class NotificationSynchronizationTest {
 
     @Test
     @Order(1)
-    @Transactional
     void testMqttNotificationOnDocumentCreation() throws Exception {
         // Setup MQTT subscription
         String regattaId = "MQTT_TEST_2025";
@@ -135,7 +133,6 @@ class NotificationSynchronizationTest {
 
     @Test
     @Order(2)
-    @Transactional
     void testMqttNotificationOnRaceResults() throws Exception {
         // Setup MQTT subscription for race results
         String regattaId = "RACE_MQTT_2025";
@@ -182,7 +179,6 @@ class NotificationSynchronizationTest {
 
     @Test
     @Order(3)
-    @Transactional
     void testWebhookNotificationWithSignature() throws Exception {
         String webhookUrl = "http://localhost:8089/webhook";
         String secretKey = "test-secret-key-123";
@@ -236,7 +232,6 @@ class NotificationSynchronizationTest {
 
     @Test
     @Order(4)
-    @Transactional
     void testWebhookRetryOnFailure() throws Exception {
         String webhookUrl = "http://localhost:8089/failing-webhook";
         String secretKey = "retry-test-secret";
@@ -295,7 +290,6 @@ class NotificationSynchronizationTest {
 
     @Test
     @Order(5)
-    @Transactional
     void testClientSynchronizationWorkflow() throws Exception {
         // This test simulates a client synchronization workflow:
         // 1. Client subscribes to MQTT notifications
@@ -363,7 +357,6 @@ class NotificationSynchronizationTest {
 
     @Test
     @Order(6)
-    @Transactional
     void testMultipleTimersSynchronization() throws Exception {
         // Test scenario: Multiple race timers updating results simultaneously
         String regattaId = "MULTI_TIMER_SYNC_2025";
@@ -449,7 +442,6 @@ class NotificationSynchronizationTest {
 
     @Test
     @Order(7)
-    @Transactional
     void testWebhookUnsubscribe() throws Exception {
         String webhookUrl = "http://localhost:8089/unsubscribe-test";
         String secretKey = "unsub-secret";
