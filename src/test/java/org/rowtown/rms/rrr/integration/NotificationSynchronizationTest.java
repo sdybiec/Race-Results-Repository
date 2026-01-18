@@ -188,7 +188,7 @@ class NotificationSynchronizationTest {
         String secretKey = "test-secret-key-123";
 
         // Setup webhook mock
-        stubFor(post(urlEqualTo("/webhook"))
+        stubFor(WireMock.post(urlEqualTo("/webhook"))
             .willReturn(aResponse()
                 .withStatus(200)
                 .withHeader("Content-Type", "application/json")
@@ -242,19 +242,19 @@ class NotificationSynchronizationTest {
         String secretKey = "retry-test-secret";
 
         // Setup webhook to fail first 2 times, then succeed
-        stubFor(post(urlEqualTo("/failing-webhook"))
+        stubFor(WireMock.post(urlEqualTo("/failing-webhook"))
             .inScenario("Retry")
             .whenScenarioStateIs("Started")
             .willReturn(aResponse().withStatus(500))
             .willSetStateTo("First Retry"));
 
-        stubFor(post(urlEqualTo("/failing-webhook"))
+        stubFor(WireMock.post(urlEqualTo("/failing-webhook"))
             .inScenario("Retry")
             .whenScenarioStateIs("First Retry")
             .willReturn(aResponse().withStatus(500))
             .willSetStateTo("Second Retry"));
 
-        stubFor(post(urlEqualTo("/failing-webhook"))
+        stubFor(WireMock.post(urlEqualTo("/failing-webhook"))
             .inScenario("Retry")
             .whenScenarioStateIs("Second Retry")
             .willReturn(aResponse().withStatus(200)));
@@ -455,7 +455,7 @@ class NotificationSynchronizationTest {
         String secretKey = "unsub-secret";
 
         // Setup webhook
-        stubFor(post(urlEqualTo("/unsubscribe-test"))
+        stubFor(WireMock.post(urlEqualTo("/unsubscribe-test"))
             .willReturn(aResponse().withStatus(200)));
 
         // Subscribe
