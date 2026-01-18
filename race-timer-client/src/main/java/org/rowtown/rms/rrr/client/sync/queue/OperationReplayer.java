@@ -180,9 +180,20 @@ public class OperationReplayer {
             // Document doesn't exist - proceed with create
         }
 
+        // Convert LocalDocument to DocumentRequest
+        RepositoryClient.DocumentRequest request = new RepositoryClient.DocumentRequest();
+        request.type = document.getDocumentType();
+        request.regattaId = document.getRegattaId();
+        request.timerId = document.getTimerId();
+        request.milestoneId = document.getMilestoneId();
+        request.versionType = document.getVersionType();
+        request.author = document.getAuthor();
+        request.description = document.getDescription();
+        request.modelData = document.getModelData();
+
         // Upload document to server
-        var response = repositoryClient.createDocument(document);
-        log.info("Created document {} on server", response.getDocumentId());
+        var response = repositoryClient.createDocument(request);
+        log.info("Created document {} on server", response.documentId);
     }
 
     private void replayUpdate(PendingOperation operation) throws IOException, ConflictException {
@@ -216,14 +227,18 @@ public class OperationReplayer {
         }
 
         // No conflict - upload local version
-        var response = repositoryClient.updateDocument(localDocument.getServerId(), localDocument);
+        var response = repositoryClient.updateDocument(
+                localDocument.getServerId(),
+                localDocument.getModelData(),
+                localDocument.getDescription() != null ? localDocument.getDescription() : "Offline update");
         log.info("Updated document {} on server (version {})",
-                response.getDocumentId(), response.getVersion());
+                response.documentId, response.latestVersion);
     }
 
     private void replayDelete(PendingOperation operation) throws IOException {
-        repositoryClient.deleteDocument(operation.getDocumentId());
-        log.info("Deleted document {} on server", operation.getDocumentId());
+        // TODO: Delete operation not yet supported by RepositoryClient API
+        log.warn("Delete operation not yet implemented for document {}", operation.getDocumentId());
+        throw new UnsupportedOperationException("Delete operation not yet supported by repository API");
     }
 
     /**
@@ -246,9 +261,11 @@ public class OperationReplayer {
             }
 
             if (resolution.isRequiresServerUpdate()) {
+                LocalDocument resolved = resolution.getResolvedDocument();
                 repositoryClient.updateDocument(
-                        resolution.getResolvedDocument().getServerId(),
-                        resolution.getResolvedDocument());
+                        resolved.getServerId(),
+                        resolved.getModelData(),
+                        resolved.getDescription() != null ? resolved.getDescription() : "Conflict resolved");
             }
 
             // Mark operation as succeeded
@@ -275,25 +292,39 @@ public class OperationReplayer {
      */
     private boolean hasConflict(LocalDocument local, LocalDocument server) {
         // Conflict if server version is newer than what local was based on
-        if (server.getServerVersion() > local.getServerVersion()) {
+        if (server.getServerVersion() != null && local.getServerVersion() != null &&
+            server.getServerVersion() > local.getServerVersion()) {
             return true;
         }
 
         // Additional conflict detection based on timestamps
-        if (local.getLastModified() != null && server.getLastModified() != null) {
-            return !local.getLastModified().equals(server.getLastModified());
+        if (local.getModifiedAt() != null && server.getModifiedAt() != null) {
+            return !local.getModifiedAt().equals(server.getModifiedAt());
         }
 
         return false;
     }
 
     /**
-     * Converts API response to LocalDocument (placeholder - implement based on your API)
+     * Converts API response to LocalDocument.
      */
-    private LocalDocument convertToLocalDocument(Object serverResponse) {
-        // TODO: Implement based on your RepositoryClient response type
-        // This is a placeholder
-        return new LocalDocument();
+    private LocalDocument convertToLocalDocument(RepositoryClient.DocumentResponse response) {
+        if (response == null) {
+            return null;
+        }
+
+        return LocalDocument.builder()
+                .serverId(response.documentId)
+                .documentType(response.type)
+                .regattaId(response.regattaId)
+                .timerId(response.timerId)
+                .milestoneId(response.milestoneId)
+                .versionType(response.versionType)
+                .author(response.author)
+                .description(response.description)
+                .serverVersion(response.latestVersion)
+                .modelData(response.modelData)
+                .build();
     }
 
     /**

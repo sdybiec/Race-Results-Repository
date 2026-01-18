@@ -73,7 +73,7 @@ public class AutoSyncManager {
                 LocalDocument localDoc = convertToLocalDocument(serverDoc);
 
                 // Save to local storage
-                storageManager.saveDocument(localDoc);
+                storageManager.save(localDoc);
 
                 log.info("Successfully synced document {} version {}", documentId, versionNumber);
                 return localDoc;
@@ -113,11 +113,12 @@ public class AutoSyncManager {
      */
     public boolean shouldFetchDocument(Long documentId, Long serverVersion) {
         try {
-            LocalDocument cached = storageManager.getDocument(documentId);
-            if (cached == null) {
+            var cachedOpt = storageManager.findByServerId(documentId);
+            if (cachedOpt.isEmpty()) {
                 return true; // Not cached, must fetch
             }
 
+            LocalDocument cached = cachedOpt.get();
             // Fetch if server version is newer
             return serverVersion == null || cached.getServerVersion() == null ||
                    serverVersion > cached.getServerVersion();
@@ -136,21 +137,20 @@ public class AutoSyncManager {
      */
     private LocalDocument convertToLocalDocument(RepositoryClient.DocumentResponse serverDoc) {
         return LocalDocument.builder()
-            .serverId(serverDoc.getDocumentId())
-            .regattaId(serverDoc.getRegattaId())
-            .timerId(serverDoc.getTimerId())
-            .milestoneId(serverDoc.getMilestoneId())
-            .documentType(serverDoc.getType())
-            .versionType(serverDoc.getVersionType())
-            .author(serverDoc.getAuthor())
-            .description(serverDoc.getDescription())
-            .createdAt(serverDoc.getCreatedAt())
+            .serverId(serverDoc.documentId)
+            .regattaId(serverDoc.regattaId)
+            .timerId(serverDoc.timerId)
+            .milestoneId(serverDoc.milestoneId)
+            .documentType(serverDoc.type)
+            .versionType(serverDoc.versionType)
+            .author(serverDoc.author)
+            .description(serverDoc.description)
             .modifiedAt(LocalDateTime.now())
-            .serverVersion(serverDoc.getLatestVersion())
-            .localVersion(serverDoc.getLatestVersion())
+            .serverVersion(serverDoc.latestVersion)
+            .localVersion(serverDoc.latestVersion)
             .syncStatus(org.rowtown.rms.rrr.client.model.SyncStatus.SYNCED)
             .lastSyncedAt(LocalDateTime.now())
-            .modelData(serverDoc.getModelData())
+            .modelData(serverDoc.modelData)
             .serializationFormat("XMI")
             .build();
     }

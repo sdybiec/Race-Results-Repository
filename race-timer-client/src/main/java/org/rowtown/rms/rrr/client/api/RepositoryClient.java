@@ -64,9 +64,9 @@ public class RepositoryClient {
             SearchResults results = objectMapper.readValue(
                 response.body().string(), SearchResults.class);
 
-            if (results.getResults() != null && !results.getResults().isEmpty()) {
+            if (results.results != null && !results.results.isEmpty()) {
                 // Get full document with model data
-                Long docId = results.getResults().get(0).getDocumentId();
+                Long docId = results.results.get(0).documentId;
                 return getDocument(docId);
             }
 
