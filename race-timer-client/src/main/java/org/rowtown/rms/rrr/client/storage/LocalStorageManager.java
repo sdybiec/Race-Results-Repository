@@ -153,7 +153,7 @@ public class LocalStorageManager implements AutoCloseable {
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """;
 
-        try (PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             int idx = 1;
             pstmt.setObject(idx++, doc.getServerId());
             pstmt.setString(idx++, doc.getRegattaId());
@@ -175,7 +175,9 @@ public class LocalStorageManager implements AutoCloseable {
 
             pstmt.executeUpdate();
 
-            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+            // SQLite doesn't support getGeneratedKeys() - use last_insert_rowid() instead
+            try (PreparedStatement idStmt = connection.prepareStatement("SELECT last_insert_rowid()");
+                 ResultSet rs = idStmt.executeQuery()) {
                 if (rs.next()) {
                     doc.setLocalId(rs.getLong(1));
                 }
