@@ -123,7 +123,7 @@ class NotificationSynchronizationTest {
         assertFalse(receivedMqttEvents.isEmpty(), "Should have received at least one MQTT event");
         NotificationEvent event = receivedMqttEvents.get(0);
 
-        assertEquals("DOCUMENT_CREATED", event.getEventType());
+        assertEquals(NotificationEvent.EventType.DOCUMENT_CREATED, event.getEventType());
         assertEquals(createdDoc.getDocumentId(), event.getDocumentId());
         assertEquals(DocumentType.START_LIST, event.getDocumentType());
         assertEquals(regattaId, event.getRegattaId());
@@ -170,7 +170,7 @@ class NotificationSynchronizationTest {
 
         // Verify notification content
         NotificationEvent event = receivedMqttEvents.get(0);
-        assertEquals("DOCUMENT_CREATED", event.getEventType());
+        assertEquals(NotificationEvent.EventType.DOCUMENT_CREATED, event.getEventType());
         assertEquals(createdDoc.getDocumentId(), event.getDocumentId());
         assertEquals(DocumentType.RACE_RESULTS, event.getDocumentType());
         assertEquals(regattaId, event.getRegattaId());
@@ -340,13 +340,13 @@ class NotificationSynchronizationTest {
 
         // Verify first event (document creation)
         NotificationEvent createEvent = receivedMqttEvents.get(0);
-        assertEquals("DOCUMENT_CREATED", createEvent.getEventType());
+        assertEquals(NotificationEvent.EventType.DOCUMENT_CREATED, createEvent.getEventType());
         assertEquals(doc.getDocumentId(), createEvent.getDocumentId());
         assertEquals(1L, createEvent.getVersionNumber());
 
         // Verify second event (version creation)
         NotificationEvent updateEvent = receivedMqttEvents.get(1);
-        assertEquals("VERSION_CREATED", updateEvent.getEventType());
+        assertEquals(NotificationEvent.EventType.VERSION_CREATED, updateEvent.getEventType());
         assertEquals(doc.getDocumentId(), updateEvent.getDocumentId());
         assertEquals(2L, updateEvent.getVersionNumber());
         assertEquals("Updated start list", updateEvent.getChangeDescription());
@@ -428,7 +428,7 @@ class NotificationSynchronizationTest {
         // Verify timer IDs
         Set<String> timerIds = new HashSet<>();
         for (NotificationEvent event : receivedMqttEvents) {
-            assertEquals("DOCUMENT_CREATED", event.getEventType());
+            assertEquals(NotificationEvent.EventType.DOCUMENT_CREATED, event.getEventType());
             assertEquals(DocumentType.RACE_RESULTS, event.getDocumentType());
             assertEquals(regattaId, event.getRegattaId());
             timerIds.add(event.getTimerId());
