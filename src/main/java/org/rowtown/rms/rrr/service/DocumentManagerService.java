@@ -31,6 +31,7 @@ public class DocumentManagerService {
     private final DocumentMetadataRepository metadataRepository;
     private final DocumentTagRepository tagRepository;
     private final DocumentOwnershipRepository ownershipRepository;
+    private final NotificationService notificationService;
 
     /**
      * Create a new document with an initial version.
@@ -94,6 +95,15 @@ public class DocumentManagerService {
             SerializationFormat.XMI
         );
 
+        // Send notifications
+        notificationService.notifyDocumentCreated(
+            document.getDocumentId(),
+            document.getDocumentType(),
+            document.getRegattaId(),
+            document.getTimerId(),
+            request.getAuthor()
+        );
+
         log.info("Created document {} of type {} for regatta {}",
             document.getDocumentId(), request.getType(), request.getRegattaId());
 
@@ -110,7 +120,18 @@ public class DocumentManagerService {
             .orElseThrow(() -> new ResourceNotFoundException("Document not found: " + documentId));
 
         // Create new version
-        versionControlService.createVersion(documentId, modelData, author, changeDescription, format);
+        Version newVersion = versionControlService.createVersion(documentId, modelData, author, changeDescription, format);
+
+        // Send notifications
+        notificationService.notifyVersionCreated(
+            documentId,
+            document.getDocumentType(),
+            document.getRegattaId(),
+            document.getTimerId(),
+            newVersion.getVersionNumber(),
+            author,
+            changeDescription
+        );
 
         log.info("Updated document {} - new version {}", documentId, document.getLatestVersion());
 

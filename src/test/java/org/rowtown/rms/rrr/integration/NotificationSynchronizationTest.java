@@ -205,7 +205,7 @@ class NotificationSynchronizationTest {
         mockMvc.perform(post("/api/v1/webhooks/subscribe")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(webhookRequest)))
-            .andExpect(status().isOk());
+            .andExpect(status().isCreated());
 
         // Create a document to trigger webhook
         DocumentRequest docRequest = DocumentRequest.builder()
@@ -270,7 +270,7 @@ class NotificationSynchronizationTest {
         mockMvc.perform(post("/api/v1/webhooks/subscribe")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(webhookRequest)))
-            .andExpect(status().isOk());
+            .andExpect(status().isCreated());
 
         // Create a document to trigger webhook
         DocumentRequest docRequest = DocumentRequest.builder()
@@ -469,7 +469,7 @@ class NotificationSynchronizationTest {
         MvcResult subResult = mockMvc.perform(post("/api/v1/webhooks/subscribe")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(webhookRequest)))
-            .andExpect(status().isOk())
+            .andExpect(status().isCreated())
             .andReturn();
 
         String subscriptionId = objectMapper.readTree(subResult.getResponse().getContentAsString())
