@@ -216,7 +216,7 @@ public class LocalStorageManager implements AutoCloseable {
             pstmt.setString(idx++, doc.getDescription());
             pstmt.setString(idx++, toString(doc.getCreatedAt()));
             pstmt.setString(idx++, toString(doc.getModifiedAt()));
-            pstmt.setLong(idx++, doc.getLocalVersion());
+            pstmt.setLong(idx++, doc.getLocalVersion() != null ? doc.getLocalVersion() : 1L);
             pstmt.setObject(idx++, doc.getServerVersion());
             pstmt.setString(idx++, doc.getSyncStatus().name());
             pstmt.setString(idx++, toString(doc.getLastSyncedAt()));
