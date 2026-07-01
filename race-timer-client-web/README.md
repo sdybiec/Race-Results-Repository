@@ -297,6 +297,36 @@ Hook for managing auto-sync.
 }
 ```
 
+### useStorageStats(client, refreshIntervalMs?)
+
+Hook for monitoring local storage usage. Polls `client.getStorageStats()` on an
+interval (`refreshIntervalMs`, default `60000`).
+
+**Returns:**
+```typescript
+{
+  stats: {
+    documentCount: number;   // Number of stored documents
+    pendingCount: number;    // Documents awaiting sync
+    storageSize: number;     // Approximate bytes used
+  };
+  refresh: () => void;       // Force an immediate refresh
+}
+```
+
+Example:
+
+```tsx
+import { useStorageStats } from '@rowtown/race-timer-client-web';
+
+function StorageIndicator() {
+  const { client } = useRaceTimer();
+  const { stats } = useStorageStats(client);
+
+  return <span>{stats.documentCount} docs · {stats.storageSize} bytes</span>;
+}
+```
+
 ## Data Models
 
 ### ClientConfig
@@ -515,7 +545,7 @@ The client subscribes to Start List change notifications:
 
 ## License
 
-MIT
+Released under the [MIT License](../LICENSE). Copyright © 2025 RowTown.
 
 ## Support
 

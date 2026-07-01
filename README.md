@@ -441,4 +441,4 @@ Authorization: Bearer {JWT_TOKEN}
 
 ## License
 
-Copyright © 2025 RowTown. All rights reserved.
+Released under the [MIT License](LICENSE). Copyright © 2025 RowTown.

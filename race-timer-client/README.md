@@ -423,4 +423,4 @@ org.rowtown.rms.rrr.client=DEBUG
 
 ## License
 
-Copyright © 2025 RowTown. All rights reserved.
+Released under the [MIT License](../LICENSE). Copyright © 2025 RowTown.

@@ -83,6 +83,13 @@ public class H2Adapter implements DatabaseAdapter {
     }
 
     @Override
+    public String getLastInsertIdQuery() {
+        // H2 does not implement getGeneratedKeys() uniformly with SQLite; use the
+        // session-scoped identity function instead.
+        return "SELECT SCOPE_IDENTITY()";
+    }
+
+    @Override
     public String getTextType(int maxLength) {
         if (maxLength > 0) {
             return "VARCHAR(" + maxLength + ")";

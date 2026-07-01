@@ -84,6 +84,11 @@ public class SQLiteAdapter implements DatabaseAdapter {
     }
 
     @Override
+    public String getLastInsertIdQuery() {
+        return "SELECT last_insert_rowid()";
+    }
+
+    @Override
     public String getTextType(int maxLength) {
         // SQLite uses TEXT for all string data
         return "TEXT";

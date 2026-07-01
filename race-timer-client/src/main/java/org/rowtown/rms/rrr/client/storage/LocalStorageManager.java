@@ -175,8 +175,9 @@ public class LocalStorageManager implements AutoCloseable {
 
             pstmt.executeUpdate();
 
-            // SQLite doesn't support getGeneratedKeys() - use last_insert_rowid() instead
-            try (PreparedStatement idStmt = connection.prepareStatement("SELECT last_insert_rowid()");
+            // Identity retrieval is database-specific (the SQLite JDBC driver does
+            // not implement getGeneratedKeys()), so the query comes from the adapter.
+            try (PreparedStatement idStmt = connection.prepareStatement(databaseAdapter.getLastInsertIdQuery());
                  ResultSet rs = idStmt.executeQuery()) {
                 if (rs.next()) {
                     doc.setLocalId(rs.getLong(1));
