@@ -6,9 +6,11 @@ Race Results Repository API.
 ## Generating the spec
 
 The spec is produced by the `openapi` Maven profile, which boots the application
-with the `dev` Spring profile (in-memory H2 database + embedded MQTT broker — no
-external services required), fetches the live `/api-docs` endpoint, and writes it
-to `openapi.json` in this directory:
+with the `openapi` Spring profile (see `application-openapi.yml`): an in-memory
+H2 database with a Hibernate-generated schema and no external services required
+(Flyway is disabled because the production migrations use MariaDB-specific
+syntax). It then fetches the live `/api-docs` endpoint and writes it to
+`openapi.json` in this directory:
 
 ```bash
 mvn verify -Popenapi

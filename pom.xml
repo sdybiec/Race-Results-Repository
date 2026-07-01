@@ -240,8 +240,9 @@
             Usage:
                 mvn verify -Popenapi
 
-            The application is booted with the "dev" Spring profile (in-memory H2
-            database + embedded MQTT broker) so no external services are required.
+            The application is booted with the "openapi" Spring profile
+            (see application-openapi.yml): an in-memory H2 database with a
+            Hibernate-generated schema and no external services required.
             The springdoc-openapi-maven-plugin then fetches the live /api-docs
             endpoint and writes it to a static file.
         -->
@@ -260,7 +261,7 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
                             <profiles>
-                                <profile>dev</profile>
+                                <profile>openapi</profile>
                             </profiles>
                         </configuration>
                         <executions>
