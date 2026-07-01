@@ -140,7 +140,7 @@ MariaDB remains the default (run with no profile, or `prod`-style config).
 | `prod-h2` | H2 file | Flyway `h2` + `validate` | Production (embedded) |
 | `dev` | H2 mem | Flyway `h2` + `validate` | Local development |
 | `openapi` | H2 mem | Hibernate `create-drop` | OpenAPI spec export |
-| `test` | H2 mem | Hibernate `create-drop` | Automated tests |
+| `test` | H2 mem (default) or MariaDB | Flyway `{vendor}` + `validate` | Automated tests / CI drift matrix |
 
 ## Operational guidance
 
@@ -157,11 +157,48 @@ MariaDB remains the default (run with no profile, or `prod`-style config).
 ## Trade-offs and ongoing costs
 
 - **Migration drift**: every future schema change must be authored for *both*
-  `db/migration/mariadb` and `db/migration/h2`. A CI matrix running the suite
-  against both engines is recommended to catch drift early.
+  `db/migration/mariadb` and `db/migration/h2`. This is guarded by CI (see below).
 - **`meta_value` capacity** was reduced from `TEXT` (~64 KB) to `VARCHAR(4000)`
   to keep the column indexable across both engines. Revisit if larger metadata
   values are required.
+
+## CI: drift detection across both databases
+
+`.github/workflows/ci.yml` runs the full test suite in a matrix against **both**
+engines:
+
+| Axis | Database | Migrations exercised |
+|---|---|---|
+| `h2` | in-memory H2 | `db/migration/h2` |
+| `mariadb` | MariaDB 11 (container) | `db/migration/mariadb` |
+
+This is possible because the `test` profile
+(`src/test/resources/application-test.properties`) now:
+
+- boots with `spring.flyway.enabled=true` + `ddl-auto=validate` (instead of the
+  previous `create-drop` with Flyway off), so the entities are validated against
+  the schema built by the real migrations; and
+- takes its datasource from `TEST_DB_*` environment variables, defaulting to
+  in-memory H2 so local `mvn test` needs no external services.
+
+The Flyway `{vendor}` placeholder selects the matching migration directory from
+the JDBC connection, so each axis validates its own migration set. If a future
+schema change is applied to only one vendor's migration (or diverges from the
+entities), the corresponding axis fails `validate` and the build goes red.
+
+Run the MariaDB axis locally against a throwaway container:
+
+```bash
+docker run -d --name mariadb -p 3306:3306 \
+  -e MARIADB_DATABASE=race_results_test -e MARIADB_USER=race_test \
+  -e MARIADB_PASSWORD=race_test_pw -e MARIADB_ROOT_PASSWORD=root_pw mariadb:11
+
+TEST_DB_URL='jdbc:mariadb://127.0.0.1:3306/race_results_test' \
+TEST_DB_DRIVER=org.mariadb.jdbc.Driver \
+TEST_DB_USER=race_test TEST_DB_PASSWORD=race_test_pw \
+TEST_DB_DIALECT=org.hibernate.dialect.MariaDBDialect \
+mvn -B verify
+```
 
 ## Compatibility note for existing MariaDB deployments
 
