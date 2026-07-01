@@ -41,8 +41,8 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
-    locations: classpath:db/migration
-    # H2 is compatible with MySQL mode, so we can use the same migrations
+    # {vendor} resolves to "h2" here, selecting db/migration/h2
+    locations: classpath:db/migration/{vendor}
 
   # Cache Configuration
   cache:

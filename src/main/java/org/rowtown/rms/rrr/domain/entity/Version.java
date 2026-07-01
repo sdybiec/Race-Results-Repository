@@ -45,8 +45,10 @@ public class Version {
     @Column(name = "change_description", length = 2000)
     private String changeDescription;
 
+    // Portable LOB mapping: Hibernate emits the dialect's large-binary type
+    // (BLOB on H2, longblob on MariaDB) instead of a vendor-specific columnDefinition.
     @Lob
-    @Column(name = "model_snapshot", nullable = false, columnDefinition = "LONGBLOB")
+    @Column(name = "model_snapshot", nullable = false)
     private byte[] modelSnapshot;
 
     @Enumerated(EnumType.STRING)

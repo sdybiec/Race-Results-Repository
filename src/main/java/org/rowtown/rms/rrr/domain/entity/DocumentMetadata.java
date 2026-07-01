@@ -31,6 +31,8 @@ public class DocumentMetadata {
     @Column(name = "meta_key", nullable = false)
     private String key;
 
-    @Column(name = "meta_value", columnDefinition = "TEXT")
+    // Bounded VARCHAR (portable across H2/MariaDB) so the column can participate
+    // in the (meta_key, meta_value) index used for metadata search.
+    @Column(name = "meta_value", length = 4000)
     private String value;
 }

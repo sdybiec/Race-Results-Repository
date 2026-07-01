@@ -41,7 +41,9 @@ public class WebhookSubscription {
     @Column(name = "secret_key", nullable = false)
     private String secretKey;
 
-    @Column(name = "events", columnDefinition = "JSON")
+    // Stored as a JSON string in a portable VARCHAR column (no vendor JSON type,
+    // which would tie H2 to MySQL compatibility mode).
+    @Column(name = "events", length = 2000)
     private String events;
 
     @Column(name = "created_at", nullable = false)

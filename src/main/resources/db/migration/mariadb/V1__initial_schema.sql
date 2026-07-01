@@ -1,4 +1,4 @@
--- Race Results Repository - Initial Database Schema
+-- Race Results Repository - Initial Database Schema (MariaDB / MySQL)
 -- Version 1.0.0
 
 -- Documents table
@@ -39,7 +39,7 @@ CREATE TABLE metadata (
     metadata_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     document_id BIGINT NOT NULL,
     meta_key VARCHAR(255) NOT NULL,
-    meta_value TEXT,
+    meta_value VARCHAR(4000),
     FOREIGN KEY (document_id) REFERENCES documents(document_id) ON DELETE CASCADE,
     INDEX idx_key_value (meta_key, meta_value(255))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -80,11 +80,11 @@ CREATE TABLE webhook_subscriptions (
     regattaId VARCHAR(255),
     webhook_url VARCHAR(1024) NOT NULL,
     secret_key VARCHAR(255) NOT NULL,
-    events JSON,
+    events VARCHAR(2000),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     active BOOLEAN NOT NULL DEFAULT TRUE,
     failed_deliveries INT NOT NULL DEFAULT 0,
-    last_failure TIMESTAMP,
+    last_failure TIMESTAMP NULL,
     INDEX idx_webhooks_document (document_id),
     INDEX idx_webhooks_regatta (regattaId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -98,10 +98,6 @@ CREATE TABLE mqtt_subscriptions (
     active BOOLEAN NOT NULL DEFAULT TRUE,
     INDEX idx_user (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Full-text search index on description field (MariaDB only)
--- Note: H2 does not support FULLTEXT indexes, but regular index will work
--- ALTER TABLE documents ADD FULLTEXT INDEX ft_description (description);
 
 -- Insert default ACL entries for standard permissions
 INSERT INTO acl_entries (regattaId, resource_type, operation, role, allowed) VALUES
