@@ -232,4 +232,75 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!--
+            Export a static OpenAPI spec to docs/api/openapi.json.
+
+            Usage:
+                mvn verify -Popenapi
+
+            The application is booted with the "dev" Spring profile (in-memory H2
+            database + embedded MQTT broker) so no external services are required.
+            The springdoc-openapi-maven-plugin then fetches the live /api-docs
+            endpoint and writes it to a static file.
+        -->
+        <profile>
+            <id>openapi</id>
+            <properties>
+                <!-- Location for the exported static spec -->
+                <openapi.output.dir>${project.basedir}/docs/api</openapi.output.dir>
+                <openapi.output.file>openapi.json</openapi.output.file>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- Boot the application before the spec is fetched, stop it afterwards -->
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <profiles>
+                                <profile>dev</profile>
+                            </profiles>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>pre-integration-test</id>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>post-integration-test</id>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Fetch /api-docs from the running app and write it to a static file -->
+                    <plugin>
+                        <groupId>org.springdoc</groupId>
+                        <artifactId>springdoc-openapi-maven-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>generate-openapi</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <apiDocsUrl>http://localhost:8080/api-docs</apiDocsUrl>
+                            <outputDir>${openapi.output.dir}</outputDir>
+                            <outputFileName>${openapi.output.file}</outputFileName>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
