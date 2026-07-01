@@ -26,7 +26,7 @@ Enable accurate and rapid sharing of rowing regatta race results through:
 |-----------|-----------|
 | Framework | Spring Boot |
 | Build System | Maven |
-| Database | MariaDB |
+| Database | MariaDB (multi-instance) or H2 (single-node/embedded) |
 | Serialization | XMI, JSON |
 | APIs | REST (HTTP), Hessian RPC |
 | Authentication | JWT |
@@ -347,7 +347,7 @@ graph TD
     SEARCH --> REGATTA_ID[Regatta ID<br/>Exact/Partial]
     SEARCH --> REGATTA_NAME[Regatta Name<br/>Wildcard]
     SEARCH --> META[Metadata Fields<br/>Key-Value Match]
-    SEARCH --> DESC[Description<br/>Full-Text Search]
+    SEARCH --> DESC[Description<br/>Substring Match]
     SEARCH --> TAGS[Tags<br/>Contains]
     SEARCH --> AUTHOR[Author<br/>Exact/Partial]
     SEARCH --> DATE[Date Range]
@@ -360,7 +360,7 @@ graph TD
 | Exact | `field:value` | `regattaId:HEAD2025` |
 | Partial | `field:*value*` | `regattaName:*Head*` |
 | Wildcard | `field:val?e` | `author:john?` |
-| Full-Text | `description:"race results"` | Searches description |
+| Substring | `description:"race results"` | Case-insensitive `LIKE` on description |
 
 #### 5.3.3 Search Response
 
@@ -1014,11 +1014,28 @@ active              BOOLEAN DEFAULT TRUE
 INDEX idx_user      (user_id)
 ```
 
+#### 7.1.4 Multi-Database Support
+
+The schema above is conceptual. The actual schema is maintained as **per-vendor
+Flyway migrations** so the application runs on either database:
+
+- `src/main/resources/db/migration/mariadb/` — MariaDB (InnoDB, utf8mb4,
+  `LONGBLOB`, prefix indexes) for multi-instance deployments.
+- `src/main/resources/db/migration/h2/` — native H2 (`BLOB`, `VARCHAR`,
+  standalone `CREATE INDEX`) for single-node / embedded deployments.
+
+Flyway's `{vendor}` placeholder (`classpath:db/migration/{vendor}`) selects the
+correct set from the JDBC connection, and Hibernate runs with `ddl-auto=validate`
+against it. Entity `@Column` names are used verbatim as physical column names
+(`PhysicalNamingStrategyStandardImpl`), so both migration sets must match the
+entity column names exactly. A CI matrix runs the suite against both engines to
+catch drift. See `docs/h2-production-support.md`.
+
 ### 7.2 Version Storage Strategy
 
 **Application-Level Versioning:**
 1. Store full model snapshot for each version
-2. Use LONGBLOB for EMF model storage
+2. Use a large binary column for EMF model storage (`LONGBLOB` on MariaDB, `BLOB` on H2)
 3. Support both XMI and JSON serialization
 4. Calculate checksum for integrity verification
 
@@ -1038,24 +1055,27 @@ graph TD
     UPDATE_META --> NOTIFY[Trigger Notifications]
 ```
 
-### 7.3 Full-Text Search Implementation
+### 7.3 Description Search Implementation
 
-**Strategy:** MariaDB Full-Text Search
+**Strategy:** Portable case-insensitive substring matching (`LIKE`), so search
+behaves identically on MariaDB and H2. (Engine-specific full-text indexing, e.g.
+MariaDB `FULLTEXT` / `MATCH ... AGAINST`, is intentionally avoided so the query
+layer stays database-agnostic; it could be added later behind a vendor-specific
+strategy if ranking/relevance is required.)
 
-**Indexed Fields:**
+**Searchable Fields:**
 - Document description
 - Metadata values
 - Regatta name/ID
 - Tags
 
-**Search Query Processing:**
+**Search Query Processing (JPQL, portable):**
 ```sql
 SELECT d.* FROM documents d
 LEFT JOIN metadata m ON d.document_id = m.document_id
 WHERE
-  MATCH(d.description) AGAINST ('race results' IN NATURAL LANGUAGE MODE)
-  OR m.meta_value LIKE '%race%'
-ORDER BY relevance DESC
+  LOWER(d.description) LIKE LOWER('%race results%')
+  OR LOWER(m.meta_value) LIKE LOWER('%race%')
 ```
 
 ---
@@ -1392,8 +1412,7 @@ spec:
   - Exact match queries
   - Partial match queries
   - Wildcard support
-  - Full-text search on descriptions
-- Configure MariaDB full-text indexing
+  - Case-insensitive substring (`LIKE`) search on descriptions (portable across databases)
 - Create search query builder
 - Add pagination support
 
@@ -1625,7 +1644,7 @@ spec:
 
 4. **Full Document in Webhooks:** Provides complete context to subscribers, simplifying client implementation at cost of bandwidth.
 
-5. **MariaDB Choice:** Mature versioning support, full-text search, proven scalability for this data volume.
+5. **Database Choice:** MariaDB is the default for multi-instance deployments (proven scalability for this data volume). H2 is supported for single-node/embedded installs via per-vendor Flyway migrations; the query layer stays database-agnostic (portable `LIKE` search rather than engine-specific full-text indexing).
 
 6. **Local Filesystem Backups:** Simplifies initial deployment; can be extended to cloud storage in future iterations.
 

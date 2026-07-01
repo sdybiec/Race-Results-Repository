@@ -16,7 +16,7 @@ The Race Results Repository enables rowing regatta timers to accurately and rapi
 ### ✅ Phase 1: Foundation & Core Infrastructure
 - Maven project with Spring Boot 3.2.1
 - Complete JPA entity model (Documents, Versions, Metadata, Tags, ACLs, Webhooks)
-- MariaDB database schema with Flyway migrations
+- MariaDB and H2 database schemas with per-vendor Flyway migrations
 - Timing Data Interchange EMF schema integration
 
 ### ✅ Phase 2: Version Control & Document Management
@@ -36,7 +36,7 @@ The Race Results Repository enables rowing regatta timers to accurately and rapi
 ### ✅ Phase 4: Search & Retrieval
 - **Multi-criteria Search**: Document ID, regatta ID, type, timer, author, description
 - **Match Types**: Exact, partial, and wildcard matching
-- **Full-text Search**: MariaDB full-text indexing on descriptions
+- **Description Search**: Case-insensitive substring matching (portable across databases)
 - **Metadata & Tag Filtering**: Search by metadata key-value pairs and tags
 - **Caching**: Spring Cache for search results and documents
 
@@ -84,7 +84,7 @@ Race Results Repository (Spring Boot)
 │   └── Webhook Delivery Service
 └── Data Layer
     ├── JPA Repositories
-    └── MariaDB Database
+    └── Database (MariaDB, or H2 for single-node/embedded)
 ```
 
 ## Technology Stack
@@ -93,7 +93,7 @@ Race Results Repository (Spring Boot)
 |-----------|-----------|
 | Framework | Spring Boot 3.2.1 |
 | Build | Maven |
-| Database | MariaDB 10.6+ |
+| Database | MariaDB 10.6+, or H2 (embedded/single-node) |
 | EMF | Eclipse Modeling Framework 2.35.0 |
 | Authentication | JWT (JJWT 0.12.3) |
 | RPC | Hessian 4.0.66 |
@@ -106,9 +106,22 @@ Race Results Repository (Spring Boot)
 ### Prerequisites
 
 - Java 17+
-- MariaDB 10.6+
-- MQTT Broker (e.g., Eclipse Mosquitto)
 - Maven 3.6+
+- MariaDB 10.6+ _(not needed for the `dev` or `prod-h2` profiles, which use H2)_
+- MQTT Broker, e.g. Eclipse Mosquitto _(optional; the `dev` profile runs an embedded broker)_
+
+### Fastest Start (no database to install)
+
+Run with the `dev` profile to use an in-memory H2 database and an embedded MQTT
+broker — no external services required:
+
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+For a persistent single-node/embedded deployment on H2, use the `prod-h2`
+profile (see [DEVELOPMENT.md](DEVELOPMENT.md) and
+[docs/h2-production-support.md](docs/h2-production-support.md)).
 
 ### Configuration
 
@@ -145,6 +158,19 @@ The service will start on port 8080.
 Once running, access:
 - **Swagger UI**: http://localhost:8080/swagger-ui.html
 - **OpenAPI Spec**: http://localhost:8080/api-docs
+
+Export a static spec file (`docs/api/openapi.json`) with `mvn verify -Popenapi`.
+
+### Authentication
+
+All endpoints except the docs and `/actuator/**` require a JWT bearer token.
+There is no login endpoint in production (tokens come from an external auth
+service); for local development the `dev` profile exposes a token minter:
+
+```bash
+TOKEN=$(curl -s -X POST http://localhost:8080/api/v1/auth/token | jq -r .token)
+curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/v1/documents/1
+```
 
 ## API Examples
 
@@ -289,9 +315,10 @@ src/main/java/org/rowtown/
 ## Development Notes
 
 - EMF models are serialized as XMI or JSON
-- Version snapshots are stored as LONGBLOB in MariaDB
+- Version snapshots are stored as a large binary column (LONGBLOB on MariaDB, BLOB on H2)
 - Optimistic locking prevents concurrent update conflicts
-- Flyway manages database schema migrations
+- Flyway manages database schema migrations, with per-vendor scripts under
+  `src/main/resources/db/migration/{mariadb,h2}` selected by the `{vendor}` placeholder
 - All services support both REST and Hessian RPC
 
 ### ✅ Phase 9: Backup & Restore
@@ -307,7 +334,8 @@ src/main/java/org/rowtown/
 - **Unit Tests**: Comprehensive tests for all services (VersionControl, DocumentManager, Search)
 - **Integration Tests**: Full document lifecycle end-to-end testing
 - **Performance Tests**: Concurrent operations, throughput, and latency testing
-- **Test Configuration**: H2 in-memory database for fast test execution
+- **Test Configuration**: H2 in-memory by default, booting the real Flyway migrations with `ddl-auto=validate`
+- **CI Matrix**: Tests run against both H2 and MariaDB to catch migration drift (`.github/workflows/ci.yml`)
 - **Performance Targets**: <500ms writes, <200ms reads, <200ms searches
 - **Concurrent Testing**: Multi-threaded document creation and version management
 
