@@ -39,7 +39,7 @@ Headless offline-first client library for rowing race timers that enables:
 
 ```xml
 <dependency>
-    <groupId>org.rowtown</groupId>
+    <groupId>org.rowtown.rms.rrr</groupId>
     <artifactId>race-timer-client</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 </dependency>
@@ -48,7 +48,7 @@ Headless offline-first client library for rowing race timers that enables:
 ### Gradle
 
 ```gradle
-implementation 'org.rowtown:race-timer-client:1.0.0-SNAPSHOT'
+implementation 'org.rowtown.rms.rrr:race-timer-client:1.0.0-SNAPSHOT'
 ```
 
 ## Quick Start
@@ -56,8 +56,8 @@ implementation 'org.rowtown:race-timer-client:1.0.0-SNAPSHOT'
 ### 1. Initialize the Client
 
 ```java
-import org.rowtown.client.RaceTimerClient;
-import org.rowtown.client.RaceTimerClient.ClientConfig;
+import org.rowtown.rms.rrr.client.RaceTimerClient;
+import org.rowtown.rms.rrr.client.RaceTimerClient.ClientConfig;
 
 // Configure the client
 ClientConfig config = new ClientConfig(
@@ -418,7 +418,7 @@ The client uses SLF4J for logging. Configure your logging framework:
 
 ```properties
 # Example logback configuration
-org.rowtown.client=DEBUG
+org.rowtown.rms.rrr.client=DEBUG
 ```
 
 ## License
