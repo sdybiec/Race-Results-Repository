@@ -7,11 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 /**
  * Configuration for Hessian RPC endpoint.
+ *
+ * <p>Disabled under the "openapi" Spring profile: the Hessian servlet is loaded
+ * on startup and instantiates its service class directly, which is unnecessary
+ * for exporting the REST OpenAPI spec (Hessian is a separate binary RPC protocol
+ * and is not represented in the spec).</p>
  */
 @Configuration
+@Profile("!openapi")
 public class HessianConfig {
 
     @Autowired
