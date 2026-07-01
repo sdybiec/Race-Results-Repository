@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -33,6 +34,11 @@ public class SecurityConfig {
                 // Public endpoints
                 .requestMatchers("/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
+                // Dev-only token endpoint. The handler (DevAuthController) exists only
+                // under the "dev" profile, so in any other profile this path has no
+                // controller and simply 404s; permitting it here lets it be reached
+                // without a token when developing locally.
+                .requestMatchers(HttpMethod.POST, "/api/v1/auth/token").permitAll()
                 // All other endpoints require authentication
                 .anyRequest().authenticated()
             )
