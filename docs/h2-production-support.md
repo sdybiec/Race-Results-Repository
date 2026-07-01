@@ -82,7 +82,31 @@ Flyway `locations` were changed from `classpath:db/migration` to
 `application-dev.yml` (H2 dev). This also fixes the previously broken `dev`
 profile, which had been pointed at the MariaDB-only migration.
 
-### 3. Production H2 profile
+### 3. Physical naming strategy
+
+The entities use explicit `@Column` names that are a deliberate mix of camelCase
+(`regattaId`, `documentType`, `timerId`, `milestoneId`, `versionType`) and
+snake_case (`document_id`, `created_at`, ...), and the Flyway migrations were
+written to match those names verbatim. Spring Boot's default
+`CamelCaseToUnderscoresNamingStrategy` rewrites the camelCase names to snake_case
+(`regattaId` → `regatta_id`), so `ddl-auto=validate` fails with e.g.
+`missing column [regatta_id] in table [acl_entries]`.
+
+`application.properties` now sets:
+
+```
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+```
+
+so `@Column` names are used as physical column names. This is a global setting
+(applies to MariaDB, H2, and the create-drop test/openapi profiles) and fixes a
+pre-existing latent bug: `validate` against a Flyway-managed schema had never
+actually succeeded on MariaDB either, because tests use `create-drop`.
+
+(Hibernate canonicalizes unquoted identifiers to lower case when validating, so
+the mixed-case names still match regardless of how H2 or MariaDB stores them.)
+
+### 4. Production H2 profile
 
 `application-prod-h2.yml` (activate with `--spring.profiles.active=prod-h2`):
 
