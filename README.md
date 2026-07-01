@@ -11,6 +11,14 @@ The Race Results Repository enables rowing regatta timers to accurately and rapi
 - **Start List**: Read-only chronologically ordered schedule of races and crew assignments (one per regatta)
 - **Race Results**: Timing data captured by timers including crossing times and crew identifications (one per timer/milestone)
 
+### Documentation
+
+- [DEVELOPMENT.md](DEVELOPMENT.md) — local setup, profiles, testing, dev auth token
+- [docs/ADMINISTRATION.md](docs/ADMINISTRATION.md) — deployment, configuration, backups, security, monitoring, troubleshooting
+- [docs/h2-production-support.md](docs/h2-production-support.md) — single-node/embedded H2 design
+- [SPECIFICATION.md](SPECIFICATION.md) — architecture and design specification
+- [docs/api/README.md](docs/api/README.md) — exporting the static OpenAPI spec
+
 ## Features Implemented
 
 ### ✅ Phase 1: Foundation & Core Infrastructure
