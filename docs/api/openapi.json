@@ -1,0 +1,1813 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "Race Results Repository API",
+		"description": "# Race Results Repository API\n\nVersion-controlled repository for rowing regatta timing data based on the Timing Data Interchange EMF schema.\n\n## Features\n- **Version Control**: Full history tracking for all documents with EMF Compare-based diffs\n- **Document Types**: Support for Race Results, Start Lists, and other timing data\n- **Search**: Powerful search with exact, partial, and wildcard matching\n- **Authorization**: Role-based access control for regatta data\n- **Real-time**: Webhook and MQTT support for live updates\n\n## Data Format\nDocuments are stored as EMF (Eclipse Modeling Framework) models in XMI or binary format,\nconforming to the Timing Data Interchange schema for rowing regattas.\n\n## Authentication\nMost endpoints require JWT bearer token authentication. Include the token in the Authorization header:\n```\nAuthorization: Bearer <your-jwt-token>\n```\n",
+		"contact": {
+			"name": "Race Results Repository Team",
+			"url": "https://github.com/rowtown/race-results-repository",
+			"email": "support@rowtown.org"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "https://www.apache.org/licenses/LICENSE-2.0"
+		},
+		"version": "1.0.0"
+	},
+	"externalDocs": {
+		"description": "Timing Data Interchange Schema Documentation",
+		"url": "https://github.com/rowtown/timing-data-interchange"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8080",
+			"description": "Local development server"
+		},
+		{
+			"url": "https://api.rowtown.org",
+			"description": "Production server"
+		}
+	],
+	"security": [
+		{
+			"bearerAuth": []
+		}
+	],
+	"tags": [
+		{
+			"name": "Versions",
+			"description": "Version control API"
+		},
+		{
+			"name": "Notifications",
+			"description": "Notification subscription API"
+		},
+		{
+			"name": "Documents",
+			"description": "Document management API"
+		},
+		{
+			"name": "Search",
+			"description": "Document search API"
+		},
+		{
+			"name": "Backups",
+			"description": "Backup and restore API"
+		}
+	],
+	"paths": {
+		"/api/v1/documents/{id}": {
+			"get": {
+				"tags": [
+					"Documents"
+				],
+				"summary": "Get document by ID",
+				"description": "Retrieves the latest version of a document including all metadata and the EMF model data",
+				"operationId": "getDocument",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Document ID",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"example": 12345
+					}
+				],
+				"responses": {
+					"403": {
+						"description": "Forbidden - insufficient permissions to access this document",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentResponse"
+								}
+							}
+						}
+					},
+					"200": {
+						"description": "Document retrieved successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Document not found",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentResponse"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"Documents"
+				],
+				"summary": "Update document",
+				"description": "Updates a document by creating a new version. All previous versions are preserved for full history tracking.",
+				"operationId": "updateDocument",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Document ID",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"example": 12345
+					},
+					{
+						"name": "changeDescription",
+						"in": "query",
+						"description": "Description of changes in this version",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"default": "Updated document"
+						},
+						"example": "Updated race times after timing correction"
+					},
+					{
+						"name": "format",
+						"in": "query",
+						"description": "Serialization format of the model data",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"default": "XMI",
+							"enum": [
+								"XMI",
+								"JSON"
+							]
+						},
+						"example": "XMI"
+					}
+				],
+				"requestBody": {
+					"description": "Binary EMF model data",
+					"content": {
+						"application/octet-stream": {},
+						"application/json": {
+							"schema": {
+								"type": "array",
+								"items": {
+									"type": "string",
+									"format": "byte"
+								}
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"403": {
+						"description": "Forbidden - insufficient permissions to update this document",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentResponse"
+								}
+							}
+						}
+					},
+					"200": {
+						"description": "Document updated successfully, new version created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid request - malformed model data or invalid format",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Document not found",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentResponse"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"Documents"
+				],
+				"summary": "Delete document",
+				"description": "Permanently deletes a document and all its versions. This operation cannot be undone.",
+				"operationId": "deleteDocument",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Document ID",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"example": 12345
+					}
+				],
+				"responses": {
+					"403": {
+						"description": "Forbidden - insufficient permissions to delete this document"
+					},
+					"404": {
+						"description": "Document not found"
+					},
+					"204": {
+						"description": "Document deleted successfully"
+					}
+				}
+			}
+		},
+		"/api/v1/webhooks/subscribe": {
+			"post": {
+				"tags": [
+					"Notifications"
+				],
+				"summary": "Subscribe to webhook",
+				"description": "Register a webhook for document change notifications",
+				"operationId": "subscribeWebhook",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/WebhookSubscriptionRequest"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/WebhookSubscriptionInfo"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/documents": {
+			"post": {
+				"tags": [
+					"Documents"
+				],
+				"summary": "Create a new race timing document",
+				"description": "Creates a new document with version 1. The document is stored with full version history and can include race results, start lists, or other timing data in EMF format.",
+				"operationId": "createDocument",
+				"requestBody": {
+					"description": "Document creation request",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DocumentRequest"
+							},
+							"examples": {
+								"Race Results": {
+									"description": "Race Results",
+									"value": {
+										"type": "RACE_RESULTS",
+										"regattaId": "REG2025-SPRING",
+										"timerId": "TIMER-001",
+										"milestoneId": "HEAT-1",
+										"versionType": "OFFICIAL",
+										"author": "john.doe@rowing.org",
+										"description": "Final race results for Heat 1",
+										"tags": [
+											"finals",
+											"mens-8"
+										],
+										"metadata": {
+											"weather": "sunny",
+											"wind": "5mph"
+										}
+									}
+								}
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"409": {
+						"description": "Conflict - document with same identifier already exists",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid request - missing required fields or invalid data format",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentResponse"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden - insufficient permissions for this regatta or document type",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentResponse"
+								}
+							}
+						}
+					},
+					"201": {
+						"description": "Document created successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/documents/{documentId}/versions/rollback": {
+			"post": {
+				"tags": [
+					"Versions"
+				],
+				"summary": "Rollback document to previous version",
+				"description": "Creates a new version that restores the content from a previous version. The rollback itself becomes a new version in the history.",
+				"operationId": "rollback",
+				"parameters": [
+					{
+						"name": "documentId",
+						"in": "path",
+						"description": "Document ID",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"example": 12345
+					},
+					{
+						"name": "targetVersion",
+						"in": "query",
+						"description": "Version number to rollback to",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"example": 3
+					},
+					{
+						"name": "description",
+						"in": "query",
+						"description": "Description for the rollback operation",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "Reverting to pre-correction state"
+					}
+				],
+				"responses": {
+					"403": {
+						"description": "Forbidden - insufficient permissions to rollback this document",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/VersionInfo"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Document or target version not found",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/VersionInfo"
+								}
+							}
+						}
+					},
+					"200": {
+						"description": "Rollback successful, new version created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VersionInfo"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/documents/search": {
+			"get": {
+				"tags": [
+					"Search"
+				],
+				"summary": "Search documents",
+				"description": "Search for documents using query parameters. Supports exact, partial, and wildcard matching.",
+				"operationId": "search",
+				"parameters": [
+					{
+						"name": "documentId",
+						"in": "query",
+						"description": "Document ID to search for",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": 12345
+					},
+					{
+						"name": "regattaId",
+						"in": "query",
+						"description": "Filter by regatta ID",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "REG2025-SPRING"
+					},
+					{
+						"name": "regattaName",
+						"in": "query",
+						"description": "Search by regatta name",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "Spring Regatta"
+					},
+					{
+						"name": "type",
+						"in": "query",
+						"description": "Filter by document type",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"START_LIST",
+								"RACE_RESULTS"
+							]
+						},
+						"example": "RACE_RESULTS"
+					},
+					{
+						"name": "timerId",
+						"in": "query",
+						"description": "Filter by timer device ID",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "TIMER-001"
+					},
+					{
+						"name": "author",
+						"in": "query",
+						"description": "Filter by author",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "john.doe@rowing.org"
+					},
+					{
+						"name": "description",
+						"in": "query",
+						"description": "Search in document descriptions",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "heat 1"
+					},
+					{
+						"name": "tags",
+						"in": "query",
+						"description": "Filter by tags (comma-separated)",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "finals,mens-8"
+					},
+					{
+						"name": "metadataKey",
+						"in": "query",
+						"description": "Search for specific metadata key",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "metadataValue",
+						"in": "query",
+						"description": "Search for specific metadata value",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Page number (0-indexed)",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"format": "int32",
+							"default": 0
+						},
+						"example": 0
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "Page size",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"format": "int32",
+							"default": 10
+						},
+						"example": 10
+					},
+					{
+						"name": "matchType",
+						"in": "query",
+						"description": "Match type: EXACT, PARTIAL, or WILDCARD",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"description": "Match type for search queries",
+							"default": "EXACT",
+							"enum": [
+								"EXACT",
+								"PARTIAL",
+								"WILDCARD"
+							]
+						},
+						"example": "PARTIAL"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Search completed successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SearchResults"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid search parameters",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/SearchResults"
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"Search"
+				],
+				"summary": "Advanced search",
+				"description": "Perform complex searches using a JSON query body. Useful for searches with multiple tags, metadata filters, or complex criteria.",
+				"operationId": "advancedSearch",
+				"requestBody": {
+					"description": "Advanced search query",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SearchQuery"
+							},
+							"examples": {
+								"Search for finals races": {
+									"description": "Search for finals races",
+									"value": {
+										"regattaId": "REG2025-SPRING",
+										"documentType": "RACE_RESULTS",
+										"tags": [
+											"finals",
+											"mens-8"
+										],
+										"matchType": "PARTIAL",
+										"page": 0,
+										"size": 20
+									}
+								}
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"400": {
+						"description": "Invalid search query",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/SearchResults"
+								}
+							}
+						}
+					},
+					"200": {
+						"description": "Search completed successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SearchResults"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/backups/{backupId}/restore/selective": {
+			"post": {
+				"tags": [
+					"Backups"
+				],
+				"summary": "Restore selective documents",
+				"description": "Restores specific documents from a backup",
+				"operationId": "restoreSelective",
+				"parameters": [
+					{
+						"name": "backupId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "array",
+								"items": {
+									"type": "integer",
+									"format": "int64"
+								}
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/api/v1/backups/{backupId}/restore/full": {
+			"post": {
+				"tags": [
+					"Backups"
+				],
+				"summary": "Restore full backup",
+				"description": "Restores repository from a backup (replaces all data)",
+				"operationId": "restoreFull",
+				"parameters": [
+					{
+						"name": "backupId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/api/v1/backups/restore/point-in-time": {
+			"post": {
+				"tags": [
+					"Backups"
+				],
+				"summary": "Point-in-time restore",
+				"description": "Restores repository to a specific point in time",
+				"operationId": "restorePointInTime",
+				"parameters": [
+					{
+						"name": "targetTime",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/api/v1/backups/incremental": {
+			"post": {
+				"tags": [
+					"Backups"
+				],
+				"summary": "Create incremental backup",
+				"description": "Creates an incremental backup",
+				"operationId": "createIncrementalBackup",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/BackupManifest"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/backups/full": {
+			"post": {
+				"tags": [
+					"Backups"
+				],
+				"summary": "Create full backup",
+				"description": "Creates a full backup of the repository",
+				"operationId": "createFullBackup",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/BackupManifest"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/webhooks": {
+			"get": {
+				"tags": [
+					"Notifications"
+				],
+				"summary": "List webhooks",
+				"description": "List all webhook subscriptions",
+				"operationId": "listWebhooks",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/WebhookSubscriptionInfo"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/mqtt/info": {
+			"get": {
+				"tags": [
+					"Notifications"
+				],
+				"summary": "Get MQTT info",
+				"description": "Get MQTT broker connection information",
+				"operationId": "getMqttInfo",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/MqttConnectionInfo"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/documents/{documentId}/versions": {
+			"get": {
+				"tags": [
+					"Versions"
+				],
+				"summary": "List all versions of a document",
+				"description": "Returns paginated list of all versions for a document, ordered by version number (newest first)",
+				"operationId": "listVersions",
+				"parameters": [
+					{
+						"name": "documentId",
+						"in": "path",
+						"description": "Document ID",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"example": 12345
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Page number (0-indexed)",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"format": "int32",
+							"default": 0
+						},
+						"example": 0
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "Page size",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"format": "int32",
+							"default": 10
+						},
+						"example": 10
+					}
+				],
+				"responses": {
+					"404": {
+						"description": "Document not found",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageVersionInfo"
+								}
+							}
+						}
+					},
+					"200": {
+						"description": "Versions retrieved successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Page"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/documents/{documentId}/versions/{version}": {
+			"get": {
+				"tags": [
+					"Versions"
+				],
+				"summary": "Get specific version",
+				"description": "Retrieves detailed information about a specific version of a document (metadata only, no model data)",
+				"operationId": "getVersion",
+				"parameters": [
+					{
+						"name": "documentId",
+						"in": "path",
+						"description": "Document ID",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"example": 12345
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "Version number",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"example": 3
+					}
+				],
+				"responses": {
+					"404": {
+						"description": "Document or version not found",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/VersionInfo"
+								}
+							}
+						}
+					},
+					"200": {
+						"description": "Version retrieved successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VersionInfo"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/documents/{documentId}/versions/{v1}/compare/{v2}": {
+			"get": {
+				"tags": [
+					"Versions"
+				],
+				"summary": "Compare two versions",
+				"description": "Compares two versions of a document and returns a detailed diff showing all changes between them using EMF Compare",
+				"operationId": "compareVersions",
+				"parameters": [
+					{
+						"name": "documentId",
+						"in": "path",
+						"description": "Document ID",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"example": 12345
+					},
+					{
+						"name": "v1",
+						"in": "path",
+						"description": "First version number",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"example": 3
+					},
+					{
+						"name": "v2",
+						"in": "path",
+						"description": "Second version number",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"example": 5
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Comparison completed successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ModelDiff"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Versions cannot be compared (format mismatch or corrupt data)",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ModelDiff"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Document or one of the versions not found",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ModelDiff"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/backups": {
+			"get": {
+				"tags": [
+					"Backups"
+				],
+				"summary": "List backups",
+				"description": "Lists all available backups",
+				"operationId": "listBackups",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/BackupManifest"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/webhooks/{id}": {
+			"delete": {
+				"tags": [
+					"Notifications"
+				],
+				"summary": "Unsubscribe webhook",
+				"description": "Remove a webhook subscription",
+				"operationId": "unsubscribeWebhook",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/api/v1/backups/{backupId}": {
+			"delete": {
+				"tags": [
+					"Backups"
+				],
+				"summary": "Delete backup",
+				"description": "Deletes a specific backup",
+				"operationId": "deleteBackup",
+				"parameters": [
+					{
+						"name": "backupId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"DocumentResponse": {
+				"type": "object",
+				"properties": {
+					"documentId": {
+						"type": "integer",
+						"description": "Unique document identifier",
+						"format": "int64",
+						"example": 12345
+					},
+					"type": {
+						"type": "string",
+						"description": "Type of document",
+						"example": "RACE_RESULTS",
+						"enum": [
+							"START_LIST",
+							"RACE_RESULTS"
+						]
+					},
+					"regattaId": {
+						"type": "string",
+						"description": "Regatta identifier",
+						"example": "REG2025-SPRING"
+					},
+					"timerId": {
+						"type": "string",
+						"description": "Timer device identifier",
+						"example": "TIMER-001"
+					},
+					"milestoneId": {
+						"type": "string",
+						"description": "Milestone identifier",
+						"example": "HEAT-1"
+					},
+					"versionType": {
+						"type": "string",
+						"description": "Version type",
+						"example": "OFFICIAL"
+					},
+					"author": {
+						"type": "string",
+						"description": "Document author",
+						"example": "john.doe@rowing.org"
+					},
+					"createdAt": {
+						"type": "string",
+						"description": "Timestamp when document was created",
+						"format": "date-time"
+					},
+					"latestVersion": {
+						"type": "integer",
+						"description": "Latest version number",
+						"format": "int64",
+						"example": 5
+					},
+					"description": {
+						"type": "string",
+						"description": "Document description",
+						"example": "Final race results for Heat 1"
+					},
+					"tags": {
+						"uniqueItems": true,
+						"type": "array",
+						"description": "Document tags",
+						"example": [
+							"finals",
+							"mens-8"
+						],
+						"items": {
+							"type": "string",
+							"description": "Document tags",
+							"example": "[\"finals\",\"mens-8\"]"
+						}
+					},
+					"metadata": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "string",
+							"description": "Custom metadata"
+						},
+						"description": "Custom metadata"
+					},
+					"modelData": {
+						"type": "string",
+						"description": "Binary EMF model data",
+						"format": "binary"
+					}
+				},
+				"description": "Complete document information with version control metadata"
+			},
+			"WebhookSubscriptionRequest": {
+				"type": "object",
+				"properties": {
+					"documentId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"regattaId": {
+						"type": "string"
+					},
+					"webhookUrl": {
+						"type": "string"
+					},
+					"secretKey": {
+						"type": "string"
+					},
+					"events": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"WebhookSubscriptionInfo": {
+				"type": "object",
+				"properties": {
+					"subscriptionId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"documentId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"regattaId": {
+						"type": "string"
+					},
+					"webhookUrl": {
+						"type": "string"
+					},
+					"events": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"active": {
+						"type": "boolean"
+					},
+					"failedDeliveries": {
+						"type": "integer",
+						"format": "int32"
+					}
+				}
+			},
+			"DocumentRequest": {
+				"required": [
+					"author",
+					"regattaId",
+					"type"
+				],
+				"type": "object",
+				"properties": {
+					"type": {
+						"type": "string",
+						"description": "Type of document",
+						"example": "RACE_RESULTS",
+						"enum": [
+							"START_LIST",
+							"RACE_RESULTS"
+						]
+					},
+					"regattaId": {
+						"type": "string",
+						"description": "Unique identifier for the regatta",
+						"example": "REG2025-SPRING"
+					},
+					"timerId": {
+						"type": "string",
+						"description": "Identifier for the timing device that created this document",
+						"example": "TIMER-001"
+					},
+					"milestoneId": {
+						"type": "string",
+						"description": "Milestone identifier (e.g., heat number, race number)",
+						"example": "HEAT-1"
+					},
+					"versionType": {
+						"type": "string",
+						"description": "Version type or category",
+						"example": "OFFICIAL"
+					},
+					"author": {
+						"type": "string",
+						"description": "Author or creator of the document",
+						"example": "john.doe@rowing.org"
+					},
+					"description": {
+						"type": "string",
+						"description": "Human-readable description of the document",
+						"example": "Final race results for Heat 1"
+					},
+					"tags": {
+						"uniqueItems": true,
+						"type": "array",
+						"description": "Set of tags for categorization",
+						"example": [
+							"finals",
+							"mens-8"
+						],
+						"items": {
+							"type": "string",
+							"description": "Set of tags for categorization",
+							"example": "[\"finals\",\"mens-8\"]"
+						}
+					},
+					"metadata": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "string",
+							"description": "Custom metadata as key-value pairs"
+						},
+						"description": "Custom metadata as key-value pairs"
+					},
+					"modelData": {
+						"type": "string",
+						"description": "Binary EMF model data (XMI or binary format)",
+						"format": "binary"
+					}
+				},
+				"description": "Request payload for creating a new race timing document"
+			},
+			"VersionInfo": {
+				"type": "object",
+				"properties": {
+					"versionId": {
+						"type": "integer",
+						"description": "Unique version identifier",
+						"format": "int64",
+						"example": 67890
+					},
+					"documentId": {
+						"type": "integer",
+						"description": "Document this version belongs to",
+						"format": "int64",
+						"example": 12345
+					},
+					"versionNumber": {
+						"type": "integer",
+						"description": "Version number (sequential)",
+						"format": "int64",
+						"example": 5
+					},
+					"timestamp": {
+						"type": "string",
+						"description": "When this version was created",
+						"format": "date-time"
+					},
+					"author": {
+						"type": "string",
+						"description": "Who created this version",
+						"example": "john.doe@rowing.org"
+					},
+					"changeDescription": {
+						"type": "string",
+						"description": "Description of changes in this version",
+						"example": "Updated race times after timing correction"
+					},
+					"checksum": {
+						"type": "string",
+						"description": "SHA-256 checksum of model data",
+						"example": "a3b5c7d9e1f2a4b6c8d0e2f4a6b8c0d2e4f6a8b0c2d4e6f8a0b2c4d6e8f0a2b4"
+					},
+					"size": {
+						"type": "integer",
+						"description": "Size of model data in bytes",
+						"format": "int64",
+						"example": 2048
+					}
+				},
+				"description": "Version metadata without the full document data"
+			},
+			"SearchQuery": {
+				"type": "object",
+				"properties": {
+					"documentId": {
+						"type": "string",
+						"description": "Document ID to search for",
+						"example": "12345"
+					},
+					"regattaId": {
+						"type": "string",
+						"description": "Regatta ID to filter by",
+						"example": "REG2025-SPRING"
+					},
+					"regattaName": {
+						"type": "string",
+						"description": "Regatta name to search for",
+						"example": "Spring Regatta 2025"
+					},
+					"documentType": {
+						"type": "string",
+						"description": "Type of document to filter by",
+						"example": "RACE_RESULTS",
+						"enum": [
+							"START_LIST",
+							"RACE_RESULTS"
+						]
+					},
+					"timerId": {
+						"type": "string",
+						"description": "Timer device ID to filter by",
+						"example": "TIMER-001"
+					},
+					"author": {
+						"type": "string",
+						"description": "Author to filter by",
+						"example": "john.doe@rowing.org"
+					},
+					"description": {
+						"type": "string",
+						"description": "Search in document descriptions",
+						"example": "heat 1"
+					},
+					"tags": {
+						"uniqueItems": true,
+						"type": "array",
+						"description": "Tags to filter by",
+						"example": [
+							"finals",
+							"mens-8"
+						],
+						"items": {
+							"type": "string",
+							"description": "Tags to filter by",
+							"example": "[\"finals\",\"mens-8\"]"
+						}
+					},
+					"metadataKey": {
+						"type": "string",
+						"description": "Metadata key to search for"
+					},
+					"metadataValue": {
+						"type": "string",
+						"description": "Metadata value to search for"
+					},
+					"page": {
+						"type": "integer",
+						"description": "Page number (0-indexed)",
+						"format": "int32",
+						"example": 0,
+						"default": 0
+					},
+					"size": {
+						"type": "integer",
+						"description": "Number of results per page",
+						"format": "int32",
+						"example": 10,
+						"default": 10
+					},
+					"matchType": {
+						"type": "string",
+						"description": "Match type for search queries",
+						"example": "PARTIAL",
+						"default": "EXACT",
+						"enum": [
+							"EXACT",
+							"PARTIAL",
+							"WILDCARD"
+						]
+					}
+				},
+				"description": "Search query parameters for finding documents"
+			},
+			"DocumentSummary": {
+				"type": "object",
+				"properties": {
+					"documentId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"START_LIST",
+							"RACE_RESULTS"
+						]
+					},
+					"regattaId": {
+						"type": "string"
+					},
+					"timerId": {
+						"type": "string"
+					},
+					"latestVersion": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"author": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"tags": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"metadata": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "string"
+						}
+					}
+				},
+				"description": "List of matching documents"
+			},
+			"SearchResults": {
+				"type": "object",
+				"properties": {
+					"total": {
+						"type": "integer",
+						"description": "Total number of matching documents",
+						"format": "int64",
+						"example": 42
+					},
+					"page": {
+						"type": "integer",
+						"description": "Current page number (0-indexed)",
+						"format": "int32",
+						"example": 0
+					},
+					"pageSize": {
+						"type": "integer",
+						"description": "Number of results per page",
+						"format": "int32",
+						"example": 10
+					},
+					"results": {
+						"type": "array",
+						"description": "List of matching documents",
+						"items": {
+							"$ref": "#/components/schemas/DocumentSummary"
+						}
+					}
+				},
+				"description": "Paginated search results"
+			},
+			"BackupManifest": {
+				"type": "object",
+				"properties": {
+					"backupId": {
+						"type": "string"
+					},
+					"backupType": {
+						"type": "string",
+						"enum": [
+							"FULL",
+							"INCREMENTAL"
+						]
+					},
+					"timestamp": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"documentCount": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"versionCount": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"totalSize": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"lastBackupId": {
+						"type": "string"
+					},
+					"startTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"IN_PROGRESS",
+							"COMPLETED",
+							"FAILED"
+						]
+					}
+				}
+			},
+			"MqttConnectionInfo": {
+				"type": "object",
+				"properties": {
+					"brokerUrl": {
+						"type": "string"
+					},
+					"topicPrefix": {
+						"type": "string"
+					},
+					"startListTopicPattern": {
+						"type": "string"
+					},
+					"raceResultsTopicPattern": {
+						"type": "string"
+					}
+				}
+			},
+			"Page": {
+				"type": "object",
+				"properties": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"type": "object"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/SortObject"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"PageableObject": {
+				"type": "object",
+				"properties": {
+					"offset": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/SortObject"
+					},
+					"paged": {
+						"type": "boolean"
+					},
+					"unpaged": {
+						"type": "boolean"
+					},
+					"pageSize": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"pageNumber": {
+						"type": "integer",
+						"format": "int32"
+					}
+				}
+			},
+			"SortObject": {
+				"type": "object",
+				"properties": {
+					"empty": {
+						"type": "boolean"
+					},
+					"unsorted": {
+						"type": "boolean"
+					},
+					"sorted": {
+						"type": "boolean"
+					}
+				}
+			},
+			"PageVersionInfo": {
+				"type": "object",
+				"properties": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/VersionInfo"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/SortObject"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"ModelDiff": {
+				"type": "object",
+				"properties": {
+					"totalChanges": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"changes": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"securitySchemes": {
+			"bearerAuth": {
+				"type": "http",
+				"description": "JWT token for authenticating API requests. Tokens should be obtained from the authentication service and include necessary permissions for the regatta and document type being accessed.",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
+	}
+}

@@ -1,0 +1,1132 @@
+<?xml version="1.0" encoding="ASCII"?>
+<tdi:TimingRegatta xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:tdi="http://www.rowtown.org/TDI/1.0.0" regattaId="Stotesbury Cup Regatta" day="17" month="5" year="2024" shortName="Stotesbury Cup Regatta">
+  <timingStation raceCourseId="1500 Meter Head Course" milestoneId="Start Line"/>
+  <timingStation raceCourseId="1500 Meter Head Course" milestoneId="Start Line" versionId="First Backup"/>
+  <timingStation raceCourseId="1500 Meter Head Course" milestoneId="Start Line" versionId="Second Backup"/>
+  <timingStation raceCourseId="1500 Meter Head Course" milestoneId="Finish Line" position="finish" progressDistance="1500.0"/>
+  <timingStation raceCourseId="1500 Meter Head Course" milestoneId="Finish Line" versionId="First Backup" position="finish" progressDistance="1500.0"/>
+  <timingStation raceCourseId="1500 Meter Head Course" milestoneId="Finish Line" versionId="Second Backup" position="finish" progressDistance="1500.0"/>
+  <timingStation raceCourseId="1500 Meter Head Course" milestoneId="500m" position="midcourse" progressDistance="500.0"/>
+  <timingStation raceCourseId="1500 Meter Head Course" milestoneId="1000m" position="midcourse" progressDistance="1000.0"/>
+  <timingRace eventId="1" stageId="time-trial" raceId="1a" name="1a Girls Junior Double  Time Trial" raceNumber="1a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="double" scheduledDate="2024-05-17" scheduledTime="08:00">
+    <timingRacingCrew bowOrLaneNumber="1" name="Denis Morris  (K. McKimm)" statusId="eligible" strokeName="K. McKimm"/>
+    <timingRacingCrew bowOrLaneNumber="2" name="Hockaday  (A. Cuban)" statusId="eligible" strokeName="A. Cuban"/>
+    <timingRacingCrew bowOrLaneNumber="3" name="St. Michael  (K. Egorova)" statusId="eligible" strokeName="K. Egorova"/>
+    <timingRacingCrew bowOrLaneNumber="4" name="Eden  (I. Essig)" statusId="eligible" strokeName="I. Essig"/>
+    <timingRacingCrew bowOrLaneNumber="5" name="Germantown Friends  (E. Cropf)" statusId="eligible" strokeName="E. Cropf"/>
+    <timingRacingCrew bowOrLaneNumber="6" name="St. Paul  (D. Sexton)" statusId="eligible" strokeName="D. Sexton"/>
+    <timingRacingCrew bowOrLaneNumber="7" name="Penn Charter  (Z. Page)" statusId="eligible" strokeName="Z. Page"/>
+    <timingRacingCrew bowOrLaneNumber="8" name="Friends Select  (R. Pastor)" statusId="eligible" strokeName="R. Pastor"/>
+    <timingRacingCrew bowOrLaneNumber="9" name="Western Albermarle  (C. Pelton)" statusId="eligible" strokeName="C. Pelton"/>
+    <timingRacingCrew bowOrLaneNumber="10" name="Montclair  (I. Meyer)" statusId="eligible" strokeName="I. Meyer"/>
+    <timingRacingCrew bowOrLaneNumber="11" name="Conestoga  (A. Vassos)" statusId="eligible" strokeName="A. Vassos"/>
+    <timingRacingCrew bowOrLaneNumber="12" name="Ridgewood  (J. Smith)" statusId="eligible" strokeName="J. Smith"/>
+    <timingRacingCrew bowOrLaneNumber="13" name="Great Valley  (S. Holt)" statusId="eligible" strokeName="S. Holt"/>
+    <timingRacingCrew bowOrLaneNumber="14" name="Shipley  (H. Graham)" statusId="eligible" strokeName="H. Graham"/>
+    <timingRacingCrew bowOrLaneNumber="15" name="Sacred Heart  (C. Nickerson)" statusId="eligible" strokeName="C. Nickerson"/>
+    <timingRacingCrew bowOrLaneNumber="16" name="Germantown Academy  (C. Baughman)" statusId="eligible" strokeName="C. Baughman"/>
+    <timingRacingCrew bowOrLaneNumber="17" name="Concord  (G. Wyrick)" statusId="eligible" strokeName="G. Wyrick"/>
+    <timingRacingCrew bowOrLaneNumber="18" name="Doane  (L. Seche)" statusId="eligible" strokeName="L. Seche"/>
+    <timingRacingCrew bowOrLaneNumber="19" name="Rock Ridge  (A. Gay)" statusId="eligible" strokeName="A. Gay"/>
+    <timingRacingCrew bowOrLaneNumber="20" name="Baldwin  (G. Macziewski)" statusId="eligible" strokeName="G. Macziewski"/>
+    <timingRacingCrew bowOrLaneNumber="21" name="Rumson-Fair Haven  (E. Patten)" statusId="eligible" strokeName="E. Patten"/>
+    <timingRacingCrew bowOrLaneNumber="22" name="Bishop Ireton  (F. Sullivan)" statusId="eligible" strokeName="F. Sullivan"/>
+    <timingRacingCrew bowOrLaneNumber="23" name="Holy Spirit  (J. Finnerty)" statusId="eligible" strokeName="J. Finnerty"/>
+    <timingRacingCrew bowOrLaneNumber="24" name="University  (A. Swain)" statusId="eligible" strokeName="A. Swain"/>
+    <timingRacingCrew bowOrLaneNumber="25" name="West Springfield  (R. Ritenour)" statusId="eligible" strokeName="R. Ritenour"/>
+    <timingRacingCrew bowOrLaneNumber="26" name="Augustine Classical  (E. Gorss)" statusId="eligible" strokeName="E. Gorss"/>
+    <timingRacingCrew bowOrLaneNumber="27" name="Agnes Irwin  (K. Hubschmidt)" statusId="eligible" strokeName="K. Hubschmidt"/>
+    <timingRacingCrew bowOrLaneNumber="28" name="Owen J Roberts  (T. Kawar)" statusId="eligible" strokeName="T. Kawar"/>
+    <timingRacingCrew bowOrLaneNumber="29" name="St. Benedict's  (R. Rajasegar)" statusId="eligible" strokeName="R. Rajasegar"/>
+    <timingRacingCrew bowOrLaneNumber="30" name="Georgetown  (M. Genia)" statusId="eligible" strokeName="M. Genia"/>
+    <timingRacingCrew bowOrLaneNumber="31" name="Upper Merion  (E. Meade)" statusId="eligible" strokeName="E. Meade"/>
+    <timingRacingCrew bowOrLaneNumber="32" name="Ridley  (S. Swick)" statusId="eligible" strokeName="S. Swick"/>
+    <timingRacingCrew bowOrLaneNumber="33" name="North Allegheny  (N. Helffrich)" statusId="eligible" strokeName="N. Helffrich"/>
+    <timingRacingCrew bowOrLaneNumber="34" name="Eustace  (F. Lorimor)" statusId="eligible" strokeName="F. Lorimor"/>
+    <timingRacingCrew bowOrLaneNumber="35" name="Nutley  (B. DiMatteo)" statusId="eligible" strokeName="B. DiMatteo"/>
+    <timingRacingCrew bowOrLaneNumber="36" name="Shaker  (E. Atif)" statusId="eligible" strokeName="E. Atif"/>
+    <timingRacingCrew bowOrLaneNumber="37" name="Haddon  (E. Crane)" statusId="eligible" strokeName="E. Crane"/>
+    <timingRacingCrew bowOrLaneNumber="38" name="Manhasset  (A. Frangiskatos)" statusId="eligible" strokeName="A. Frangiskatos"/>
+    <timingRacingCrew bowOrLaneNumber="39" name="Scarsdale  (P. Garcia)" statusId="eligible" strokeName="P. Garcia"/>
+    <timingRacingCrew bowOrLaneNumber="40" name="Springside Chestnut Hill  (L. Goloveyko)" statusId="eligible" strokeName="L. Goloveyko"/>
+    <timingRacingCrew bowOrLaneNumber="41" name="Hill School  (S. Wu)" statusId="scratched" strokeName="S. Wu"/>
+  </timingRace>
+  <timingRace eventId="2" stageId="time-trial" raceId="2a" name="2a Boys Freshman Eight  Time Trial" raceNumber="2a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="eight" scheduledDate="2024-05-17" scheduledTime="08:18">
+    <timingRacingCrew bowOrLaneNumber="44" name="St. Joseph's Prep  (J. DeLaurentiis)" statusId="eligible" strokeName="J. DeLaurentiis"/>
+    <timingRacingCrew bowOrLaneNumber="45" name="Jackson-Reed  (T. Walker)" statusId="eligible" strokeName="T. Walker"/>
+    <timingRacingCrew bowOrLaneNumber="46" name="Gonzaga  (B. Jarkowski)" statusId="eligible" strokeName="B. Jarkowski"/>
+    <timingRacingCrew bowOrLaneNumber="47" name="Montclair  (B. Read)" statusId="eligible" strokeName="B. Read"/>
+    <timingRacingCrew bowOrLaneNumber="48" name="Walt Whitman  (A. Saez)" statusId="eligible" strokeName="A. Saez"/>
+    <timingRacingCrew bowOrLaneNumber="49" name="Yorktown  (J. McTavish)" statusId="eligible" strokeName="J. McTavish"/>
+    <timingRacingCrew bowOrLaneNumber="50" name="St. Peter's  (R. Finnegan)" statusId="eligible" strokeName="R. Finnegan"/>
+    <timingRacingCrew bowOrLaneNumber="51" name="La Salle  (V. Jutkofsky)" statusId="eligible" strokeName="V. Jutkofsky"/>
+    <timingRacingCrew bowOrLaneNumber="52" name="Langley  (A. Alexander)" statusId="eligible" strokeName="A. Alexander"/>
+    <timingRacingCrew bowOrLaneNumber="53" name="Seton Hall  (G. Macdonald)" statusId="eligible" strokeName="G. Macdonald"/>
+    <timingRacingCrew bowOrLaneNumber="54" name="Christian Brothers  (h. Kreitz)" statusId="eligible" strokeName="h. Kreitz"/>
+    <timingRacingCrew bowOrLaneNumber="55" name="Lawrenceville  (N. Mondello)" statusId="eligible" strokeName="N. Mondello"/>
+    <timingRacingCrew bowOrLaneNumber="56" name="St. Andrew's  (J. Kim)" statusId="eligible" strokeName="J. Kim"/>
+    <timingRacingCrew bowOrLaneNumber="57" name="St. Albans  (M. Metzroth)" statusId="eligible" strokeName="M. Metzroth"/>
+    <timingRacingCrew bowOrLaneNumber="58" name="Dallas Jesuit  (A. Roy)" statusId="eligible" strokeName="A. Roy"/>
+    <timingRacingCrew bowOrLaneNumber="59" name="Mainland  (P. Sherwood)" statusId="eligible" strokeName="P. Sherwood"/>
+    <timingRacingCrew bowOrLaneNumber="60" name="Ocean City  (L. Porter)" statusId="eligible" strokeName="L. Porter"/>
+    <timingRacingCrew bowOrLaneNumber="61" name="Chaminade  (Z. Winheim)" statusId="eligible" strokeName="Z. Winheim"/>
+    <timingRacingCrew bowOrLaneNumber="62" name="James Madison  (J. Nathan)" statusId="eligible" strokeName="J. Nathan"/>
+    <timingRacingCrew bowOrLaneNumber="63" name="Jefferson  (D. Hakimi)" statusId="eligible" strokeName="D. Hakimi"/>
+    <timingRacingCrew bowOrLaneNumber="64" name="West Springfield  (J. Deekens)" statusId="eligible" strokeName="J. Deekens"/>
+    <timingRacingCrew bowOrLaneNumber="65" name="Walter Johnson  (E. Kim)" statusId="eligible" strokeName="E. Kim"/>
+    <timingRacingCrew bowOrLaneNumber="66" name="St. Augustine  (J. Klotz)" statusId="eligible" strokeName="J. Klotz"/>
+    <timingRacingCrew bowOrLaneNumber="67" name="Wakefield  (A. Daschke)" statusId="eligible" strokeName="A. Daschke"/>
+    <timingRacingCrew bowOrLaneNumber="68" name="Haverford School  (W. Blejwas)" statusId="eligible" strokeName="W. Blejwas"/>
+    <timingRacingCrew bowOrLaneNumber="69" name="Egg Harbor  (L. Manning)" statusId="eligible" strokeName="L. Manning"/>
+    <timingRacingCrew bowOrLaneNumber="70" name="Unionville  (Z. Dziubczynski)" statusId="eligible" strokeName="Z. Dziubczynski"/>
+    <timingRacingCrew bowOrLaneNumber="71" name="W.T. Woodson  (H. Andrews)" statusId="eligible" strokeName="H. Andrews"/>
+    <timingRacingCrew bowOrLaneNumber="72" name="Harriton  (N. Machulenka)" statusId="eligible" strokeName="N. Machulenka"/>
+    <timingRacingCrew bowOrLaneNumber="73" name="Vineland  (A. Mainiero)" statusId="eligible" strokeName="A. Mainiero"/>
+    <timingRacingCrew bowOrLaneNumber="74" name="Philadelphia City  (S. Newman)" statusId="eligible" strokeName="S. Newman"/>
+    <timingRacingCrew bowOrLaneNumber="75" name="Oakton  (E. Wang)" statusId="eligible" strokeName="E. Wang"/>
+    <timingRacingCrew bowOrLaneNumber="76" name="Winter Park  (J. Nissan)" statusId="eligible" strokeName="J. Nissan"/>
+    <timingRacingCrew bowOrLaneNumber="77" name="Radnor  (D. Kim)" statusId="eligible" strokeName="D. Kim"/>
+    <timingRacingCrew bowOrLaneNumber="78" name="Robinson  (W. Lee)" statusId="eligible" strokeName="W. Lee"/>
+    <timingRacingCrew bowOrLaneNumber="79" name="South County  (B. Brady)" statusId="eligible" strokeName="B. Brady"/>
+    <timingRacingCrew bowOrLaneNumber="80" name="Rumson-Fair Haven  (M. Mann)" statusId="eligible" strokeName="M. Mann"/>
+  </timingRace>
+  <timingRace eventId="3" stageId="time-trial" raceId="3a" name="3a Boys Junior Double  Time Trial" raceNumber="3a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="double" scheduledDate="2024-05-17" scheduledTime="08:44">
+    <timingRacingCrew bowOrLaneNumber="83" name="Malvern  (B. Stoudt)" statusId="eligible" strokeName="B. Stoudt"/>
+    <timingRacingCrew bowOrLaneNumber="84" name="Penn Charter  (R. Lee)" statusId="eligible" strokeName="R. Lee"/>
+    <timingRacingCrew bowOrLaneNumber="85" name="Lower Merion  (W. Han)" statusId="eligible" strokeName="W. Han"/>
+    <timingRacingCrew bowOrLaneNumber="86" name="Western Albermarle  (T. Lambert)" statusId="eligible" strokeName="T. Lambert"/>
+    <timingRacingCrew bowOrLaneNumber="87" name="St. Joseph NJ  (J. Hoebich)" statusId="eligible" strokeName="J. Hoebich"/>
+    <timingRacingCrew bowOrLaneNumber="88" name="St. Benedict's  (C. Nixon)" statusId="eligible" strokeName="C. Nixon"/>
+    <timingRacingCrew bowOrLaneNumber="89" name="Mathews  (J. McDonald)" statusId="eligible" strokeName="J. McDonald"/>
+    <timingRacingCrew bowOrLaneNumber="90" name="Haverford School  (R. Hope)" statusId="eligible" strokeName="R. Hope"/>
+    <timingRacingCrew bowOrLaneNumber="91" name="Ridgewood  (U. Han)" statusId="eligible" strokeName="U. Han"/>
+    <timingRacingCrew bowOrLaneNumber="92" name="Conestoga  (S. Wang)" statusId="eligible" strokeName="S. Wang"/>
+    <timingRacingCrew bowOrLaneNumber="93" name="Holy Spirit  (L. Nguyen)" statusId="eligible" strokeName="L. Nguyen"/>
+    <timingRacingCrew bowOrLaneNumber="94" name="Friends Select  (F. Zuabi)" statusId="eligible" strokeName="F. Zuabi"/>
+    <timingRacingCrew bowOrLaneNumber="95" name="State College  (S. Sherwood)" statusId="eligible" strokeName="S. Sherwood"/>
+    <timingRacingCrew bowOrLaneNumber="96" name="Concord  (A. Czachorowski)" statusId="eligible" strokeName="A. Czachorowski"/>
+    <timingRacingCrew bowOrLaneNumber="97" name="Bergen Tech  (D. Mun)" statusId="scratched" strokeName="D. Mun"/>
+    <timingRacingCrew bowOrLaneNumber="98" name="Shipley  (T. Kelsall)" statusId="eligible" strokeName="T. Kelsall"/>
+    <timingRacingCrew bowOrLaneNumber="99" name="Haddon  (I. O'Connor)" statusId="eligible" strokeName="I. O'Connor"/>
+    <timingRacingCrew bowOrLaneNumber="100" name="Owen J Roberts  (L. Cheney)" statusId="eligible" strokeName="L. Cheney"/>
+    <timingRacingCrew bowOrLaneNumber="101" name="Bergen Catholic  (A. Gelineau)" statusId="eligible" strokeName="A. Gelineau"/>
+    <timingRacingCrew bowOrLaneNumber="102" name="Springside Chestnut Hill  (E. Quinn)" statusId="eligible" strokeName="E. Quinn"/>
+    <timingRacingCrew bowOrLaneNumber="103" name="Boys' Latin  (D. Legg)" statusId="eligible" strokeName="D. Legg"/>
+    <timingRacingCrew bowOrLaneNumber="104" name="Eustace  (A. Potts)" statusId="eligible" strokeName="A. Potts"/>
+    <timingRacingCrew bowOrLaneNumber="105" name="Roman Catholic  (L. Hack)" statusId="eligible" strokeName="L. Hack"/>
+    <timingRacingCrew bowOrLaneNumber="106" name="Niskayuna  (B. Bonilla)" statusId="eligible" strokeName="B. Bonilla"/>
+    <timingRacingCrew bowOrLaneNumber="107" name="Fordham  (A. Spruill)" statusId="eligible" strokeName="A. Spruill"/>
+    <timingRacingCrew bowOrLaneNumber="108" name="Whitefield  (A. Battin)" statusId="eligible" strokeName="A. Battin"/>
+    <timingRacingCrew bowOrLaneNumber="109" name="Rock Ridge  (B. Sing)" statusId="eligible" strokeName="B. Sing"/>
+    <timingRacingCrew bowOrLaneNumber="110" name="Dwight-Englewood  (A. Krishnatry)" statusId="eligible" strokeName="A. Krishnatry"/>
+    <timingRacingCrew bowOrLaneNumber="111" name="Ridley  (L. Winterbottom)" statusId="eligible" strokeName="L. Winterbottom"/>
+    <timingRacingCrew bowOrLaneNumber="112" name="Albemarle  (A. Ding)" statusId="eligible" strokeName="A. Ding"/>
+    <timingRacingCrew bowOrLaneNumber="113" name="Upper Merion  (J. Smull)" statusId="eligible" strokeName="J. Smull"/>
+    <timingRacingCrew bowOrLaneNumber="114" name="Justice  (S. Schneider)" statusId="eligible" strokeName="S. Schneider"/>
+    <timingRacingCrew bowOrLaneNumber="115" name="Atlantic City  (R. Nguyen)" statusId="eligible" strokeName="R. Nguyen"/>
+    <timingRacingCrew bowOrLaneNumber="116" name="North Allegheny  (F. Iovino)" statusId="eligible" strokeName="F. Iovino"/>
+    <timingRacingCrew bowOrLaneNumber="117" name="Nutley  (D. Searls)" statusId="eligible" strokeName="D. Searls"/>
+    <timingRacingCrew bowOrLaneNumber="118" name="Radnor" statusId="eligible" strokeName=""/>
+    <timingRacingCrew bowOrLaneNumber="119" name="Atlantic Tech  (D. Kane)" statusId="eligible" strokeName="D. Kane"/>
+    <timingRacingCrew bowOrLaneNumber="120" name="Shenendehowa  (D. Garrant)" statusId="eligible" strokeName="D. Garrant"/>
+    <timingRacingCrew bowOrLaneNumber="121" name="E.L. Crossley  (L. Riddle)" statusId="eligible" strokeName="L. Riddle"/>
+    <timingRacingCrew bowOrLaneNumber="122" name="Great Valley  (J. Phillips)" statusId="eligible" strokeName="J. Phillips"/>
+    <timingRacingCrew bowOrLaneNumber="123" name="DC International  (K. Hegwood)" statusId="eligible" strokeName="K. Hegwood"/>
+    <timingRacingCrew bowOrLaneNumber="124" name="Augustine Classical  (G. MacDowell)" statusId="eligible" strokeName="G. MacDowell"/>
+  </timingRace>
+  <timingRace eventId="4" stageId="time-trial" raceId="4a" name="4a Girls Freshman Eight  Time Trial" raceNumber="4a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="eight" scheduledDate="2024-05-17" scheduledTime="09:03">
+    <timingRacingCrew bowOrLaneNumber="127" name="Mount Saint Joseph  (K. Marsden)" statusId="eligible" strokeName="K. Marsden"/>
+    <timingRacingCrew bowOrLaneNumber="128" name="St. Andrew's  (C. Friedrich)" statusId="eligible" strokeName="C. Friedrich"/>
+    <timingRacingCrew bowOrLaneNumber="129" name="Bethesda Chevy Chase  (R. Newman)" statusId="eligible" strokeName="R. Newman"/>
+    <timingRacingCrew bowOrLaneNumber="130" name="National Cathedral  (A. Lashway)" statusId="eligible" strokeName="A. Lashway"/>
+    <timingRacingCrew bowOrLaneNumber="131" name="McLean  (A. Marquardt)" statusId="eligible" strokeName="A. Marquardt"/>
+    <timingRacingCrew bowOrLaneNumber="132" name="Montclair  (C. Cecere)" statusId="eligible" strokeName="C. Cecere"/>
+    <timingRacingCrew bowOrLaneNumber="133" name="Jackson-Reed  (J. Ritter)" statusId="eligible" strokeName="J. Ritter"/>
+    <timingRacingCrew bowOrLaneNumber="134" name="Yorktown  (L. Beller)" statusId="eligible" strokeName="L. Beller"/>
+    <timingRacingCrew bowOrLaneNumber="135" name="Mainland  (H. Milstead)" statusId="eligible" strokeName="H. Milstead"/>
+    <timingRacingCrew bowOrLaneNumber="136" name="Jefferson  (L. Ham)" statusId="eligible" strokeName="L. Ham"/>
+    <timingRacingCrew bowOrLaneNumber="137" name="Wakefield  (L. Kim)" statusId="eligible" strokeName="L. Kim"/>
+    <timingRacingCrew bowOrLaneNumber="138" name="Gwynedd Mercy  (A. Donahue)" statusId="eligible" strokeName="A. Donahue"/>
+    <timingRacingCrew bowOrLaneNumber="139" name="Washington-Liberty  (K. Lim)" statusId="eligible" strokeName="K. Lim"/>
+    <timingRacingCrew bowOrLaneNumber="140" name="Walter Johnson  (M. Hart)" statusId="eligible" strokeName="M. Hart"/>
+    <timingRacingCrew bowOrLaneNumber="141" name="Langley  (K. Rasser)" statusId="eligible" strokeName="K. Rasser"/>
+    <timingRacingCrew bowOrLaneNumber="142" name="Merion Mercy  (H. Boczkowski)" statusId="eligible" strokeName="H. Boczkowski"/>
+    <timingRacingCrew bowOrLaneNumber="143" name="Lower Merion  (T. Li)" statusId="eligible" strokeName="T. Li"/>
+    <timingRacingCrew bowOrLaneNumber="144" name="West Springfield  (C. Craghead)" statusId="eligible" strokeName="C. Craghead"/>
+    <timingRacingCrew bowOrLaneNumber="145" name="Germantown Visitation  (C. Moran)" statusId="eligible" strokeName="C. Moran"/>
+    <timingRacingCrew bowOrLaneNumber="146" name="Lawrenceville  (D. Develioglu)" statusId="eligible" strokeName="D. Develioglu"/>
+    <timingRacingCrew bowOrLaneNumber="147" name="Holton-Arms  (S. Aquino)" statusId="eligible" strokeName="S. Aquino"/>
+    <timingRacingCrew bowOrLaneNumber="148" name="Westminster  (S. Hart)" statusId="eligible" strokeName="S. Hart"/>
+    <timingRacingCrew bowOrLaneNumber="149" name="Bishop Ireton  (Y. Girma)" statusId="eligible" strokeName="Y. Girma"/>
+    <timingRacingCrew bowOrLaneNumber="150" name="Unionville  (A. Rodriguez)" statusId="eligible" strokeName="A. Rodriguez"/>
+    <timingRacingCrew bowOrLaneNumber="151" name="Hun School  (R. Sheth)" statusId="eligible" strokeName="R. Sheth"/>
+    <timingRacingCrew bowOrLaneNumber="152" name="Vineland  (L. Ayala)" statusId="eligible" strokeName="L. Ayala"/>
+    <timingRacingCrew bowOrLaneNumber="153" name="James Madison  (R. Paradise)" statusId="eligible" strokeName="R. Paradise"/>
+    <timingRacingCrew bowOrLaneNumber="154" name="Villa Joseph Marie  (V. Alliegro)" statusId="eligible" strokeName="V. Alliegro"/>
+    <timingRacingCrew bowOrLaneNumber="155" name="Sidwell Friends  (A. Weinberg)" statusId="eligible" strokeName="A. Weinberg"/>
+    <timingRacingCrew bowOrLaneNumber="156" name="Robinson  (L. Nagler)" statusId="eligible" strokeName="L. Nagler"/>
+    <timingRacingCrew bowOrLaneNumber="157" name="Egg Harbor  (Z. Luciano Gonzalez)" statusId="eligible" strokeName="Z. Luciano Gonzalez"/>
+    <timingRacingCrew bowOrLaneNumber="158" name="Radnor Girls  (R. Troncelliti)" statusId="eligible" strokeName="R. Troncelliti"/>
+    <timingRacingCrew bowOrLaneNumber="159" name="Notre Dame  (M. McDonald)" statusId="eligible" strokeName="M. McDonald"/>
+    <timingRacingCrew bowOrLaneNumber="160" name="Walt Whitman  (C. Cerione)" statusId="eligible" strokeName="C. Cerione"/>
+    <timingRacingCrew bowOrLaneNumber="161" name="Alexandria City  (G. Tappan)" statusId="eligible" strokeName="G. Tappan"/>
+  </timingRace>
+  <timingRace eventId="5" stageId="time-trial" raceId="5a" name="5a Girls Ltwt Double  Time Trial" raceNumber="5a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="double" scheduledDate="2024-05-17" scheduledTime="09:29">
+    <timingRacingCrew bowOrLaneNumber="164" name="Hockaday  (L. Sells)" statusId="eligible" strokeName="L. Sells"/>
+    <timingRacingCrew bowOrLaneNumber="165" name="Conestoga  (M. Przybylowski)" statusId="eligible" strokeName="M. Przybylowski"/>
+    <timingRacingCrew bowOrLaneNumber="166" name="Ridgewood  (A. Friedrich)" statusId="eligible" strokeName="A. Friedrich"/>
+    <timingRacingCrew bowOrLaneNumber="167" name="Friends Select  (r. brenner)" statusId="eligible" strokeName="r. brenner"/>
+    <timingRacingCrew bowOrLaneNumber="168" name="Sacred Heart  (l. rice)" statusId="eligible" strokeName="l. rice"/>
+    <timingRacingCrew bowOrLaneNumber="169" name="Belleville  (C. Nieves)" statusId="eligible" strokeName="C. Nieves"/>
+    <timingRacingCrew bowOrLaneNumber="170" name="Germantown Friends  (A. Williams)" statusId="eligible" strokeName="A. Williams"/>
+    <timingRacingCrew bowOrLaneNumber="171" name="Walter Johnson  (O. Fioravanti)" statusId="eligible" strokeName="O. Fioravanti"/>
+    <timingRacingCrew bowOrLaneNumber="172" name="Poughkeepsie  (Y. Bernabe)" statusId="eligible" strokeName="Y. Bernabe"/>
+    <timingRacingCrew bowOrLaneNumber="173" name="Upper Merion  (G. Gallagher)" statusId="eligible" strokeName="G. Gallagher"/>
+    <timingRacingCrew bowOrLaneNumber="174" name="DC International  (D. Valovic)" statusId="eligible" strokeName="D. Valovic"/>
+    <timingRacingCrew bowOrLaneNumber="175" name="Blessed Trinity  (J. Shkopiak)" statusId="eligible" strokeName="J. Shkopiak"/>
+    <timingRacingCrew bowOrLaneNumber="176" name="Western Albermarle  (S. O'Connor)" statusId="eligible" strokeName="S. O'Connor"/>
+    <timingRacingCrew bowOrLaneNumber="177" name="Great Valley  (S. Bevilacqua)" statusId="eligible" strokeName="S. Bevilacqua"/>
+    <timingRacingCrew bowOrLaneNumber="178" name="Augustine Classical  (L. Hopkins)" statusId="eligible" strokeName="L. Hopkins"/>
+    <timingRacingCrew bowOrLaneNumber="179" name="Ridley  (N. Cousins)" statusId="eligible" strokeName="N. Cousins"/>
+    <timingRacingCrew bowOrLaneNumber="180" name="George School  (M. Hackenberg)" statusId="scratched" strokeName="M. Hackenberg"/>
+    <timingRacingCrew bowOrLaneNumber="181" name="Oakcrest  (K. France)" statusId="eligible" strokeName="K. France"/>
+    <timingRacingCrew bowOrLaneNumber="182" name="Eustace  (K. Jardine)" statusId="eligible" strokeName="K. Jardine"/>
+    <timingRacingCrew bowOrLaneNumber="183" name="Rumson-Fair Haven  (L. Le Roy)" statusId="eligible" strokeName="L. Le Roy"/>
+    <timingRacingCrew bowOrLaneNumber="184" name="Springside Chestnut Hill  (E. Schwartz)" statusId="eligible" strokeName="E. Schwartz"/>
+  </timingRace>
+  <timingRace eventId="6" stageId="time-trial" raceId="6a" name="6a Boys Junior Four  Time Trial" raceNumber="6a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="fourWithCoxswain" scheduledDate="2024-05-17" scheduledTime="09:42">
+    <timingRacingCrew bowOrLaneNumber="187" name="Norfolk  (F. Creech)" statusId="scratched" strokeName="F. Creech"/>
+    <timingRacingCrew bowOrLaneNumber="188" name="Montclair  (N. Qaimmaqami)" statusId="eligible" strokeName="N. Qaimmaqami"/>
+    <timingRacingCrew bowOrLaneNumber="189" name="Nutley  (J. Bellenger)" statusId="eligible" strokeName="J. Bellenger"/>
+    <timingRacingCrew bowOrLaneNumber="190" name="Haverford School  (P. Jones)" statusId="eligible" strokeName="P. Jones"/>
+    <timingRacingCrew bowOrLaneNumber="191" name="Bethesda Chevy Chase  (B. Taylor)" statusId="eligible" strokeName="B. Taylor"/>
+    <timingRacingCrew bowOrLaneNumber="192" name="Radnor  (A. Yu)" statusId="eligible" strokeName="A. Yu"/>
+    <timingRacingCrew bowOrLaneNumber="193" name="St. Joseph's Prep  (T. McGovern)" statusId="eligible" strokeName="T. McGovern"/>
+    <timingRacingCrew bowOrLaneNumber="194" name="Gonzaga  (T. Stockwell)" statusId="eligible" strokeName="T. Stockwell"/>
+    <timingRacingCrew bowOrLaneNumber="195" name="Episcopal PA  (A. Lee)" statusId="eligible" strokeName="A. Lee"/>
+    <timingRacingCrew bowOrLaneNumber="196" name="Dallas Jesuit  (M. Firley)" statusId="eligible" strokeName="M. Firley"/>
+    <timingRacingCrew bowOrLaneNumber="197" name="Holy Ghost  (C. Binder)" statusId="eligible" strokeName="C. Binder"/>
+    <timingRacingCrew bowOrLaneNumber="198" name="Bishop Ireton  (H. Lynn)" statusId="eligible" strokeName="H. Lynn"/>
+    <timingRacingCrew bowOrLaneNumber="199" name="Walt Whitman  (A. Cidre)" statusId="eligible" strokeName="A. Cidre"/>
+    <timingRacingCrew bowOrLaneNumber="200" name="Scarsdale  (M. Bochner)" statusId="eligible" strokeName="M. Bochner"/>
+    <timingRacingCrew bowOrLaneNumber="201" name="Haddonfield  (N. Hazlett)" statusId="eligible" strokeName="N. Hazlett"/>
+    <timingRacingCrew bowOrLaneNumber="202" name="Absegami  (L. Rodriguez)" statusId="eligible" strokeName="L. Rodriguez"/>
+    <timingRacingCrew bowOrLaneNumber="203" name="Christian Brothers  (W. Vieth)" statusId="eligible" strokeName="W. Vieth"/>
+    <timingRacingCrew bowOrLaneNumber="204" name="Seton Hall  (A. Ramirez)" statusId="eligible" strokeName="A. Ramirez"/>
+    <timingRacingCrew bowOrLaneNumber="205" name="Blair Academy  (B. Wells)" statusId="eligible" strokeName="B. Wells"/>
+    <timingRacingCrew bowOrLaneNumber="206" name="Nichols  (J. Freirich)" statusId="eligible" strokeName="J. Freirich"/>
+    <timingRacingCrew bowOrLaneNumber="207" name="Oakton  (M. Kruse)" statusId="eligible" strokeName="M. Kruse"/>
+    <timingRacingCrew bowOrLaneNumber="208" name="Broad Run  (M. Vassar)" statusId="eligible" strokeName="M. Vassar"/>
+    <timingRacingCrew bowOrLaneNumber="209" name="Rumson-Fair Haven  (C. Ferber)" statusId="eligible" strokeName="C. Ferber"/>
+    <timingRacingCrew bowOrLaneNumber="210" name="South County  (J. Dahm)" statusId="eligible" strokeName="J. Dahm"/>
+    <timingRacingCrew bowOrLaneNumber="211" name="North Allegheny  (N. Kshirsagar)" statusId="eligible" strokeName="N. Kshirsagar"/>
+    <timingRacingCrew bowOrLaneNumber="212" name="Shenendehowa  (B. boisvert)" statusId="eligible" strokeName="B. boisvert"/>
+    <timingRacingCrew bowOrLaneNumber="213" name="Bishop O'Connell  (B. Schriver)" statusId="eligible" strokeName="B. Schriver"/>
+    <timingRacingCrew bowOrLaneNumber="214" name="Fordham  (A. Pianetti)" statusId="eligible" strokeName="A. Pianetti"/>
+    <timingRacingCrew bowOrLaneNumber="215" name="Belleville  (D. Morgan)" statusId="eligible" strokeName="D. Morgan"/>
+    <timingRacingCrew bowOrLaneNumber="216" name="La Salle  (K. McHugh)" statusId="eligible" strokeName="K. McHugh"/>
+    <timingRacingCrew bowOrLaneNumber="217" name="Pine-Richland  (B. Mastro)" statusId="eligible" strokeName="B. Mastro"/>
+    <timingRacingCrew bowOrLaneNumber="218" name="Unionville  (L. Guidotti)" statusId="eligible" strokeName="L. Guidotti"/>
+    <timingRacingCrew bowOrLaneNumber="219" name="Briar Woods  (A. Ali)" statusId="eligible" strokeName="A. Ali"/>
+    <timingRacingCrew bowOrLaneNumber="220" name="Walter Johnson  (S. Sackett)" statusId="eligible" strokeName="S. Sackett"/>
+    <timingRacingCrew bowOrLaneNumber="221" name="Stone Bridge  (A. Montero)" statusId="eligible" strokeName="A. Montero"/>
+    <timingRacingCrew bowOrLaneNumber="222" name="Cedar Creek  (J. Morrell)" statusId="eligible" strokeName="J. Morrell"/>
+    <timingRacingCrew bowOrLaneNumber="223" name="West Springfield  (R. Jacobs)" statusId="eligible" strokeName="R. Jacobs"/>
+    <timingRacingCrew bowOrLaneNumber="225" name="Tampa  (H. Mensch)" statusId="eligible" strokeName="H. Mensch"/>
+    <timingRacingCrew bowOrLaneNumber="226" name="DeMatha  (L. O'Connor)" statusId="eligible" strokeName="L. O'Connor"/>
+    <timingRacingCrew bowOrLaneNumber="227" name="Owen J Roberts  (C. Voetelink)" statusId="eligible" strokeName="C. Voetelink"/>
+    <timingRacingCrew bowOrLaneNumber="228" name="Roosevelt  (J. Andros)" statusId="eligible" strokeName="J. Andros"/>
+    <timingRacingCrew bowOrLaneNumber="229" name="Mainland  (B. Gaskins)" statusId="eligible" strokeName="B. Gaskins"/>
+    <timingRacingCrew bowOrLaneNumber="230" name="Lower Merion  (A. Prohaska)" statusId="eligible" strokeName="A. Prohaska"/>
+    <timingRacingCrew bowOrLaneNumber="231" name="Georgetown  (C. Kaplan)" statusId="eligible" strokeName="C. Kaplan"/>
+    <timingRacingCrew bowOrLaneNumber="232" name="Kearny  (C. Capobianco)" statusId="eligible" strokeName="C. Capobianco"/>
+    <timingRacingCrew bowOrLaneNumber="233" name="Alexandria City  (H. Miller)" statusId="eligible" strokeName="H. Miller"/>
+    <timingRacingCrew bowOrLaneNumber="234" name="University  (N. Presti-Hodgson)" statusId="eligible" strokeName="N. Presti-Hodgson"/>
+    <timingRacingCrew bowOrLaneNumber="235" name="Washington-Liberty  (K. Ettelt)" statusId="eligible" strokeName="K. Ettelt"/>
+    <timingRacingCrew bowOrLaneNumber="236" name="Lake Braddock  (M. Culver)" statusId="eligible" strokeName="M. Culver"/>
+    <timingRacingCrew bowOrLaneNumber="237" name="Rock Ridge  (A. Nayak)" statusId="eligible" strokeName="A. Nayak"/>
+    <timingRacingCrew bowOrLaneNumber="238" name="St. Andrew's  (H. Stewart)" statusId="eligible" strokeName="H. Stewart"/>
+    <timingRacingCrew bowOrLaneNumber="239" name="Egg Harbor  (A. Robles)" statusId="eligible" strokeName="A. Robles"/>
+    <timingRacingCrew bowOrLaneNumber="240" name="West Potomac  (A. Beatty)" statusId="eligible" strokeName="A. Beatty"/>
+    <timingRacingCrew bowOrLaneNumber="241" name="Winter Park  (N. Turman)" statusId="eligible" strokeName="N. Turman"/>
+    <timingRacingCrew bowOrLaneNumber="242" name="Riverside  (J. Carrier)" statusId="eligible" strokeName="J. Carrier"/>
+    <timingRacingCrew bowOrLaneNumber="243" name="St. Augustine  (B. Ackerman)" statusId="eligible" strokeName="B. Ackerman"/>
+    <timingRacingCrew bowOrLaneNumber="244" name="Atlantic City  (b. kurtz)" statusId="eligible" strokeName="b. kurtz"/>
+    <timingRacingCrew bowOrLaneNumber="245" name="Peddie  (J. Maltez)" statusId="eligible" strokeName="J. Maltez"/>
+    <timingRacingCrew bowOrLaneNumber="246" name="Denis Morris  (M. Hardy)" statusId="eligible" strokeName="M. Hardy"/>
+    <timingRacingCrew bowOrLaneNumber="247" name="Chaminade  (L. Geeraerts)" statusId="eligible" strokeName="L. Geeraerts"/>
+    <timingRacingCrew bowOrLaneNumber="248" name="Ridgewood  (E. Gregerson)" statusId="eligible" strokeName="E. Gregerson"/>
+    <timingRacingCrew bowOrLaneNumber="249" name="W.T. Woodson  (J. McClelland)" statusId="eligible" strokeName="J. McClelland"/>
+    <timingRacingCrew bowOrLaneNumber="250" name="Germantown Academy  (J. Johnson)" statusId="eligible" strokeName="J. Johnson"/>
+    <timingRacingCrew bowOrLaneNumber="251" name="St. Albans  (G. Monteiro)" statusId="eligible" strokeName="G. Monteiro"/>
+    <timingRacingCrew bowOrLaneNumber="252" name="Archbishop Carroll  (K. Kelly)" statusId="eligible" strokeName="K. Kelly"/>
+  </timingRace>
+  <timingRace eventId="7" stageId="time-trial" raceId="7a" name="7a Boys Ltwt Double  Time Trial" raceNumber="7a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="double" scheduledDate="2024-05-17" scheduledTime="10:07">
+    <timingRacingCrew bowOrLaneNumber="255" name="Haverford School  (E. Lee)" statusId="eligible" strokeName="E. Lee"/>
+    <timingRacingCrew bowOrLaneNumber="256" name="Blessed Trinity  (C. Lobo)" statusId="eligible" strokeName="C. Lobo"/>
+    <timingRacingCrew bowOrLaneNumber="257" name="Manhasset  (J. Berlly)" statusId="eligible" strokeName="J. Berlly"/>
+    <timingRacingCrew bowOrLaneNumber="258" name="St. Benedict's  (P. Chicas)" statusId="eligible" strokeName="P. Chicas"/>
+    <timingRacingCrew bowOrLaneNumber="259" name="Conestoga  (A. Verma)" statusId="eligible" strokeName="A. Verma"/>
+    <timingRacingCrew bowOrLaneNumber="260" name="Malvern  (D. Zdancewicz)" statusId="eligible" strokeName="D. Zdancewicz"/>
+    <timingRacingCrew bowOrLaneNumber="261" name="Nutley  (P. Mastandrea)" statusId="eligible" strokeName="P. Mastandrea"/>
+    <timingRacingCrew bowOrLaneNumber="262" name="Concord  (J. Cabanela)" statusId="eligible" strokeName="J. Cabanela"/>
+    <timingRacingCrew bowOrLaneNumber="263" name="Radnor  (T. He)" statusId="eligible" strokeName="T. He"/>
+    <timingRacingCrew bowOrLaneNumber="264" name="Augustine Classical  (C. Gascoyne)" statusId="eligible" strokeName="C. Gascoyne"/>
+    <timingRacingCrew bowOrLaneNumber="265" name="Western Albermarle  (J. Phipps)" statusId="eligible" strokeName="J. Phipps"/>
+    <timingRacingCrew bowOrLaneNumber="266" name="Ridgewood  (J. Ryan)" statusId="eligible" strokeName="J. Ryan"/>
+    <timingRacingCrew bowOrLaneNumber="267" name="Upper Merion  (G. Smith)" statusId="eligible" strokeName="G. Smith"/>
+    <timingRacingCrew bowOrLaneNumber="268" name="Whitefield  (O. Badgett)" statusId="eligible" strokeName="O. Badgett"/>
+    <timingRacingCrew bowOrLaneNumber="269" name="Albemarle  (L. Sellars)" statusId="eligible" strokeName="L. Sellars"/>
+    <timingRacingCrew bowOrLaneNumber="270" name="Friends Select  (C. Lamont)" statusId="eligible" strokeName="C. Lamont"/>
+    <timingRacingCrew bowOrLaneNumber="271" name="Churchill  (A. White)" statusId="eligible" strokeName="A. White"/>
+    <timingRacingCrew bowOrLaneNumber="272" name="Hun School  (C. Wu)" statusId="eligible" strokeName="C. Wu"/>
+    <timingRacingCrew bowOrLaneNumber="273" name="Tampa  (L. Glowicki)" statusId="eligible" strokeName="L. Glowicki"/>
+    <timingRacingCrew bowOrLaneNumber="274" name="Belleville  (J. Bravo)" statusId="eligible" strokeName="J. Bravo"/>
+    <timingRacingCrew bowOrLaneNumber="275" name="Shaker  (E. Vaughan)" statusId="eligible" strokeName="E. Vaughan"/>
+    <timingRacingCrew bowOrLaneNumber="276" name="Montclair  (E. Feddersen)" statusId="eligible" strokeName="E. Feddersen"/>
+    <timingRacingCrew bowOrLaneNumber="277" name="Germantown Academy  (A. DiFranco)" statusId="eligible" strokeName="A. DiFranco"/>
+    <timingRacingCrew bowOrLaneNumber="278" name="Moorestown  (H. Lyons)" statusId="eligible" strokeName="H. Lyons"/>
+  </timingRace>
+  <timingRace eventId="8" stageId="time-trial" raceId="8a" name="8a Girls Junior Four  Time Trial" raceNumber="8a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="fourWithCoxswain" scheduledDate="2024-05-17" scheduledTime="10:21">
+    <timingRacingCrew bowOrLaneNumber="280" name="Mount Saint Joseph  (M. Ianieri)" statusId="eligible" strokeName="M. Ianieri"/>
+    <timingRacingCrew bowOrLaneNumber="281" name="West Springfield  (K. Benyo)" statusId="eligible" strokeName="K. Benyo"/>
+    <timingRacingCrew bowOrLaneNumber="282" name="Hun School  (A. Foo)" statusId="eligible" strokeName="A. Foo"/>
+    <timingRacingCrew bowOrLaneNumber="283" name="Merion Mercy  (A. Qualtiere)" statusId="eligible" strokeName="A. Qualtiere"/>
+    <timingRacingCrew bowOrLaneNumber="284" name="Villa Joseph Marie  (A. Haralambous)" statusId="eligible" strokeName="A. Haralambous"/>
+    <timingRacingCrew bowOrLaneNumber="285" name="Holton-Arms  (E. Moss)" statusId="eligible" strokeName="E. Moss"/>
+    <timingRacingCrew bowOrLaneNumber="286" name="Egg Harbor  (M. Per)" statusId="eligible" strokeName="M. Per"/>
+    <timingRacingCrew bowOrLaneNumber="287" name="Pine-Richland  (I. Folmer)" statusId="eligible" strokeName="I. Folmer"/>
+    <timingRacingCrew bowOrLaneNumber="288" name="Holy Spirit  (E. Bencze)" statusId="eligible" strokeName="E. Bencze"/>
+    <timingRacingCrew bowOrLaneNumber="289" name="Manhasset  (J. Chen)" statusId="eligible" strokeName="J. Chen"/>
+    <timingRacingCrew bowOrLaneNumber="290" name="Owen J Roberts  (L. Fisher)" statusId="eligible" strokeName="L. Fisher"/>
+    <timingRacingCrew bowOrLaneNumber="291" name="Atlantic City  (M. Franco)" statusId="eligible" strokeName="M. Franco"/>
+    <timingRacingCrew bowOrLaneNumber="292" name="Kearny  (S. Nieto)" statusId="eligible" strokeName="S. Nieto"/>
+    <timingRacingCrew bowOrLaneNumber="293" name="Denis Morris  (S. Burcher)" statusId="eligible" strokeName="S. Burcher"/>
+    <timingRacingCrew bowOrLaneNumber="294" name="Absegami  (S. Moore)" statusId="eligible" strokeName="S. Moore"/>
+    <timingRacingCrew bowOrLaneNumber="295" name="National Cathedral  (E. Bowker)" statusId="eligible" strokeName="E. Bowker"/>
+    <timingRacingCrew bowOrLaneNumber="296" name="Episcopal PA  (M. Favini)" statusId="eligible" strokeName="M. Favini"/>
+    <timingRacingCrew bowOrLaneNumber="298" name="St. John's  (H. Willens)" statusId="eligible" strokeName="H. Willens"/>
+    <timingRacingCrew bowOrLaneNumber="299" name="Blair Academy  (V. Ross)" statusId="eligible" strokeName="V. Ross"/>
+    <timingRacingCrew bowOrLaneNumber="300" name="South County  (S. Ward)" statusId="eligible" strokeName="S. Ward"/>
+    <timingRacingCrew bowOrLaneNumber="301" name="Cedar Creek  (E. Santos)" statusId="eligible" strokeName="E. Santos"/>
+    <timingRacingCrew bowOrLaneNumber="302" name="Lawrenceville  (C. Lemert)" statusId="eligible" strokeName="C. Lemert"/>
+    <timingRacingCrew bowOrLaneNumber="303" name="Washington-Liberty  (E. Kiesel)" statusId="eligible" strokeName="E. Kiesel"/>
+    <timingRacingCrew bowOrLaneNumber="304" name="Nardin  (A. Rajecki)" statusId="eligible" strokeName="A. Rajecki"/>
+    <timingRacingCrew bowOrLaneNumber="305" name="Fairfax  (R. Tibbitts)" statusId="eligible" strokeName="R. Tibbitts"/>
+    <timingRacingCrew bowOrLaneNumber="306" name="Scarsdale  (C. Gelblum)" statusId="eligible" strokeName="C. Gelblum"/>
+    <timingRacingCrew bowOrLaneNumber="307" name="Eustace  (A. PISACRETA)" statusId="eligible" strokeName="A. PISACRETA"/>
+    <timingRacingCrew bowOrLaneNumber="308" name="Archbishop Carroll  (A. Cook)" statusId="eligible" strokeName="A. Cook"/>
+    <timingRacingCrew bowOrLaneNumber="309" name="Ridley  (G. Goodly)" statusId="eligible" strokeName="G. Goodly"/>
+    <timingRacingCrew bowOrLaneNumber="310" name="Bishop Ireton  (J. Plunkett)" statusId="eligible" strokeName="J. Plunkett"/>
+    <timingRacingCrew bowOrLaneNumber="311" name="Harriton  (N. Vetter)" statusId="eligible" strokeName="N. Vetter"/>
+    <timingRacingCrew bowOrLaneNumber="312" name="Vineland  (S. Soracco)" statusId="eligible" strokeName="S. Soracco"/>
+    <timingRacingCrew bowOrLaneNumber="313" name="Hill School  (S. Cox)" statusId="eligible" strokeName="S. Cox"/>
+    <timingRacingCrew bowOrLaneNumber="314" name="Mainland  (E. Laut)" statusId="eligible" strokeName="E. Laut"/>
+    <timingRacingCrew bowOrLaneNumber="315" name="Nichols  (M. ARCELIN)" statusId="eligible" strokeName="M. ARCELIN"/>
+    <timingRacingCrew bowOrLaneNumber="316" name="Bishop O'Connell  (O. Schad)" statusId="eligible" strokeName="O. Schad"/>
+    <timingRacingCrew bowOrLaneNumber="317" name="Stone Bridge  (L. Field)" statusId="eligible" strokeName="L. Field"/>
+    <timingRacingCrew bowOrLaneNumber="318" name="Lake Braddock  (S. Murphy)" statusId="eligible" strokeName="S. Murphy"/>
+    <timingRacingCrew bowOrLaneNumber="319" name="Woodbridge  (S. Curtis)" statusId="eligible" strokeName="S. Curtis"/>
+    <timingRacingCrew bowOrLaneNumber="320" name="Peddie  (S. Peng)" statusId="eligible" strokeName="S. Peng"/>
+    <timingRacingCrew bowOrLaneNumber="321" name="West Potomac  (M. Wynne)" statusId="eligible" strokeName="M. Wynne"/>
+    <timingRacingCrew bowOrLaneNumber="322" name="George School  (D. Bulger)" statusId="eligible" strokeName="D. Bulger"/>
+    <timingRacingCrew bowOrLaneNumber="323" name="Norfolk  (Z. Lehmann)" statusId="eligible" strokeName="Z. Lehmann"/>
+    <timingRacingCrew bowOrLaneNumber="324" name="Charter School  (K. Barber)" statusId="eligible" strokeName="K. Barber"/>
+    <timingRacingCrew bowOrLaneNumber="325" name="Niskayuna  (S. Bane)" statusId="eligible" strokeName="S. Bane"/>
+    <timingRacingCrew bowOrLaneNumber="326" name="State College  (A. Krebs)" statusId="eligible" strokeName="A. Krebs"/>
+    <timingRacingCrew bowOrLaneNumber="327" name="Westminster  (C. Kim)" statusId="eligible" strokeName="C. Kim"/>
+    <timingRacingCrew bowOrLaneNumber="328" name="Buffalo Seminary  (R. George)" statusId="eligible" strokeName="R. George"/>
+    <timingRacingCrew bowOrLaneNumber="329" name="Villa Maria  (J. Holdsworth)" statusId="eligible" strokeName="J. Holdsworth"/>
+    <timingRacingCrew bowOrLaneNumber="330" name="Radnor Girls  (E. Martin)" statusId="eligible" strokeName="E. Martin"/>
+    <timingRacingCrew bowOrLaneNumber="331" name="Notre Dame  (S. Henry)" statusId="eligible" strokeName="S. Henry"/>
+    <timingRacingCrew bowOrLaneNumber="332" name="Walt Whitman  (I. Hasnani)" statusId="eligible" strokeName="I. Hasnani"/>
+  </timingRace>
+  <timingRace eventId="9" stageId="time-trial" raceId="9a" name="9a Boys Freshman Quads  Time Trial" raceNumber="9a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="quadWithoutCoxswain" scheduledDate="2024-05-17" scheduledTime="10:42">
+    <timingRacingCrew bowOrLaneNumber="335" name="Western Albermarle  (J. Young)" statusId="eligible" strokeName="J. Young"/>
+    <timingRacingCrew bowOrLaneNumber="336" name="Ridgewood  (A. Smith)" statusId="eligible" strokeName="A. Smith"/>
+    <timingRacingCrew bowOrLaneNumber="337" name="Augustine Classical  (M. Jones)" statusId="eligible" strokeName="M. Jones"/>
+    <timingRacingCrew bowOrLaneNumber="338" name="Niskayuna  (J. Fosco)" statusId="eligible" strokeName="J. Fosco"/>
+    <timingRacingCrew bowOrLaneNumber="339" name="Germantown Friends  (Z. Hammarhead)" statusId="eligible" strokeName="Z. Hammarhead"/>
+    <timingRacingCrew bowOrLaneNumber="340" name="Haverford School  (J. Barton)" statusId="eligible" strokeName="J. Barton"/>
+    <timingRacingCrew bowOrLaneNumber="341" name="St. Joseph NJ  (J. Locandro)" statusId="eligible" strokeName="J. Locandro"/>
+    <timingRacingCrew bowOrLaneNumber="342" name="Bergen Catholic  (M. Previzi)" statusId="eligible" strokeName="M. Previzi"/>
+    <timingRacingCrew bowOrLaneNumber="343" name="Malvern  (N. DiTullio)" statusId="eligible" strokeName="N. DiTullio"/>
+    <timingRacingCrew bowOrLaneNumber="344" name="Scarsdale  (K. Bhalja)" statusId="eligible" strokeName="K. Bhalja"/>
+    <timingRacingCrew bowOrLaneNumber="345" name="Manhasset  (A. Galvin)" statusId="eligible" strokeName="A. Galvin"/>
+    <timingRacingCrew bowOrLaneNumber="346" name="Roman Catholic  (G. Zoda)" statusId="eligible" strokeName="G. Zoda"/>
+    <timingRacingCrew bowOrLaneNumber="347" name="Shaker  (C. Siciliano)" statusId="eligible" strokeName="C. Siciliano"/>
+    <timingRacingCrew bowOrLaneNumber="348" name="Conestoga  (K. Murray)" statusId="eligible" strokeName="K. Murray"/>
+    <timingRacingCrew bowOrLaneNumber="349" name="Albemarle  (W. Scanlon)" statusId="eligible" strokeName="W. Scanlon"/>
+    <timingRacingCrew bowOrLaneNumber="350" name="Holy Spirit  (V. Amalfitano)" statusId="eligible" strokeName="V. Amalfitano"/>
+    <timingRacingCrew bowOrLaneNumber="351" name="Bergen Tech  (D. Mun)" statusId="eligible" strokeName="D. Mun"/>
+    <timingRacingCrew bowOrLaneNumber="352" name="Springside Chestnut Hill  (J. Hackford)" statusId="eligible" strokeName="J. Hackford"/>
+    <timingRacingCrew bowOrLaneNumber="353" name="Lower Merion  (A. Richards)" statusId="eligible" strokeName="A. Richards"/>
+    <timingRacingCrew bowOrLaneNumber="354" name="Hun School  (J. Sachs)" statusId="eligible" strokeName="J. Sachs"/>
+    <timingRacingCrew bowOrLaneNumber="355" name="Fordham  (N. Franklin)" statusId="eligible" strokeName="N. Franklin"/>
+    <timingRacingCrew bowOrLaneNumber="356" name="Shipley  (W. Hansen)" statusId="eligible" strokeName="W. Hansen"/>
+    <timingRacingCrew bowOrLaneNumber="357" name="Washington-Liberty  (T. Keane)" statusId="exhibition" strokeName="T. Keane"/>
+  </timingRace>
+  <timingRace eventId="10" stageId="time-trial" raceId="10a" name="10a Boys Junior Eight  Time Trial" raceNumber="10a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="eight" scheduledDate="2024-05-17" scheduledTime="10:56">
+    <timingRacingCrew bowOrLaneNumber="360" name="St. Joseph's Prep  (A. Walker)" statusId="eligible" strokeName="A. Walker"/>
+    <timingRacingCrew bowOrLaneNumber="361" name="Gonzaga  (T. Monteverde)" statusId="eligible" strokeName="T. Monteverde"/>
+    <timingRacingCrew bowOrLaneNumber="362" name="Seton Hall  (D. Rounsavill)" statusId="eligible" strokeName="D. Rounsavill"/>
+    <timingRacingCrew bowOrLaneNumber="363" name="Christian Brothers  (C. Borao)" statusId="eligible" strokeName="C. Borao"/>
+    <timingRacingCrew bowOrLaneNumber="364" name="Chaminade  (W. Frohne)" statusId="eligible" strokeName="W. Frohne"/>
+    <timingRacingCrew bowOrLaneNumber="365" name="St. Peter's" statusId="eligible" strokeName=""/>
+    <timingRacingCrew bowOrLaneNumber="366" name="Washington-Liberty  (F. Cupples)" statusId="eligible" strokeName="F. Cupples"/>
+    <timingRacingCrew bowOrLaneNumber="368" name="Burnt Hills  (D. DiSarro)" statusId="eligible" strokeName="D. DiSarro"/>
+    <timingRacingCrew bowOrLaneNumber="369" name="McLean  (A. Barnes)" statusId="eligible" strokeName="A. Barnes"/>
+    <timingRacingCrew bowOrLaneNumber="370" name="Lawrenceville  (A. Salgado-Lozhkin)" statusId="eligible" strokeName="A. Salgado-Lozhkin"/>
+    <timingRacingCrew bowOrLaneNumber="371" name="West Springfield  (J. Simpkins)" statusId="eligible" strokeName="J. Simpkins"/>
+    <timingRacingCrew bowOrLaneNumber="372" name="Father Judge  (D. Kelly)" statusId="eligible" strokeName="D. Kelly"/>
+    <timingRacingCrew bowOrLaneNumber="373" name="La Salle  (B. Vinal)" statusId="eligible" strokeName="B. Vinal"/>
+    <timingRacingCrew bowOrLaneNumber="374" name="Lake Braddock  (A. Hinton)" statusId="eligible" strokeName="A. Hinton"/>
+    <timingRacingCrew bowOrLaneNumber="375" name="Walter Johnson  (J. Adams)" statusId="eligible" strokeName="J. Adams"/>
+    <timingRacingCrew bowOrLaneNumber="376" name="St. Andrew's  (A. Carey)" statusId="eligible" strokeName="A. Carey"/>
+    <timingRacingCrew bowOrLaneNumber="377" name="Haverford School  (A. Krey)" statusId="eligible" strokeName="A. Krey"/>
+    <timingRacingCrew bowOrLaneNumber="378" name="Riverside  (T. Bryant)" statusId="eligible" strokeName="T. Bryant"/>
+    <timingRacingCrew bowOrLaneNumber="379" name="Ridgewood  (J. Cavagnuolo)" statusId="eligible" strokeName="J. Cavagnuolo"/>
+    <timingRacingCrew bowOrLaneNumber="380" name="Robinson  (R. Holley)" statusId="eligible" strokeName="R. Holley"/>
+    <timingRacingCrew bowOrLaneNumber="381" name="Egg Harbor  (A. Stein)" statusId="eligible" strokeName="A. Stein"/>
+    <timingRacingCrew bowOrLaneNumber="382" name="Mainland  (R. Gaud)" statusId="eligible" strokeName="R. Gaud"/>
+    <timingRacingCrew bowOrLaneNumber="383" name="Langley  (I. Canfield)" statusId="eligible" strokeName="I. Canfield"/>
+    <timingRacingCrew bowOrLaneNumber="384" name="Cedar Creek  (A. Perkins)" statusId="eligible" strokeName="A. Perkins"/>
+    <timingRacingCrew bowOrLaneNumber="385" name="St. John's  (J. Huggins)" statusId="eligible" strokeName="J. Huggins"/>
+    <timingRacingCrew bowOrLaneNumber="386" name="Lower Merion  (J. Kwait)" statusId="eligible" strokeName="J. Kwait"/>
+    <timingRacingCrew bowOrLaneNumber="387" name="Ocean City  (J. Tracy)" statusId="eligible" strokeName="J. Tracy"/>
+    <timingRacingCrew bowOrLaneNumber="388" name="Rumson-Fair Haven  (D. Berry)" statusId="eligible" strokeName="D. Berry"/>
+    <timingRacingCrew bowOrLaneNumber="389" name="St. Augustine  (L. AMATO)" statusId="eligible" strokeName="L. AMATO"/>
+    <timingRacingCrew bowOrLaneNumber="390" name="Harriton  (A. Dieu)" statusId="eligible" strokeName="A. Dieu"/>
+    <timingRacingCrew bowOrLaneNumber="391" name="Vineland  (C. Vanes)" statusId="eligible" strokeName="C. Vanes"/>
+    <timingRacingCrew bowOrLaneNumber="392" name="Briar Woods  (J. Ingle)" statusId="eligible" strokeName="J. Ingle"/>
+    <timingRacingCrew bowOrLaneNumber="393" name="Bishop Ireton  (F. Boras)" statusId="eligible" strokeName="F. Boras"/>
+    <timingRacingCrew bowOrLaneNumber="394" name="Woodbridge  (C. Grendysz)" statusId="eligible" strokeName="C. Grendysz"/>
+    <timingRacingCrew bowOrLaneNumber="395" name="Jackson-Reed  (E. Zahler)" statusId="eligible" strokeName="E. Zahler"/>
+    <timingRacingCrew bowOrLaneNumber="396" name="Alexandria City  (L. Turner)" statusId="eligible" strokeName="L. Turner"/>
+    <timingRacingCrew bowOrLaneNumber="397" name="Absegami  (M. Vargas)" statusId="eligible" strokeName="M. Vargas"/>
+    <timingRacingCrew bowOrLaneNumber="398" name="Wakefield  (L. Korcinskis)" statusId="eligible" strokeName="L. Korcinskis"/>
+    <timingRacingCrew bowOrLaneNumber="399" name="Manhasset  (J. Lin)" statusId="eligible" strokeName="J. Lin"/>
+    <timingRacingCrew bowOrLaneNumber="400" name="State College  (J. Held)" statusId="eligible" strokeName="J. Held"/>
+    <timingRacingCrew bowOrLaneNumber="401" name="Winter Park  (C. King)" statusId="eligible" strokeName="C. King"/>
+    <timingRacingCrew bowOrLaneNumber="402" name="Philadelphia City  (R. Arendt)" statusId="eligible" strokeName="R. Arendt"/>
+    <timingRacingCrew bowOrLaneNumber="403" name="Hill School  (H. Krafczek)" statusId="eligible" strokeName="H. Krafczek"/>
+    <timingRacingCrew bowOrLaneNumber="404" name="Yorktown  (R. Bryan)" statusId="eligible" strokeName="R. Bryan"/>
+    <timingRacingCrew bowOrLaneNumber="405" name="Atlantic City  (E. Hoque)" statusId="eligible" strokeName="E. Hoque"/>
+    <timingRacingCrew bowOrLaneNumber="406" name="Niskayuna  (J. Liberman)" statusId="eligible" strokeName="J. Liberman"/>
+  </timingRace>
+  <timingRace eventId="11" stageId="time-trial" raceId="11a" name="11a Girls Freshman Quads  Time Trial" raceNumber="11a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="quadWithoutCoxswain" scheduledDate="2024-05-17" scheduledTime="11:16">
+    <timingRacingCrew bowOrLaneNumber="409" name="Hockaday  (I. Nordtvedt)" statusId="eligible" strokeName="I. Nordtvedt"/>
+    <timingRacingCrew bowOrLaneNumber="410" name="Germantown Friends  (S. McCrea)" statusId="eligible" strokeName="S. McCrea"/>
+    <timingRacingCrew bowOrLaneNumber="411" name="Penn Charter  (S. Toncich-Mandel)" statusId="eligible" strokeName="S. Toncich-Mandel"/>
+    <timingRacingCrew bowOrLaneNumber="412" name="Agnes Irwin  (S. Skyman)" statusId="eligible" strokeName="S. Skyman"/>
+    <timingRacingCrew bowOrLaneNumber="413" name="Ridley  (B. Lin)" statusId="eligible" strokeName="B. Lin"/>
+    <timingRacingCrew bowOrLaneNumber="414" name="Manhasset  (E. Blascovich)" statusId="eligible" strokeName="E. Blascovich"/>
+    <timingRacingCrew bowOrLaneNumber="415" name="Friends Select  (S. Hargrove)" statusId="eligible" strokeName="S. Hargrove"/>
+    <timingRacingCrew bowOrLaneNumber="416" name="Niskayuna  (C. Eager)" statusId="eligible" strokeName="C. Eager"/>
+    <timingRacingCrew bowOrLaneNumber="417" name="Shaker  (S. Freed)" statusId="eligible" strokeName="S. Freed"/>
+    <timingRacingCrew bowOrLaneNumber="418" name="Haddon  (K. Gasiorowski)" statusId="eligible" strokeName="K. Gasiorowski"/>
+    <timingRacingCrew bowOrLaneNumber="419" name="Germantown Academy  (S. Song)" statusId="eligible" strokeName="S. Song"/>
+    <timingRacingCrew bowOrLaneNumber="420" name="Upper Merion  (A. Briggs)" statusId="eligible" strokeName="A. Briggs"/>
+    <timingRacingCrew bowOrLaneNumber="421" name="Dwight-Englewood  (L. Parker)" statusId="eligible" strokeName="L. Parker"/>
+    <timingRacingCrew bowOrLaneNumber="422" name="Holy Spirit  (O. Malinsky)" statusId="eligible" strokeName="O. Malinsky"/>
+    <timingRacingCrew bowOrLaneNumber="423" name="Conestoga  (S. Ameche)" statusId="eligible" strokeName="S. Ameche"/>
+    <timingRacingCrew bowOrLaneNumber="424" name="Springside Chestnut Hill  (L. Klas)" statusId="eligible" strokeName="L. Klas"/>
+    <timingRacingCrew bowOrLaneNumber="425" name="Rumson-Fair Haven  (C. Braceland)" statusId="eligible" strokeName="C. Braceland"/>
+  </timingRace>
+  <timingRace eventId="12" stageId="time-trial" raceId="12a" name="12a Girls Junior Eight  Time Trial" raceNumber="12a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="eight" scheduledDate="2024-05-17" scheduledTime="11:25">
+    <timingRacingCrew bowOrLaneNumber="428" name="Mount Saint Joseph  (A. Levine)" statusId="eligible" strokeName="A. Levine"/>
+    <timingRacingCrew bowOrLaneNumber="429" name="Nardin  (L. Alessi)" statusId="eligible" strokeName="L. Alessi"/>
+    <timingRacingCrew bowOrLaneNumber="430" name="Atlantic City  (A. Gormley)" statusId="eligible" strokeName="A. Gormley"/>
+    <timingRacingCrew bowOrLaneNumber="431" name="Villa Joseph Marie  (M. Mehler)" statusId="eligible" strokeName="M. Mehler"/>
+    <timingRacingCrew bowOrLaneNumber="432" name="Unionville  (A. Lockard)" statusId="eligible" strokeName="A. Lockard"/>
+    <timingRacingCrew bowOrLaneNumber="433" name="Walter Johnson  (S. Mansouri)" statusId="eligible" strokeName="S. Mansouri"/>
+    <timingRacingCrew bowOrLaneNumber="434" name="Haddonfield  (J. Earnhart)" statusId="eligible" strokeName="J. Earnhart"/>
+    <timingRacingCrew bowOrLaneNumber="435" name="Churchill  (A. Duncan)" statusId="eligible" strokeName="A. Duncan"/>
+    <timingRacingCrew bowOrLaneNumber="436" name="Ocean City  (M. Rush)" statusId="eligible" strokeName="M. Rush"/>
+    <timingRacingCrew bowOrLaneNumber="437" name="Villa Maria  (L. Meyers)" statusId="eligible" strokeName="L. Meyers"/>
+    <timingRacingCrew bowOrLaneNumber="438" name="W.T. Woodson  (E. Frantz)" statusId="eligible" strokeName="E. Frantz"/>
+    <timingRacingCrew bowOrLaneNumber="439" name="Washington-Liberty  (D. Loughney)" statusId="eligible" strokeName="D. Loughney"/>
+    <timingRacingCrew bowOrLaneNumber="440" name="St. Andrew's  (N. Hearder)" statusId="eligible" strokeName="N. Hearder"/>
+    <timingRacingCrew bowOrLaneNumber="441" name="Westminster  (G. Ferro)" statusId="eligible" strokeName="G. Ferro"/>
+    <timingRacingCrew bowOrLaneNumber="442" name="Lawrenceville  (R. Abromavage)" statusId="eligible" strokeName="R. Abromavage"/>
+    <timingRacingCrew bowOrLaneNumber="443" name="Radnor Girls  (K. Wetzel)" statusId="eligible" strokeName="K. Wetzel"/>
+    <timingRacingCrew bowOrLaneNumber="444" name="Fairfax  (L. Depasse)" statusId="eligible" strokeName="L. Depasse"/>
+    <timingRacingCrew bowOrLaneNumber="445" name="Lower Merion  (T. Kupstas)" statusId="eligible" strokeName="T. Kupstas"/>
+    <timingRacingCrew bowOrLaneNumber="446" name="Jackson-Reed  (Z. Kaur)" statusId="eligible" strokeName="Z. Kaur"/>
+    <timingRacingCrew bowOrLaneNumber="447" name="St. John's  (O. Tomelden)" statusId="eligible" strokeName="O. Tomelden"/>
+    <timingRacingCrew bowOrLaneNumber="448" name="Langley  (E. Monteleone)" statusId="eligible" strokeName="E. Monteleone"/>
+    <timingRacingCrew bowOrLaneNumber="449" name="James Madison  (K. Oberg)" statusId="eligible" strokeName="K. Oberg"/>
+    <timingRacingCrew bowOrLaneNumber="450" name="Oakton  (D. Lee)" statusId="eligible" strokeName="D. Lee"/>
+    <timingRacingCrew bowOrLaneNumber="451" name="Mainland  (A. Stanley)" statusId="eligible" strokeName="A. Stanley"/>
+    <timingRacingCrew bowOrLaneNumber="452" name="Egg Harbor  (S. Harvey)" statusId="eligible" strokeName="S. Harvey"/>
+    <timingRacingCrew bowOrLaneNumber="453" name="Belleville  (D. Penafiel)" statusId="eligible" strokeName="D. Penafiel"/>
+    <timingRacingCrew bowOrLaneNumber="454" name="Briar Woods  (M. Sheehan)" statusId="eligible" strokeName="M. Sheehan"/>
+    <timingRacingCrew bowOrLaneNumber="455" name="Cedar Creek  (O. Angelini)" statusId="eligible" strokeName="O. Angelini"/>
+    <timingRacingCrew bowOrLaneNumber="456" name="Wakefield  (M. Meek)" statusId="eligible" strokeName="M. Meek"/>
+    <timingRacingCrew bowOrLaneNumber="457" name="Ursuline  (E. McCauley)" statusId="eligible" strokeName="E. McCauley"/>
+    <timingRacingCrew bowOrLaneNumber="458" name="Bethesda Chevy Chase  (A. Bohley)" statusId="eligible" strokeName="A. Bohley"/>
+    <timingRacingCrew bowOrLaneNumber="459" name="Episcopal PA  (G. Rall)" statusId="eligible" strokeName="G. Rall"/>
+    <timingRacingCrew bowOrLaneNumber="460" name="West Springfield  (E. Angell)" statusId="eligible" strokeName="E. Angell"/>
+    <timingRacingCrew bowOrLaneNumber="461" name="Merion Mercy  (T. Elgart)" statusId="eligible" strokeName="T. Elgart"/>
+    <timingRacingCrew bowOrLaneNumber="462" name="Jefferson  (I. D'mello)" statusId="eligible" strokeName="I. D'mello"/>
+    <timingRacingCrew bowOrLaneNumber="463" name="Philadelphia City  (L. Raboteau)" statusId="eligible" strokeName="L. Raboteau"/>
+    <timingRacingCrew bowOrLaneNumber="464" name="Niskayuna  (N. Dinneen)" statusId="eligible" strokeName="N. Dinneen"/>
+    <timingRacingCrew bowOrLaneNumber="465" name="Our Lady of Mercy  (G. Walls)" statusId="eligible" strokeName="G. Walls"/>
+  </timingRace>
+  <timingRace eventId="13" stageId="time-trial" raceId="13a" name="13a Boys Junior Quad  Time Trial" raceNumber="13a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="quadWithoutCoxswain" scheduledDate="2024-05-17" scheduledTime="11:43">
+    <timingRacingCrew bowOrLaneNumber="468" name="Seton Hall  (N. Di Stefano)" statusId="eligible" strokeName="N. Di Stefano"/>
+    <timingRacingCrew bowOrLaneNumber="469" name="Shenendehowa  (J. Bay)" statusId="eligible" strokeName="J. Bay"/>
+    <timingRacingCrew bowOrLaneNumber="470" name="Germantown Friends  (C. Peng)" statusId="eligible" strokeName="C. Peng"/>
+    <timingRacingCrew bowOrLaneNumber="471" name="Conestoga  (J. Sauder)" statusId="eligible" strokeName="J. Sauder"/>
+    <timingRacingCrew bowOrLaneNumber="472" name="St. Benedict's  (M. Hilaire)" statusId="eligible" strokeName="M. Hilaire"/>
+    <timingRacingCrew bowOrLaneNumber="473" name="Ridgewood  (S. Scharfenberg)" statusId="eligible" strokeName="S. Scharfenberg"/>
+    <timingRacingCrew bowOrLaneNumber="474" name="Haddon  (R. Henry)" statusId="eligible" strokeName="R. Henry"/>
+    <timingRacingCrew bowOrLaneNumber="475" name="Germantown Academy  (U. Mittal)" statusId="eligible" strokeName="U. Mittal"/>
+    <timingRacingCrew bowOrLaneNumber="476" name="Malvern  (D. Cipriotti)" statusId="eligible" strokeName="D. Cipriotti"/>
+    <timingRacingCrew bowOrLaneNumber="477" name="Niskayuna  (D. Ajdelsztajn)" statusId="eligible" strokeName="D. Ajdelsztajn"/>
+    <timingRacingCrew bowOrLaneNumber="478" name="St. Joseph NJ  (R. Canada)" statusId="eligible" strokeName="R. Canada"/>
+    <timingRacingCrew bowOrLaneNumber="479" name="North Allegheny  (M. Rees)" statusId="eligible" strokeName="M. Rees"/>
+    <timingRacingCrew bowOrLaneNumber="480" name="Bergen Catholic  (A. Drapkin)" statusId="eligible" strokeName="A. Drapkin"/>
+    <timingRacingCrew bowOrLaneNumber="481" name="Western Albermarle  (H. Mathewes)" statusId="eligible" strokeName="H. Mathewes"/>
+    <timingRacingCrew bowOrLaneNumber="482" name="Devon Prep  (B. Cuff)" statusId="eligible" strokeName="B. Cuff"/>
+    <timingRacingCrew bowOrLaneNumber="483" name="Fordham  (R. Palumbo)" statusId="eligible" strokeName="R. Palumbo"/>
+    <timingRacingCrew bowOrLaneNumber="484" name="Whitefield  (F. Calloway)" statusId="eligible" strokeName="F. Calloway"/>
+    <timingRacingCrew bowOrLaneNumber="485" name="West Springfield  (E. Beckett)" statusId="eligible" strokeName="E. Beckett"/>
+    <timingRacingCrew bowOrLaneNumber="486" name="Washington-Liberty  (J. Gower)" statusId="eligible" strokeName="J. Gower"/>
+    <timingRacingCrew bowOrLaneNumber="487" name="Lower Merion  (C. Fiske-Kneafsey)" statusId="eligible" strokeName="C. Fiske-Kneafsey"/>
+    <timingRacingCrew bowOrLaneNumber="488" name="Episcopal PA  (M. KOHLI)" statusId="eligible" strokeName="M. KOHLI"/>
+    <timingRacingCrew bowOrLaneNumber="489" name="E.L. Crossley  (H. Guillemette)" statusId="eligible" strokeName="H. Guillemette"/>
+    <timingRacingCrew bowOrLaneNumber="490" name="Owen J Roberts  (A. Russ)" statusId="eligible" strokeName="A. Russ"/>
+    <timingRacingCrew bowOrLaneNumber="491" name="Boys' Latin  (A. Abdullah)" statusId="eligible" strokeName="A. Abdullah"/>
+    <timingRacingCrew bowOrLaneNumber="492" name="Hackensack  (J. Lopez Recinos)" statusId="eligible" strokeName="J. Lopez Recinos"/>
+    <timingRacingCrew bowOrLaneNumber="493" name="St. Augustine  (J. Dusz)" statusId="eligible" strokeName="J. Dusz"/>
+    <timingRacingCrew bowOrLaneNumber="494" name="Shipley  (J. Taylor)" statusId="eligible" strokeName="J. Taylor"/>
+    <timingRacingCrew bowOrLaneNumber="495" name="Haverford School  (B. Antanavicius)" statusId="eligible" strokeName="B. Antanavicius"/>
+    <timingRacingCrew bowOrLaneNumber="496" name="Penn Charter  (L. Haines)" statusId="eligible" strokeName="L. Haines"/>
+    <timingRacingCrew bowOrLaneNumber="497" name="Augustine Classical  (D. Zhao)" statusId="eligible" strokeName="D. Zhao"/>
+  </timingRace>
+  <timingRace eventId="14" stageId="time-trial" raceId="14a" name="14a Girls Junior Quad  Time Trial" raceNumber="14a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="quadWithoutCoxswain" scheduledDate="2024-05-17" scheduledTime="11:59">
+    <timingRacingCrew bowOrLaneNumber="500" name="Ridley  (C. Thai)" statusId="eligible" strokeName="C. Thai"/>
+    <timingRacingCrew bowOrLaneNumber="501" name="Hockaday  (P. Brown)" statusId="eligible" strokeName="P. Brown"/>
+    <timingRacingCrew bowOrLaneNumber="502" name="Conestoga  (T. Franchet)" statusId="eligible" strokeName="T. Franchet"/>
+    <timingRacingCrew bowOrLaneNumber="503" name="Germantown Friends  (I. Ammon)" statusId="eligible" strokeName="I. Ammon"/>
+    <timingRacingCrew bowOrLaneNumber="504" name="Western Albermarle  (A. Beck)" statusId="eligible" strokeName="A. Beck"/>
+    <timingRacingCrew bowOrLaneNumber="505" name="Agnes Irwin  (E. Etherington)" statusId="eligible" strokeName="E. Etherington"/>
+    <timingRacingCrew bowOrLaneNumber="506" name="Niskayuna  (R. Simonds)" statusId="eligible" strokeName="R. Simonds"/>
+    <timingRacingCrew bowOrLaneNumber="507" name="Ridgewood  (S. Ponomarciuc)" statusId="eligible" strokeName="S. Ponomarciuc"/>
+    <timingRacingCrew bowOrLaneNumber="508" name="St. Benedict's  (V. Bradley)" statusId="eligible" strokeName="V. Bradley"/>
+    <timingRacingCrew bowOrLaneNumber="509" name="Penn Charter  (C. Sumner)" statusId="eligible" strokeName="C. Sumner"/>
+    <timingRacingCrew bowOrLaneNumber="510" name="Germantown Academy  (C. Shafer)" statusId="eligible" strokeName="C. Shafer"/>
+    <timingRacingCrew bowOrLaneNumber="511" name="Great Valley  (A. Coker)" statusId="eligible" strokeName="A. Coker"/>
+    <timingRacingCrew bowOrLaneNumber="512" name="Baldwin  (E. Esplin)" statusId="eligible" strokeName="E. Esplin"/>
+    <timingRacingCrew bowOrLaneNumber="513" name="Sacred Heart  (M. White)" statusId="eligible" strokeName="M. White"/>
+    <timingRacingCrew bowOrLaneNumber="514" name="Dwight-Englewood  (G. Unger)" statusId="eligible" strokeName="G. Unger"/>
+    <timingRacingCrew bowOrLaneNumber="515" name="Poughkeepsie  (S. Gil-Rangel)" statusId="eligible" strokeName="S. Gil-Rangel"/>
+    <timingRacingCrew bowOrLaneNumber="516" name="Burnt Hills  (E. Abdoo)" statusId="eligible" strokeName="E. Abdoo"/>
+    <timingRacingCrew bowOrLaneNumber="517" name="Montclair  (J. Clemente)" statusId="eligible" strokeName="J. Clemente"/>
+    <timingRacingCrew bowOrLaneNumber="518" name="Shenendehowa  (N. Messinger)" statusId="eligible" strokeName="N. Messinger"/>
+    <timingRacingCrew bowOrLaneNumber="519" name="Shipley  (J. O'CONNOR)" statusId="eligible" strokeName="J. O'CONNOR"/>
+    <timingRacingCrew bowOrLaneNumber="520" name="Lower Merion  (K. Rauer)" statusId="eligible" strokeName="K. Rauer"/>
+    <timingRacingCrew bowOrLaneNumber="521" name="Hackensack  (K. Gueye)" statusId="eligible" strokeName="K. Gueye"/>
+    <timingRacingCrew bowOrLaneNumber="522" name="Whitefield  (N. Jones)" statusId="eligible" strokeName="N. Jones"/>
+    <timingRacingCrew bowOrLaneNumber="523" name="Justice  (A. Lyons)" statusId="eligible" strokeName="A. Lyons"/>
+    <timingRacingCrew bowOrLaneNumber="524" name="Springside Chestnut Hill  (C. Trayes)" statusId="eligible" strokeName="C. Trayes"/>
+    <timingRacingCrew bowOrLaneNumber="525" name="Rumson-Fair Haven  (E. Claussen)" statusId="eligible" strokeName="E. Claussen"/>
+  </timingRace>
+  <timingRace eventId="15" stageId="time-trial" raceId="15a" name="15a Boys Ltwt Four  Time Trial" raceNumber="15a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="fourWithCoxswain" scheduledDate="2024-05-17" scheduledTime="12:13">
+    <timingRacingCrew bowOrLaneNumber="528" name="E.L. Crossley  (J. Cuff)" statusId="eligible" strokeName="J. Cuff"/>
+    <timingRacingCrew bowOrLaneNumber="529" name="St. Joseph's Prep  (S. Sollie)" statusId="eligible" strokeName="S. Sollie"/>
+    <timingRacingCrew bowOrLaneNumber="530" name="La Salle  (K. Gallagher)" statusId="eligible" strokeName="K. Gallagher"/>
+    <timingRacingCrew bowOrLaneNumber="531" name="Christian Brothers  (C. Johnson)" statusId="eligible" strokeName="C. Johnson"/>
+    <timingRacingCrew bowOrLaneNumber="532" name="St. John's  (A. Luchtefeld)" statusId="eligible" strokeName="A. Luchtefeld"/>
+    <timingRacingCrew bowOrLaneNumber="533" name="Gonzaga  (A. Potter)" statusId="eligible" strokeName="A. Potter"/>
+    <timingRacingCrew bowOrLaneNumber="534" name="Radnor  (K. Spadaro)" statusId="eligible" strokeName="K. Spadaro"/>
+    <timingRacingCrew bowOrLaneNumber="535" name="Ocean City  (L. Collins)" statusId="eligible" strokeName="L. Collins"/>
+    <timingRacingCrew bowOrLaneNumber="536" name="Father Judge  (G. Landino)" statusId="eligible" strokeName="G. Landino"/>
+    <timingRacingCrew bowOrLaneNumber="537" name="Egg Harbor  (H. Acosta)" statusId="eligible" strokeName="H. Acosta"/>
+    <timingRacingCrew bowOrLaneNumber="538" name="Tampa  (B. Maldonado)" statusId="eligible" strokeName="B. Maldonado"/>
+    <timingRacingCrew bowOrLaneNumber="539" name="Mainland  (W. Leap)" statusId="eligible" strokeName="W. Leap"/>
+    <timingRacingCrew bowOrLaneNumber="540" name="Blair Academy  (T. Ongnithiwat)" statusId="eligible" strokeName="T. Ongnithiwat"/>
+    <timingRacingCrew bowOrLaneNumber="541" name="Dallas Jesuit  (B. Gonzales)" statusId="eligible" strokeName="B. Gonzales"/>
+    <timingRacingCrew bowOrLaneNumber="542" name="Belleville  (S. Sarango)" statusId="eligible" strokeName="S. Sarango"/>
+    <timingRacingCrew bowOrLaneNumber="543" name="Hill School  (N. Han)" statusId="eligible" strokeName="N. Han"/>
+  </timingRace>
+  <timingRace eventId="16" stageId="time-trial" raceId="16a" name="16a Girls Ltwt Four  Time Trial" raceNumber="16a" progressionRule="Top 6 Places to Phyllis Graham Trophy" timingMethod="staggeredStart" shellType="fourWithCoxswain" scheduledDate="2024-05-17" scheduledTime="12:42">
+    <timingRacingCrew bowOrLaneNumber="546" name="Montclair  (I. Gladstone)" statusId="eligible" strokeName="I. Gladstone"/>
+    <timingRacingCrew bowOrLaneNumber="547" name="Lake Brantley A  (K. Lehman)" statusId="eligible" strokeName="K. Lehman"/>
+    <timingRacingCrew bowOrLaneNumber="548" name="Holy Spirit  (P. Ballard)" statusId="eligible" strokeName="P. Ballard"/>
+    <timingRacingCrew bowOrLaneNumber="549" name="Ocean City  (M. McCusker)" statusId="eligible" strokeName="M. McCusker"/>
+    <timingRacingCrew bowOrLaneNumber="550" name="Egg Harbor  (L. Winkler)" statusId="eligible" strokeName="L. Winkler"/>
+    <timingRacingCrew bowOrLaneNumber="551" name="Ursuline  (C. Martin)" statusId="eligible" strokeName="C. Martin"/>
+    <timingRacingCrew bowOrLaneNumber="552" name="North Catholic  (E. Faber)" statusId="eligible" strokeName="E. Faber"/>
+    <timingRacingCrew bowOrLaneNumber="553" name="Mainland  (M. SIGLIN)" statusId="eligible" strokeName="M. SIGLIN"/>
+    <timingRacingCrew bowOrLaneNumber="554" name="Kearny  (S. Faleiro)" statusId="eligible" strokeName="S. Faleiro"/>
+    <timingRacingCrew bowOrLaneNumber="555" name="Buffalo Seminary  (P. Nagy)" statusId="eligible" strokeName="P. Nagy"/>
+    <timingRacingCrew bowOrLaneNumber="556" name="Yorktown  (P. Kopasz-Gemmen)" statusId="eligible" strokeName="P. Kopasz-Gemmen"/>
+    <timingRacingCrew bowOrLaneNumber="557" name="St. John's  (R. Clark)" statusId="eligible" strokeName="R. Clark"/>
+    <timingRacingCrew bowOrLaneNumber="558" name="Lake Brantley B  (A. Eakins)" statusId="eligible" strokeName="A. Eakins"/>
+    <timingRacingCrew bowOrLaneNumber="559" name="George School  (M. Hackenberg)" statusId="eligible" strokeName="M. Hackenberg"/>
+  </timingRace>
+  <timingRace eventId="17" stageId="time-trial" raceId="17a" name="17a Boys Second Four  Time Trial" raceNumber="17a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="fourWithCoxswain" scheduledDate="2024-05-17" scheduledTime="12:50">
+    <timingRacingCrew bowOrLaneNumber="561" name="Don Bosco  (H. Finnegan)" statusId="eligible" strokeName="H. Finnegan"/>
+    <timingRacingCrew bowOrLaneNumber="562" name="St. Joseph's Prep  (I. lamken)" statusId="eligible" strokeName="I. lamken"/>
+    <timingRacingCrew bowOrLaneNumber="563" name="Oakton  (A. Waddell)" statusId="eligible" strokeName="A. Waddell"/>
+    <timingRacingCrew bowOrLaneNumber="564" name="Gonzaga  (L. Barthel)" statusId="eligible" strokeName="L. Barthel"/>
+    <timingRacingCrew bowOrLaneNumber="565" name="Hill School" statusId="scratched" strokeName=""/>
+    <timingRacingCrew bowOrLaneNumber="566" name="Norfolk  (W. Crouch)" statusId="eligible" strokeName="W. Crouch"/>
+    <timingRacingCrew bowOrLaneNumber="567" name="Holy Ghost  (L. Murphy)" statusId="eligible" strokeName="L. Murphy"/>
+    <timingRacingCrew bowOrLaneNumber="568" name="Blair Academy  (P. Jindahra)" statusId="eligible" strokeName="P. Jindahra"/>
+    <timingRacingCrew bowOrLaneNumber="569" name="Hun School  (P. Quillen)" statusId="eligible" strokeName="P. Quillen"/>
+    <timingRacingCrew bowOrLaneNumber="571" name="Unionville  (G. Binder)" statusId="eligible" strokeName="G. Binder"/>
+    <timingRacingCrew bowOrLaneNumber="572" name="Briar Woods  (S. skinner)" statusId="eligible" strokeName="S. skinner"/>
+    <timingRacingCrew bowOrLaneNumber="573" name="Bishop O'Connell  (D. Rosson)" statusId="eligible" strokeName="D. Rosson"/>
+    <timingRacingCrew bowOrLaneNumber="574" name="Broad Run  (J. Chun)" statusId="eligible" strokeName="J. Chun"/>
+    <timingRacingCrew bowOrLaneNumber="575" name="Radnor  (T. Kellett)" statusId="eligible" strokeName="T. Kellett"/>
+    <timingRacingCrew bowOrLaneNumber="577" name="Lake Brantley  (A. Eccles)" statusId="eligible" strokeName="A. Eccles"/>
+    <timingRacingCrew bowOrLaneNumber="578" name="Haverford School  (Q. Bowers)" statusId="eligible" strokeName="Q. Bowers"/>
+    <timingRacingCrew bowOrLaneNumber="579" name="Harriton  (C. Langley)" statusId="eligible" strokeName="C. Langley"/>
+    <timingRacingCrew bowOrLaneNumber="580" name="Bethesda Chevy Chase  (T. Tanman)" statusId="eligible" strokeName="T. Tanman"/>
+    <timingRacingCrew bowOrLaneNumber="581" name="Robinson  (B. Hanley)" statusId="eligible" strokeName="B. Hanley"/>
+    <timingRacingCrew bowOrLaneNumber="582" name="Ocean City  (C. Smith)" statusId="scratched" strokeName="C. Smith"/>
+    <timingRacingCrew bowOrLaneNumber="583" name="St. John's  (I. Perkins)" statusId="eligible" strokeName="I. Perkins"/>
+    <timingRacingCrew bowOrLaneNumber="584" name="Episcopal PA  (L. Bowman)" statusId="eligible" strokeName="L. Bowman"/>
+    <timingRacingCrew bowOrLaneNumber="585" name="Winter Park  (J. Nadler)" statusId="eligible" strokeName="J. Nadler"/>
+    <timingRacingCrew bowOrLaneNumber="586" name="South County  (A. Nurse)" statusId="eligible" strokeName="A. Nurse"/>
+    <timingRacingCrew bowOrLaneNumber="587" name="Fairfax  (J. McQuillen)" statusId="eligible" strokeName="J. McQuillen"/>
+    <timingRacingCrew bowOrLaneNumber="588" name="Melbourne  (O. King)" statusId="eligible" strokeName="O. King"/>
+    <timingRacingCrew bowOrLaneNumber="589" name="DeMatha  (D. Pefok)" statusId="eligible" strokeName="D. Pefok"/>
+    <timingRacingCrew bowOrLaneNumber="590" name="Doane  (E. Zimnes)" statusId="eligible" strokeName="E. Zimnes"/>
+  </timingRace>
+  <timingRace eventId="18" stageId="time-trial" raceId="18a" name="18a Girls Second Four  Time Trial" raceNumber="18a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="fourWithCoxswain" scheduledDate="2024-05-17" scheduledTime="13:05">
+    <timingRacingCrew bowOrLaneNumber="593" name="Bishop O'Connell  (J. Kannar)" statusId="eligible" strokeName="J. Kannar"/>
+    <timingRacingCrew bowOrLaneNumber="594" name="Stone Bridge  (T. Vyge)" statusId="eligible" strokeName="T. Vyge"/>
+    <timingRacingCrew bowOrLaneNumber="595" name="Holton-Arms  (E. Eng)" statusId="eligible" strokeName="E. Eng"/>
+    <timingRacingCrew bowOrLaneNumber="596" name="West Springfield  (A. Craghead)" statusId="eligible" strokeName="A. Craghead"/>
+    <timingRacingCrew bowOrLaneNumber="597" name="Norfolk  (J. Cheng)" statusId="scratched" strokeName="J. Cheng"/>
+    <timingRacingCrew bowOrLaneNumber="598" name="Mount Saint Joseph  (M. Kelly)" statusId="eligible" strokeName="M. Kelly"/>
+    <timingRacingCrew bowOrLaneNumber="599" name="Episcopal VA  (C. Luo)" statusId="scratched" strokeName="C. Luo"/>
+    <timingRacingCrew bowOrLaneNumber="600" name="Blair Academy  (Z. Jones)" statusId="eligible" strokeName="Z. Jones"/>
+    <timingRacingCrew bowOrLaneNumber="601" name="Cedar Creek  (K. Sullivan)" statusId="eligible" strokeName="K. Sullivan"/>
+    <timingRacingCrew bowOrLaneNumber="602" name="Hill School  (E. Armstrong)" statusId="eligible" strokeName="E. Armstrong"/>
+    <timingRacingCrew bowOrLaneNumber="603" name="Atlantic City  (E. Lomax)" statusId="eligible" strokeName="E. Lomax"/>
+    <timingRacingCrew bowOrLaneNumber="604" name="Egg Harbor  (C. Herron)" statusId="eligible" strokeName="C. Herron"/>
+    <timingRacingCrew bowOrLaneNumber="605" name="Broad Run  (C. Hanlin)" statusId="eligible" strokeName="C. Hanlin"/>
+    <timingRacingCrew bowOrLaneNumber="606" name="Nutley  (K. Kane)" statusId="eligible" strokeName="K. Kane"/>
+    <timingRacingCrew bowOrLaneNumber="607" name="Harriton  (E. Huth)" statusId="eligible" strokeName="E. Huth"/>
+    <timingRacingCrew bowOrLaneNumber="608" name="Lake Braddock  (T. Hurt)" statusId="eligible" strokeName="T. Hurt"/>
+    <timingRacingCrew bowOrLaneNumber="609" name="Kearny  (S. Andrade)" statusId="eligible" strokeName="S. Andrade"/>
+    <timingRacingCrew bowOrLaneNumber="610" name="South County  (M. Bretzke)" statusId="eligible" strokeName="M. Bretzke"/>
+    <timingRacingCrew bowOrLaneNumber="612" name="Riverside  (C. DePippo)" statusId="eligible" strokeName="C. DePippo"/>
+    <timingRacingCrew bowOrLaneNumber="613" name="Radnor Girls  (S. Feulner)" statusId="eligible" strokeName="S. Feulner"/>
+    <timingRacingCrew bowOrLaneNumber="614" name="North Catholic  (A. Sommers)" statusId="eligible" strokeName="A. Sommers"/>
+    <timingRacingCrew bowOrLaneNumber="615" name="Lawrenceville  (A. Zampardi)" statusId="eligible" strokeName="A. Zampardi"/>
+  </timingRace>
+  <timingRace eventId="19" stageId="time-trial" raceId="19a" name="19a Girls Senior Double  Time Trial" raceNumber="19a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="double" scheduledDate="2024-05-17" scheduledTime="13:19">
+    <timingRacingCrew bowOrLaneNumber="618" name="Churchill  (K. Frick)" statusId="eligible" strokeName="K. Frick"/>
+    <timingRacingCrew bowOrLaneNumber="619" name="Albemarle  (B. Blankenship)" statusId="eligible" strokeName="B. Blankenship"/>
+    <timingRacingCrew bowOrLaneNumber="620" name="Western Albermarle  (C. Fleming)" statusId="scratched" strokeName="C. Fleming"/>
+    <timingRacingCrew bowOrLaneNumber="621" name="Penn Charter  (C. Lewis)" statusId="eligible" strokeName="C. Lewis"/>
+    <timingRacingCrew bowOrLaneNumber="622" name="Lower Merion  (Q. Baker)" statusId="eligible" strokeName="Q. Baker"/>
+    <timingRacingCrew bowOrLaneNumber="623" name="Hockaday  (E. Williams)" statusId="eligible" strokeName="E. Williams"/>
+    <timingRacingCrew bowOrLaneNumber="624" name="Montclair  (E. Makin)" statusId="eligible" strokeName="E. Makin"/>
+    <timingRacingCrew bowOrLaneNumber="625" name="Haddon  (J. Weber)" statusId="eligible" strokeName="J. Weber"/>
+    <timingRacingCrew bowOrLaneNumber="626" name="Shipley  (R. Haberman)" statusId="eligible" strokeName="R. Haberman"/>
+    <timingRacingCrew bowOrLaneNumber="627" name="Justice  (I. Brookes-Weiss)" statusId="eligible" strokeName="I. Brookes-Weiss"/>
+    <timingRacingCrew bowOrLaneNumber="628" name="Charter School  (N. Hutton)" statusId="eligible" strokeName="N. Hutton"/>
+    <timingRacingCrew bowOrLaneNumber="629" name="Sacred Heart  (S. Fernandez)" statusId="eligible" strokeName="S. Fernandez"/>
+    <timingRacingCrew bowOrLaneNumber="630" name="State College  (S. Reutzel)" statusId="eligible" strokeName="S. Reutzel"/>
+    <timingRacingCrew bowOrLaneNumber="631" name="Hill School  (K. O'Brien)" statusId="scratched" strokeName="K. O'Brien"/>
+    <timingRacingCrew bowOrLaneNumber="632" name="Concord  (H. Halvorsen)" statusId="eligible" strokeName="H. Halvorsen"/>
+    <timingRacingCrew bowOrLaneNumber="633" name="Friends Select  (H. Smith)" statusId="eligible" strokeName="H. Smith"/>
+    <timingRacingCrew bowOrLaneNumber="634" name="Augustine Classical  (I. West)" statusId="eligible" strokeName="I. West"/>
+    <timingRacingCrew bowOrLaneNumber="635" name="Melbourne  (A. Kohler)" statusId="eligible" strokeName="A. Kohler"/>
+    <timingRacingCrew bowOrLaneNumber="636" name="Briar Woods  (S. Riggio)" statusId="eligible" strokeName="S. Riggio"/>
+    <timingRacingCrew bowOrLaneNumber="637" name="Georgetown  (A. Rabasco)" statusId="eligible" strokeName="A. Rabasco"/>
+    <timingRacingCrew bowOrLaneNumber="638" name="Fairfax  (Z. Holton)" statusId="eligible" strokeName="Z. Holton"/>
+    <timingRacingCrew bowOrLaneNumber="639" name="St. Paul  (S. Cottringer)" statusId="eligible" strokeName="S. Cottringer"/>
+    <timingRacingCrew bowOrLaneNumber="640" name="Woodbridge  (K. Weis)" statusId="eligible" strokeName="K. Weis"/>
+    <timingRacingCrew bowOrLaneNumber="641" name="Whitefield  (E. Menning)" statusId="eligible" strokeName="E. Menning"/>
+    <timingRacingCrew bowOrLaneNumber="642" name="Owen J Roberts  (R. Fallon)" statusId="eligible" strokeName="R. Fallon"/>
+    <timingRacingCrew bowOrLaneNumber="643" name="Agnes Irwin  (Z. Eberlin)" statusId="eligible" strokeName="Z. Eberlin"/>
+    <timingRacingCrew bowOrLaneNumber="644" name="Holy Spirit  (M. Cappuccio)" statusId="eligible" strokeName="M. Cappuccio"/>
+    <timingRacingCrew bowOrLaneNumber="645" name="Ridley  (H. Tsuji)" statusId="eligible" strokeName="H. Tsuji"/>
+    <timingRacingCrew bowOrLaneNumber="646" name="Springside Chestnut Hill  (M. Gleason)" statusId="eligible" strokeName="M. Gleason"/>
+  </timingRace>
+  <timingRace eventId="20" stageId="time-trial" raceId="20a" name="20a Boys Senior Double  Time Trial" raceNumber="20a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="double" scheduledDate="2024-05-17" scheduledTime="13:35">
+    <timingRacingCrew bowOrLaneNumber="649" name="Albemarle  (J. Lewis)" statusId="eligible" strokeName="J. Lewis"/>
+    <timingRacingCrew bowOrLaneNumber="650" name="Ridgewood  (W. Carroll)" statusId="eligible" strokeName="W. Carroll"/>
+    <timingRacingCrew bowOrLaneNumber="651" name="Penn Charter" statusId="scratched" strokeName=""/>
+    <timingRacingCrew bowOrLaneNumber="652" name="Germantown Friends  (L. Lendler)" statusId="eligible" strokeName="L. Lendler"/>
+    <timingRacingCrew bowOrLaneNumber="653" name="St. Joseph NJ  (L. Rotunno)" statusId="eligible" strokeName="L. Rotunno"/>
+    <timingRacingCrew bowOrLaneNumber="654" name="Haverford School  (J. Herd)" statusId="eligible" strokeName="J. Herd"/>
+    <timingRacingCrew bowOrLaneNumber="655" name="Haddon  (C. McGovern)" statusId="eligible" strokeName="C. McGovern"/>
+    <timingRacingCrew bowOrLaneNumber="656" name="Holy Spirit  (N. Sarno)" statusId="eligible" strokeName="N. Sarno"/>
+    <timingRacingCrew bowOrLaneNumber="657" name="Frank W. Cox  (C. Utley)" statusId="eligible" strokeName="C. Utley"/>
+    <timingRacingCrew bowOrLaneNumber="658" name="Charter School  (A. Narayan)" statusId="eligible" strokeName="A. Narayan"/>
+    <timingRacingCrew bowOrLaneNumber="659" name="Fordham" statusId="scratched" strokeName=""/>
+    <timingRacingCrew bowOrLaneNumber="660" name="Malvern  (C. Joyce)" statusId="eligible" strokeName="C. Joyce"/>
+    <timingRacingCrew bowOrLaneNumber="661" name="Friends Select  (T. Stanev Potts)" statusId="eligible" strokeName="T. Stanev Potts"/>
+    <timingRacingCrew bowOrLaneNumber="662" name="Radnor  (J. Kellerman)" statusId="eligible" strokeName="J. Kellerman"/>
+    <timingRacingCrew bowOrLaneNumber="663" name="Christian Brothers  (J. Larrabee)" statusId="eligible" strokeName="J. Larrabee"/>
+    <timingRacingCrew bowOrLaneNumber="664" name="Manhasset  (E. Lee)" statusId="eligible" strokeName="E. Lee"/>
+    <timingRacingCrew bowOrLaneNumber="665" name="Shenendehowa  (G. Habeeb)" statusId="eligible" strokeName="G. Habeeb"/>
+    <timingRacingCrew bowOrLaneNumber="666" name="Mathews  (B. Murphy)" statusId="eligible" strokeName="B. Murphy"/>
+    <timingRacingCrew bowOrLaneNumber="667" name="Lower Merion  (M. Naughton)" statusId="eligible" strokeName="M. Naughton"/>
+    <timingRacingCrew bowOrLaneNumber="668" name="St. Augustine  (J. Riggs)" statusId="eligible" strokeName="J. Riggs"/>
+    <timingRacingCrew bowOrLaneNumber="669" name="Western Albermarle  (M. Lindqvist)" statusId="eligible" strokeName="M. Lindqvist"/>
+    <timingRacingCrew bowOrLaneNumber="670" name="Nutley  (J. Friend)" statusId="eligible" strokeName="J. Friend"/>
+    <timingRacingCrew bowOrLaneNumber="671" name="Conestoga  (J. Tis)" statusId="eligible" strokeName="J. Tis"/>
+    <timingRacingCrew bowOrLaneNumber="672" name="State College  (W. Kelliher)" statusId="eligible" strokeName="W. Kelliher"/>
+    <timingRacingCrew bowOrLaneNumber="673" name="Philadelphia City  (E. Bush)" statusId="eligible" strokeName="E. Bush"/>
+    <timingRacingCrew bowOrLaneNumber="674" name="St. Benedict's  (E. Tait)" statusId="eligible" strokeName="E. Tait"/>
+    <timingRacingCrew bowOrLaneNumber="675" name="Eden  (M. Essig)" statusId="eligible" strokeName="M. Essig"/>
+    <timingRacingCrew bowOrLaneNumber="676" name="Walter Johnson  (S. Liu)" statusId="eligible" strokeName="S. Liu"/>
+    <timingRacingCrew bowOrLaneNumber="677" name="Tampa  (P. Bohacek)" statusId="eligible" strokeName="P. Bohacek"/>
+  </timingRace>
+  <timingRace eventId="21" stageId="time-trial" raceId="21a" name="21a Boys Second Eight  Time Trial" raceNumber="21a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="eight" scheduledDate="2024-05-17" scheduledTime="13:51">
+    <timingRacingCrew bowOrLaneNumber="680" name="St. Joseph's Prep  (L. Blaney)" statusId="eligible" strokeName="L. Blaney"/>
+    <timingRacingCrew bowOrLaneNumber="681" name="Gonzaga  (W. Alexander)" statusId="eligible" strokeName="W. Alexander"/>
+    <timingRacingCrew bowOrLaneNumber="682" name="Lawrenceville  (G. Mahoney)" statusId="eligible" strokeName="G. Mahoney"/>
+    <timingRacingCrew bowOrLaneNumber="683" name="McLean  (M. Binder)" statusId="eligible" strokeName="M. Binder"/>
+    <timingRacingCrew bowOrLaneNumber="684" name="St. Andrew's  (B. Donovan)" statusId="eligible" strokeName="B. Donovan"/>
+    <timingRacingCrew bowOrLaneNumber="685" name="James Madison  (L. Sienknecht)" statusId="eligible" strokeName="L. Sienknecht"/>
+    <timingRacingCrew bowOrLaneNumber="686" name="St. Albans  (B. Heberlig)" statusId="eligible" strokeName="B. Heberlig"/>
+    <timingRacingCrew bowOrLaneNumber="687" name="Yorktown  (L. Rist)" statusId="eligible" strokeName="L. Rist"/>
+    <timingRacingCrew bowOrLaneNumber="688" name="Jefferson  (C. Knaeble)" statusId="eligible" strokeName="C. Knaeble"/>
+    <timingRacingCrew bowOrLaneNumber="689" name="W.T. Woodson  (L. Jessup)" statusId="eligible" strokeName="L. Jessup"/>
+    <timingRacingCrew bowOrLaneNumber="690" name="St. Augustine  (P. Sacco)" statusId="eligible" strokeName="P. Sacco"/>
+    <timingRacingCrew bowOrLaneNumber="691" name="Walt Whitman  (R. Lodato)" statusId="eligible" strokeName="R. Lodato"/>
+    <timingRacingCrew bowOrLaneNumber="692" name="Jackson-Reed  (A. Marsh)" statusId="eligible" strokeName="A. Marsh"/>
+    <timingRacingCrew bowOrLaneNumber="693" name="West Springfield  (S. Silvanic)" statusId="eligible" strokeName="S. Silvanic"/>
+    <timingRacingCrew bowOrLaneNumber="694" name="Langley  (A. Kim)" statusId="eligible" strokeName="A. Kim"/>
+    <timingRacingCrew bowOrLaneNumber="695" name="St. Peter's" statusId="eligible" strokeName=""/>
+    <timingRacingCrew bowOrLaneNumber="696" name="La Salle  (S. Cross)" statusId="eligible" strokeName="S. Cross"/>
+    <timingRacingCrew bowOrLaneNumber="698" name="Chaminade  (P. Kaloudis)" statusId="eligible" strokeName="P. Kaloudis"/>
+    <timingRacingCrew bowOrLaneNumber="699" name="Montclair  (M. Weker)" statusId="eligible" strokeName="M. Weker"/>
+  </timingRace>
+  <timingRace eventId="22" stageId="time-trial" raceId="22a" name="22a Girls Second Eight  Time Trial" raceNumber="22a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="eight" scheduledDate="2024-05-17" scheduledTime="14:01">
+    <timingRacingCrew bowOrLaneNumber="702" name="Mount Saint Joseph  (A. Ledwith)" statusId="eligible" strokeName="A. Ledwith"/>
+    <timingRacingCrew bowOrLaneNumber="703" name="Jackson-Reed  (E. McIntyre)" statusId="eligible" strokeName="E. McIntyre"/>
+    <timingRacingCrew bowOrLaneNumber="704" name="Walt Whitman  (E. Covas)" statusId="eligible" strokeName="E. Covas"/>
+    <timingRacingCrew bowOrLaneNumber="705" name="W.T. Woodson  (E. Cummings-Sulmistras)" statusId="eligible" strokeName="E. Cummings-Sulmistras"/>
+    <timingRacingCrew bowOrLaneNumber="706" name="St. Andrew's  (S. Fischer)" statusId="eligible" strokeName="S. Fischer"/>
+    <timingRacingCrew bowOrLaneNumber="707" name="Bethesda Chevy Chase  (M. chopra)" statusId="eligible" strokeName="M. chopra"/>
+    <timingRacingCrew bowOrLaneNumber="708" name="Yorktown  (S. O'Connell)" statusId="eligible" strokeName="S. O'Connell"/>
+    <timingRacingCrew bowOrLaneNumber="709" name="McLean  (N. Pillai)" statusId="eligible" strokeName="N. Pillai"/>
+    <timingRacingCrew bowOrLaneNumber="710" name="Langley  (I. Robertson)" statusId="eligible" strokeName="I. Robertson"/>
+    <timingRacingCrew bowOrLaneNumber="711" name="National Cathedral  (J. Mumford)" statusId="eligible" strokeName="J. Mumford"/>
+    <timingRacingCrew bowOrLaneNumber="712" name="Mainland  (L. Wineland)" statusId="eligible" strokeName="L. Wineland"/>
+    <timingRacingCrew bowOrLaneNumber="713" name="Gwynedd Mercy  (F. Edalatpour)" statusId="eligible" strokeName="F. Edalatpour"/>
+    <timingRacingCrew bowOrLaneNumber="714" name="Sidwell Friends  (E. Nyhan)" statusId="eligible" strokeName="E. Nyhan"/>
+    <timingRacingCrew bowOrLaneNumber="715" name="Jefferson  (A. Nguyen)" statusId="eligible" strokeName="A. Nguyen"/>
+    <timingRacingCrew bowOrLaneNumber="716" name="Germantown Visitation  (A. O'Brien)" statusId="eligible" strokeName="A. O'Brien"/>
+    <timingRacingCrew bowOrLaneNumber="717" name="Ocean City  (R. Hemberger)" statusId="eligible" strokeName="R. Hemberger"/>
+    <timingRacingCrew bowOrLaneNumber="718" name="Alexandria City  (A. Davenport)" statusId="eligible" strokeName="A. Davenport"/>
+    <timingRacingCrew bowOrLaneNumber="719" name="Merion Mercy  (C. DeVlieger)" statusId="eligible" strokeName="C. DeVlieger"/>
+    <timingRacingCrew bowOrLaneNumber="720" name="Robinson  (S. Farley)" statusId="eligible" strokeName="S. Farley"/>
+    <timingRacingCrew bowOrLaneNumber="721" name="Montclair  (A. Lane)" statusId="eligible" strokeName="A. Lane"/>
+  </timingRace>
+  <timingRace eventId="23" stageId="time-trial" raceId="23a" name="23a Girls Senior Quad  Time Trial" raceNumber="23a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="quadWithoutCoxswain" scheduledDate="2024-05-17" scheduledTime="14:14">
+    <timingRacingCrew bowOrLaneNumber="724" name="Conestoga  (G. Reaume)" statusId="eligible" strokeName="G. Reaume"/>
+    <timingRacingCrew bowOrLaneNumber="725" name="Agnes Irwin  (E. Cacciavillani)" statusId="eligible" strokeName="E. Cacciavillani"/>
+    <timingRacingCrew bowOrLaneNumber="726" name="Haddon  (M. Dunn)" statusId="eligible" strokeName="M. Dunn"/>
+    <timingRacingCrew bowOrLaneNumber="727" name="Episcopal PA  (G. Murphy)" statusId="eligible" strokeName="G. Murphy"/>
+    <timingRacingCrew bowOrLaneNumber="728" name="North Allegheny  (K. Zema)" statusId="eligible" strokeName="K. Zema"/>
+    <timingRacingCrew bowOrLaneNumber="729" name="Hockaday  (S. Duncan)" statusId="eligible" strokeName="S. Duncan"/>
+    <timingRacingCrew bowOrLaneNumber="730" name="Niskayuna  (N. Warrick)" statusId="eligible" strokeName="N. Warrick"/>
+    <timingRacingCrew bowOrLaneNumber="731" name="Penn Charter  (B. Turner)" statusId="eligible" strokeName="B. Turner"/>
+    <timingRacingCrew bowOrLaneNumber="732" name="Shenendehowa  (B. Parisi)" statusId="eligible" strokeName="B. Parisi"/>
+    <timingRacingCrew bowOrLaneNumber="733" name="Western Albermarle  (C. Stultz)" statusId="eligible" strokeName="C. Stultz"/>
+    <timingRacingCrew bowOrLaneNumber="734" name="Baldwin  (M. Horwitz)" statusId="eligible" strokeName="M. Horwitz"/>
+    <timingRacingCrew bowOrLaneNumber="735" name="Pennsauken  (S. Reyes)" statusId="eligible" strokeName="S. Reyes"/>
+    <timingRacingCrew bowOrLaneNumber="736" name="Philadelphia City  (S. Scarboro)" statusId="eligible" strokeName="S. Scarboro"/>
+    <timingRacingCrew bowOrLaneNumber="737" name="E.L. Crossley  (E. Goedhart)" statusId="eligible" strokeName="E. Goedhart"/>
+    <timingRacingCrew bowOrLaneNumber="738" name="Manhasset  (R. Lytle)" statusId="eligible" strokeName="R. Lytle"/>
+    <timingRacingCrew bowOrLaneNumber="739" name="Shipley" statusId="eligible" strokeName=""/>
+    <timingRacingCrew bowOrLaneNumber="740" name="Germantown Friends  (C. Appleberry)" statusId="eligible" strokeName="C. Appleberry"/>
+    <timingRacingCrew bowOrLaneNumber="741" name="Albemarle  (A. Bruen)" statusId="eligible" strokeName="A. Bruen"/>
+    <timingRacingCrew bowOrLaneNumber="742" name="Springside Chestnut Hill  (A. Cross)" statusId="eligible" strokeName="A. Cross"/>
+  </timingRace>
+  <timingRace eventId="24" stageId="time-trial" raceId="24a" name="24a Boys Senior Quad  Time Trial" raceNumber="24a" progressionRule="Top 12 Places to Semi-Finals" timingMethod="staggeredStart" shellType="quadWithoutCoxswain" scheduledDate="2024-05-17" scheduledTime="14:24">
+    <timingRacingCrew bowOrLaneNumber="745" name="Haverford School  (B. Brewington)" statusId="eligible" strokeName="B. Brewington"/>
+    <timingRacingCrew bowOrLaneNumber="746" name="Haddon  (H. Geist)" statusId="eligible" strokeName="H. Geist"/>
+    <timingRacingCrew bowOrLaneNumber="747" name="Ridley  (A. Schrompf)" statusId="eligible" strokeName="A. Schrompf"/>
+    <timingRacingCrew bowOrLaneNumber="748" name="Conestoga  (A. Gregory)" statusId="eligible" strokeName="A. Gregory"/>
+    <timingRacingCrew bowOrLaneNumber="749" name="Western Albermarle  (L. Reifenberger)" statusId="eligible" strokeName="L. Reifenberger"/>
+    <timingRacingCrew bowOrLaneNumber="750" name="Burnt Hills  (J. Bower)" statusId="eligible" strokeName="J. Bower"/>
+    <timingRacingCrew bowOrLaneNumber="751" name="North Allegheny  (C. Lemon)" statusId="eligible" strokeName="C. Lemon"/>
+    <timingRacingCrew bowOrLaneNumber="752" name="Devon Prep  (A. Thomas)" statusId="eligible" strokeName="A. Thomas"/>
+    <timingRacingCrew bowOrLaneNumber="753" name="Ridgewood  (M. Lyakerman)" statusId="eligible" strokeName="M. Lyakerman"/>
+    <timingRacingCrew bowOrLaneNumber="754" name="Malvern  (B. Donohue)" statusId="eligible" strokeName="B. Donohue"/>
+    <timingRacingCrew bowOrLaneNumber="755" name="St. Joseph NJ  (B. Magee)" statusId="eligible" strokeName="B. Magee"/>
+    <timingRacingCrew bowOrLaneNumber="756" name="Penn Charter  (M. Haines)" statusId="eligible" strokeName="M. Haines"/>
+    <timingRacingCrew bowOrLaneNumber="757" name="Seton Hall  (M. Balsamo)" statusId="eligible" strokeName="M. Balsamo"/>
+    <timingRacingCrew bowOrLaneNumber="758" name="Pennsauken  (M. Pitts)" statusId="eligible" strokeName="M. Pitts"/>
+    <timingRacingCrew bowOrLaneNumber="759" name="St. Francis  (J. Schwandt)" statusId="eligible" strokeName="J. Schwandt"/>
+    <timingRacingCrew bowOrLaneNumber="760" name="Shenendehowa  (R. Pazderski)" statusId="eligible" strokeName="R. Pazderski"/>
+    <timingRacingCrew bowOrLaneNumber="761" name="Holy Spirit  (R. Bender)" statusId="eligible" strokeName="R. Bender"/>
+    <timingRacingCrew bowOrLaneNumber="762" name="Germantown Friends  (A. Rajagopalan)" statusId="eligible" strokeName="A. Rajagopalan"/>
+    <timingRacingCrew bowOrLaneNumber="763" name="Springside Chestnut Hill  (B. Jolly)" statusId="eligible" strokeName="B. Jolly"/>
+    <timingRacingCrew bowOrLaneNumber="764" name="Manhasset  (M. Fulgieri)" statusId="eligible" strokeName="M. Fulgieri"/>
+    <timingRacingCrew bowOrLaneNumber="765" name="Whitefield  (D. Downing)" statusId="eligible" strokeName="D. Downing"/>
+    <timingRacingCrew bowOrLaneNumber="766" name="Washington-Liberty  (A. Maricle)" statusId="eligible" strokeName="A. Maricle"/>
+  </timingRace>
+  <timingRace eventId="25" stageId="time-trial" raceId="25a" name="25a Boys Senior Single  Time Trial" raceNumber="25a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" scheduledDate="2024-05-17" scheduledTime="14:38">
+    <timingRacingCrew bowOrLaneNumber="769" name="E.L. Crossley  (L. Shapland)" statusId="eligible" strokeName="L. Shapland"/>
+    <timingRacingCrew bowOrLaneNumber="770" name="Bonner Prendergast  (L. Falcone)" statusId="eligible" strokeName="L. Falcone"/>
+    <timingRacingCrew bowOrLaneNumber="771" name="Don Bosco  (W. Feins)" statusId="eligible" strokeName="W. Feins"/>
+    <timingRacingCrew bowOrLaneNumber="772" name="Western Albermarle  (A. Netland)" statusId="eligible" strokeName="A. Netland"/>
+    <timingRacingCrew bowOrLaneNumber="773" name="Wakefield  (T. Madigan)" statusId="eligible" strokeName="T. Madigan"/>
+    <timingRacingCrew bowOrLaneNumber="774" name="Holy Spirit  (A. Ricciardi (18))" statusId="eligible" strokeName="A. Ricciardi (18)"/>
+    <timingRacingCrew bowOrLaneNumber="775" name="St. Benedict's  (R. Perry)" statusId="eligible" strokeName="R. Perry"/>
+    <timingRacingCrew bowOrLaneNumber="776" name="Fordham  (R. Romani)" statusId="eligible" strokeName="R. Romani"/>
+    <timingRacingCrew bowOrLaneNumber="777" name="Malvern  (W. Bentley)" statusId="eligible" strokeName="W. Bentley"/>
+    <timingRacingCrew bowOrLaneNumber="778" name="Germantown Academy  (M. Rinnander)" statusId="eligible" strokeName="M. Rinnander"/>
+    <timingRacingCrew bowOrLaneNumber="780" name="Bergen Catholic  (R. Howell)" statusId="eligible" strokeName="R. Howell"/>
+    <timingRacingCrew bowOrLaneNumber="781" name="Lower Merion  (M. Steingard)" statusId="eligible" strokeName="M. Steingard"/>
+    <timingRacingCrew bowOrLaneNumber="782" name="Hun School  (R. Shore)" statusId="eligible" strokeName="R. Shore"/>
+    <timingRacingCrew bowOrLaneNumber="783" name="Upper Merion  (A. Chung)" statusId="eligible" strokeName="A. Chung"/>
+    <timingRacingCrew bowOrLaneNumber="784" name="Penn Charter  (A. Mondgock)" statusId="eligible" strokeName="A. Mondgock"/>
+    <timingRacingCrew bowOrLaneNumber="785" name="Hackensack  (S. Edmonds)" statusId="eligible" strokeName="S. Edmonds"/>
+    <timingRacingCrew bowOrLaneNumber="786" name="Roman Catholic  (N. Ricci)" statusId="eligible" strokeName="N. Ricci"/>
+    <timingRacingCrew bowOrLaneNumber="787" name="Albemarle  (S. Wall)" statusId="eligible" strokeName="S. Wall"/>
+    <timingRacingCrew bowOrLaneNumber="788" name="Salesianum  (H. Davis)" statusId="eligible" strokeName="H. Davis"/>
+    <timingRacingCrew bowOrLaneNumber="789" name="Blair Crew  (J. Goodall)" statusId="eligible" strokeName="J. Goodall"/>
+    <timingRacingCrew bowOrLaneNumber="790" name="West Niagara  (A. Djerfi)" statusId="eligible" strokeName="A. Djerfi"/>
+    <timingRacingCrew bowOrLaneNumber="791" name="Owen J Roberts  (R. Mathews)" statusId="eligible" strokeName="R. Mathews"/>
+    <timingRacingCrew bowOrLaneNumber="792" name="Haddon  (J. Capri)" statusId="eligible" strokeName="J. Capri"/>
+    <timingRacingCrew bowOrLaneNumber="793" name="Paramus  (J. Somma)" statusId="scratched" strokeName="J. Somma"/>
+    <timingRacingCrew bowOrLaneNumber="794" name="Barrack Hebrew  (B. Martin)" statusId="eligible" strokeName="B. Martin"/>
+    <timingRacingCrew bowOrLaneNumber="795" name="Concord  (C. Culley)" statusId="eligible" strokeName="C. Culley"/>
+    <timingRacingCrew bowOrLaneNumber="796" name="Philadelphia City  (H. Demyan)" statusId="eligible" strokeName="H. Demyan"/>
+    <timingRacingCrew bowOrLaneNumber="797" name="Great Valley  (C. Bickell)" statusId="eligible" strokeName="C. Bickell"/>
+    <timingRacingCrew bowOrLaneNumber="798" name="Belleville  (D. Estevez)" statusId="eligible" strokeName="D. Estevez"/>
+    <timingRacingCrew bowOrLaneNumber="799" name="Melbourne  (W. Kerschensteiner)" statusId="eligible" strokeName="W. Kerschensteiner"/>
+    <timingRacingCrew bowOrLaneNumber="800" name="Bishop Ireton  (S. Maly)" statusId="eligible" strokeName="S. Maly"/>
+    <timingRacingCrew bowOrLaneNumber="801" name="Manhasset  (C. Stoneking)" statusId="eligible" strokeName="C. Stoneking"/>
+    <timingRacingCrew bowOrLaneNumber="802" name="Boys' Latin  (B. Richardson)" statusId="eligible" strokeName="B. Richardson"/>
+    <timingRacingCrew bowOrLaneNumber="803" name="Conestoga" statusId="scratched" strokeName=""/>
+    <timingRacingCrew bowOrLaneNumber="804" name="DC International  (C. Coleman)" statusId="eligible" strokeName="C. Coleman"/>
+    <timingRacingCrew bowOrLaneNumber="805" name="Knox  (J. Mirkovic)" statusId="eligible" strokeName="J. Mirkovic"/>
+    <timingRacingCrew bowOrLaneNumber="806" name="Archbishop Carroll DC  (I. Brooks)" statusId="eligible" strokeName="I. Brooks"/>
+    <timingRacingCrew bowOrLaneNumber="807" name="St. Mark's  (J. Reichner IV)" statusId="eligible" strokeName="J. Reichner IV"/>
+    <timingRacingCrew bowOrLaneNumber="808" name="Shipley  (P. Barger)" statusId="eligible" strokeName="P. Barger"/>
+    <timingRacingCrew bowOrLaneNumber="809" name="Camden Catholic  (A. Evans)" statusId="eligible" strokeName="A. Evans"/>
+    <timingRacingCrew bowOrLaneNumber="810" name="Paul VI  (J. Conti)" statusId="scratched" strokeName="J. Conti"/>
+    <timingRacingCrew bowOrLaneNumber="811" name="Cherry Hill West  (C. Lymper)" statusId="scratched" strokeName="C. Lymper"/>
+    <timingRacingCrew bowOrLaneNumber="812" name="Alexandria City  (S. Stallard)" statusId="eligible" strokeName="S. Stallard"/>
+  </timingRace>
+  <timingRace eventId="26" stageId="time-trial" raceId="26a" name="26a Girls Senior Single  Time Trial" raceNumber="26a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" scheduledDate="2024-05-17" scheduledTime="14:56">
+    <timingRacingCrew bowOrLaneNumber="814" name="St. Mark's  (G. Moore)" statusId="eligible" strokeName="G. Moore"/>
+    <timingRacingCrew bowOrLaneNumber="815" name="Eden  (L. Lane)" statusId="eligible" strokeName="L. Lane"/>
+    <timingRacingCrew bowOrLaneNumber="816" name="Baldwin  (H. Hoffman)" statusId="eligible" strokeName="H. Hoffman"/>
+    <timingRacingCrew bowOrLaneNumber="817" name="A.N. Myer  (M. Murray)" statusId="eligible" strokeName="M. Murray"/>
+    <timingRacingCrew bowOrLaneNumber="818" name="Potomac  (E. Dowley)" statusId="eligible" strokeName="E. Dowley"/>
+    <timingRacingCrew bowOrLaneNumber="819" name="Penn Charter  (G. Agosto)" statusId="eligible" strokeName="G. Agosto"/>
+    <timingRacingCrew bowOrLaneNumber="820" name="Albemarle  (A. Murphy)" statusId="eligible" strokeName="A. Murphy"/>
+    <timingRacingCrew bowOrLaneNumber="821" name="Sacred Heart  (M. Stanley)" statusId="eligible" strokeName="M. Stanley"/>
+    <timingRacingCrew bowOrLaneNumber="822" name="Academy of Greatness  (M. Ali)" statusId="eligible" strokeName="M. Ali"/>
+    <timingRacingCrew bowOrLaneNumber="823" name="Friends Select  (A. Lei)" statusId="eligible" strokeName="A. Lei"/>
+    <timingRacingCrew bowOrLaneNumber="824" name="Shipley  (K. Espenshade)" statusId="eligible" strokeName="K. Espenshade"/>
+    <timingRacingCrew bowOrLaneNumber="825" name="Bonner Prendergast  (E. McKenzie)" statusId="eligible" strokeName="E. McKenzie"/>
+    <timingRacingCrew bowOrLaneNumber="826" name="Augustine Classical  (A. Dagostino)" statusId="eligible" strokeName="A. Dagostino"/>
+    <timingRacingCrew bowOrLaneNumber="827" name="Western Albermarle  (A. Schulz)" statusId="eligible" strokeName="A. Schulz"/>
+    <timingRacingCrew bowOrLaneNumber="828" name="Trinity Hall  (L. Paolella)" statusId="eligible" strokeName="L. Paolella"/>
+    <timingRacingCrew bowOrLaneNumber="829" name="St. Michael  (A. Fehr)" statusId="eligible" strokeName="A. Fehr"/>
+    <timingRacingCrew bowOrLaneNumber="830" name="Owen J Roberts  (M. Vallino)" statusId="eligible" strokeName="M. Vallino"/>
+    <timingRacingCrew bowOrLaneNumber="831" name="Lower Merion  (Z. Robinson)" statusId="eligible" strokeName="Z. Robinson"/>
+    <timingRacingCrew bowOrLaneNumber="832" name="Holy Angels  (T. Savage)" statusId="scratched" strokeName="T. Savage"/>
+    <timingRacingCrew bowOrLaneNumber="833" name="Gilbert  (B. Hanson)" statusId="eligible" strokeName="B. Hanson"/>
+    <timingRacingCrew bowOrLaneNumber="834" name="Middletown  (A. Mazurczyk)" statusId="scratched" strokeName="A. Mazurczyk"/>
+    <timingRacingCrew bowOrLaneNumber="835" name="Tenafly  (D. Shapiro)" statusId="scratched" strokeName="D. Shapiro"/>
+    <timingRacingCrew bowOrLaneNumber="836" name="Mary Help  (I. Quirola)" statusId="eligible" strokeName="I. Quirola"/>
+    <timingRacingCrew bowOrLaneNumber="837" name="St. Anne's-Belfield  (T. Ford)" statusId="eligible" strokeName="T. Ford"/>
+    <timingRacingCrew bowOrLaneNumber="838" name="Northern Highlands  (J. Bhadra)" statusId="scratched" strokeName="J. Bhadra"/>
+    <timingRacingCrew bowOrLaneNumber="839" name="Eustace  (A. Pierson)" statusId="eligible" strokeName="A. Pierson"/>
+    <timingRacingCrew bowOrLaneNumber="840" name="Oscar Smith  (H. Johnson)" statusId="eligible" strokeName="H. Johnson"/>
+    <timingRacingCrew bowOrLaneNumber="841" name="Upper Merion  (E. Myers)" statusId="eligible" strokeName="E. Myers"/>
+    <timingRacingCrew bowOrLaneNumber="842" name="West Springfield  (C. Thorpe)" statusId="eligible" strokeName="C. Thorpe"/>
+    <timingRacingCrew bowOrLaneNumber="843" name="Ridley  (T. Goertz)" statusId="eligible" strokeName="T. Goertz"/>
+    <timingRacingCrew bowOrLaneNumber="844" name="Concord  (L. Pettit)" statusId="eligible" strokeName="L. Pettit"/>
+    <timingRacingCrew bowOrLaneNumber="845" name="St. Francis  (C. allington)" statusId="eligible" strokeName="C. allington"/>
+    <timingRacingCrew bowOrLaneNumber="846" name="Hill School  (A. Pearson)" statusId="scratched" strokeName="A. Pearson"/>
+    <timingRacingCrew bowOrLaneNumber="847" name="Frank W. Cox  (S. Triepel)" statusId="eligible" strokeName="S. Triepel"/>
+    <timingRacingCrew bowOrLaneNumber="848" name="Springside Chestnut Hill  (N. Stockman)" statusId="eligible" strokeName="N. Stockman"/>
+    <timingRacingCrew bowOrLaneNumber="849" name="Camden Catholic  (K. Balint)" statusId="eligible" strokeName="K. Balint"/>
+    <timingRacingCrew bowOrLaneNumber="850" name="Cherry Hill East  (C. Viglietta)" statusId="eligible" strokeName="C. Viglietta"/>
+    <timingRacingCrew bowOrLaneNumber="851" name="Delran  (C. Robinson)" statusId="scratched" strokeName="C. Robinson"/>
+    <timingRacingCrew bowOrLaneNumber="852" name="Haddon Heights  (L. Morfit-Tighe)" statusId="eligible" strokeName="L. Morfit-Tighe"/>
+  </timingRace>
+  <timingRace eventId="28" stageId="time-trial" raceId="28a" name="28a Boys Senior Four  Time Trial" raceNumber="28a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="fourWithCoxswain" scheduledDate="2024-05-17" scheduledTime="15:13">
+    <timingRacingCrew bowOrLaneNumber="855" name="Hun School  (E. Roth)" statusId="eligible" strokeName="E. Roth"/>
+    <timingRacingCrew bowOrLaneNumber="856" name="St. Joseph's Prep  (P. Finnerty)" statusId="eligible" strokeName="P. Finnerty"/>
+    <timingRacingCrew bowOrLaneNumber="857" name="Norfolk  (E. Eveleigh)" statusId="eligible" strokeName="E. Eveleigh"/>
+    <timingRacingCrew bowOrLaneNumber="858" name="Father Judge  (M. Anderson)" statusId="eligible" strokeName="M. Anderson"/>
+    <timingRacingCrew bowOrLaneNumber="859" name="Unionville  (R. Burns)" statusId="eligible" strokeName="R. Burns"/>
+    <timingRacingCrew bowOrLaneNumber="860" name="Radnor  (C. Mucksavage)" statusId="eligible" strokeName="C. Mucksavage"/>
+    <timingRacingCrew bowOrLaneNumber="861" name="Haverford School  (W. Walker)" statusId="eligible" strokeName="W. Walker"/>
+    <timingRacingCrew bowOrLaneNumber="862" name="La Salle  (J. Rainford)" statusId="eligible" strokeName="J. Rainford"/>
+    <timingRacingCrew bowOrLaneNumber="863" name="Peddie  (D. Bhattacharya)" statusId="eligible" strokeName="D. Bhattacharya"/>
+    <timingRacingCrew bowOrLaneNumber="864" name="Blair Academy  (M. Coblenz)" statusId="eligible" strokeName="M. Coblenz"/>
+    <timingRacingCrew bowOrLaneNumber="865" name="Episcopal PA  (R. Sivakumar)" statusId="eligible" strokeName="R. Sivakumar"/>
+    <timingRacingCrew bowOrLaneNumber="866" name="Nichols  (F. Balbach)" statusId="eligible" strokeName="F. Balbach"/>
+    <timingRacingCrew bowOrLaneNumber="867" name="Gonzaga  (D. McCarthy)" statusId="eligible" strokeName="D. McCarthy"/>
+    <timingRacingCrew bowOrLaneNumber="868" name="Holy Ghost  (G. El-Habr)" statusId="eligible" strokeName="G. El-Habr"/>
+    <timingRacingCrew bowOrLaneNumber="869" name="Bishop O'Connell  (S. Hallisey)" statusId="eligible" strokeName="S. Hallisey"/>
+    <timingRacingCrew bowOrLaneNumber="870" name="Oakton  (S. Vemuru)" statusId="eligible" strokeName="S. Vemuru"/>
+    <timingRacingCrew bowOrLaneNumber="871" name="Pine-Richland  (B. Pickels)" statusId="eligible" strokeName="B. Pickels"/>
+    <timingRacingCrew bowOrLaneNumber="872" name="Hill School  (M. Rapp)" statusId="eligible" strokeName="M. Rapp"/>
+    <timingRacingCrew bowOrLaneNumber="873" name="Broad Run  (P. Cheng)" statusId="eligible" strokeName="P. Cheng"/>
+    <timingRacingCrew bowOrLaneNumber="874" name="Melbourne  (E. Frye)" statusId="eligible" strokeName="E. Frye"/>
+    <timingRacingCrew bowOrLaneNumber="875" name="Mainland  (T. Waters)" statusId="eligible" strokeName="T. Waters"/>
+    <timingRacingCrew bowOrLaneNumber="876" name="Oakcrest  (J. Bouchacourt)" statusId="eligible" strokeName="J. Bouchacourt"/>
+    <timingRacingCrew bowOrLaneNumber="877" name="Don Bosco  (N. Crawford)" statusId="eligible" strokeName="N. Crawford"/>
+    <timingRacingCrew bowOrLaneNumber="878" name="West Potomac  (J. McGuinness)" statusId="eligible" strokeName="J. McGuinness"/>
+    <timingRacingCrew bowOrLaneNumber="879" name="Kearny  (M. Branco)" statusId="eligible" strokeName="M. Branco"/>
+    <timingRacingCrew bowOrLaneNumber="880" name="Walter Johnson  (E. Silberberg)" statusId="scratched" strokeName="E. Silberberg"/>
+    <timingRacingCrew bowOrLaneNumber="881" name="Georgetown  (J. Turim)" statusId="eligible" strokeName="J. Turim"/>
+    <timingRacingCrew bowOrLaneNumber="882" name="Vineland  (M. DeVito)" statusId="eligible" strokeName="M. DeVito"/>
+    <timingRacingCrew bowOrLaneNumber="883" name="South County  (J. Thibodeau)" statusId="eligible" strokeName="J. Thibodeau"/>
+    <timingRacingCrew bowOrLaneNumber="884" name="St. John's  (L. Bringle)" statusId="eligible" strokeName="L. Bringle"/>
+    <timingRacingCrew bowOrLaneNumber="885" name="Archbishop Carroll  (B. Rivera)" statusId="eligible" strokeName="B. Rivera"/>
+    <timingRacingCrew bowOrLaneNumber="886" name="Briar Woods  (B. Callaghan)" statusId="eligible" strokeName="B. Callaghan"/>
+    <timingRacingCrew bowOrLaneNumber="887" name="Fairfax  (K. Majethia)" statusId="eligible" strokeName="K. Majethia"/>
+    <timingRacingCrew bowOrLaneNumber="888" name="Rumson-Fair Haven  (C. Theodore)" statusId="eligible" strokeName="C. Theodore"/>
+    <timingRacingCrew bowOrLaneNumber="889" name="Ridley  (Q. Kraus)" statusId="eligible" strokeName="Q. Kraus"/>
+    <timingRacingCrew bowOrLaneNumber="890" name="Doane  (A. Botteri)" statusId="eligible" strokeName="A. Botteri"/>
+    <timingRacingCrew bowOrLaneNumber="891" name="DeMatha  (G. Scott)" statusId="eligible" strokeName="G. Scott"/>
+    <timingRacingCrew bowOrLaneNumber="892" name="Bethesda Chevy Chase  (R. Palmer)" statusId="eligible" strokeName="R. Palmer"/>
+    <timingRacingCrew bowOrLaneNumber="893" name="Christian Brothers  (M. Giacona)" statusId="eligible" strokeName="M. Giacona"/>
+    <timingRacingCrew bowOrLaneNumber="894" name="Seton Hall  (J. Klacik)" statusId="eligible" strokeName="J. Klacik"/>
+    <timingRacingCrew bowOrLaneNumber="895" name="Ocean City  (C. Plousis)" statusId="eligible" strokeName="C. Plousis"/>
+    <timingRacingCrew bowOrLaneNumber="896" name="Haddonfield  (C. Tarditi)" statusId="eligible" strokeName="C. Tarditi"/>
+    <timingRacingCrew bowOrLaneNumber="897" name="Scarsdale" statusId="scratched" strokeName=""/>
+    <timingRacingCrew bowOrLaneNumber="898" name="Egg Harbor" statusId="eligible" strokeName=""/>
+    <timingRacingCrew bowOrLaneNumber="899" name="George School  (M. Lin)" statusId="eligible" strokeName="M. Lin"/>
+    <timingRacingCrew bowOrLaneNumber="900" name="Burnt Hills  (T. Hoffmann)" statusId="eligible" strokeName="T. Hoffmann"/>
+    <timingRacingCrew bowOrLaneNumber="901" name="Lake Brantley  (M. McLain)" statusId="eligible" strokeName="M. McLain"/>
+    <timingRacingCrew bowOrLaneNumber="902" name="Harriton  (H. Malmgren)" statusId="eligible" strokeName="H. Malmgren"/>
+    <timingRacingCrew bowOrLaneNumber="903" name="Winter Park  (Z. Roncska)" statusId="eligible" strokeName="Z. Roncska"/>
+    <timingRacingCrew bowOrLaneNumber="904" name="Riverside  (C. DiManno)" statusId="eligible" strokeName="C. DiManno"/>
+    <timingRacingCrew bowOrLaneNumber="905" name="Robinson  (A. Carlson)" statusId="eligible" strokeName="A. Carlson"/>
+    <timingRacingCrew bowOrLaneNumber="906" name="Chaminade  (W. Sheehan)" statusId="eligible" strokeName="W. Sheehan"/>
+    <timingRacingCrew bowOrLaneNumber="907" name="Bishop Ireton  (N. Gorski)" statusId="eligible" strokeName="N. Gorski"/>
+  </timingRace>
+  <timingRace eventId="27" stageId="time-trial" raceId="27a" name="27a Girls Senior Four  Time Trial" raceNumber="27a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="fourWithCoxswain" scheduledDate="2024-05-17" scheduledTime="15:34">
+    <timingRacingCrew bowOrLaneNumber="909" name="Blair Academy  (A. Wolff)" statusId="eligible" strokeName="A. Wolff"/>
+    <timingRacingCrew bowOrLaneNumber="910" name="Lawrenceville  (V. Teeley)" statusId="eligible" strokeName="V. Teeley"/>
+    <timingRacingCrew bowOrLaneNumber="911" name="Villa Maria  (E. Kalisperis)" statusId="eligible" strokeName="E. Kalisperis"/>
+    <timingRacingCrew bowOrLaneNumber="912" name="Atlantic City  (E. Carrasco)" statusId="eligible" strokeName="E. Carrasco"/>
+    <timingRacingCrew bowOrLaneNumber="913" name="Unionville  (S. Swartz)" statusId="eligible" strokeName="S. Swartz"/>
+    <timingRacingCrew bowOrLaneNumber="914" name="Archbishop Carroll  (B. Sheridan)" statusId="eligible" strokeName="B. Sheridan"/>
+    <timingRacingCrew bowOrLaneNumber="915" name="Bishop O'Connell  (H. House)" statusId="eligible" strokeName="H. House"/>
+    <timingRacingCrew bowOrLaneNumber="916" name="Stone Bridge  (A. Blake)" statusId="eligible" strokeName="A. Blake"/>
+    <timingRacingCrew bowOrLaneNumber="917" name="Merion Mercy  (R. Anderson)" statusId="eligible" strokeName="R. Anderson"/>
+    <timingRacingCrew bowOrLaneNumber="918" name="Peddie  (S. Tong)" statusId="eligible" strokeName="S. Tong"/>
+    <timingRacingCrew bowOrLaneNumber="919" name="Oakton  (L. Rizzi)" statusId="eligible" strokeName="L. Rizzi"/>
+    <timingRacingCrew bowOrLaneNumber="920" name="Nutley  (B. Fernandez)" statusId="eligible" strokeName="B. Fernandez"/>
+    <timingRacingCrew bowOrLaneNumber="921" name="Hill School  (P. Barnhart)" statusId="eligible" strokeName="P. Barnhart"/>
+    <timingRacingCrew bowOrLaneNumber="922" name="Notre Dame  (A. Ovchar)" statusId="eligible" strokeName="A. Ovchar"/>
+    <timingRacingCrew bowOrLaneNumber="923" name="South County  (S. Hicks)" statusId="eligible" strokeName="S. Hicks"/>
+    <timingRacingCrew bowOrLaneNumber="924" name="Egg Harbor  (S. Conant)" statusId="eligible" strokeName="S. Conant"/>
+    <timingRacingCrew bowOrLaneNumber="925" name="St. John's  (M. Vega de las Casas)" statusId="eligible" strokeName="M. Vega de las Casas"/>
+    <timingRacingCrew bowOrLaneNumber="926" name="Episcopal VA  (S. Archie)" statusId="eligible" strokeName="S. Archie"/>
+    <timingRacingCrew bowOrLaneNumber="927" name="Harriton  (M. Clapp)" statusId="eligible" strokeName="M. Clapp"/>
+    <timingRacingCrew bowOrLaneNumber="928" name="Mount Saint Joseph  (M. Kowalski)" statusId="eligible" strokeName="M. Kowalski"/>
+    <timingRacingCrew bowOrLaneNumber="929" name="Norfolk  (L. Baughman)" statusId="scratched" strokeName="L. Baughman"/>
+    <timingRacingCrew bowOrLaneNumber="930" name="Haddonfield  (C. Berman)" statusId="eligible" strokeName="C. Berman"/>
+    <timingRacingCrew bowOrLaneNumber="931" name="Ocean City  (M. Lancaster)" statusId="eligible" strokeName="M. Lancaster"/>
+    <timingRacingCrew bowOrLaneNumber="932" name="Cedar Creek  (C. Phy)" statusId="eligible" strokeName="C. Phy"/>
+    <timingRacingCrew bowOrLaneNumber="933" name="North Catholic  (J. Riley)" statusId="eligible" strokeName="J. Riley"/>
+    <timingRacingCrew bowOrLaneNumber="934" name="Atlantic Tech  (A. Kurman)" statusId="eligible" strokeName="A. Kurman"/>
+    <timingRacingCrew bowOrLaneNumber="935" name="West Springfield  (M. BARTOS)" statusId="eligible" strokeName="M. BARTOS"/>
+    <timingRacingCrew bowOrLaneNumber="936" name="Lake Braddock  (S. Stegmaier)" statusId="eligible" strokeName="S. Stegmaier"/>
+    <timingRacingCrew bowOrLaneNumber="937" name="Germantown Academy  (G. Lafferty)" statusId="eligible" strokeName="G. Lafferty"/>
+    <timingRacingCrew bowOrLaneNumber="938" name="Vineland  (D. Fiester)" statusId="eligible" strokeName="D. Fiester"/>
+    <timingRacingCrew bowOrLaneNumber="939" name="Holton-Arms  (L. Clark)" statusId="eligible" strokeName="L. Clark"/>
+    <timingRacingCrew bowOrLaneNumber="940" name="Kearny  (L. Miranda)" statusId="eligible" strokeName="L. Miranda"/>
+    <timingRacingCrew bowOrLaneNumber="941" name="Washington-Liberty  (E. Cai)" statusId="eligible" strokeName="E. Cai"/>
+    <timingRacingCrew bowOrLaneNumber="942" name="Woodbridge  (K. Scott)" statusId="eligible" strokeName="K. Scott"/>
+    <timingRacingCrew bowOrLaneNumber="943" name="Mainland  (K. Fisher)" statusId="eligible" strokeName="K. Fisher"/>
+    <timingRacingCrew bowOrLaneNumber="944" name="Nichols  (C. Greeley)" statusId="eligible" strokeName="C. Greeley"/>
+    <timingRacingCrew bowOrLaneNumber="945" name="Broad Run  (K. Dix)" statusId="eligible" strokeName="K. Dix"/>
+    <timingRacingCrew bowOrLaneNumber="946" name="Doane  (M. Petroske)" statusId="eligible" strokeName="M. Petroske"/>
+    <timingRacingCrew bowOrLaneNumber="947" name="Lower Merion  (M. Reynolds)" statusId="eligible" strokeName="M. Reynolds"/>
+    <timingRacingCrew bowOrLaneNumber="948" name="Holy Spirit  (G. Amalfitano)" statusId="eligible" strokeName="G. Amalfitano"/>
+    <timingRacingCrew bowOrLaneNumber="949" name="Roosevelt  (C. Camburn)" statusId="eligible" strokeName="C. Camburn"/>
+    <timingRacingCrew bowOrLaneNumber="950" name="Absegami  (A. Macchione)" statusId="eligible" strokeName="A. Macchione"/>
+    <timingRacingCrew bowOrLaneNumber="951" name="West Potomac  (R. PETERSON)" statusId="eligible" strokeName="R. PETERSON"/>
+    <timingRacingCrew bowOrLaneNumber="952" name="Radnor Girls  (H. Lyons)" statusId="eligible" strokeName="H. Lyons"/>
+    <timingRacingCrew bowOrLaneNumber="953" name="Charter School  (A. Oyler)" statusId="eligible" strokeName="A. Oyler"/>
+    <timingRacingCrew bowOrLaneNumber="954" name="Alexandria City  (C. Keeler)" statusId="eligible" strokeName="C. Keeler"/>
+    <timingRacingCrew bowOrLaneNumber="955" name="North Allegheny  (B. Sumerlin)" statusId="eligible" strokeName="B. Sumerlin"/>
+    <timingRacingCrew bowOrLaneNumber="956" name="Riverside  (S. Sawyer)" statusId="eligible" strokeName="S. Sawyer"/>
+    <timingRacingCrew bowOrLaneNumber="957" name="Gwynedd Mercy  (F. Brooks)" statusId="eligible" strokeName="F. Brooks"/>
+    <timingRacingCrew bowOrLaneNumber="958" name="Villa Joseph Marie  (M. Perri)" statusId="eligible" strokeName="M. Perri"/>
+    <timingRacingCrew bowOrLaneNumber="959" name="Ursuline" statusId="eligible" strokeName=""/>
+  </timingRace>
+  <timingRace eventId="30" stageId="time-trial" raceId="30a" name="30a Boys Senior Eight  Time Trial" raceNumber="30a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="eight" scheduledDate="2024-05-17" scheduledTime="15:55">
+    <timingRacingCrew bowOrLaneNumber="962" name="St. Joseph's Prep  (P. Watson)" statusId="eligible" strokeName="P. Watson"/>
+    <timingRacingCrew bowOrLaneNumber="963" name="Gonzaga  (A. Krizan)" statusId="eligible" strokeName="A. Krizan"/>
+    <timingRacingCrew bowOrLaneNumber="964" name="La Salle  (T. Kennedy)" statusId="eligible" strokeName="T. Kennedy"/>
+    <timingRacingCrew bowOrLaneNumber="965" name="Lawrenceville  (C. Vachris)" statusId="eligible" strokeName="C. Vachris"/>
+    <timingRacingCrew bowOrLaneNumber="966" name="McLean  (L. Hoffman)" statusId="eligible" strokeName="L. Hoffman"/>
+    <timingRacingCrew bowOrLaneNumber="967" name="St. Albans  (M. Burrows)" statusId="eligible" strokeName="M. Burrows"/>
+    <timingRacingCrew bowOrLaneNumber="968" name="St. Andrew's  (G. Hurtt)" statusId="eligible" strokeName="G. Hurtt"/>
+    <timingRacingCrew bowOrLaneNumber="969" name="St. Peter's  (N. Chang)" statusId="eligible" strokeName="N. Chang"/>
+    <timingRacingCrew bowOrLaneNumber="970" name="West Springfield  (H. Sweeney)" statusId="eligible" strokeName="H. Sweeney"/>
+    <timingRacingCrew bowOrLaneNumber="971" name="Jackson-Reed  (A. DeBoer)" statusId="eligible" strokeName="A. DeBoer"/>
+    <timingRacingCrew bowOrLaneNumber="972" name="James Madison  (D. Pakes)" statusId="eligible" strokeName="D. Pakes"/>
+    <timingRacingCrew bowOrLaneNumber="973" name="Yorktown  (T. Totten)" statusId="eligible" strokeName="T. Totten"/>
+    <timingRacingCrew bowOrLaneNumber="974" name="Chaminade  (M. Jones)" statusId="eligible" strokeName="M. Jones"/>
+    <timingRacingCrew bowOrLaneNumber="975" name="Walt Whitman  (B. Browning)" statusId="eligible" strokeName="B. Browning"/>
+    <timingRacingCrew bowOrLaneNumber="976" name="St. Augustine  (W. Dodd)" statusId="eligible" strokeName="W. Dodd"/>
+    <timingRacingCrew bowOrLaneNumber="977" name="Egg Harbor  (R. Manning)" statusId="eligible" strokeName="R. Manning"/>
+    <timingRacingCrew bowOrLaneNumber="978" name="Jefferson  (O. Kiker)" statusId="eligible" strokeName="O. Kiker"/>
+    <timingRacingCrew bowOrLaneNumber="980" name="W.T. Woodson  (J. Gravholt)" statusId="eligible" strokeName="J. Gravholt"/>
+    <timingRacingCrew bowOrLaneNumber="981" name="Langley  (E. Miller)" statusId="eligible" strokeName="E. Miller"/>
+    <timingRacingCrew bowOrLaneNumber="982" name="Montclair  (L. Gagnon)" statusId="eligible" strokeName="L. Gagnon"/>
+    <timingRacingCrew bowOrLaneNumber="983" name="Kearny  (D. Oliveira)" statusId="eligible" strokeName="D. Oliveira"/>
+    <timingRacingCrew bowOrLaneNumber="984" name="Woodbridge  (K. Howell)" statusId="eligible" strokeName="K. Howell"/>
+  </timingRace>
+  <timingRace eventId="29" stageId="time-trial" raceId="29a" name="29a Girls Senior Eight  Time Trial" raceNumber="29a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" shellType="eight" scheduledDate="2024-05-17" scheduledTime="16:09">
+    <timingRacingCrew bowOrLaneNumber="987" name="Mount Saint Joseph  (V. Ksiazek)" statusId="eligible" strokeName="V. Ksiazek"/>
+    <timingRacingCrew bowOrLaneNumber="988" name="Jackson-Reed  (K. Booth)" statusId="eligible" strokeName="K. Booth"/>
+    <timingRacingCrew bowOrLaneNumber="989" name="St. Andrew's  (S. Roffers)" statusId="eligible" strokeName="S. Roffers"/>
+    <timingRacingCrew bowOrLaneNumber="990" name="Montclair  (M. Young)" statusId="eligible" strokeName="M. Young"/>
+    <timingRacingCrew bowOrLaneNumber="991" name="Walt Whitman  (E. Lee)" statusId="eligible" strokeName="E. Lee"/>
+    <timingRacingCrew bowOrLaneNumber="992" name="Yorktown  (A. Barnes)" statusId="eligible" strokeName="A. Barnes"/>
+    <timingRacingCrew bowOrLaneNumber="993" name="W.T. Woodson  (E. Fossand)" statusId="eligible" strokeName="E. Fossand"/>
+    <timingRacingCrew bowOrLaneNumber="994" name="Radnor Girls  (M. Wetzel)" statusId="eligible" strokeName="M. Wetzel"/>
+    <timingRacingCrew bowOrLaneNumber="995" name="Gwynedd Mercy  (B. Petka)" statusId="eligible" strokeName="B. Petka"/>
+    <timingRacingCrew bowOrLaneNumber="996" name="Bethesda Chevy Chase  (E. Boniface)" statusId="eligible" strokeName="E. Boniface"/>
+    <timingRacingCrew bowOrLaneNumber="997" name="Mainland  (L. Nirenberg)" statusId="eligible" strokeName="L. Nirenberg"/>
+    <timingRacingCrew bowOrLaneNumber="998" name="National Cathedral  (A. Wick)" statusId="eligible" strokeName="A. Wick"/>
+    <timingRacingCrew bowOrLaneNumber="999" name="Burnt Hills  (R. Carver)" statusId="eligible" strokeName="R. Carver"/>
+    <timingRacingCrew bowOrLaneNumber="1000" name="Jefferson  (P. Burke)" statusId="eligible" strokeName="P. Burke"/>
+    <timingRacingCrew bowOrLaneNumber="1001" name="Langley  (L. Rummler)" statusId="eligible" strokeName="L. Rummler"/>
+    <timingRacingCrew bowOrLaneNumber="1002" name="McLean  (A. Kucko)" statusId="eligible" strokeName="A. Kucko"/>
+    <timingRacingCrew bowOrLaneNumber="1003" name="James Madison  (M. Hanlon)" statusId="eligible" strokeName="M. Hanlon"/>
+    <timingRacingCrew bowOrLaneNumber="1004" name="Robinson  (C. Kay)" statusId="eligible" strokeName="C. Kay"/>
+    <timingRacingCrew bowOrLaneNumber="1005" name="Germantown Visitation  (H. Dickson)" statusId="eligible" strokeName="H. Dickson"/>
+    <timingRacingCrew bowOrLaneNumber="1006" name="Sidwell Friends  (L. Donley)" statusId="eligible" strokeName="L. Donley"/>
+    <timingRacingCrew bowOrLaneNumber="1007" name="Ocean City  (K. Morjakovs)" statusId="eligible" strokeName="K. Morjakovs"/>
+    <timingRacingCrew bowOrLaneNumber="1008" name="Merion Mercy  (E. Kilgannon)" statusId="eligible" strokeName="E. Kilgannon"/>
+    <timingRacingCrew bowOrLaneNumber="1009" name="Alexandria City  (M. Malone)" statusId="eligible" strokeName="M. Malone"/>
+  </timingRace>
+  <timingRace eventId="1" stageId="semi-final" raceId="1S1" name="1S1 Girls Junior Double  Semi-Final 1" raceNumber="1S1" progressionRule="Top 2 Places to Patrick O'Rourke Memorial Trophy" shellType="double" scheduledDate="2024-05-17" scheduledTime="17:00"/>
+  <timingRace eventId="1" stageId="semi-final" raceId="1S2" name="1S2 Girls Junior Double  Semi-Final 2" raceNumber="1S2" progressionRule="Top 2 Places to Patrick O'Rourke Memorial Trophy" shellType="double" scheduledDate="2024-05-17" scheduledTime="17:05"/>
+  <timingRace eventId="1" stageId="semi-final" raceId="1S3" name="1S3 Girls Junior Double  Semi-Final 3" raceNumber="1S3" progressionRule="Top 2 Places to Patrick O'Rourke Memorial Trophy" shellType="double" scheduledDate="2024-05-17" scheduledTime="17:10"/>
+  <timingRace eventId="2" stageId="semi-final" raceId="2S1" name="2S1 Boys Freshman Eight  Semi-Final 1" raceNumber="2S1" progressionRule="Top 2 Places to Robert W. Suter Trophy" shellType="eight" scheduledDate="2024-05-17" scheduledTime="17:15"/>
+  <timingRace eventId="2" stageId="semi-final" raceId="2S2" name="2S2 Boys Freshman Eight  Semi-Final 2" raceNumber="2S2" progressionRule="Top 2 Places to Robert W. Suter Trophy" shellType="eight" scheduledDate="2024-05-17" scheduledTime="17:20"/>
+  <timingRace eventId="2" stageId="semi-final" raceId="2S3" name="2S3 Boys Freshman Eight  Semi-Final 3" raceNumber="2S3" progressionRule="Top 2 Places to Robert W. Suter Trophy" shellType="eight" scheduledDate="2024-05-17" scheduledTime="17:25"/>
+  <timingRace eventId="3" stageId="semi-final" raceId="3S1" name="3S1 Boys Junior Double  Semi-Final 1" raceNumber="3S1" progressionRule="Top 2 Places to Undine Cup" shellType="double" scheduledDate="2024-05-17" scheduledTime="17:30"/>
+  <timingRace eventId="3" stageId="semi-final" raceId="3S2" name="3S2 Boys Junior Double  Semi-Final 2" raceNumber="3S2" progressionRule="Top 2 Places to Undine Cup" shellType="double" scheduledDate="2024-05-17" scheduledTime="17:35"/>
+  <timingRace eventId="3" stageId="semi-final" raceId="3S3" name="3S3 Boys Junior Double  Semi-Final 3" raceNumber="3S3" progressionRule="Top 2 Places to Undine Cup" shellType="double" scheduledDate="2024-05-17" scheduledTime="17:40"/>
+  <timingRace eventId="4" stageId="semi-final" raceId="4S1" name="4S1 Girls Freshman Eight  Semi-Final 1" raceNumber="4S1" progressionRule="Top 2 Places to T.C. Williams Freshman Coach Award" shellType="eight" scheduledDate="2024-05-17" scheduledTime="17:45"/>
+  <timingRace eventId="4" stageId="semi-final" raceId="4S2" name="4S2 Girls Freshman Eight  Semi-Final 2" raceNumber="4S2" progressionRule="Top 2 Places to T.C. Williams Freshman Coach Award" shellType="eight" scheduledDate="2024-05-17" scheduledTime="17:50"/>
+  <timingRace eventId="4" stageId="semi-final" raceId="4S3" name="4S3 Girls Freshman Eight  Semi-Final 3" raceNumber="4S3" progressionRule="Top 2 Places to T.C. Williams Freshman Coach Award" shellType="eight" scheduledDate="2024-05-17" scheduledTime="17:55"/>
+  <timingRace eventId="5" stageId="semi-final" raceId="5S1" name="5S1 Girls Ltwt Double  Semi-Final 1" raceNumber="5S1" progressionRule="Top 3 Places to The Lawrence Kieffer Trophy" shellType="double" scheduledDate="2024-05-17" scheduledTime="18:00"/>
+  <timingRace eventId="5" stageId="semi-final" raceId="5S2" name="5S2 Girls Ltwt Double  Semi-Final 2" raceNumber="5S2" progressionRule="Top 3 Places to The Lawrence Kieffer Trophy" shellType="double" scheduledDate="2024-05-17" scheduledTime="18:05"/>
+  <timingRace eventId="6" stageId="semi-final" raceId="6S1" name="6S1 Boys Junior Four  Semi-Final 1" raceNumber="6S1" progressionRule="Top 2 Places to George Mattson Trophy" shellType="fourWithCoxswain" scheduledDate="2024-05-17" scheduledTime="18:10"/>
+  <timingRace eventId="6" stageId="semi-final" raceId="6S2" name="6S2 Boys Junior Four  Semi-Final 2" raceNumber="6S2" progressionRule="Top 2 Places to George Mattson Trophy" shellType="fourWithCoxswain" scheduledDate="2024-05-17" scheduledTime="18:15"/>
+  <timingRace eventId="6" stageId="semi-final" raceId="6S3" name="6S3 Boys Junior Four  Semi-Final 3" raceNumber="6S3" progressionRule="Top 2 Places to George Mattson Trophy" shellType="fourWithCoxswain" scheduledDate="2024-05-17" scheduledTime="18:20"/>
+  <timingRace eventId="7" stageId="semi-final" raceId="7S1" name="7S1 Boys Ltwt Double  Semi-Final 1" raceNumber="7S1" progressionRule="Top 3 Places to The Barker Cup" shellType="double" scheduledDate="2024-05-17" scheduledTime="18:25"/>
+  <timingRace eventId="7" stageId="semi-final" raceId="7S2" name="7S2 Boys Ltwt Double  Semi-Final 2" raceNumber="7S2" progressionRule="Top 3 Places to The Barker Cup" shellType="double" scheduledDate="2024-05-17" scheduledTime="18:30"/>
+  <timingRace eventId="8" stageId="semi-final" raceId="8S1" name="8S1 Girls Junior Four  Semi-Final 1" raceNumber="8S1" progressionRule="Top 2 Places to The Elizabeth Plate" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="08:00"/>
+  <timingRace eventId="8" stageId="semi-final" raceId="8S2" name="8S2 Girls Junior Four  Semi-Final 2" raceNumber="8S2" progressionRule="Top 2 Places to The Elizabeth Plate" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="08:05"/>
+  <timingRace eventId="8" stageId="semi-final" raceId="8S3" name="8S3 Girls Junior Four  Semi-Final 3" raceNumber="8S3" progressionRule="Top 2 Places to The Elizabeth Plate" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="08:10"/>
+  <timingRace eventId="9" stageId="semi-final" raceId="9S1" name="9S1 Boys Freshman Quads  Semi-Final 1" raceNumber="9S1" progressionRule="Top 3 Places to Jack and Nancy Seitz Trophy" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="08:15"/>
+  <timingRace eventId="9" stageId="semi-final" raceId="9S2" name="9S2 Boys Freshman Quads  Semi-Final 2" raceNumber="9S2" progressionRule="Top 3 Places to Jack and Nancy Seitz Trophy" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="08:20"/>
+  <timingRace eventId="10" stageId="semi-final" raceId="10S1" name="10S1 Boys Junior Eight  Semi-Final 1" raceNumber="10S1" progressionRule="Top 2 Places to Charlie Butt Trophy" shellType="eight" scheduledDate="2024-05-18" scheduledTime="08:25"/>
+  <timingRace eventId="10" stageId="semi-final" raceId="10S2" name="10S2 Boys Junior Eight  Semi-Final 2" raceNumber="10S2" progressionRule="Top 2 Places to Charlie Butt Trophy" shellType="eight" scheduledDate="2024-05-18" scheduledTime="08:30"/>
+  <timingRace eventId="10" stageId="semi-final" raceId="10S3" name="10S3 Boys Junior Eight  Semi-Final 3" raceNumber="10S3" progressionRule="Top 2 Places to Charlie Butt Trophy" shellType="eight" scheduledDate="2024-05-18" scheduledTime="08:35"/>
+  <timingRace eventId="11" stageId="semi-final" raceId="11S1" name="11S1 Girls Freshman Quads  Semi-Final 1" raceNumber="11S1" progressionRule="Top 3 Places to Past President's Cup of Conestoga HS Crew" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="08:40"/>
+  <timingRace eventId="11" stageId="semi-final" raceId="11S2" name="11S2 Girls Freshman Quads  Semi-Final 2" raceNumber="11S2" progressionRule="Top 3 Places to Past President's Cup of Conestoga HS Crew" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="08:45"/>
+  <timingRace eventId="12" stageId="semi-final" raceId="12S1" name="12S1 Girls Junior Eight  Semi-Final 1" raceNumber="12S1" progressionRule="Top 2 Places to Dee Campbell Trophy" shellType="eight" scheduledDate="2024-05-18" scheduledTime="08:50"/>
+  <timingRace eventId="12" stageId="semi-final" raceId="12S2" name="12S2 Girls Junior Eight  Semi-Final 2" raceNumber="12S2" progressionRule="Top 2 Places to Dee Campbell Trophy" shellType="eight" scheduledDate="2024-05-18" scheduledTime="08:55"/>
+  <timingRace eventId="12" stageId="semi-final" raceId="12S3" name="12S3 Girls Junior Eight  Semi-Final 3" raceNumber="12S3" progressionRule="Top 2 Places to Dee Campbell Trophy" shellType="eight" scheduledDate="2024-05-18" scheduledTime="09:00"/>
+  <timingRace eventId="13" stageId="semi-final" raceId="13S1" name="13S1 Boys Junior Quad  Semi-Final 1" raceNumber="13S1" progressionRule="Top 2 Places to George C. Hines Trophy" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="09:05"/>
+  <timingRace eventId="13" stageId="semi-final" raceId="13S2" name="13S2 Boys Junior Quad  Semi-Final 2" raceNumber="13S2" progressionRule="Top 2 Places to George C. Hines Trophy" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="09:10"/>
+  <timingRace eventId="13" stageId="semi-final" raceId="13S3" name="13S3 Boys Junior Quad  Semi-Final 3" raceNumber="13S3" progressionRule="Top 2 Places to George C. Hines Trophy" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="09:15"/>
+  <timingRace eventId="14" stageId="semi-final" raceId="14S1" name="14S1 Girls Junior Quad  Semi-Final 1" raceNumber="14S1" progressionRule="Top 3 Places to Ruth Robinhold Trophy" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="09:20"/>
+  <timingRace eventId="14" stageId="semi-final" raceId="14S2" name="14S2 Girls Junior Quad  Semi-Final 2" raceNumber="14S2" progressionRule="Top 3 Places to Ruth Robinhold Trophy" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="09:25"/>
+  <timingRace eventId="15" stageId="semi-final" raceId="15S1" name="15S1 Boys Ltwt Four  Semi-Final 1" raceNumber="15S1" progressionRule="Top 3 Places to Bill Belden Award" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="09:30"/>
+  <timingRace eventId="15" stageId="semi-final" raceId="15S2" name="15S2 Boys Ltwt Four  Semi-Final 2" raceNumber="15S2" progressionRule="Top 3 Places to Bill Belden Award" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="09:35"/>
+  <timingRace eventId="17" stageId="semi-final" raceId="17S1" name="17S1 Boys Second Four  Semi-Final 1" raceNumber="17S1" progressionRule="Top 3 Places to The Cipollone Cup" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="09:40"/>
+  <timingRace eventId="17" stageId="semi-final" raceId="17S2" name="17S2 Boys Second Four  Semi-Final 2" raceNumber="17S2" progressionRule="Top 3 Places to The Cipollone Cup" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="09:45"/>
+  <timingRace eventId="18" stageId="semi-final" raceId="18S1" name="18S1 Girls Second Four  Semi-Final 1" raceNumber="18S1" progressionRule="Top 3 Places to The Thomas V. Dowd Trophy" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="09:50"/>
+  <timingRace eventId="18" stageId="semi-final" raceId="18S2" name="18S2 Girls Second Four  Semi-Final 2" raceNumber="18S2" progressionRule="Top 3 Places to The Thomas V. Dowd Trophy" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="09:55"/>
+  <timingRace eventId="19" stageId="semi-final" raceId="19S1" name="19S1 Girls Senior Double  Semi-Final 1" raceNumber="19S1" progressionRule="Top 3 Places to Lovey Farrell Award" shellType="double" scheduledDate="2024-05-18" scheduledTime="10:00"/>
+  <timingRace eventId="19" stageId="semi-final" raceId="19S2" name="19S2 Girls Senior Double  Semi-Final 2" raceNumber="19S2" progressionRule="Top 3 Places to Lovey Farrell Award" shellType="double" scheduledDate="2024-05-18" scheduledTime="10:05"/>
+  <timingRace eventId="20" stageId="semi-final" raceId="20S1" name="20S1 Boys Senior Double  Semi-Final 1" raceNumber="20S1" progressionRule="Top 3 Places to Charles J. McIlvaine Cup" shellType="double" scheduledDate="2024-05-18" scheduledTime="10:10"/>
+  <timingRace eventId="20" stageId="semi-final" raceId="20S2" name="20S2 Boys Senior Double  Semi-Final 2" raceNumber="20S2" progressionRule="Top 3 Places to Charles J. McIlvaine Cup" shellType="double" scheduledDate="2024-05-18" scheduledTime="10:15"/>
+  <timingRace eventId="21" stageId="semi-final" raceId="21S1" name="21S1 Boys Second Eight  Semi-Final 1" raceNumber="21S1" progressionRule="Top 3 Places to Hammer Trophy" shellType="eight" scheduledDate="2024-05-18" scheduledTime="10:20"/>
+  <timingRace eventId="21" stageId="semi-final" raceId="21S2" name="21S2 Boys Second Eight  Semi-Final 2" raceNumber="21S2" progressionRule="Top 3 Places to Hammer Trophy" shellType="eight" scheduledDate="2024-05-18" scheduledTime="10:25"/>
+  <timingRace eventId="22" stageId="semi-final" raceId="22S1" name="22S1 Girls Second Eight  Semi-Final 1" raceNumber="22S1" progressionRule="Top 3 Places to Irish American Chamber Cup" shellType="eight" scheduledDate="2024-05-18" scheduledTime="10:30"/>
+  <timingRace eventId="22" stageId="semi-final" raceId="22S2" name="22S2 Girls Second Eight  Semi-Final 2" raceNumber="22S2" progressionRule="Top 3 Places to Irish American Chamber Cup" shellType="eight" scheduledDate="2024-05-18" scheduledTime="10:35"/>
+  <timingRace eventId="23" stageId="semi-final" raceId="23S1" name="23S1 Girls Senior Quad  Semi-Final 1" raceNumber="23S1" progressionRule="Top 3 Places to Brides Plate" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="10:40"/>
+  <timingRace eventId="23" stageId="semi-final" raceId="23S2" name="23S2 Girls Senior Quad  Semi-Final 2" raceNumber="23S2" progressionRule="Top 3 Places to Brides Plate" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="10:45"/>
+  <timingRace eventId="24" stageId="semi-final" raceId="24S1" name="24S1 Boys Senior Quad  Semi-Final 1" raceNumber="24S1" progressionRule="Top 3 Places to Sonzogni Trophy" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="10:50"/>
+  <timingRace eventId="24" stageId="semi-final" raceId="24S2" name="24S2 Boys Senior Quad  Semi-Final 2" raceNumber="24S2" progressionRule="Top 3 Places to Sonzogni Trophy" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="10:55"/>
+  <timingRace eventId="25" stageId="semi-final" raceId="25S1" name="25S1 Boys Senior Single  Semi-Final 1" raceNumber="25S1" progressionRule="Top 2 Places to John B. Kelly Cup" scheduledDate="2024-05-18" scheduledTime="11:00"/>
+  <timingRace eventId="25" stageId="semi-final" raceId="25S2" name="25S2 Boys Senior Single  Semi-Final 2" raceNumber="25S2" progressionRule="Top 2 Places to John B. Kelly Cup" scheduledDate="2024-05-18" scheduledTime="11:05"/>
+  <timingRace eventId="25" stageId="semi-final" raceId="25S3" name="25S3 Boys Senior Single  Semi-Final 3" raceNumber="25S3" progressionRule="Top 2 Places to John B. Kelly Cup" scheduledDate="2024-05-18" scheduledTime="11:10"/>
+  <timingRace eventId="26" stageId="semi-final" raceId="26S1" name="26S1 Girls Senior Single  Semi-Final 1" raceNumber="26S1" progressionRule="Top 2 Places to Ana Tamas Knecht Trophy" scheduledDate="2024-05-18" scheduledTime="11:15"/>
+  <timingRace eventId="26" stageId="semi-final" raceId="26S2" name="26S2 Girls Senior Single  Semi-Final 2" raceNumber="26S2" progressionRule="Top 2 Places to Ana Tamas Knecht Trophy" scheduledDate="2024-05-18" scheduledTime="11:20"/>
+  <timingRace eventId="26" stageId="semi-final" raceId="26S3" name="26S3 Girls Senior Single  Semi-Final 3" raceNumber="26S3" progressionRule="Top 2 Places to Ana Tamas Knecht Trophy" scheduledDate="2024-05-18" scheduledTime="11:25"/>
+  <timingRace eventId="28" stageId="semi-final" raceId="28S1" name="28S1 Boys Senior Four  Semi-Final 1" raceNumber="28S1" progressionRule="Top 2 Places to Kings Club Cup" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="11:30"/>
+  <timingRace eventId="28" stageId="semi-final" raceId="28S2" name="28S2 Boys Senior Four  Semi-Final 2" raceNumber="28S2" progressionRule="Top 2 Places to Kings Club Cup" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="11:35"/>
+  <timingRace eventId="28" stageId="semi-final" raceId="28S3" name="28S3 Boys Senior Four  Semi-Final 3" raceNumber="28S3" progressionRule="Top 2 Places to Kings Club Cup" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="11:40"/>
+  <timingRace eventId="27" stageId="semi-final" raceId="27S1" name="27S1 Girls Senior Four  Semi-Final 1" raceNumber="27S1" progressionRule="Top 2 Places to Airley Cup" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="11:45"/>
+  <timingRace eventId="27" stageId="semi-final" raceId="27S2" name="27S2 Girls Senior Four  Semi-Final 2" raceNumber="27S2" progressionRule="Top 2 Places to Airley Cup" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="11:50"/>
+  <timingRace eventId="27" stageId="semi-final" raceId="27S3" name="27S3 Girls Senior Four  Semi-Final 3" raceNumber="27S3" progressionRule="Top 2 Places to Airley Cup" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="11:55"/>
+  <timingRace eventId="30" stageId="semi-final" raceId="30S1" name="30S1 Boys Senior Eight  Semi-Final 1" raceNumber="30S1" progressionRule="Top 2 Places to Edward T. Stotesbury Cup" shellType="eight" scheduledDate="2024-05-18" scheduledTime="12:00"/>
+  <timingRace eventId="30" stageId="semi-final" raceId="30S2" name="30S2 Boys Senior Eight  Semi-Final 2" raceNumber="30S2" progressionRule="Top 2 Places to Edward T. Stotesbury Cup" shellType="eight" scheduledDate="2024-05-18" scheduledTime="12:05"/>
+  <timingRace eventId="30" stageId="semi-final" raceId="30S3" name="30S3 Boys Senior Eight  Semi-Final 3" raceNumber="30S3" progressionRule="Top 2 Places to Edward T. Stotesbury Cup" shellType="eight" scheduledDate="2024-05-18" scheduledTime="12:10"/>
+  <timingRace eventId="29" stageId="semi-final" raceId="29S1" name="29S1 Girls Senior Eight  Semi-Final 1" raceNumber="29S1" progressionRule="Top 2 Places to Robert Engman Trophy" shellType="eight" scheduledDate="2024-05-18" scheduledTime="12:15"/>
+  <timingRace eventId="29" stageId="semi-final" raceId="29S2" name="29S2 Girls Senior Eight  Semi-Final 2" raceNumber="29S2" progressionRule="Top 2 Places to Robert Engman Trophy" shellType="eight" scheduledDate="2024-05-18" scheduledTime="12:20"/>
+  <timingRace eventId="29" stageId="semi-final" raceId="29S3" name="29S3 Girls Senior Eight  Semi-Final 3" raceNumber="29S3" progressionRule="Top 2 Places to Robert Engman Trophy" shellType="eight" scheduledDate="2024-05-18" scheduledTime="12:25"/>
+  <timingRace eventId="31" stageId="final" raceId="31" name="31 Inclusion/Adaptive Double  Isabel Bohn Trophy" raceNumber="31" progressionRule="" shellType="double" scheduledDate="2024-05-18" scheduledTime="13:05">
+    <timingRacingCrew bowOrLaneNumber="3" name="Washington-Liberty  (K. Ettelt)" statusId="eligible" strokeName="K. Ettelt"/>
+  </timingRace>
+  <timingRace eventId="1" stageId="final" raceId="1" name="1 Girls Junior Double  Patrick O'Rourke Memorial Trophy" raceNumber="1" progressionRule="" shellType="double" scheduledDate="2024-05-18" scheduledTime="13:25"/>
+  <timingRace eventId="2" stageId="final" raceId="2" name="2 Boys Freshman Eight  Robert W. Suter Trophy" raceNumber="2" progressionRule="" shellType="eight" scheduledDate="2024-05-18" scheduledTime="13:33"/>
+  <timingRace eventId="3" stageId="final" raceId="3" name="3 Boys Junior Double  Undine Cup" raceNumber="3" progressionRule="" shellType="double" scheduledDate="2024-05-18" scheduledTime="13:41"/>
+  <timingRace eventId="4" stageId="final" raceId="4" name="4 Girls Freshman Eight  T.C. Williams Freshman Coach Award" raceNumber="4" progressionRule="" shellType="eight" scheduledDate="2024-05-18" scheduledTime="13:49"/>
+  <timingRace eventId="5" stageId="final" raceId="5" name="5 Girls Ltwt Double  The Lawrence Kieffer Trophy" raceNumber="5" progressionRule="" shellType="double" scheduledDate="2024-05-18" scheduledTime="13:57"/>
+  <timingRace eventId="6" stageId="final" raceId="6" name="6 Boys Junior Four  George Mattson Trophy" raceNumber="6" progressionRule="" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="14:05"/>
+  <timingRace eventId="7" stageId="final" raceId="7" name="7 Boys Ltwt Double  The Barker Cup" raceNumber="7" progressionRule="" shellType="double" scheduledDate="2024-05-18" scheduledTime="14:13"/>
+  <timingRace eventId="8" stageId="final" raceId="8" name="8 Girls Junior Four  The Elizabeth Plate" raceNumber="8" progressionRule="" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="14:21"/>
+  <timingRace eventId="9" stageId="final" raceId="9" name="9 Boys Freshman Quads  Jack and Nancy Seitz Trophy" raceNumber="9" progressionRule="" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="14:29"/>
+  <timingRace eventId="10" stageId="final" raceId="10" name="10 Boys Junior Eight  Charlie Butt Trophy" raceNumber="10" progressionRule="" shellType="eight" scheduledDate="2024-05-18" scheduledTime="14:37"/>
+  <timingRace eventId="11" stageId="final" raceId="11" name="11 Girls Freshman Quads  Past President's Cup of Conestoga HS Crew" raceNumber="11" progressionRule="" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="14:45"/>
+  <timingRace eventId="12" stageId="final" raceId="12" name="12 Girls Junior Eight  Dee Campbell Trophy" raceNumber="12" progressionRule="" shellType="eight" scheduledDate="2024-05-18" scheduledTime="14:53"/>
+  <timingRace eventId="13" stageId="final" raceId="13" name="13 Boys Junior Quad  George C. Hines Trophy" raceNumber="13" progressionRule="" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="15:01"/>
+  <timingRace eventId="14" stageId="final" raceId="14" name="14 Girls Junior Quad  Ruth Robinhold Trophy" raceNumber="14" progressionRule="" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="15:09"/>
+  <timingRace eventId="15" stageId="final" raceId="15" name="15 Boys Ltwt Four  Bill Belden Award" raceNumber="15" progressionRule="" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="15:17"/>
+  <timingRace eventId="16" stageId="final" raceId="16" name="16 Girls Ltwt Four  Phyllis Graham Trophy" raceNumber="16" progressionRule="" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="15:25"/>
+  <timingRace eventId="17" stageId="final" raceId="17" name="17 Boys Second Four  The Cipollone Cup" raceNumber="17" progressionRule="" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="15:33"/>
+  <timingRace eventId="18" stageId="final" raceId="18" name="18 Girls Second Four  The Thomas V. Dowd Trophy" raceNumber="18" progressionRule="" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="15:41"/>
+  <timingRace eventId="19" stageId="final" raceId="19" name="19 Girls Senior Double  Lovey Farrell Award" raceNumber="19" progressionRule="" shellType="double" scheduledDate="2024-05-18" scheduledTime="15:49"/>
+  <timingRace eventId="20" stageId="final" raceId="20" name="20 Boys Senior Double  Charles J. McIlvaine Cup" raceNumber="20" progressionRule="" shellType="double" scheduledDate="2024-05-18" scheduledTime="15:57"/>
+  <timingRace eventId="21" stageId="final" raceId="21" name="21 Boys Second Eight  Hammer Trophy" raceNumber="21" progressionRule="" shellType="eight" scheduledDate="2024-05-18" scheduledTime="16:05"/>
+  <timingRace eventId="22" stageId="final" raceId="22" name="22 Girls Second Eight  Irish American Chamber Cup" raceNumber="22" progressionRule="" shellType="eight" scheduledDate="2024-05-18" scheduledTime="16:13"/>
+  <timingRace eventId="23" stageId="final" raceId="23" name="23 Girls Senior Quad  Brides Plate" raceNumber="23" progressionRule="" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="16:21"/>
+  <timingRace eventId="24" stageId="final" raceId="24" name="24 Boys Senior Quad  Sonzogni Trophy" raceNumber="24" progressionRule="" shellType="quadWithoutCoxswain" scheduledDate="2024-05-18" scheduledTime="16:29"/>
+  <timingRace eventId="25" stageId="final" raceId="25" name="25 Boys Senior Single  John B. Kelly Cup" raceNumber="25" progressionRule="" scheduledDate="2024-05-18" scheduledTime="16:37"/>
+  <timingRace eventId="26" stageId="final" raceId="26" name="26 Girls Senior Single  Ana Tamas Knecht Trophy" raceNumber="26" progressionRule="" scheduledDate="2024-05-18" scheduledTime="16:45"/>
+  <timingRace eventId="28" stageId="final" raceId="28" name="28 Boys Senior Four  Kings Club Cup" raceNumber="28" progressionRule="" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="16:53"/>
+  <timingRace eventId="27" stageId="final" raceId="27" name="27 Girls Senior Four  Airley Cup" raceNumber="27" progressionRule="" shellType="fourWithCoxswain" scheduledDate="2024-05-18" scheduledTime="17:01"/>
+  <timingRace eventId="30" stageId="final" raceId="30" name="30 Boys Senior Eight  Edward T. Stotesbury Cup" raceNumber="30" progressionRule="" shellType="eight" scheduledDate="2024-05-18" scheduledTime="17:09"/>
+  <timingRace eventId="29" stageId="final" raceId="29" name="29 Girls Senior Eight  Robert Engman Trophy" raceNumber="29" progressionRule="" shellType="eight" scheduledDate="2024-05-18" scheduledTime="17:17"/>
+  <penalty type="severeCollision" name="Severe Collision" code="SC" description="If, in the judgement of the Umpire, there is severe contact between (a) boats, (b) oars and boats or (c) boats/oars and rowers, penalties may be applied. Forcing another boat into a bridge or off the racecourse is also considered a Severe Collision. Incidental or minor contact between boats or oars and boats, is not." assessment="60"/>
+  <penalty type="nonYield" name="Non-Yield Interference" code="NY" description="When an overtaking boat closes to within 1 boat length of the stern of the boat ahead (and continues to close) and there is no visible effort on the part of the boat ahead to yield (where yielding can be done safely), a penalty is assessed the overtaken boat." assessment="60"/>
+  <penalty type="poorCrossing" name="Poor Crossing Violation" code="PC" description="Any action by a crossing crew that causes a racing crew to slow down to avoid a collision or to alter course is considered Poor Crossing, for which they may be assessed a penalty." assessment="60"/>
+  <penalty type="travelLane" name="Travel Lane Violation" code="TL" description="Non-racing boats entering the race course may be penalized for each course buoy cut. Non-racing boats interfering with a racing boat will be severely penalized." assessment="10"/>
+  <penalty type="disregardForSafety" name="Disregard for Safety Violation" code="SV" description="A crew that acts in a way that demonstrates a blatant and severe disregard for their safety or the safety of others will receive a 60 second penalty or face disqualification (imposed by the jury). Traffic violations such as entering the race course from the travel lane may fall into this category." assessment="60"/>
+  <penalty type="unsportsmanlikeConduct" name="Unsportsmanlike Conduct" code="UC" description="Gross, directed profanity, abusive language, or other actions that violate the bounds of civil conduct will be reported to the Jury and may result in either a reprimand or penalty." assessment="60"/>
+  <penalty type="startOrder" name="Start Order Violation" code="SO" description="Entering the starting chute in the wrong order is grounds for a penalty. This includes boats that are late to the starting line and therefore asked to start at the end of their event. A boat that is so late to the start that it cannot row in its event may be excluded." assessment="30"/>
+  <penalty type="bridgeArch" name="Arch Violation" code="AR" description="Rowing through an out-of-bounds arch." assessment="60"/>
+  <penalty name="Buoy Violation" code="BV" description="Passing on the wrong side of buoys (e.g., green, orange, white), often with increased penalties for repeat offenses." assessment="10"/>
+</tdi:TimingRegatta>
