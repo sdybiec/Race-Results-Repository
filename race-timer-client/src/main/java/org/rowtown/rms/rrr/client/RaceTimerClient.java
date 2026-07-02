@@ -35,7 +35,8 @@ public class RaceTimerClient implements AutoCloseable {
     private final ScheduledExecutorService scheduler;
 
     private final String regattaId;
-    private final String timerId;
+    private final String regattaStartDate;
+    private final String timer;
     private boolean autoSyncEnabled;
 
     /**
@@ -45,7 +46,8 @@ public class RaceTimerClient implements AutoCloseable {
      */
     public RaceTimerClient(ClientConfig config) {
         this.regattaId = config.getRegattaId();
-        this.timerId = config.getTimerId();
+        this.regattaStartDate = config.getRegattaStartDate();
+        this.timer = config.getTimer();
 
         // Initialize local storage
         this.storage = new LocalStorageManager(config.getLocalDatabasePath());
@@ -53,16 +55,17 @@ public class RaceTimerClient implements AutoCloseable {
         // Initialize API client
         this.apiClient = new RepositoryClient(config.getServerUrl(), config.getJwtToken());
 
-        // Initialize MQTT listener
+        // Initialize MQTT listener (client id must be unique per connection)
+        String mqttClientId = (regattaId + "-" + timer + "-client").replace(' ', '-');
         this.mqttListener = new NotificationListener(
             config.getMqttBrokerUrl(),
-            config.getTimerId() + "-client",
+            mqttClientId,
             config.getRegattaId()
         );
 
         // Initialize sync engines
-        this.startListSync = new StartListSyncEngine(storage, apiClient, regattaId);
-        this.raceResultsSync = new RaceResultsSyncEngine(storage, apiClient, regattaId, timerId);
+        this.startListSync = new StartListSyncEngine(storage, apiClient, regattaId, regattaStartDate);
+        this.raceResultsSync = new RaceResultsSyncEngine(storage, apiClient, regattaId, regattaStartDate, timer);
 
         // Initialize scheduler for auto-sync
         this.scheduler = Executors.newScheduledThreadPool(1);
@@ -71,7 +74,8 @@ public class RaceTimerClient implements AutoCloseable {
         // Set up notification handler
         setupNotificationHandler();
 
-        log.info("RaceTimerClient initialized for regatta: {}, timer: {}", regattaId, timerId);
+        log.info("RaceTimerClient initialized for regatta '{}' on {}, timer role {}",
+            regattaId, regattaStartDate, timer);
     }
 
     /**
@@ -162,16 +166,14 @@ public class RaceTimerClient implements AutoCloseable {
     /**
      * Save race results locally (will be synced when online).
      *
-     * @param milestoneId Timing milestone (e.g., "start", "finish")
-     * @param versionType Results version (e.g., "primary", "firstBackup")
-     * @param author Author/timer ID
-     * @param modelData Serialized EMF model data
+     * @param milestoneId Timing milestone (e.g., "Start Line", "Finish Line")
+     * @param author Author
+     * @param modelData Serialized EMF model data (raceId is derived from it)
      * @return Saved local document
      */
-    public LocalDocument saveRaceResults(String milestoneId, String versionType,
-                                        String author, byte[] modelData) {
+    public LocalDocument saveRaceResults(String milestoneId, String author, byte[] modelData) {
         log.info("Saving race results for milestone: {}", milestoneId);
-        LocalDocument doc = raceResultsSync.saveLocal(milestoneId, versionType, author, modelData);
+        LocalDocument doc = raceResultsSync.saveLocal(milestoneId, author, modelData);
 
         // Try to sync immediately if online
         if (apiClient.isServerReachable()) {
@@ -330,16 +332,18 @@ public class RaceTimerClient implements AutoCloseable {
      */
     public static class ClientConfig {
         private final String regattaId;
-        private final String timerId;
+        private final String regattaStartDate;   // ISO-8601 (yyyy-MM-dd); part of the regatta key
+        private final String timer;              // this timer's role: PRIMARY | FIRST_BACKUP | SECOND_BACKUP
         private final String serverUrl;
         private final String mqttBrokerUrl;
         private final String localDatabasePath;
         private final String jwtToken;
 
-        public ClientConfig(String regattaId, String timerId, String serverUrl,
+        public ClientConfig(String regattaId, String regattaStartDate, String timer, String serverUrl,
                           String mqttBrokerUrl, String localDatabasePath, String jwtToken) {
             this.regattaId = regattaId;
-            this.timerId = timerId;
+            this.regattaStartDate = regattaStartDate;
+            this.timer = timer;
             this.serverUrl = serverUrl;
             this.mqttBrokerUrl = mqttBrokerUrl;
             this.localDatabasePath = localDatabasePath;
@@ -347,7 +351,8 @@ public class RaceTimerClient implements AutoCloseable {
         }
 
         public String getRegattaId() { return regattaId; }
-        public String getTimerId() { return timerId; }
+        public String getRegattaStartDate() { return regattaStartDate; }
+        public String getTimer() { return timer; }
         public String getServerUrl() { return serverUrl; }
         public String getMqttBrokerUrl() { return mqttBrokerUrl; }
         public String getLocalDatabasePath() { return localDatabasePath; }

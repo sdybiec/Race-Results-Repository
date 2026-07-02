@@ -19,11 +19,14 @@ public class StartListSyncEngine {
     private final LocalStorageManager storage;
     private final RepositoryClient apiClient;
     private final String regattaId;
+    private final String regattaStartDate;
 
-    public StartListSyncEngine(LocalStorageManager storage, RepositoryClient apiClient, String regattaId) {
+    public StartListSyncEngine(LocalStorageManager storage, RepositoryClient apiClient,
+                               String regattaId, String regattaStartDate) {
         this.storage = storage;
         this.apiClient = apiClient;
         this.regattaId = regattaId;
+        this.regattaStartDate = regattaStartDate;
     }
 
     /**
@@ -42,8 +45,8 @@ public class StartListSyncEngine {
                 return false;
             }
 
-            // Get Start List from server
-            RepositoryClient.DocumentResponse serverDoc = apiClient.getStartList(regattaId);
+            // Get Start List from server for this regatta edition
+            RepositoryClient.DocumentResponse serverDoc = apiClient.getStartList(regattaId, regattaStartDate);
 
             if (serverDoc == null) {
                 log.warn("No Start List found on server for regatta: {}", regattaId);
@@ -97,6 +100,7 @@ public class StartListSyncEngine {
             LocalDocument localDoc = LocalDocument.builder()
                 .serverId(serverDoc.documentId)
                 .regattaId(serverDoc.regattaId)
+                .regattaStartDate(serverDoc.regattaStartDate)
                 .documentType("START_LIST")
                 .author(serverDoc.author)
                 .description(serverDoc.description)
@@ -107,7 +111,7 @@ public class StartListSyncEngine {
                 .syncStatus(SyncStatus.SYNCED)
                 .lastSyncedAt(LocalDateTime.now())
                 .modelData(serverDoc.modelData)
-                .serializationFormat("JSON")
+                .serializationFormat("XMI")
                 .build();
 
             storage.save(localDoc);

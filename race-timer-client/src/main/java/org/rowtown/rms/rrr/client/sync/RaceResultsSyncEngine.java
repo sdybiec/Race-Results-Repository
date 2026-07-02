@@ -5,6 +5,7 @@ import org.rowtown.rms.rrr.client.api.RepositoryClient;
 import org.rowtown.rms.rrr.client.model.LocalDocument;
 import org.rowtown.rms.rrr.client.model.SyncStatus;
 import org.rowtown.rms.rrr.client.storage.LocalStorageManager;
+import org.rowtown.rms.rrr.client.util.TdiRaceIdExtractor;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -14,7 +15,11 @@ import java.util.List;
 
 /**
  * Synchronization engine for Race Results documents.
- * Handles uploading locally captured results to the repository.
+ *
+ * <p>A client instance produces results for a fixed timer role
+ * ({@code PRIMARY} / {@code FIRST_BACKUP} / {@code SECOND_BACKUP}). A Race
+ * Results document is keyed by (regatta name + start date, race, milestone,
+ * timer role); the race id is derived from the model.</p>
  */
 @Slf4j
 public class RaceResultsSyncEngine {
@@ -22,14 +27,16 @@ public class RaceResultsSyncEngine {
     private final LocalStorageManager storage;
     private final RepositoryClient apiClient;
     private final String regattaId;
-    private final String timerId;
+    private final String regattaStartDate;
+    private final String timer;
 
     public RaceResultsSyncEngine(LocalStorageManager storage, RepositoryClient apiClient,
-                                String regattaId, String timerId) {
+                                String regattaId, String regattaStartDate, String timer) {
         this.storage = storage;
         this.apiClient = apiClient;
         this.regattaId = regattaId;
-        this.timerId = timerId;
+        this.regattaStartDate = regattaStartDate;
+        this.timer = timer;
     }
 
     /**
@@ -39,7 +46,7 @@ public class RaceResultsSyncEngine {
      * @return SyncResult with statistics
      */
     public SyncResult synchronizePending() {
-        log.info("Starting Race Results synchronization for timer: {}", timerId);
+        log.info("Starting Race Results synchronization for timer role: {}", timer);
 
         SyncResult result = new SyncResult();
 
@@ -57,7 +64,7 @@ public class RaceResultsSyncEngine {
             // Filter to only our Race Results
             List<LocalDocument> ourResults = pendingDocs.stream()
                 .filter(doc -> "RACE_RESULTS".equals(doc.getDocumentType()))
-                .filter(doc -> timerId.equals(doc.getTimerId()))
+                .filter(doc -> timer.equals(doc.getTimer()))
                 .toList();
 
             log.info("Found {} Race Results documents to sync", ourResults.size());
@@ -121,14 +128,15 @@ public class RaceResultsSyncEngine {
         RepositoryClient.DocumentRequest request = new RepositoryClient.DocumentRequest();
         request.type = "RACE_RESULTS";
         request.regattaId = localDoc.getRegattaId();
-        request.timerId = localDoc.getTimerId();
+        request.regattaStartDate = localDoc.getRegattaStartDate();
         request.milestoneId = localDoc.getMilestoneId();
-        request.versionType = localDoc.getVersionType();
+        request.timer = localDoc.getTimer();
         request.author = localDoc.getAuthor();
         request.description = localDoc.getDescription();
         request.tags = new HashSet<>();
         request.metadata = new HashMap<>();
         request.modelData = localDoc.getModelData();
+        // raceId is derived server-side from modelData; not sent.
 
         RepositoryClient.DocumentResponse response = apiClient.createDocument(request);
 
@@ -136,9 +144,12 @@ public class RaceResultsSyncEngine {
             throw new IOException("Failed to create document on server: response is null");
         }
 
-        // Update local document with server ID and version
+        // Update local document with server ID, version, and derived race id
         localDoc.setServerId(response.documentId);
         localDoc.setServerVersion(response.latestVersion);
+        if (response.raceId != null) {
+            localDoc.setRaceId(response.raceId);
+        }
         localDoc.setSyncStatus(SyncStatus.SYNCED);
         localDoc.setLastSyncedAt(LocalDateTime.now());
         localDoc.setLastSyncError(null);
@@ -158,8 +169,8 @@ public class RaceResultsSyncEngine {
     private boolean updateOnServer(LocalDocument localDoc) throws IOException {
         log.info("Updating Race Results on server (server_id: {})", localDoc.getServerId());
 
-        String changeDescription = String.format("Update from timer %s at %s",
-            timerId, LocalDateTime.now());
+        String changeDescription = String.format("Update from %s timer at %s",
+            timer, LocalDateTime.now());
 
         RepositoryClient.DocumentResponse response = apiClient.updateDocument(
             localDoc.getServerId(),
@@ -187,18 +198,21 @@ public class RaceResultsSyncEngine {
     }
 
     /**
-     * Save Race Results locally (to be synced later).
+     * Save Race Results locally (to be synced later). The race id is derived from
+     * the model so local records are keyed correctly per race.
      */
-    public LocalDocument saveLocal(String milestoneId, String versionType,
-                                   String author, byte[] modelData) {
+    public LocalDocument saveLocal(String milestoneId, String author, byte[] modelData) {
         log.info("Saving Race Results locally for milestone: {}", milestoneId);
+
+        String raceId = TdiRaceIdExtractor.extractRaceId(modelData);
 
         LocalDocument localDoc = LocalDocument.builder()
             .regattaId(regattaId)
-            .timerId(timerId)
+            .regattaStartDate(regattaStartDate)
+            .raceId(raceId)
             .milestoneId(milestoneId)
+            .timer(timer)
             .documentType("RACE_RESULTS")
-            .versionType(versionType)
             .author(author)
             .description("Race results for " + milestoneId)
             .createdAt(LocalDateTime.now())
@@ -206,7 +220,7 @@ public class RaceResultsSyncEngine {
             .localVersion(1L)
             .syncStatus(SyncStatus.PENDING)
             .modelData(modelData)
-            .serializationFormat("JSON")
+            .serializationFormat("XMI")
             .retryCount(0)
             .build();
 
@@ -225,6 +239,11 @@ public class RaceResultsSyncEngine {
         localDoc.setModelData(modelData);
         localDoc.setModifiedAt(LocalDateTime.now());
         localDoc.setLocalVersion(localDoc.getLocalVersion() != null ? localDoc.getLocalVersion() + 1 : 1);
+        // Race id may change if the model changed
+        String raceId = TdiRaceIdExtractor.extractRaceId(modelData);
+        if (raceId != null) {
+            localDoc.setRaceId(raceId);
+        }
         localDoc.setSyncStatus(SyncStatus.PENDING);
 
         return storage.save(localDoc);
@@ -252,16 +271,16 @@ public class RaceResultsSyncEngine {
         List<LocalDocument> pending = storage.findPendingSync();
         return (int) pending.stream()
             .filter(doc -> "RACE_RESULTS".equals(doc.getDocumentType()))
-            .filter(doc -> timerId.equals(doc.getTimerId()))
+            .filter(doc -> timer.equals(doc.getTimer()))
             .count();
     }
 
     /**
-     * Get all local Race Results for this timer.
+     * Get all local Race Results for this timer role.
      */
     public List<LocalDocument> getAllLocal() {
         return storage.findByRegattaAndType(regattaId, "RACE_RESULTS").stream()
-            .filter(doc -> timerId.equals(doc.getTimerId()))
+            .filter(doc -> timer.equals(doc.getTimer()))
             .toList();
     }
 

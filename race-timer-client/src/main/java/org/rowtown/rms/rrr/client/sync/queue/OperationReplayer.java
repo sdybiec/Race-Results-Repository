@@ -184,12 +184,13 @@ public class OperationReplayer {
         RepositoryClient.DocumentRequest request = new RepositoryClient.DocumentRequest();
         request.type = document.getDocumentType();
         request.regattaId = document.getRegattaId();
-        request.timerId = document.getTimerId();
+        request.regattaStartDate = document.getRegattaStartDate();
         request.milestoneId = document.getMilestoneId();
-        request.versionType = document.getVersionType();
+        request.timer = document.getTimer();
         request.author = document.getAuthor();
         request.description = document.getDescription();
         request.modelData = document.getModelData();
+        // raceId is derived server-side from modelData; not sent.
 
         // Upload document to server
         var response = repositoryClient.createDocument(request);
@@ -215,7 +216,7 @@ public class OperationReplayer {
                     .documentId(localDocument.getServerId())
                     .documentType(localDocument.getDocumentType())
                     .regattaId(localDocument.getRegattaId())
-                    .timerId(localDocument.getTimerId())
+                    .timerId(localDocument.getTimer())
                     .localVersion(localDocument)
                     .serverVersion(serverDocument)
                     .detectedAt(LocalDateTime.now())
@@ -317,9 +318,10 @@ public class OperationReplayer {
                 .serverId(response.documentId)
                 .documentType(response.type)
                 .regattaId(response.regattaId)
-                .timerId(response.timerId)
+                .regattaStartDate(response.regattaStartDate)
+                .raceId(response.raceId)
                 .milestoneId(response.milestoneId)
-                .versionType(response.versionType)
+                .timer(response.timer)
                 .author(response.author)
                 .description(response.description)
                 .serverVersion(response.latestVersion)

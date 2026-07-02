@@ -71,10 +71,11 @@ public class LocalStorageManager implements AutoCloseable {
                 local_id %s,
                 server_id INTEGER,
                 regatta_id %s NOT NULL,
-                timer_id %s,
+                regatta_start_date %s,
+                race_id %s,
                 milestone_id %s,
+                timer %s,
                 document_type %s NOT NULL,
-                version_type %s,
                 author %s NOT NULL,
                 description %s,
                 created_at %s,
@@ -86,12 +87,12 @@ public class LocalStorageManager implements AutoCloseable {
                 last_sync_error %s,
                 retry_count INTEGER DEFAULT 0,
                 model_data BLOB,
-                serialization_format %s DEFAULT 'JSON',
+                serialization_format %s DEFAULT 'XMI',
                 local_created_at %s NOT NULL
             )
             """, autoIncrement, textType, textType, textType, textType,
                  textType, textType, textType, textType, textType,
-                 textType, textType, textType, textType, textType);
+                 textType, textType, textType, textType, textType, textType);
 
         String createPendingOperationsTable = String.format("""
             CREATE TABLE IF NOT EXISTS pending_operations (
@@ -147,20 +148,21 @@ public class LocalStorageManager implements AutoCloseable {
     private LocalDocument insert(LocalDocument doc) {
         String sql = """
             INSERT INTO documents (
-                server_id, regatta_id, timer_id, milestone_id, document_type, version_type,
+                server_id, regatta_id, regatta_start_date, race_id, milestone_id, timer, document_type,
                 author, description, created_at, modified_at, local_version, server_version,
                 sync_status, last_synced_at, model_data, serialization_format, local_created_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """;
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             int idx = 1;
             pstmt.setObject(idx++, doc.getServerId());
             pstmt.setString(idx++, doc.getRegattaId());
-            pstmt.setString(idx++, doc.getTimerId());
+            pstmt.setString(idx++, doc.getRegattaStartDate());
+            pstmt.setString(idx++, doc.getRaceId());
             pstmt.setString(idx++, doc.getMilestoneId());
+            pstmt.setString(idx++, doc.getTimer());
             pstmt.setString(idx++, doc.getDocumentType());
-            pstmt.setString(idx++, doc.getVersionType());
             pstmt.setString(idx++, doc.getAuthor());
             pstmt.setString(idx++, doc.getDescription());
             pstmt.setString(idx++, toString(doc.getCreatedAt()));
@@ -197,8 +199,8 @@ public class LocalStorageManager implements AutoCloseable {
     private LocalDocument update(LocalDocument doc) {
         String sql = """
             UPDATE documents SET
-                server_id = ?, regatta_id = ?, timer_id = ?, milestone_id = ?,
-                document_type = ?, version_type = ?, author = ?, description = ?,
+                server_id = ?, regatta_id = ?, regatta_start_date = ?, race_id = ?, milestone_id = ?,
+                timer = ?, document_type = ?, author = ?, description = ?,
                 created_at = ?, modified_at = ?, local_version = ?, server_version = ?,
                 sync_status = ?, last_synced_at = ?, last_sync_error = ?, retry_count = ?,
                 model_data = ?, serialization_format = ?
@@ -209,10 +211,11 @@ public class LocalStorageManager implements AutoCloseable {
             int idx = 1;
             pstmt.setObject(idx++, doc.getServerId());
             pstmt.setString(idx++, doc.getRegattaId());
-            pstmt.setString(idx++, doc.getTimerId());
+            pstmt.setString(idx++, doc.getRegattaStartDate());
+            pstmt.setString(idx++, doc.getRaceId());
             pstmt.setString(idx++, doc.getMilestoneId());
+            pstmt.setString(idx++, doc.getTimer());
             pstmt.setString(idx++, doc.getDocumentType());
-            pstmt.setString(idx++, doc.getVersionType());
             pstmt.setString(idx++, doc.getAuthor());
             pstmt.setString(idx++, doc.getDescription());
             pstmt.setString(idx++, toString(doc.getCreatedAt()));
@@ -343,10 +346,11 @@ public class LocalStorageManager implements AutoCloseable {
             .localId(rs.getLong("local_id"))
             .serverId(getLongOrNull(rs, "server_id"))
             .regattaId(rs.getString("regatta_id"))
-            .timerId(rs.getString("timer_id"))
+            .regattaStartDate(rs.getString("regatta_start_date"))
+            .raceId(rs.getString("race_id"))
             .milestoneId(rs.getString("milestone_id"))
+            .timer(rs.getString("timer"))
             .documentType(rs.getString("document_type"))
-            .versionType(rs.getString("version_type"))
             .author(rs.getString("author"))
             .description(rs.getString("description"))
             .createdAt(toLocalDateTime(rs.getString("created_at")))

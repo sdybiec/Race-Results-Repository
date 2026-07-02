@@ -6,10 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * HTTP client for communicating with the Race Results Repository.
@@ -44,11 +46,16 @@ public class RepositoryClient {
     }
 
     /**
-     * Get Start List for a regatta.
+     * Get the Start List for a regatta edition (name + start date).
+     *
+     * @param regattaId the regatta name
+     * @param regattaStartDate the regatta start date (ISO-8601, e.g. 2024-05-17)
      */
-    public DocumentResponse getStartList(String regattaId) throws IOException {
-        String url = baseUrl + "/api/v1/documents/search?regattaId=" + regattaId +
-                     "&type=START_LIST&matchType=EXACT";
+    public DocumentResponse getStartList(String regattaId, String regattaStartDate) throws IOException {
+        String url = baseUrl + "/api/v1/documents/search"
+                     + "?regattaId=" + enc(regattaId)
+                     + "&regattaStartDate=" + enc(regattaStartDate)
+                     + "&type=START_LIST&matchType=EXACT";
 
         Request request = new Request.Builder()
             .url(url)
@@ -163,16 +170,26 @@ public class RepositoryClient {
         }
     }
 
+    private static String enc(String value) {
+        return URLEncoder.encode(value == null ? "" : value, StandardCharsets.UTF_8);
+    }
+
     /**
      * Simple DTOs for API communication.
+     *
+     * <p>{@code timer} carries the redundancy role: one of "PRIMARY",
+     * "FIRST_BACKUP", "SECOND_BACKUP". {@code regattaStartDate} is ISO-8601
+     * (yyyy-MM-dd). {@code raceId} is derived server-side and returned in
+     * responses only (not sent in requests).</p>
      */
     public static class DocumentResponse {
         public Long documentId;
         public String type;
         public String regattaId;
-        public String timerId;
+        public String regattaStartDate;
+        public String raceId;
         public String milestoneId;
-        public String versionType;
+        public String timer;
         public String author;
         public String description;
         public Long latestVersion;
@@ -182,12 +199,12 @@ public class RepositoryClient {
     public static class DocumentRequest {
         public String type;
         public String regattaId;
-        public String timerId;
+        public String regattaStartDate;
         public String milestoneId;
-        public String versionType;
+        public String timer;
         public String author;
         public String description;
-        public java.util.Set<String> tags;
+        public Set<String> tags;
         public Map<String, String> metadata;
         public byte[] modelData;
     }
@@ -203,7 +220,9 @@ public class RepositoryClient {
         public Long documentId;
         public String type;
         public String regattaId;
-        public String timerId;
+        public String regattaStartDate;
+        public String raceId;
+        public String timer;
         public Long latestVersion;
     }
 }

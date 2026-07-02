@@ -18,10 +18,14 @@ public class LocalDocument {
     // Server identifiers
     private Long serverId;
     private String regattaId;
-    private String timerId;
-    private String milestoneId;
+    // Regatta start date (ISO-8601, yyyy-MM-dd); part of the regatta key.
+    private String regattaStartDate;
     private String documentType; // START_LIST or RACE_RESULTS
-    private String versionType;
+
+    // Race Results key components
+    private String raceId;       // derived from the model
+    private String milestoneId;
+    private String timer;        // PRIMARY | FIRST_BACKUP | SECOND_BACKUP
 
     // Document metadata
     private String author;
