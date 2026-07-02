@@ -26,7 +26,7 @@ public class DocumentRequest {
     private DocumentType type;
 
     @Schema(description = "Unique identifier for the regatta",
-            example = "REG2025-SPRING",
+            example = "Stotesbury Cup Regatta",
             required = true)
     private String regattaId;
 

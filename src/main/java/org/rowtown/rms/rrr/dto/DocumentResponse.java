@@ -30,7 +30,7 @@ public class DocumentResponse {
     private DocumentType type;
 
     @Schema(description = "Regatta identifier",
-            example = "REG2025-SPRING")
+            example = "Stotesbury Cup Regatta")
     private String regattaId;
 
     @Schema(description = "Timer device identifier",

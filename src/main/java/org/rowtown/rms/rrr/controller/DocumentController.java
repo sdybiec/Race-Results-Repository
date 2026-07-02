@@ -74,21 +74,22 @@ public class DocumentController {
             content = @Content(
                 schema = @Schema(implementation = DocumentRequest.class),
                 examples = @ExampleObject(
-                    name = "Race Results",
+                    name = "Start List (Stotesbury Cup Regatta 2024)",
+                    description = "modelData is the base64-encoded XMI of a tdi:TimingRegatta model "
+                        + "(truncated here; see src/test/resources/Stotesbury-2024-05-17-race-start-master-updated-startlist.tdi)",
                     value = """
                     {
-                      "type": "RACE_RESULTS",
-                      "regattaId": "REG2025-SPRING",
-                      "timerId": "TIMER-001",
-                      "milestoneId": "HEAT-1",
-                      "versionType": "OFFICIAL",
-                      "author": "john.doe@rowing.org",
-                      "description": "Final race results for Heat 1",
-                      "tags": ["finals", "mens-8"],
+                      "type": "START_LIST",
+                      "regattaId": "Stotesbury Cup Regatta",
+                      "versionType": "primary",
+                      "author": "regatta.admin@stotesburycup.org",
+                      "description": "Stotesbury Cup Regatta 2024 - master start list",
+                      "tags": ["official", "start-list"],
                       "metadata": {
-                        "weather": "sunny",
-                        "wind": "5mph"
-                      }
+                        "raceCourse": "1500 Meter Head Course",
+                        "date": "2024-05-17"
+                      },
+                      "modelData": "PHRkaTpUaW1pbmdSZWdhdHRhIHJlZ2F0dGFJZD0iU3RvdGVzYnVyeSBDdXAgUmVnYXR0YSIgLi4uLz4="
                     }
                     """
                 )

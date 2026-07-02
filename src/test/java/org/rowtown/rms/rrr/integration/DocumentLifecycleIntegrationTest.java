@@ -3,6 +3,7 @@ package org.rowtown.rms.rrr.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -20,6 +21,7 @@ import org.rowtown.rms.rrr.domain.DocumentType;
 import org.rowtown.rms.rrr.domain.SerializationFormat;
 import org.rowtown.rms.rrr.dto.DocumentRequest;
 import org.rowtown.rms.rrr.dto.DocumentResponse;
+import org.rowtown.rms.rrr.testutil.SampleData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -159,14 +161,21 @@ class DocumentLifecycleIntegrationTest {
 
     @Test
     void startListWorkflow() throws Exception {
+        // Use a real regatta start list (XMI-serialized tdi:TimingRegatta, ~150 KB)
+        // as the model payload instead of placeholder bytes.
+        byte[] startListModel = SampleData.stotesburyStartList();
+        assertTrue(startListModel.length > 1000, "sample start list should be loaded");
+
         // Create a Start List (only one allowed per regatta)
         DocumentRequest startListRequest = DocumentRequest.builder()
             .type(DocumentType.START_LIST)
-            .regattaId("STARTLIST_TEST_2025")
-            .author("admin@example.com")
-            .description("Test start list")
-            .tags(Set.of("official"))
-            .modelData("Start list data".getBytes())
+            .regattaId("Stotesbury Cup Regatta")
+            .author("regatta.admin@stotesburycup.org")
+            .description("Stotesbury Cup Regatta 2024 - master start list")
+            .versionType("primary")
+            .tags(Set.of("official", "start-list"))
+            .metadata(Map.of("raceCourse", "1500 Meter Head Course", "date", "2024-05-17"))
+            .modelData(startListModel)
             .build();
 
         MvcResult result = mockMvc.perform(post("/api/v1/documents")
@@ -181,6 +190,16 @@ class DocumentLifecycleIntegrationTest {
 
         assertNotNull(startList.getDocumentId());
         assertEquals(DocumentType.START_LIST, startList.getType());
+
+        // Retrieve it and verify the full model payload round-trips through storage
+        MvcResult fetched = mockMvc.perform(get("/api/v1/documents/" + startList.getDocumentId()))
+            .andExpect(status().isOk())
+            .andReturn();
+        DocumentResponse retrieved = objectMapper.readValue(
+            fetched.getResponse().getContentAsString(),
+            DocumentResponse.class);
+        assertArrayEquals(startListModel, retrieved.getModelData(),
+            "stored start list model should round-trip unchanged");
 
         // Attempt to create another Start List for same regatta (should fail)
         mockMvc.perform(post("/api/v1/documents")

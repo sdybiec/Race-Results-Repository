@@ -24,11 +24,11 @@ public class SearchQuery {
     private String documentId;
 
     @Schema(description = "Regatta ID to filter by",
-            example = "REG2025-SPRING")
+            example = "Stotesbury Cup Regatta")
     private String regattaId;
 
     @Schema(description = "Regatta name to search for",
-            example = "Spring Regatta 2025")
+            example = "Stotesbury Cup Regatta")
     private String regattaName;
 
     @Schema(description = "Type of document to filter by",

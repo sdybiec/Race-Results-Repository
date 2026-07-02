@@ -52,9 +52,9 @@ public class SearchController {
     public ResponseEntity<SearchResults> search(
             @Parameter(description = "Document ID to search for", example = "12345")
             @RequestParam(required = false) String documentId,
-            @Parameter(description = "Filter by regatta ID", example = "REG2025-SPRING")
+            @Parameter(description = "Filter by regatta ID", example = "Stotesbury Cup Regatta")
             @RequestParam(required = false) String regattaId,
-            @Parameter(description = "Search by regatta name", example = "Spring Regatta")
+            @Parameter(description = "Search by regatta name", example = "Stotesbury")
             @RequestParam(required = false) String regattaName,
             @Parameter(description = "Filter by document type", example = "RACE_RESULTS")
             @RequestParam(required = false) DocumentType type,
@@ -123,12 +123,11 @@ public class SearchController {
             content = @Content(
                 schema = @Schema(implementation = SearchQuery.class),
                 examples = @ExampleObject(
-                    name = "Search for finals races",
+                    name = "Find a regatta's start list",
                     value = """
                     {
-                      "regattaId": "REG2025-SPRING",
-                      "documentType": "RACE_RESULTS",
-                      "tags": ["finals", "mens-8"],
+                      "regattaId": "Stotesbury Cup Regatta",
+                      "documentType": "START_LIST",
                       "matchType": "PARTIAL",
                       "page": 0,
                       "size": 20
