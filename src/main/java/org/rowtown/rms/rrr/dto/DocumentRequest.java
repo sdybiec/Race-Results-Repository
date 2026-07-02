@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rowtown.rms.rrr.domain.DocumentType;
+import org.rowtown.rms.rrr.domain.TimerRole;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -37,17 +38,15 @@ public class DocumentRequest {
             required = true)
     private LocalDate regattaStartDate;
 
-    @Schema(description = "Identifier for the timing device that created this document",
-            example = "TIMER-001")
-    private String timerId;
-
-    @Schema(description = "Milestone identifier (e.g., heat number, race number)",
-            example = "HEAT-1")
+    @Schema(description = "Timing milestone (Race Results only), e.g. \"Start Line\", \"500m\", \"Finish Line\". "
+            + "Required for RACE_RESULTS; part of its key.",
+            example = "Finish Line")
     private String milestoneId;
 
-    @Schema(description = "Version type or category",
-            example = "OFFICIAL")
-    private String versionType;
+    @Schema(description = "Which redundant timer produced these results (Race Results only). "
+            + "Required for RACE_RESULTS; part of its key.",
+            example = "PRIMARY")
+    private TimerRole timer;
 
     @Schema(description = "Author or creator of the document",
             example = "john.doe@rowing.org",

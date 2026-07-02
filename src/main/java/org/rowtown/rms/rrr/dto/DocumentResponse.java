@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rowtown.rms.rrr.domain.DocumentType;
+import org.rowtown.rms.rrr.domain.TimerRole;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,17 +39,17 @@ public class DocumentResponse {
             example = "2024-05-17")
     private LocalDate regattaStartDate;
 
-    @Schema(description = "Timer device identifier",
-            example = "TIMER-001")
-    private String timerId;
+    @Schema(description = "Race identifier (Race Results only), derived from the model",
+            example = "1a")
+    private String raceId;
 
-    @Schema(description = "Milestone identifier",
-            example = "HEAT-1")
+    @Schema(description = "Timing milestone (Race Results only)",
+            example = "Finish Line")
     private String milestoneId;
 
-    @Schema(description = "Version type",
-            example = "OFFICIAL")
-    private String versionType;
+    @Schema(description = "Which redundant timer produced these results (Race Results only)",
+            example = "PRIMARY")
+    private TimerRole timer;
 
     @Schema(description = "Document author",
             example = "john.doe@rowing.org")

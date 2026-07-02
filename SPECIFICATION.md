@@ -916,19 +916,26 @@ Document v3 = service.getDocument("doc-456", 3)
 **documents**
 ```
 document_id         BIGINT PRIMARY KEY AUTO_INCREMENT
-document_type       ENUM('START_LIST', 'RACE_RESULTS')
+document_type       ENUM('START_LIST', 'RACE_RESULTS')   -- single-table inheritance discriminator
 regatta_id          VARCHAR(255) NOT NULL   -- regatta name
 regatta_start_date  DATE NOT NULL           -- regattas are periodic; name + start date identify a regatta
-timer_id            VARCHAR(255) NULL
-milestone_id        VARCHAR(255) NULL
-version_type        ENUM('primary', 'firstBackup', 'secondBackup', 'checked') NULL
+race_id             VARCHAR(255) NULL       -- Race Results only; derived from the model
+milestone_id        VARCHAR(255) NULL       -- Race Results only
+timer_role          VARCHAR(20)  NULL       -- Race Results only: PRIMARY | FIRST_BACKUP | SECOND_BACKUP
 author              VARCHAR(255) NOT NULL
 created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 latest_version      BIGINT NOT NULL DEFAULT 1
 INDEX idx_regatta   (regatta_id)
-INDEX idx_timer     (timer_id)
+INDEX idx_race      (race_id)
 INDEX idx_type      (document_type)
 ```
+
+The document table uses single-table inheritance: a Start List
+(`StartListDocument`) has only the shared columns, while Race Results
+(`RaceResultsDocument`) additionally use `race_id`, `milestone_id`, and
+`timer_role`. A regatta has one Start List and many Race Results — one per
+(race, milestone, timer). The Race Results key is
+(regatta_id, regatta_start_date, race_id, milestone_id, timer_role).
 
 **versions**
 ```

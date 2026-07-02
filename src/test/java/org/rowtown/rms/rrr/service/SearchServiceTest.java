@@ -50,15 +50,16 @@ class SearchServiceTest {
 
     @BeforeEach
     void setUp() {
-        testDocument = Document.builder()
-            .documentId(1L)
-            .documentType(DocumentType.START_LIST)
-            .regattaId("HEAD2025")
-            .author("admin@example.com")
-            .description("Head of the Charles 2025")
-            .createdAt(LocalDateTime.now())
-            .latestVersion(1L)
-            .build();
+        org.rowtown.rms.rrr.domain.entity.StartListDocument document =
+            new org.rowtown.rms.rrr.domain.entity.StartListDocument();
+        document.setDocumentId(1L);
+        document.setDocumentType(DocumentType.START_LIST);
+        document.setRegattaId("HEAD2025");
+        document.setAuthor("admin@example.com");
+        document.setDescription("Head of the Charles 2025");
+        document.setCreatedAt(LocalDateTime.now());
+        document.setLatestVersion(1L);
+        testDocument = document;
 
         testQuery = SearchQuery.builder()
             .regattaId("HEAD2025")

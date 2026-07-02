@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.rowtown.rms.rrr.domain.entity.Document;
 import org.rowtown.rms.rrr.domain.entity.DocumentMetadata;
 import org.rowtown.rms.rrr.domain.entity.DocumentTag;
+import org.rowtown.rms.rrr.domain.entity.RaceResultsDocument;
 import org.rowtown.rms.rrr.dto.DocumentSummary;
 import org.rowtown.rms.rrr.dto.SearchQuery;
 import org.rowtown.rms.rrr.dto.SearchResults;
@@ -114,10 +115,20 @@ public class SearchService {
                 predicates.add(criteriaBuilder.equal(root.get("documentType"), query.getDocumentType()));
             }
 
-            // Timer ID
-            if (StringUtils.hasText(query.getTimerId())) {
-                predicates.add(buildStringPredicate(criteriaBuilder, root.get("timerId"),
-                    query.getTimerId(), query.getMatchType()));
+            // Race Results-specific filters (downcast the root to the subtype).
+            // Only RaceResultsDocument rows can match these, so they implicitly
+            // scope the search to race results.
+            if (StringUtils.hasText(query.getRaceId())) {
+                predicates.add(criteriaBuilder.equal(
+                    criteriaBuilder.treat(root, RaceResultsDocument.class).get("raceId"), query.getRaceId()));
+            }
+            if (StringUtils.hasText(query.getMilestoneId())) {
+                predicates.add(criteriaBuilder.equal(
+                    criteriaBuilder.treat(root, RaceResultsDocument.class).get("milestoneId"), query.getMilestoneId()));
+            }
+            if (query.getTimer() != null) {
+                predicates.add(criteriaBuilder.equal(
+                    criteriaBuilder.treat(root, RaceResultsDocument.class).get("timerRole"), query.getTimer()));
             }
 
             // Author
@@ -201,18 +212,24 @@ public class SearchService {
             .map(DocumentTag::getTagName)
             .collect(Collectors.toSet());
 
-        return DocumentSummary.builder()
+        DocumentSummary.DocumentSummaryBuilder builder = DocumentSummary.builder()
             .documentId(document.getDocumentId())
             .type(document.getDocumentType())
             .regattaId(document.getRegattaId())
             .regattaStartDate(document.getRegattaStartDate())
-            .timerId(document.getTimerId())
             .latestVersion(document.getLatestVersion())
             .lastModified(document.getCreatedAt())
             .author(document.getAuthor())
             .description(document.getDescription())
             .tags(tags)
-            .metadata(metadata)
-            .build();
+            .metadata(metadata);
+
+        if (document instanceof RaceResultsDocument raceResults) {
+            builder.raceId(raceResults.getRaceId())
+                .milestoneId(raceResults.getMilestoneId())
+                .timer(raceResults.getTimerRole());
+        }
+
+        return builder.build();
     }
 }

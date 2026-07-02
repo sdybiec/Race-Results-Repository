@@ -58,11 +58,10 @@ class PerformanceTest {
                 .type(DocumentType.RACE_RESULTS)
                 .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
                 .regattaId("PERF_TEST")
-                .timerId("timer" + String.format("%03d", i))
                 .milestoneId("finish")
                 .author("test@example.com")
                 .description("Performance test document " + i)
-                .modelData(("Test model data " + i).getBytes())
+                .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
                 .build();
 
             documentService.createDocument(request);
@@ -86,10 +85,9 @@ class PerformanceTest {
             .type(DocumentType.RACE_RESULTS)
             .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId("PERF_TEST_VERSIONS")
-            .timerId("timer001")
             .milestoneId("finish")
             .author("test@example.com")
-            .modelData("Initial data".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         var doc = documentService.createDocument(request);
@@ -129,13 +127,12 @@ class PerformanceTest {
                 .type(DocumentType.RACE_RESULTS)
                 .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
                 .regattaId("SEARCH_PERF_TEST")
-                .timerId("timer" + String.format("%03d", i))
                 .milestoneId("finish")
                 .author("test@example.com")
                 .description("Search performance test document " + i)
                 .tags(Set.of("test", "performance"))
                 .metadata(Map.of("index", String.valueOf(i)))
-                .modelData(("Data " + i).getBytes())
+                .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
                 .build();
 
             documentService.createDocument(request);
@@ -188,10 +185,9 @@ class PerformanceTest {
                         .type(DocumentType.RACE_RESULTS)
                         .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
                         .regattaId("CONCURRENT_TEST")
-                        .timerId(String.format("thread%02d_doc%02d", threadId, i))
                         .milestoneId("finish")
                         .author("test@example.com")
-                        .modelData(("Thread " + threadId + " doc " + i).getBytes())
+                        .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
                         .build();
 
                     documentService.createDocument(request);
@@ -243,10 +239,9 @@ class PerformanceTest {
             .type(DocumentType.RACE_RESULTS)
             .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId("COMPARE_PERF_TEST")
-            .timerId("timer001")
             .milestoneId("finish")
             .author("test@example.com")
-            .modelData("Initial data".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         var doc = documentService.createDocument(request);

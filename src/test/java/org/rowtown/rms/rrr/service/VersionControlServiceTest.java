@@ -51,10 +51,11 @@ class VersionControlServiceTest {
 
     @BeforeEach
     void setUp() {
-        testDocument = Document.builder()
-            .documentId(1L)
-            .latestVersion(0L)
-            .build();
+        org.rowtown.rms.rrr.domain.entity.StartListDocument document =
+            new org.rowtown.rms.rrr.domain.entity.StartListDocument();
+        document.setDocumentId(1L);
+        document.setLatestVersion(0L);
+        testDocument = document;
 
         testModelData = "test model data".getBytes();
 

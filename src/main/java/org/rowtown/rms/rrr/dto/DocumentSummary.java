@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rowtown.rms.rrr.domain.DocumentType;
+import org.rowtown.rms.rrr.domain.TimerRole;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,7 +24,9 @@ public class DocumentSummary {
     private DocumentType type;
     private String regattaId;
     private LocalDate regattaStartDate;
-    private String timerId;
+    private String raceId;
+    private String milestoneId;
+    private TimerRole timer;
     private Long latestVersion;
     private LocalDateTime lastModified;
     private String author;

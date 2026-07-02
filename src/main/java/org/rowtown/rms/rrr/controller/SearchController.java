@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.rowtown.rms.rrr.domain.DocumentType;
+import org.rowtown.rms.rrr.domain.TimerRole;
 import org.rowtown.rms.rrr.dto.SearchQuery;
 import org.rowtown.rms.rrr.dto.SearchResults;
 import org.rowtown.rms.rrr.service.SearchService;
@@ -58,8 +59,12 @@ public class SearchController {
             @RequestParam(required = false) String regattaName,
             @Parameter(description = "Filter by document type", example = "RACE_RESULTS")
             @RequestParam(required = false) DocumentType type,
-            @Parameter(description = "Filter by timer device ID", example = "TIMER-001")
-            @RequestParam(required = false) String timerId,
+            @Parameter(description = "Filter by race id (Race Results)", example = "1a")
+            @RequestParam(required = false) String raceId,
+            @Parameter(description = "Filter by milestone (Race Results)", example = "Finish Line")
+            @RequestParam(required = false) String milestoneId,
+            @Parameter(description = "Filter by timer role (Race Results)", example = "PRIMARY")
+            @RequestParam(required = false) TimerRole timer,
             @Parameter(description = "Filter by author", example = "john.doe@rowing.org")
             @RequestParam(required = false) String author,
             @Parameter(description = "Search in document descriptions", example = "heat 1")
@@ -82,7 +87,9 @@ public class SearchController {
             .regattaId(regattaId)
             .regattaName(regattaName)
             .documentType(type)
-            .timerId(timerId)
+            .raceId(raceId)
+            .milestoneId(milestoneId)
+            .timer(timer)
             .author(author)
             .description(description)
             .tags(tags != null ? Set.of(tags.split(",")) : null)

@@ -19,6 +19,7 @@ import org.rowtown.rms.rrr.config.EmbeddedMqttBrokerConfig;
 import org.rowtown.rms.rrr.config.TestSecurityConfig;
 import org.rowtown.rms.rrr.domain.DocumentType;
 import org.rowtown.rms.rrr.domain.SerializationFormat;
+import org.rowtown.rms.rrr.domain.TimerRole;
 import org.rowtown.rms.rrr.dto.DocumentRequest;
 import org.rowtown.rms.rrr.dto.DocumentResponse;
 import org.rowtown.rms.rrr.testutil.SampleData;
@@ -58,14 +59,13 @@ class DocumentLifecycleIntegrationTest {
             .type(DocumentType.RACE_RESULTS)
             .regattaId("INTEGRATION_TEST_2025")
             .regattaStartDate(java.time.LocalDate.of(2025, 5, 17))
-            .timerId("timer001")
-            .milestoneId("finish")
-            .versionType("primary")
+            .milestoneId("Finish Line")
+            .timer(TimerRole.PRIMARY)
             .author("test@example.com")
             .description("Integration test document")
             .tags(Set.of("test", "integration"))
             .metadata(Map.of("testKey", "testValue"))
-            .modelData("Initial model data".getBytes())
+            .modelData(SampleData.raceResultsModel("1a"))
             .build();
 
         MvcResult createResult = mockMvc.perform(post("/api/v1/documents")
@@ -174,7 +174,6 @@ class DocumentLifecycleIntegrationTest {
             .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .author("regatta.admin@stotesburycup.org")
             .description("Stotesbury Cup Regatta 2024 - master start list")
-            .versionType("primary")
             .tags(Set.of("official", "start-list"))
             .metadata(Map.of("raceCourse", "1500 Meter Head Course", "date", "2024-05-17"))
             .modelData(startListModel)
@@ -217,12 +216,11 @@ class DocumentLifecycleIntegrationTest {
             .type(DocumentType.RACE_RESULTS)
             .regattaId("MULTI_TIMER_2025")
             .regattaStartDate(java.time.LocalDate.of(2025, 5, 17))
-            .timerId("timer001")
-            .milestoneId("finish")
-            .versionType("primary")
+            .milestoneId("Finish Line")
+            .timer(TimerRole.PRIMARY)
             .author("timer1@example.com")
             .description("Timer 1 results")
-            .modelData("Timer 1 data".getBytes())
+            .modelData(SampleData.raceResultsModel("1a"))
             .build();
 
         mockMvc.perform(post("/api/v1/documents")
@@ -235,12 +233,11 @@ class DocumentLifecycleIntegrationTest {
             .type(DocumentType.RACE_RESULTS)
             .regattaId("MULTI_TIMER_2025")
             .regattaStartDate(java.time.LocalDate.of(2025, 5, 17))
-            .timerId("timer002")
-            .milestoneId("finish")
-            .versionType("firstBackup")
+            .milestoneId("Finish Line")
+            .timer(TimerRole.FIRST_BACKUP)
             .author("timer2@example.com")
             .description("Timer 2 results")
-            .modelData("Timer 2 data".getBytes())
+            .modelData(SampleData.raceResultsModel("1a"))
             .build();
 
         mockMvc.perform(post("/api/v1/documents")

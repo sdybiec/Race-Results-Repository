@@ -7,8 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.rowtown.rms.rrr.domain.DocumentType;
-import org.rowtown.rms.rrr.domain.entity.Document;
+import org.rowtown.rms.rrr.domain.TimerRole;
 import org.rowtown.rms.rrr.domain.entity.DocumentOwnership;
+import org.rowtown.rms.rrr.domain.entity.RaceResultsDocument;
+import org.rowtown.rms.rrr.domain.entity.StartListDocument;
 import org.rowtown.rms.rrr.dto.DocumentRequest;
 import org.rowtown.rms.rrr.dto.DocumentResponse;
 import org.rowtown.rms.rrr.exception.ConflictException;
@@ -32,6 +34,15 @@ class DocumentManagerServiceTest {
     private DocumentRepository documentRepository;
 
     @Mock
+    private StartListDocumentRepository startListDocumentRepository;
+
+    @Mock
+    private RaceResultsDocumentRepository raceResultsDocumentRepository;
+
+    @Mock
+    private TdiModelInspector tdiModelInspector;
+
+    @Mock
     private VersionControlService versionControlService;
 
     @Mock
@@ -50,7 +61,7 @@ class DocumentManagerServiceTest {
     private DocumentManagerService documentManagerService;
 
     private DocumentRequest testRequest;
-    private Document testDocument;
+    private RaceResultsDocument testDocument;
 
     @BeforeEach
     void setUp() {
@@ -58,31 +69,33 @@ class DocumentManagerServiceTest {
             .type(DocumentType.RACE_RESULTS)
             .regattaId("TEST2025")
             .regattaStartDate(LocalDate.of(2025, 5, 17))
-            .timerId("timer001")
-            .milestoneId("finish")
-            .versionType("primary")
+            .milestoneId("Finish Line")
+            .timer(TimerRole.PRIMARY)
             .author("test@example.com")
             .description("Test document")
             .tags(Set.of("preliminary"))
             .metadata(Map.of("venue", "Test Venue"))
-            .modelData("test model".getBytes())
+            .modelData("<timingRace raceId=\"R1\"/>".getBytes())
             .build();
 
-        testDocument = Document.builder()
-            .documentId(1L)
-            .documentType(DocumentType.RACE_RESULTS)
-            .regattaId("TEST2025")
-            .timerId("timer001")
-            .author("test@example.com")
-            .build();
+        testDocument = new RaceResultsDocument();
+        testDocument.setDocumentId(1L);
+        testDocument.setRegattaId("TEST2025");
+        testDocument.setRegattaStartDate(LocalDate.of(2025, 5, 17));
+        testDocument.setRaceId("R1");
+        testDocument.setMilestoneId("Finish Line");
+        testDocument.setTimerRole(TimerRole.PRIMARY);
+        testDocument.setAuthor("test@example.com");
     }
 
     @Test
     void createDocument_Success() {
         // Arrange
-        when(documentRepository.findByRegattaIdAndRegattaStartDateAndTimerIdAndMilestoneId(any(), any(), any(), any()))
+        when(tdiModelInspector.extractRaceId(any())).thenReturn("R1");
+        when(raceResultsDocumentRepository
+            .findByRegattaIdAndRegattaStartDateAndRaceIdAndMilestoneIdAndTimerRole(any(), any(), any(), any(), any()))
             .thenReturn(Optional.empty());
-        when(documentRepository.save(any(Document.class))).thenReturn(testDocument);
+        when(documentRepository.save(any(RaceResultsDocument.class))).thenReturn(testDocument);
         when(metadataRepository.save(any())).thenReturn(null);
         when(tagRepository.save(any())).thenReturn(null);
         when(ownershipRepository.save(any(DocumentOwnership.class))).thenReturn(null);
@@ -93,7 +106,7 @@ class DocumentManagerServiceTest {
         // Assert
         assertNotNull(result);
         assertEquals(1L, result.getDocumentId());
-        verify(documentRepository).save(any(Document.class));
+        verify(documentRepository).save(any(RaceResultsDocument.class));
         verify(versionControlService).createVersion(any(), any(), any(), any(), any());
         verify(ownershipRepository).save(any(DocumentOwnership.class));
         verify(notificationService).notifyDocumentCreated(any(), any(), any(), any(), any());
@@ -103,8 +116,8 @@ class DocumentManagerServiceTest {
     void createDocument_StartListConflict() {
         // Arrange
         testRequest.setType(DocumentType.START_LIST);
-        when(documentRepository.findByRegattaIdAndRegattaStartDateAndDocumentType(any(), any(), any()))
-            .thenReturn(Optional.of(testDocument));
+        when(startListDocumentRepository.findByRegattaIdAndRegattaStartDate(any(), any()))
+            .thenReturn(Optional.of(new StartListDocument()));
 
         // Act & Assert
         assertThrows(ConflictException.class, () ->
@@ -114,9 +127,9 @@ class DocumentManagerServiceTest {
     @Test
     void createDocument_RaceResultsConflict() {
         // Arrange
-        when(documentRepository.findByRegattaIdAndRegattaStartDateAndTimerIdAndMilestoneId(
-            testRequest.getRegattaId(), testRequest.getRegattaStartDate(),
-            testRequest.getTimerId(), testRequest.getMilestoneId()))
+        when(tdiModelInspector.extractRaceId(any())).thenReturn("R1");
+        when(raceResultsDocumentRepository
+            .findByRegattaIdAndRegattaStartDateAndRaceIdAndMilestoneIdAndTimerRole(any(), any(), any(), any(), any()))
             .thenReturn(Optional.of(testDocument));
 
         // Act & Assert
@@ -125,14 +138,21 @@ class DocumentManagerServiceTest {
     }
 
     @Test
+    void createDocument_RaceResultsMissingRaceId() {
+        // Arrange: model has no derivable raceId
+        when(tdiModelInspector.extractRaceId(any())).thenReturn(null);
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () ->
+            documentManagerService.createDocument(testRequest));
+    }
+
+    @Test
     void getDocument_Success() {
         // Arrange
         when(documentRepository.findById(1L)).thenReturn(Optional.of(testDocument));
-        //when(metadataRepository.findByDocument_DocumentId(1L)).thenReturn(Collections.emptyList());
-        //when(tagRepository.findByDocument_DocumentId(1L)).thenReturn(Collections.emptyList());
 
         // Act & Assert - will fail because versionControlService.getVersion is not mocked
-        // This demonstrates the need to properly mock all dependencies
         assertThrows(Exception.class, () ->
             documentManagerService.getDocument(1L, 1L));
     }
@@ -151,7 +171,7 @@ class DocumentManagerServiceTest {
     void deleteDocument_Success() {
         // Arrange
         when(documentRepository.findById(1L)).thenReturn(Optional.of(testDocument));
-        doNothing().when(documentRepository).delete(any(Document.class));
+        doNothing().when(documentRepository).delete(any());
 
         // Act
         documentManagerService.deleteDocument(1L);

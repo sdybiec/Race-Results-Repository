@@ -47,4 +47,19 @@ public final class SampleData {
     public static byte[] stotesburyStartList() {
         return bytes(STOTESBURY_2024_START_LIST);
     }
+
+    /**
+     * Builds a minimal XMI Race Results model that carries the given race id, so
+     * the server can derive {@code raceId} from it (see TdiModelInspector).
+     *
+     * @param raceId the race identifier to embed
+     * @return XMI model bytes
+     */
+    public static byte[] raceResultsModel(String raceId) {
+        String xmi = "<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
+            + "<tdi:TimingRegatta xmlns:tdi=\"http://www.rowtown.org/TDI/1.0.0\">\n"
+            + "  <timingRace raceId=\"" + raceId + "\"/>\n"
+            + "</tdi:TimingRegatta>\n";
+        return xmi.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+    }
 }

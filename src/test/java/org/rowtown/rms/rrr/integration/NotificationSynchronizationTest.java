@@ -103,7 +103,7 @@ class NotificationSynchronizationTest {
             .regattaId(regattaId)
             .author("test@example.com")
             .description("Start List for MQTT test")
-            .modelData("MQTT test data".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         MvcResult result = mockMvc.perform(post("/api/v1/documents")
@@ -137,7 +137,8 @@ class NotificationSynchronizationTest {
     void testMqttNotificationOnRaceResults() throws Exception {
         // Setup MQTT subscription for race results
         String regattaId = "RACE_MQTT_2025";
-        String timerId = "timer001";
+        // The results topic segment is now the timer role (see TimerRole).
+        String timerId = "PRIMARY";
         String topic = "regatta/" + regattaId + "/results/" + timerId;
         mqttLatch = new CountDownLatch(1);
 
@@ -148,12 +149,11 @@ class NotificationSynchronizationTest {
             .type(DocumentType.RACE_RESULTS)
             .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId(regattaId)
-            .timerId(timerId)
             .milestoneId("finish")
-            .versionType("primary")
+            .timer(org.rowtown.rms.rrr.domain.TimerRole.PRIMARY)
             .author("timer@example.com")
             .description("Race results for MQTT test")
-            .modelData("Race results data".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         MvcResult result = mockMvc.perform(post("/api/v1/documents")
@@ -212,7 +212,7 @@ class NotificationSynchronizationTest {
             .regattaId("WEBHOOK_TEST_2025")
             .author("webhook@example.com")
             .description("Webhook test document")
-            .modelData("Webhook test data".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         mockMvc.perform(post("/api/v1/documents")
@@ -277,7 +277,7 @@ class NotificationSynchronizationTest {
             .regattaId("RETRY_TEST_2025")
             .author("retry@example.com")
             .description("Retry test document")
-            .modelData("Retry test data".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         mockMvc.perform(post("/api/v1/documents")
@@ -313,7 +313,7 @@ class NotificationSynchronizationTest {
             .regattaId(regattaId)
             .author("sync@example.com")
             .description("Initial start list")
-            .modelData("Version 1 data".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         MvcResult createResult = mockMvc.perform(post("/api/v1/documents")
@@ -377,12 +377,11 @@ class NotificationSynchronizationTest {
             .type(DocumentType.RACE_RESULTS)
             .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId(regattaId)
-            .timerId("timer001")
             .milestoneId("finish")
-            .versionType("primary")
+            .timer(org.rowtown.rms.rrr.domain.TimerRole.PRIMARY)
             .author("timer1@example.com")
             .description("Timer 1 results")
-            .modelData("Timer 1 data".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         mockMvc.perform(post("/api/v1/documents")
@@ -395,12 +394,11 @@ class NotificationSynchronizationTest {
             .type(DocumentType.RACE_RESULTS)
             .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId(regattaId)
-            .timerId("timer002")
             .milestoneId("finish")
-            .versionType("primary")
+            .timer(org.rowtown.rms.rrr.domain.TimerRole.FIRST_BACKUP)
             .author("timer2@example.com")
             .description("Timer 2 results")
-            .modelData("Timer 2 data".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         mockMvc.perform(post("/api/v1/documents")
@@ -413,12 +411,11 @@ class NotificationSynchronizationTest {
             .type(DocumentType.RACE_RESULTS)
             .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId(regattaId)
-            .timerId("timer003")
             .milestoneId("finish")
-            .versionType("primary")
+            .timer(org.rowtown.rms.rrr.domain.TimerRole.SECOND_BACKUP)
             .author("timer3@example.com")
             .description("Timer 3 results")
-            .modelData("Timer 3 data".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         mockMvc.perform(post("/api/v1/documents")
@@ -442,10 +439,10 @@ class NotificationSynchronizationTest {
             timerIds.add(event.getTimerId());
         }
 
-        assertEquals(3, timerIds.size(), "Should have 3 unique timer IDs");
-        assertTrue(timerIds.contains("timer001"));
-        assertTrue(timerIds.contains("timer002"));
-        assertTrue(timerIds.contains("timer003"));
+        assertEquals(3, timerIds.size(), "Should have 3 unique timer roles");
+        assertTrue(timerIds.contains("PRIMARY"));
+        assertTrue(timerIds.contains("FIRST_BACKUP"));
+        assertTrue(timerIds.contains("SECOND_BACKUP"));
     }
 
     @Test
@@ -482,7 +479,7 @@ class NotificationSynchronizationTest {
             .regattaId("UNSUB_TEST_2025")
             .author("unsub@example.com")
             .description("Test before unsubscribe")
-            .modelData("Test data".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         mockMvc.perform(post("/api/v1/documents")
@@ -509,7 +506,7 @@ class NotificationSynchronizationTest {
             .regattaId("UNSUB_TEST_2025_V2")
             .author("unsub@example.com")
             .description("Test after unsubscribe")
-            .modelData("Test data 2".getBytes())
+            .modelData(org.rowtown.rms.rrr.testutil.SampleData.raceResultsModel("1a"))
             .build();
 
         mockMvc.perform(post("/api/v1/documents")

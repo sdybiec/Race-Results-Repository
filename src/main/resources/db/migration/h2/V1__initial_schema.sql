@@ -14,16 +14,16 @@ CREATE TABLE documents (
     documentType VARCHAR(50) NOT NULL,
     regattaId VARCHAR(255) NOT NULL,
     regatta_start_date DATE NOT NULL,
-    timerId VARCHAR(255),
+    race_id VARCHAR(255),
     milestoneId VARCHAR(255),
-    versionType VARCHAR(50),
+    timer_role VARCHAR(20),
     author VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     latest_version BIGINT NOT NULL DEFAULT 1,
     description VARCHAR(2000)
 );
 CREATE INDEX idx_documents_regatta ON documents(regattaId);
-CREATE INDEX idx_documents_timer ON documents(timerId);
+CREATE INDEX idx_documents_race ON documents(race_id);
 CREATE INDEX idx_documents_type ON documents(documentType);
 
 -- Versions table

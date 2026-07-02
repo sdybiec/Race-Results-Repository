@@ -7,15 +7,15 @@ CREATE TABLE documents (
     documentType VARCHAR(50) NOT NULL,
     regattaId VARCHAR(255) NOT NULL,
     regatta_start_date DATE NOT NULL,
-    timerId VARCHAR(255),
+    race_id VARCHAR(255),
     milestoneId VARCHAR(255),
-    versionType VARCHAR(50),
+    timer_role VARCHAR(20),
     author VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     latest_version BIGINT NOT NULL DEFAULT 1,
     description VARCHAR(2000),
     INDEX idx_documents_regatta (regattaId),
-    INDEX idx_documents_timer (timerId),
+    INDEX idx_documents_race (race_id),
     INDEX idx_documents_type (documentType)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

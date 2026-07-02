@@ -1,10 +1,9 @@
 package org.rowtown.rms.rrr.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.rowtown.rms.rrr.domain.DocumentType;
 
 import java.time.LocalDate;
@@ -13,47 +12,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Entity representing a versioned document in the repository.
- * A document contains EMF Timing Data Interchange models and associated metadata.
+ * Abstract base for versioned documents.
+ *
+ * <p>Uses single-table inheritance keyed on the {@code documentType}
+ * discriminator, so all documents share one {@code documents} table (and the
+ * existing version / metadata / tag / ownership relationships) while the two
+ * concrete kinds — {@link StartListDocument} and {@link RaceResultsDocument} —
+ * carry their own fields.</p>
  */
 @Entity
 @Table(name = "documents", indexes = {
     @Index(name = "idx_documents_regatta", columnList = "regattaId"),
-    @Index(name = "idx_documents_timer", columnList = "timerId"),
     @Index(name = "idx_documents_type", columnList = "documentType")
 })
-@Data
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "documentType", discriminatorType = DiscriminatorType.STRING)
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Document {
+public abstract class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "document_id")
     private Long documentId;
 
+    // Read-only mapping over the discriminator column, so getDocumentType() keeps
+    // working without a separately writable field.
     @Enumerated(EnumType.STRING)
-    @Column(name = "documentType", nullable = false)
+    @Column(name = "documentType", insertable = false, updatable = false)
     private DocumentType documentType;
 
     @Column(name = "regattaId", nullable = false)
     private String regattaId;
 
     // Regattas are periodic (typically annual), so a regatta is identified by its
-    // name (regattaId) together with its start date. This date is part of the key
-    // for a regatta's Start List and Race Results documents.
+    // name (regattaId) together with its start date.
     @Column(name = "regatta_start_date", nullable = false)
     private LocalDate regattaStartDate;
-
-    @Column(name = "timerId")
-    private String timerId;
-
-    @Column(name = "milestoneId")
-    private String milestoneId;
-
-    @Column(name = "versionType")
-    private String versionType;
 
     @Column(name = "author", nullable = false)
     private String author;
@@ -68,15 +64,12 @@ public class Document {
     private String description;
 
     @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
     private List<Version> versions = new ArrayList<>();
 
     @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
     private List<DocumentMetadata> metadata = new ArrayList<>();
 
     @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
     private List<DocumentTag> tags = new ArrayList<>();
 
     @PrePersist

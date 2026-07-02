@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rowtown.rms.rrr.domain.DocumentType;
+import org.rowtown.rms.rrr.domain.TimerRole;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -40,9 +41,17 @@ public class SearchQuery {
             example = "RACE_RESULTS")
     private DocumentType documentType;
 
-    @Schema(description = "Timer device ID to filter by",
-            example = "TIMER-001")
-    private String timerId;
+    @Schema(description = "Race identifier to filter by (Race Results)",
+            example = "1a")
+    private String raceId;
+
+    @Schema(description = "Timing milestone to filter by (Race Results)",
+            example = "Finish Line")
+    private String milestoneId;
+
+    @Schema(description = "Timer role to filter by (Race Results)",
+            example = "PRIMARY")
+    private TimerRole timer;
 
     @Schema(description = "Author to filter by",
             example = "john.doe@rowing.org")

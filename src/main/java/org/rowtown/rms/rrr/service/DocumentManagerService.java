@@ -2,6 +2,7 @@ package org.rowtown.rms.rrr.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.rowtown.rms.rrr.domain.DocumentType;
 import org.rowtown.rms.rrr.domain.SerializationFormat;
 import org.rowtown.rms.rrr.domain.entity.*;
 import org.rowtown.rms.rrr.dto.DocumentRequest;
@@ -27,6 +28,9 @@ import java.util.stream.Collectors;
 public class DocumentManagerService {
 
     private final DocumentRepository documentRepository;
+    private final StartListDocumentRepository startListDocumentRepository;
+    private final RaceResultsDocumentRepository raceResultsDocumentRepository;
+    private final TdiModelInspector tdiModelInspector;
     private final VersionControlService versionControlService;
     private final DocumentMetadataRepository metadataRepository;
     private final DocumentTagRepository tagRepository;
@@ -38,22 +42,24 @@ public class DocumentManagerService {
      */
     @Transactional
     public DocumentResponse createDocument(DocumentRequest request) {
-        // Check for conflicts (e.g., duplicate Start List for same regatta)
-        validateDocumentCreation(request);
-
-        // Create document entity
-        Document document = Document.builder()
-            .documentType(request.getType())
-            .regattaId(request.getRegattaId())
-            .regattaStartDate(request.getRegattaStartDate())
-            .timerId(request.getTimerId())
-            .milestoneId(request.getMilestoneId())
-            .versionType(request.getVersionType())
-            .author(request.getAuthor())
-            .description(request.getDescription())
-            .createdAt(LocalDateTime.now())
-            .latestVersion(0L)
-            .build();
+        // Build the correct document subtype and validate its key.
+        Document document;
+        if (request.getType() == DocumentType.START_LIST) {
+            validateStartListCreation(request);
+            StartListDocument startList = new StartListDocument();
+            applyCommonFields(startList, request);
+            document = startList;
+        } else {
+            // Race Results: raceId is derived from the submitted model, not the client.
+            String raceId = tdiModelInspector.extractRaceId(request.getModelData());
+            validateRaceResultsCreation(request, raceId);
+            RaceResultsDocument raceResults = new RaceResultsDocument();
+            applyCommonFields(raceResults, request);
+            raceResults.setRaceId(raceId);
+            raceResults.setMilestoneId(request.getMilestoneId());
+            raceResults.setTimerRole(request.getTimer());
+            document = raceResults;
+        }
 
         document = documentRepository.save(document);
 
@@ -101,7 +107,7 @@ public class DocumentManagerService {
             document.getDocumentId(),
             document.getDocumentType(),
             document.getRegattaId(),
-            document.getTimerId(),
+            timerLabel(document),
             request.getAuthor()
         );
 
@@ -128,7 +134,7 @@ public class DocumentManagerService {
             documentId,
             document.getDocumentType(),
             document.getRegattaId(),
-            document.getTimerId(),
+            timerLabel(document),
             newVersion.getVersionNumber(),
             author,
             changeDescription
@@ -178,42 +184,80 @@ public class DocumentManagerService {
     }
 
     /**
-     * Validate document creation to prevent conflicts.
+     * Apply the fields common to every document kind.
      */
-    private void validateDocumentCreation(DocumentRequest request) {
-        // Regattas are periodic events, so a regatta (and thus a document's key) is
-        // identified by name + start date. The start date is therefore required.
+    private void applyCommonFields(Document document, DocumentRequest request) {
+        // documentType is a read-only mapping over the discriminator column (the
+        // discriminator persists it); set it in memory so the create response and
+        // notifications carry the correct type before the entity is reloaded.
+        document.setDocumentType(request.getType());
+        document.setRegattaId(request.getRegattaId());
+        document.setRegattaStartDate(request.getRegattaStartDate());
+        document.setAuthor(request.getAuthor());
+        document.setDescription(request.getDescription());
+        document.setLatestVersion(0L);
+    }
+
+    /**
+     * Timer role label for notifications (null for non-Race-Results documents).
+     */
+    private String timerLabel(Document document) {
+        if (document instanceof RaceResultsDocument raceResults && raceResults.getTimerRole() != null) {
+            return raceResults.getTimerRole().name();
+        }
+        return null;
+    }
+
+    /**
+     * A regatta is identified by name + start date, which is therefore required.
+     */
+    private void requireRegattaKey(DocumentRequest request) {
         if (request.getRegattaStartDate() == null) {
             throw new IllegalArgumentException("regattaStartDate is required (regatta name + start date form the key)");
         }
+    }
 
-        switch (request.getType()) {
-            case START_LIST:
-                // Only one Start List per regatta edition (name + start date)
-                documentRepository.findByRegattaIdAndRegattaStartDateAndDocumentType(
-                    request.getRegattaId(), request.getRegattaStartDate(), request.getType())
-                    .ifPresent(existing -> {
-                        throw new ConflictException(String.format(
-                            "Start List already exists for regatta '%s' on %s",
-                            request.getRegattaId(), request.getRegattaStartDate()));
-                    });
-                break;
+    /**
+     * Validate Start List creation: at most one per regatta edition.
+     */
+    private void validateStartListCreation(DocumentRequest request) {
+        requireRegattaKey(request);
+        startListDocumentRepository
+            .findByRegattaIdAndRegattaStartDate(request.getRegattaId(), request.getRegattaStartDate())
+            .ifPresent(existing -> {
+                throw new ConflictException(String.format(
+                    "Start List already exists for regatta '%s' on %s",
+                    request.getRegattaId(), request.getRegattaStartDate()));
+            });
+    }
 
-            case RACE_RESULTS:
-                // One Race Results per regatta edition / timer / milestone combination
-                if (request.getTimerId() != null && request.getMilestoneId() != null) {
-                    documentRepository.findByRegattaIdAndRegattaStartDateAndTimerIdAndMilestoneId(
-                        request.getRegattaId(), request.getRegattaStartDate(),
-                        request.getTimerId(), request.getMilestoneId())
-                        .ifPresent(existing -> {
-                            throw new ConflictException(String.format(
-                                "Race Results already exists for regatta='%s' on %s, timer=%s, milestone=%s",
-                                request.getRegattaId(), request.getRegattaStartDate(),
-                                request.getTimerId(), request.getMilestoneId()));
-                        });
-                }
-                break;
+    /**
+     * Validate Race Results creation. The key is
+     * (regatta name + start date, race, milestone, timer); raceId is derived
+     * from the model, the rest come from the request.
+     */
+    private void validateRaceResultsCreation(DocumentRequest request, String raceId) {
+        requireRegattaKey(request);
+        if (raceId == null) {
+            throw new IllegalArgumentException(
+                "raceId could not be derived from the model; a Race Results model must identify its race");
         }
+        if (request.getMilestoneId() == null) {
+            throw new IllegalArgumentException("milestoneId is required for Race Results");
+        }
+        if (request.getTimer() == null) {
+            throw new IllegalArgumentException("timer is required for Race Results");
+        }
+        raceResultsDocumentRepository
+            .findByRegattaIdAndRegattaStartDateAndRaceIdAndMilestoneIdAndTimerRole(
+                request.getRegattaId(), request.getRegattaStartDate(),
+                raceId, request.getMilestoneId(), request.getTimer())
+            .ifPresent(existing -> {
+                throw new ConflictException(String.format(
+                    "Race Results already exist for regatta '%s' on %s, race=%s, milestone=%s, timer=%s",
+                    request.getRegattaId(), request.getRegattaStartDate(),
+                    raceId, request.getMilestoneId(), request.getTimer()));
+            });
     }
 
     /**
@@ -231,21 +275,25 @@ public class DocumentManagerService {
             .map(DocumentTag::getTagName)
             .collect(Collectors.toSet());
 
-        return DocumentResponse.builder()
+        DocumentResponse.DocumentResponseBuilder builder = DocumentResponse.builder()
             .documentId(document.getDocumentId())
             .type(document.getDocumentType())
             .regattaId(document.getRegattaId())
             .regattaStartDate(document.getRegattaStartDate())
-            .timerId(document.getTimerId())
-            .milestoneId(document.getMilestoneId())
-            .versionType(document.getVersionType())
             .author(document.getAuthor())
             .createdAt(document.getCreatedAt())
             .latestVersion(document.getLatestVersion())
             .description(document.getDescription())
             .metadata(metadata)
             .tags(tags)
-            .modelData(modelData)
-            .build();
+            .modelData(modelData);
+
+        if (document instanceof RaceResultsDocument raceResults) {
+            builder.raceId(raceResults.getRaceId())
+                .milestoneId(raceResults.getMilestoneId())
+                .timer(raceResults.getTimerRole());
+        }
+
+        return builder.build();
     }
 }
