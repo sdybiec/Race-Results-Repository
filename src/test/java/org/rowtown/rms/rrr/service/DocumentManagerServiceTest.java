@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.rowtown.rms.rrr.domain.DocumentType;
 import org.rowtown.rms.rrr.domain.TimerRole;
+import org.rowtown.rms.rrr.domain.entity.Document;
 import org.rowtown.rms.rrr.domain.entity.DocumentOwnership;
 import org.rowtown.rms.rrr.domain.entity.RaceResultsDocument;
 import org.rowtown.rms.rrr.domain.entity.StartListDocument;
@@ -171,7 +172,7 @@ class DocumentManagerServiceTest {
     void deleteDocument_Success() {
         // Arrange
         when(documentRepository.findById(1L)).thenReturn(Optional.of(testDocument));
-        doNothing().when(documentRepository).delete(any());
+        doNothing().when(documentRepository).delete(any(Document.class));
 
         // Act
         documentManagerService.deleteDocument(1L);
