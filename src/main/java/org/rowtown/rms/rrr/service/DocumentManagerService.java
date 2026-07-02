@@ -45,6 +45,7 @@ public class DocumentManagerService {
         Document document = Document.builder()
             .documentType(request.getType())
             .regattaId(request.getRegattaId())
+            .regattaStartDate(request.getRegattaStartDate())
             .timerId(request.getTimerId())
             .milestoneId(request.getMilestoneId())
             .versionType(request.getVersionType())
@@ -180,26 +181,35 @@ public class DocumentManagerService {
      * Validate document creation to prevent conflicts.
      */
     private void validateDocumentCreation(DocumentRequest request) {
+        // Regattas are periodic events, so a regatta (and thus a document's key) is
+        // identified by name + start date. The start date is therefore required.
+        if (request.getRegattaStartDate() == null) {
+            throw new IllegalArgumentException("regattaStartDate is required (regatta name + start date form the key)");
+        }
+
         switch (request.getType()) {
             case START_LIST:
-                // Only one Start List per regatta
-                documentRepository.findByRegattaIdAndDocumentType(
-                    request.getRegattaId(), request.getType())
+                // Only one Start List per regatta edition (name + start date)
+                documentRepository.findByRegattaIdAndRegattaStartDateAndDocumentType(
+                    request.getRegattaId(), request.getRegattaStartDate(), request.getType())
                     .ifPresent(existing -> {
-                        throw new ConflictException(
-                            "Start List already exists for regatta: " + request.getRegattaId());
+                        throw new ConflictException(String.format(
+                            "Start List already exists for regatta '%s' on %s",
+                            request.getRegattaId(), request.getRegattaStartDate()));
                     });
                 break;
 
             case RACE_RESULTS:
-                // One Race Results per regatta/timer/milestone combination
+                // One Race Results per regatta edition / timer / milestone combination
                 if (request.getTimerId() != null && request.getMilestoneId() != null) {
-                    documentRepository.findByRegattaIdAndTimerIdAndMilestoneId(
-                        request.getRegattaId(), request.getTimerId(), request.getMilestoneId())
+                    documentRepository.findByRegattaIdAndRegattaStartDateAndTimerIdAndMilestoneId(
+                        request.getRegattaId(), request.getRegattaStartDate(),
+                        request.getTimerId(), request.getMilestoneId())
                         .ifPresent(existing -> {
-                            throw new ConflictException(
-                                String.format("Race Results already exists for regatta=%s, timer=%s, milestone=%s",
-                                    request.getRegattaId(), request.getTimerId(), request.getMilestoneId()));
+                            throw new ConflictException(String.format(
+                                "Race Results already exists for regatta='%s' on %s, timer=%s, milestone=%s",
+                                request.getRegattaId(), request.getRegattaStartDate(),
+                                request.getTimerId(), request.getMilestoneId()));
                         });
                 }
                 break;
@@ -225,6 +235,7 @@ public class DocumentManagerService {
             .documentId(document.getDocumentId())
             .type(document.getDocumentType())
             .regattaId(document.getRegattaId())
+            .regattaStartDate(document.getRegattaStartDate())
             .timerId(document.getTimerId())
             .milestoneId(document.getMilestoneId())
             .versionType(document.getVersionType())

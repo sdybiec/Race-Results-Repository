@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rowtown.rms.rrr.domain.DocumentType;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,12 @@ public class Document {
 
     @Column(name = "regattaId", nullable = false)
     private String regattaId;
+
+    // Regattas are periodic (typically annual), so a regatta is identified by its
+    // name (regattaId) together with its start date. This date is part of the key
+    // for a regatta's Start List and Race Results documents.
+    @Column(name = "regatta_start_date", nullable = false)
+    private LocalDate regattaStartDate;
 
     @Column(name = "timerId")
     private String timerId;

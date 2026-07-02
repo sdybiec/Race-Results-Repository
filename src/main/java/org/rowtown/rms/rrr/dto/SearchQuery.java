@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rowtown.rms.rrr.domain.DocumentType;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 /**
@@ -23,9 +24,13 @@ public class SearchQuery {
             example = "12345")
     private String documentId;
 
-    @Schema(description = "Regatta ID to filter by",
+    @Schema(description = "Regatta name to filter by",
             example = "Stotesbury Cup Regatta")
     private String regattaId;
+
+    @Schema(description = "Regatta start date to filter by (exact match; distinguishes annual editions)",
+            example = "2024-05-17")
+    private LocalDate regattaStartDate;
 
     @Schema(description = "Regatta name to search for",
             example = "Stotesbury Cup Regatta")

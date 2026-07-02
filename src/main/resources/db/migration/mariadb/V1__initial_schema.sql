@@ -6,6 +6,7 @@ CREATE TABLE documents (
     document_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     documentType VARCHAR(50) NOT NULL,
     regattaId VARCHAR(255) NOT NULL,
+    regatta_start_date DATE NOT NULL,
     timerId VARCHAR(255),
     milestoneId VARCHAR(255),
     versionType VARCHAR(50),

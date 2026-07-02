@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rowtown.rms.rrr.domain.DocumentType;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +22,7 @@ public class DocumentSummary {
     private Long documentId;
     private DocumentType type;
     private String regattaId;
+    private LocalDate regattaStartDate;
     private String timerId;
     private Long latestVersion;
     private LocalDateTime lastModified;

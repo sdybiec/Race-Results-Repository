@@ -15,6 +15,7 @@ import org.rowtown.rms.rrr.exception.ConflictException;
 import org.rowtown.rms.rrr.exception.ResourceNotFoundException;
 import org.rowtown.rms.rrr.repository.*;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,6 +57,7 @@ class DocumentManagerServiceTest {
         testRequest = DocumentRequest.builder()
             .type(DocumentType.RACE_RESULTS)
             .regattaId("TEST2025")
+            .regattaStartDate(LocalDate.of(2025, 5, 17))
             .timerId("timer001")
             .milestoneId("finish")
             .versionType("primary")
@@ -78,7 +80,7 @@ class DocumentManagerServiceTest {
     @Test
     void createDocument_Success() {
         // Arrange
-        when(documentRepository.findByRegattaIdAndTimerIdAndMilestoneId(any(), any(), any()))
+        when(documentRepository.findByRegattaIdAndRegattaStartDateAndTimerIdAndMilestoneId(any(), any(), any(), any()))
             .thenReturn(Optional.empty());
         when(documentRepository.save(any(Document.class))).thenReturn(testDocument);
         when(metadataRepository.save(any())).thenReturn(null);
@@ -101,7 +103,7 @@ class DocumentManagerServiceTest {
     void createDocument_StartListConflict() {
         // Arrange
         testRequest.setType(DocumentType.START_LIST);
-        when(documentRepository.findByRegattaIdAndDocumentType(any(), any()))
+        when(documentRepository.findByRegattaIdAndRegattaStartDateAndDocumentType(any(), any(), any()))
             .thenReturn(Optional.of(testDocument));
 
         // Act & Assert
@@ -112,8 +114,9 @@ class DocumentManagerServiceTest {
     @Test
     void createDocument_RaceResultsConflict() {
         // Arrange
-        when(documentRepository.findByRegattaIdAndTimerIdAndMilestoneId(
-            testRequest.getRegattaId(), testRequest.getTimerId(), testRequest.getMilestoneId()))
+        when(documentRepository.findByRegattaIdAndRegattaStartDateAndTimerIdAndMilestoneId(
+            testRequest.getRegattaId(), testRequest.getRegattaStartDate(),
+            testRequest.getTimerId(), testRequest.getMilestoneId()))
             .thenReturn(Optional.of(testDocument));
 
         // Act & Assert

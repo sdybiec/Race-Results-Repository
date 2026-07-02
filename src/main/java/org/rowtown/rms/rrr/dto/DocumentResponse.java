@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rowtown.rms.rrr.domain.DocumentType;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
@@ -29,9 +30,13 @@ public class DocumentResponse {
             example = "RACE_RESULTS")
     private DocumentType type;
 
-    @Schema(description = "Regatta identifier",
+    @Schema(description = "Regatta name (identifies the regatta together with regattaStartDate)",
             example = "Stotesbury Cup Regatta")
     private String regattaId;
+
+    @Schema(description = "Start date of the regatta (part of the regatta key)",
+            example = "2024-05-17")
+    private LocalDate regattaStartDate;
 
     @Schema(description = "Timer device identifier",
             example = "TIMER-001")

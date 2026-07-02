@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,15 +34,16 @@ public interface DocumentRepository extends JpaRepository<Document, Long>, JpaSp
     List<Document> findByTimerId(String timerId);
 
     /**
-     * Find a specific Race Results document by regatta, timer, and milestone.
+     * Find a specific Race Results document by regatta (name + start date), timer, and milestone.
      */
-    Optional<Document> findByRegattaIdAndTimerIdAndMilestoneId(
-        String regattaId, String timerId, String milestoneId);
+    Optional<Document> findByRegattaIdAndRegattaStartDateAndTimerIdAndMilestoneId(
+        String regattaId, LocalDate regattaStartDate, String timerId, String milestoneId);
 
     /**
-     * Find Start List for a regatta.
+     * Find the Start List for a regatta identified by name + start date.
      */
-    Optional<Document> findByRegattaIdAndDocumentType(String regattaId, DocumentType documentType);
+    Optional<Document> findByRegattaIdAndRegattaStartDateAndDocumentType(
+        String regattaId, LocalDate regattaStartDate, DocumentType documentType);
 
     /**
      * Search documents by description (full-text search).

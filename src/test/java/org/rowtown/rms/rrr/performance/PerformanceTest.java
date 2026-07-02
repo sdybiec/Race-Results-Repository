@@ -56,6 +56,7 @@ class PerformanceTest {
         for (int i = 0; i < documentCount; i++) {
             DocumentRequest request = DocumentRequest.builder()
                 .type(DocumentType.RACE_RESULTS)
+                .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
                 .regattaId("PERF_TEST")
                 .timerId("timer" + String.format("%03d", i))
                 .milestoneId("finish")
@@ -83,6 +84,7 @@ class PerformanceTest {
         // Create a document first
         DocumentRequest request = DocumentRequest.builder()
             .type(DocumentType.RACE_RESULTS)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId("PERF_TEST_VERSIONS")
             .timerId("timer001")
             .milestoneId("finish")
@@ -125,6 +127,7 @@ class PerformanceTest {
         for (int i = 0; i < documentCount; i++) {
             DocumentRequest request = DocumentRequest.builder()
                 .type(DocumentType.RACE_RESULTS)
+                .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
                 .regattaId("SEARCH_PERF_TEST")
                 .timerId("timer" + String.format("%03d", i))
                 .milestoneId("finish")
@@ -183,6 +186,7 @@ class PerformanceTest {
                 for (int i = 0; i < documentsPerThread; i++) {
                     DocumentRequest request = DocumentRequest.builder()
                         .type(DocumentType.RACE_RESULTS)
+                        .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
                         .regattaId("CONCURRENT_TEST")
                         .timerId(String.format("thread%02d_doc%02d", threadId, i))
                         .milestoneId("finish")
@@ -237,6 +241,7 @@ class PerformanceTest {
         // Create document with multiple versions
         DocumentRequest request = DocumentRequest.builder()
             .type(DocumentType.RACE_RESULTS)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId("COMPARE_PERF_TEST")
             .timerId("timer001")
             .milestoneId("finish")

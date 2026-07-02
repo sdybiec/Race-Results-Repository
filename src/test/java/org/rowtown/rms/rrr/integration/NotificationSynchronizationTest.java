@@ -99,6 +99,7 @@ class NotificationSynchronizationTest {
         // Create a Start List document
         DocumentRequest request = DocumentRequest.builder()
             .type(DocumentType.START_LIST)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId(regattaId)
             .author("test@example.com")
             .description("Start List for MQTT test")
@@ -145,6 +146,7 @@ class NotificationSynchronizationTest {
         // Create a Race Results document
         DocumentRequest request = DocumentRequest.builder()
             .type(DocumentType.RACE_RESULTS)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId(regattaId)
             .timerId(timerId)
             .milestoneId("finish")
@@ -206,6 +208,7 @@ class NotificationSynchronizationTest {
         // Create a document to trigger webhook
         DocumentRequest docRequest = DocumentRequest.builder()
             .type(DocumentType.START_LIST)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId("WEBHOOK_TEST_2025")
             .author("webhook@example.com")
             .description("Webhook test document")
@@ -270,6 +273,7 @@ class NotificationSynchronizationTest {
         // Create a document to trigger webhook
         DocumentRequest docRequest = DocumentRequest.builder()
             .type(DocumentType.START_LIST)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId("RETRY_TEST_2025")
             .author("retry@example.com")
             .description("Retry test document")
@@ -305,6 +309,7 @@ class NotificationSynchronizationTest {
         // Step 1: Create initial Start List
         DocumentRequest createRequest = DocumentRequest.builder()
             .type(DocumentType.START_LIST)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId(regattaId)
             .author("sync@example.com")
             .description("Initial start list")
@@ -370,6 +375,7 @@ class NotificationSynchronizationTest {
         // Timer 1 submits results
         DocumentRequest timer1Request = DocumentRequest.builder()
             .type(DocumentType.RACE_RESULTS)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId(regattaId)
             .timerId("timer001")
             .milestoneId("finish")
@@ -387,6 +393,7 @@ class NotificationSynchronizationTest {
         // Timer 2 submits results
         DocumentRequest timer2Request = DocumentRequest.builder()
             .type(DocumentType.RACE_RESULTS)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId(regattaId)
             .timerId("timer002")
             .milestoneId("finish")
@@ -404,6 +411,7 @@ class NotificationSynchronizationTest {
         // Timer 3 submits results
         DocumentRequest timer3Request = DocumentRequest.builder()
             .type(DocumentType.RACE_RESULTS)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId(regattaId)
             .timerId("timer003")
             .milestoneId("finish")
@@ -470,6 +478,7 @@ class NotificationSynchronizationTest {
         // Create document - should trigger webhook
         DocumentRequest docRequest = DocumentRequest.builder()
             .type(DocumentType.START_LIST)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId("UNSUB_TEST_2025")
             .author("unsub@example.com")
             .description("Test before unsubscribe")
@@ -496,6 +505,7 @@ class NotificationSynchronizationTest {
         // Create another document - should NOT trigger webhook
         DocumentRequest docRequest2 = DocumentRequest.builder()
             .type(DocumentType.START_LIST)
+            .regattaStartDate(java.time.LocalDate.of(2024, 5, 17))
             .regattaId("UNSUB_TEST_2025_V2")
             .author("unsub@example.com")
             .description("Test after unsubscribe")

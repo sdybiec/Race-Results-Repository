@@ -917,7 +917,8 @@ Document v3 = service.getDocument("doc-456", 3)
 ```
 document_id         BIGINT PRIMARY KEY AUTO_INCREMENT
 document_type       ENUM('START_LIST', 'RACE_RESULTS')
-regatta_id          VARCHAR(255) NOT NULL
+regatta_id          VARCHAR(255) NOT NULL   -- regatta name
+regatta_start_date  DATE NOT NULL           -- regattas are periodic; name + start date identify a regatta
 timer_id            VARCHAR(255) NULL
 milestone_id        VARCHAR(255) NULL
 version_type        ENUM('primary', 'firstBackup', 'secondBackup', 'checked') NULL

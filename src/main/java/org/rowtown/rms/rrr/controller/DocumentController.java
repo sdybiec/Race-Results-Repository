@@ -81,6 +81,7 @@ public class DocumentController {
                     {
                       "type": "START_LIST",
                       "regattaId": "Stotesbury Cup Regatta",
+                      "regattaStartDate": "2024-05-17",
                       "versionType": "primary",
                       "author": "regatta.admin@stotesburycup.org",
                       "description": "Stotesbury Cup Regatta 2024 - master start list",

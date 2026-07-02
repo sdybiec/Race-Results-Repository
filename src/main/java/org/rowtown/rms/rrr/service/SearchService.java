@@ -104,6 +104,11 @@ public class SearchService {
                     query.getRegattaId(), query.getMatchType()));
             }
 
+            // Regatta start date (exact match; distinguishes annual editions)
+            if (query.getRegattaStartDate() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("regattaStartDate"), query.getRegattaStartDate()));
+            }
+
             // Document Type
             if (query.getDocumentType() != null) {
                 predicates.add(criteriaBuilder.equal(root.get("documentType"), query.getDocumentType()));
@@ -200,6 +205,7 @@ public class SearchService {
             .documentId(document.getDocumentId())
             .type(document.getDocumentType())
             .regattaId(document.getRegattaId())
+            .regattaStartDate(document.getRegattaStartDate())
             .timerId(document.getTimerId())
             .latestVersion(document.getLatestVersion())
             .lastModified(document.getCreatedAt())
