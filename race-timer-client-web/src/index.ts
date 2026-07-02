@@ -29,6 +29,7 @@ export type {
   DocumentRequest,
   DocumentResponse,
   NotificationEvent,
+  TimerRole,
 } from './models/ApiTypes';
 
 // Core components (for advanced usage)

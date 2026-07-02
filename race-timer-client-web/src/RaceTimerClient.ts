@@ -4,7 +4,7 @@ import { NotificationListener } from './mqtt/NotificationListener';
 import { StartListSyncEngine } from './sync/StartListSyncEngine';
 import { RaceResultsSyncEngine } from './sync/RaceResultsSyncEngine';
 import { LocalDocument } from './models/LocalDocument';
-import { ClientConfig, ClientStatus, SyncResult } from './models/ApiTypes';
+import { ClientConfig, ClientStatus, SyncResult, TimerRole } from './models/ApiTypes';
 
 /**
  * Main facade for the Race Timer Client library.
@@ -23,7 +23,8 @@ export class RaceTimerClient {
   private readonly raceResultsSync: RaceResultsSyncEngine;
 
   private readonly regattaId: string;
-  private readonly timerId: string;
+  private readonly regattaStartDate: string;
+  private readonly timer: TimerRole;
   private autoSyncInterval: number | null = null;
   private autoSyncEnabled: boolean = false;
 
@@ -32,7 +33,8 @@ export class RaceTimerClient {
    */
   constructor(config: ClientConfig) {
     this.regattaId = config.regattaId;
-    this.timerId = config.timerId;
+    this.regattaStartDate = config.regattaStartDate;
+    this.timer = config.timer;
 
     // Initialize local storage
     this.storage = new LocalStorageManager();
@@ -40,10 +42,11 @@ export class RaceTimerClient {
     // Initialize API client
     this.apiClient = new RepositoryClient(config.serverUrl, config.jwtToken);
 
-    // Initialize MQTT listener
+    // Initialize MQTT listener (client id must be unique per connection)
+    const mqttClientId = `${config.regattaId}-${config.timer}-client`.replace(/\s+/g, '-');
     this.mqttListener = new NotificationListener(
       config.mqttBrokerUrl,
-      `${config.timerId}-client`,
+      mqttClientId,
       config.regattaId
     );
 
@@ -51,21 +54,23 @@ export class RaceTimerClient {
     this.startListSync = new StartListSyncEngine(
       this.storage,
       this.apiClient,
-      this.regattaId
+      this.regattaId,
+      this.regattaStartDate
     );
 
     this.raceResultsSync = new RaceResultsSyncEngine(
       this.storage,
       this.apiClient,
       this.regattaId,
-      this.timerId
+      this.regattaStartDate,
+      this.timer
     );
 
     // Set up notification handler
     this.setupNotificationHandler();
 
     console.log(
-      `RaceTimerClient initialized for regatta: ${this.regattaId}, timer: ${this.timerId}`
+      `RaceTimerClient initialized for regatta '${this.regattaId}' on ${this.regattaStartDate}, timer role ${this.timer}`
     );
   }
 
@@ -151,12 +156,11 @@ export class RaceTimerClient {
    */
   saveRaceResults(
     milestoneId: string,
-    versionType: string,
     author: string,
     modelData: string
   ): LocalDocument {
     console.log(`Saving race results for milestone: ${milestoneId}`);
-    const doc = this.raceResultsSync.saveLocal(milestoneId, versionType, author, modelData);
+    const doc = this.raceResultsSync.saveLocal(milestoneId, author, modelData);
 
     // Try to sync immediately if online
     this.apiClient.isServerReachable().then((online) => {

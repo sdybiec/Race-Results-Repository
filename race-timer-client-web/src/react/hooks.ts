@@ -60,9 +60,9 @@ export function useRaceResults(client: RaceTimerClient) {
   }, [client]);
 
   const save = useCallback(
-    (milestoneId: string, versionType: string, author: string, modelData: string) => {
+    (milestoneId: string, author: string, modelData: string) => {
       try {
-        const doc = client.saveRaceResults(milestoneId, versionType, author, modelData);
+        const doc = client.saveRaceResults(milestoneId, author, modelData);
         refresh();
         return doc;
       } catch (err) {

@@ -1,4 +1,5 @@
 import { SyncStatus } from './SyncStatus';
+import { TimerRole } from './ApiTypes';
 
 /**
  * Represents a document stored locally in the browser.
@@ -10,20 +11,23 @@ export interface LocalDocument {
   /** Server document ID (null if not yet uploaded) */
   serverId?: number;
 
-  /** Regatta identifier */
+  /** Regatta name */
   regattaId: string;
 
-  /** Timer identifier (for Race Results only) */
-  timerId?: string;
+  /** Regatta start date (ISO-8601, yyyy-MM-dd); part of the regatta key */
+  regattaStartDate: string;
 
-  /** Milestone identifier (for Race Results: "start", "finish", etc.) */
+  /** Race identifier (Race Results only), derived from the model */
+  raceId?: string;
+
+  /** Milestone identifier (Race Results: "Start Line", "Finish Line", etc.) */
   milestoneId?: string;
 
   /** Document type: "START_LIST" or "RACE_RESULTS" */
   documentType: 'START_LIST' | 'RACE_RESULTS';
 
-  /** Version type: "primary", "firstBackup", "secondBackup" */
-  versionType?: string;
+  /** Timer role (Race Results only) */
+  timer?: TimerRole;
 
   /** Document author */
   author?: string;

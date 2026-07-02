@@ -15,27 +15,34 @@ export class RepositoryClient {
   }
 
   /**
-   * Get the Start List for a regatta.
+   * Get the Start List for a regatta edition (name + start date).
    */
-  async getStartList(regattaId: string): Promise<DocumentResponse | null> {
+  async getStartList(regattaId: string, regattaStartDate: string): Promise<DocumentResponse | null> {
     try {
+      const params = new URLSearchParams({
+        regattaId,
+        regattaStartDate,
+        type: 'START_LIST',
+        matchType: 'EXACT',
+      });
       const response = await this.fetchWithTimeout(
-        `${this.serverUrl}/api/documents/startlist/${regattaId}`,
+        `${this.serverUrl}/api/v1/documents/search?${params.toString()}`,
         {
           method: 'GET',
           headers: this.getHeaders(),
         }
       );
 
-      if (response.status === 404) {
-        return null;
-      }
-
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      return await response.json();
+      const results = await response.json();
+      if (results.results && results.results.length > 0) {
+        // Fetch the full document (with model data) by id.
+        return await this.getDocument(results.results[0].documentId);
+      }
+      return null;
     } catch (error) {
       console.error('Failed to get Start List', error);
       throw error;
@@ -48,7 +55,7 @@ export class RepositoryClient {
   async getDocument(documentId: number): Promise<DocumentResponse> {
     try {
       const response = await this.fetchWithTimeout(
-        `${this.serverUrl}/api/documents/${documentId}`,
+        `${this.serverUrl}/api/v1/documents/${documentId}`,
         {
           method: 'GET',
           headers: this.getHeaders(),
@@ -72,7 +79,7 @@ export class RepositoryClient {
   async createDocument(request: DocumentRequest): Promise<DocumentResponse> {
     try {
       const response = await this.fetchWithTimeout(
-        `${this.serverUrl}/api/documents`,
+        `${this.serverUrl}/api/v1/documents`,
         {
           method: 'POST',
           headers: this.getHeaders(),
@@ -101,7 +108,7 @@ export class RepositoryClient {
   ): Promise<DocumentResponse> {
     try {
       const response = await this.fetchWithTimeout(
-        `${this.serverUrl}/api/documents/${documentId}`,
+        `${this.serverUrl}/api/v1/documents/${documentId}`,
         {
           method: 'PUT',
           headers: this.getHeaders(),

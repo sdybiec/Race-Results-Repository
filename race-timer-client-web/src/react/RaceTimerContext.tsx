@@ -16,7 +16,7 @@ export interface RaceTimerContextValue {
   syncStartList: () => Promise<boolean>;
   syncRaceResults: () => Promise<SyncResult>;
   syncAll: () => Promise<void>;
-  saveRaceResults: (milestoneId: string, versionType: string, author: string, modelData: string) => LocalDocument;
+  saveRaceResults: (milestoneId: string, author: string, modelData: string) => LocalDocument;
   updateRaceResults: (localId: string, modelData: string) => LocalDocument;
   refreshStatus: () => Promise<void>;
 }
@@ -125,11 +125,10 @@ export const RaceTimerProvider: React.FC<RaceTimerProviderProps> = ({
    */
   const saveRaceResults = (
     milestoneId: string,
-    versionType: string,
     author: string,
     modelData: string
   ) => {
-    const doc = client.saveRaceResults(milestoneId, versionType, author, modelData);
+    const doc = client.saveRaceResults(milestoneId, author, modelData);
     refreshData();
     refreshStatus();
     return doc;

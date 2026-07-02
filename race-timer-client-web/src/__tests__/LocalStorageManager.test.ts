@@ -15,8 +15,9 @@ describe('LocalStorageManager', () => {
       const doc: LocalDocument = {
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
-        timerId: 'timer001',
+        timer: 'PRIMARY',
         milestoneId: 'finish',
         localVersion: 1,
         syncStatus: SyncStatus.PENDING,
@@ -38,6 +39,7 @@ describe('LocalStorageManager', () => {
       const doc: LocalDocument = {
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'START_LIST',
         localVersion: 1,
         syncStatus: SyncStatus.SYNCED,
@@ -66,6 +68,7 @@ describe('LocalStorageManager', () => {
       const doc: LocalDocument = {
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
         localVersion: 1,
         syncStatus: SyncStatus.PENDING,
@@ -100,6 +103,7 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'START_LIST',
         localVersion: 1,
         syncStatus: SyncStatus.SYNCED,
@@ -113,8 +117,9 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
-        timerId: 'timer001',
+        timer: 'PRIMARY',
         localVersion: 1,
         syncStatus: SyncStatus.PENDING,
         createdAt: new Date().toISOString(),
@@ -127,8 +132,9 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
-        timerId: 'timer002',
+        timer: 'FIRST_BACKUP',
         localVersion: 1,
         syncStatus: SyncStatus.PENDING,
         createdAt: new Date().toISOString(),
@@ -141,6 +147,7 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'OTHER2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
         localVersion: 1,
         syncStatus: SyncStatus.PENDING,
@@ -177,6 +184,7 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
         localVersion: 1,
         syncStatus: SyncStatus.PENDING,
@@ -190,6 +198,7 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
         localVersion: 1,
         syncStatus: SyncStatus.SYNCED,
@@ -203,6 +212,7 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
         localVersion: 1,
         syncStatus: SyncStatus.FAILED,
@@ -225,6 +235,7 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'START_LIST',
         localVersion: 1,
         syncStatus: SyncStatus.SYNCED,
@@ -245,6 +256,7 @@ describe('LocalStorageManager', () => {
       const doc: LocalDocument = {
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
         localVersion: 1,
         syncStatus: SyncStatus.SYNCED,
@@ -276,6 +288,7 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'START_LIST',
         localVersion: 1,
         syncStatus: SyncStatus.SYNCED,
@@ -289,6 +302,7 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
         localVersion: 1,
         syncStatus: SyncStatus.PENDING,
@@ -321,6 +335,7 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'START_LIST',
         localVersion: 1,
         syncStatus: SyncStatus.SYNCED,
@@ -334,6 +349,7 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
         localVersion: 1,
         syncStatus: SyncStatus.PENDING,
@@ -347,6 +363,7 @@ describe('LocalStorageManager', () => {
       storage.save({
         localId: '',
         regattaId: 'TEST2025',
+        regattaStartDate: '2024-05-17',
         documentType: 'RACE_RESULTS',
         localVersion: 1,
         syncStatus: SyncStatus.PENDING,
