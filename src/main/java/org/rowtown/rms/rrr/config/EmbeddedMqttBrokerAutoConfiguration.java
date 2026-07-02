@@ -5,9 +5,9 @@ import java.util.Properties;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 import io.moquette.broker.Server;
 import io.moquette.broker.config.IConfig;
@@ -33,14 +33,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Configuration
 @ConditionalOnProperty(name = "mqtt.embedded.enabled", havingValue = "true")
+@EnableConfigurationProperties(EmbeddedMqttBrokerAutoConfiguration.EmbeddedMqttBrokerProperties.class)
 public class EmbeddedMqttBrokerAutoConfiguration {
 
     private Server mqttBroker;
-
-    @Bean
-    public EmbeddedMqttBrokerProperties embeddedMqttBrokerProperties() {
-        return new EmbeddedMqttBrokerProperties();
-    }
 
     @Bean
     public Server embeddedMqttBroker(EmbeddedMqttBrokerProperties properties) throws IOException {
@@ -94,7 +90,6 @@ public class EmbeddedMqttBrokerAutoConfiguration {
     /**
      * Configuration properties for embedded MQTT broker.
      */
-    @Component
     @ConfigurationProperties(prefix = "mqtt.embedded")
     public static class EmbeddedMqttBrokerProperties {
 
