@@ -30,7 +30,7 @@
 		<emf.compare.version>3.5.3-SNAPSHOT</emf.compare.version>
 		<!-- Generated TDI (Timing Data Interchange) model artifact.
 		     Adjust these coordinates to match your locally installed tdi-model jar. -->
-		<tdi.model.groupId>org.rowtown</tdi.model.groupId>
+		<tdi.model.groupId>org.rowtown.rms.tdi</tdi.model.groupId>
 		<tdi.model.artifactId>tdi-model</tdi.model.artifactId>
 		<tdi.model.version>1.0.0</tdi.model.version>
         <hessian.version>4.0.66</hessian.version>
