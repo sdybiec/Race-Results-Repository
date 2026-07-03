@@ -237,7 +237,8 @@ export class RaceResultsSyncEngine {
     const response = await this.apiClient.updateDocument(
       localDoc.serverId!,
       localDoc.modelData,
-      changeDescription
+      changeDescription,
+      localDoc.serializationFormat
     );
 
     // Update local document with new server version

@@ -99,23 +99,30 @@ export class RepositoryClient {
   }
 
   /**
-   * Update an existing document.
+   * Update an existing document (creates a new version).
+   *
+   * The server expects the raw model bytes as the request body
+   * (application/octet-stream), with changeDescription and format supplied as
+   * query parameters. modelData is a base64-encoded string here and is decoded
+   * to bytes before being sent.
    */
   async updateDocument(
     documentId: number,
     modelData: string,
-    changeDescription: string
+    changeDescription: string,
+    format: string = 'XMI'
   ): Promise<DocumentResponse> {
     try {
+      const params = new URLSearchParams({
+        changeDescription,
+        format,
+      });
       const response = await this.fetchWithTimeout(
-        `${this.serverUrl}/api/v1/documents/${documentId}`,
+        `${this.serverUrl}/api/v1/documents/${documentId}?${params.toString()}`,
         {
           method: 'PUT',
-          headers: this.getHeaders(),
-          body: JSON.stringify({
-            modelData,
-            changeDescription,
-          }),
+          headers: this.getBinaryHeaders(),
+          body: this.base64ToBytes(modelData),
         }
       );
 
@@ -150,13 +157,35 @@ export class RepositoryClient {
   }
 
   /**
-   * Get standard headers for API requests.
+   * Get standard headers for JSON API requests.
    */
   private getHeaders(): HeadersInit {
     return {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.jwtToken}`,
     };
+  }
+
+  /**
+   * Get headers for requests that send raw binary model data.
+   */
+  private getBinaryHeaders(): HeadersInit {
+    return {
+      'Content-Type': 'application/octet-stream',
+      'Authorization': `Bearer ${this.jwtToken}`,
+    };
+  }
+
+  /**
+   * Decode a base64-encoded string into raw bytes for an octet-stream body.
+   */
+  private base64ToBytes(base64: string): Uint8Array {
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    return bytes;
   }
 
   /**
