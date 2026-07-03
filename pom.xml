@@ -32,9 +32,10 @@
 		     Adjust these coordinates to match your locally installed tdi-model jar. -->
 		<tdi.model.groupId>org.rowtown.rms.tdi</tdi.model.groupId>
 		<tdi.model.artifactId>tdi-model</tdi.model.artifactId>
-		<tdi.model.version>1.0.0</tdi.model.version>
+		<tdi.model.version>1.0.1</tdi.model.version>
         <hessian.version>4.0.66</hessian.version>
         <mqtt.version>5.4.13</mqtt.version>
+        <tdi.library.path>S:\git\Race-Results-Repository\Race-Results-Repository\src\main\resources\org.rowtown.rms.tdi_1.0.1.jar</tdi.library.path>
     </properties>
 
 	<repositories>
@@ -114,13 +115,6 @@
             <version>${emf.compare.version}</version>
         </dependency>
 
-		<!-- Generated TDI model classes (EMF). Install locally with `mvn install`
-		     from the Timing-Data-Interchange project, or publish to your registry. -->
-        <dependency>
-            <groupId>${tdi.model.groupId}</groupId>
-            <artifactId>${tdi.model.artifactId}</artifactId>
-            <version>${tdi.model.version}</version>
-        </dependency>
 
 		<!-- Hessian RPC -->
         <dependency>
@@ -222,11 +216,40 @@
 			<version>0.18.0</version>
 		</dependency>
 
+		<!-- Source: https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>33.4.8-jre</version>
+			<scope>compile</scope>
+		</dependency>
+		<!--
 		<dependency>
 			<groupId>org.rowtown.rms.rrr</groupId>
 			<artifactId>tdi-model</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+-->
+
+		<!--
+		<dependency>
+			<groupId>org.rowtown.rms.rrr</groupId>
+			<artifactId>tdi-model2</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${tdi.library.path}</systemPath>
+		</dependency>
+-->
+
+		<!-- Generated TDI model classes (EMF). Install locally with `mvn install`
+		     from the Timing-Data-Interchange project, or publish to your registry. -->
+        <dependency>
+            <groupId>${tdi.model.groupId}</groupId>
+            <artifactId>${tdi.model.artifactId}</artifactId>
+            <version>${tdi.model.version}</version>
+        </dependency>
+	
+		
     </dependencies>
 
     <build>
@@ -247,7 +270,7 @@
     </build>
 
     <profiles>
-        <!--
+		<!--
             Export a static OpenAPI spec to docs/api/openapi.json.
 
             Usage:
@@ -262,13 +285,13 @@
         <profile>
             <id>openapi</id>
             <properties>
-                <!-- Location for the exported static spec -->
+				<!-- Location for the exported static spec -->
                 <openapi.output.dir>${project.basedir}/docs/api</openapi.output.dir>
                 <openapi.output.file>openapi.json</openapi.output.file>
             </properties>
             <build>
                 <plugins>
-                    <!-- Boot the application before the spec is fetched, stop it afterwards -->
+					<!-- Boot the application before the spec is fetched, stop it afterwards -->
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
@@ -293,7 +316,7 @@
                         </executions>
                     </plugin>
 
-                    <!-- Fetch /api-docs from the running app and write it to a static file -->
+					<!-- Fetch /api-docs from the running app and write it to a static file -->
                     <plugin>
                         <groupId>org.springdoc</groupId>
                         <artifactId>springdoc-openapi-maven-plugin</artifactId>

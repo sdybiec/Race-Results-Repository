@@ -28,7 +28,7 @@
         <!-- Generated TDI model artifact; match your locally installed tdi-model jar. -->
         <tdi.model.groupId>org.rowtown.rms.tdi</tdi.model.groupId>
         <tdi.model.artifactId>tdi-model</tdi.model.artifactId>
-        <tdi.model.version>1.0.0</tdi.model.version>
+        <tdi.model.version>1.0.1</tdi.model.version>
     </properties>
 
     <dependencies>
