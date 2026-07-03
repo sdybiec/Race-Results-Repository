@@ -10,23 +10,24 @@ import org.rowtown.rms.rrr.domain.SerializationFormat;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.stream.Collectors;
 
 /**
  * Validates submitted TDI (Timing Data Interchange) models on ingest, using the
- * generated EMF model.
+ * generated EMF model where possible.
  *
  * <p>Validation runs in three modes controlled by properties:</p>
  * <ul>
  *   <li>{@code rrr.tdi.validation.enabled=false} &mdash; skip entirely (bytes
  *       are treated as opaque).</li>
- *   <li>{@code enabled=true, strict=false} (default) &mdash; the payload must
- *       parse as a TDI model; structural (EMF {@link Diagnostician}) errors are
- *       logged but the document is still accepted. This suits real-world data
- *       such as start lists that legitimately omit result-only fields.</li>
- *   <li>{@code enabled=true, strict=true} &mdash; additionally reject documents
- *       whose model has {@link Diagnostic#ERROR}-level problems.</li>
+ *   <li>{@code enabled=true, strict=false} (default) &mdash; the payload must be
+ *       a TDI document. It is accepted if it either loads cleanly into the
+ *       generated classes <em>or</em> is a well-formed XML document in the TDI
+ *       namespace. This tolerates real-world data (e.g. start lists that omit
+ *       result-only fields) and model/data version skew where the generated
+ *       datatype converters reject otherwise-valid values.</li>
+ *   <li>{@code enabled=true, strict=true} &mdash; require a clean typed load and
+ *       reject models with {@link Diagnostic#ERROR}-level problems.</li>
  * </ul>
  *
  * <p>Rejections are raised as {@link IllegalArgumentException}, which the global
@@ -37,14 +38,17 @@ import java.util.stream.Collectors;
 public class TdiValidationService {
 
     private final ModelSerializationService serializationService;
+    private final TdiModelInspector tdiModelInspector;
     private final boolean enabled;
     private final boolean strict;
 
     public TdiValidationService(
             ModelSerializationService serializationService,
+            TdiModelInspector tdiModelInspector,
             @Value("${rrr.tdi.validation.enabled:true}") boolean enabled,
             @Value("${rrr.tdi.validation.strict:false}") boolean strict) {
         this.serializationService = serializationService;
+        this.tdiModelInspector = tdiModelInspector;
         this.enabled = enabled;
         this.strict = strict;
     }
@@ -52,8 +56,9 @@ public class TdiValidationService {
     /**
      * Validate model bytes. No-op when validation is disabled.
      *
-     * @throws IllegalArgumentException if the payload cannot be parsed as a TDI
-     *         model, or (in strict mode) if the model has ERROR-level problems.
+     * @throws IllegalArgumentException if the payload is not a TDI document, or
+     *         (in strict mode) if it cannot be loaded as typed objects or has
+     *         ERROR-level problems.
      */
     public void validate(byte[] modelData, SerializationFormat format) {
         if (!enabled) {
@@ -63,19 +68,44 @@ public class TdiValidationService {
             throw new IllegalArgumentException("Model data is required");
         }
 
-        EObject root;
+        // Preferred path: load into the generated (typed) classes.
+        EObject root = null;
+        Exception loadFailure = null;
         try {
             root = serializationService.deserializeToEObject(modelData, format);
-        } catch (IOException | RuntimeException ex) {
-            // XMI parse / package-resolution failures surface as a 400.
+        } catch (Exception ex) {
+            loadFailure = ex;
+        }
+
+        if (root != null) {
+            validateTypedModel(root);
+            return;
+        }
+
+        // Typed load failed or produced nothing. Fall back to a schema-agnostic
+        // check so real TDI documents the generated model cannot fully parse
+        // (version skew, strict datatype converters) are still accepted.
+        if (!tdiModelInspector.isTdiDocument(modelData)) {
             throw new IllegalArgumentException(
-                "Model data is not a valid " + format + " document: " + ex.getMessage(), ex);
+                "Model data is not a valid TDI " + format + " document"
+                    + (loadFailure != null ? ": " + loadFailure.getMessage() : ""));
         }
 
-        if (root == null) {
-            throw new IllegalArgumentException("Model data did not contain a model object");
+        if (strict) {
+            throw new IllegalArgumentException(
+                "TDI model could not be loaded as typed objects under strict validation"
+                    + (loadFailure != null ? ": " + loadFailure.getMessage() : ""));
         }
 
+        log.warn("Accepted TDI document that did not fully load as typed objects "
+            + "(strict mode off): {}",
+            loadFailure != null ? loadFailure.getMessage() : "no root object produced");
+    }
+
+    /**
+     * Namespace and structural checks for a successfully loaded typed model.
+     */
+    private void validateTypedModel(EObject root) {
         EPackage ePackage = root.eClass().getEPackage();
         String nsUri = ePackage != null ? ePackage.getNsURI() : null;
         if (!TdiModelConfig.TDI_NS_URI.equals(nsUri)) {

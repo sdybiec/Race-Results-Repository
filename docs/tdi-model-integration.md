@@ -56,14 +56,32 @@ controlled by two properties:
 | Property | Default | Behavior |
 |---|---|---|
 | `rrr.tdi.validation.enabled` | `true` | When `false`, validation is skipped entirely (fully opaque). |
-| `rrr.tdi.validation.strict` | `false` | When `true`, models with EMF `ERROR`-level problems are rejected (HTTP 400). |
+| `rrr.tdi.validation.strict` | `false` | When `true`, require a clean typed load and reject models with EMF `ERROR`-level problems (HTTP 400). |
 
-**Default is lenient**: the payload must parse as a TDI model (namespace
-`http://www.rowtown.org/TDI/1.0.0`), otherwise the request is rejected with HTTP
-400. Structural problems are logged but not rejected — real start lists
-legitimately omit result-only required fields (e.g. `TimingStation.position`,
-`TimingStation.progressDistance`), so strict mode would reject valid start lists.
-Enable strict mode only if your producers emit fully-populated models.
+**Default is lenient.** A payload is accepted if it *either*:
+
+1. loads cleanly into the generated classes (then EMF `Diagnostician` runs;
+   structural problems are logged, not rejected), **or**
+2. is a well-formed XML document whose root is in the TDI namespace
+   (`http://www.rowtown.org/TDI/1.0.0`), checked with StAX via
+   `TdiModelInspector` — no dependency on the generated datatype converters.
+
+Only payloads that are neither (not well-formed XML, or a foreign namespace) are
+rejected with HTTP 400.
+
+This two-tier check is deliberate. Real documents can be valid TDI yet fail a
+*typed* load for two independent reasons:
+
+- **Omitted fields** — a start list legitimately omits result-only required
+  features (e.g. `TimingStation.position`, `TimingStation.progressDistance`).
+- **Datatype/version skew** — the generated model's datatype converters can
+  reject otherwise-valid values (observed: the generated `LocalDate` converter
+  rejecting an ISO date such as `2024-05-17`). EMF aborts the whole load in that
+  case.
+
+Because storage is byte-opaque, such documents must still be accepted. Strict
+mode is available for pipelines whose producers emit fully-populated,
+cleanly-loadable models.
 
 Rejections are raised as `IllegalArgumentException`, which
 `GlobalExceptionHandler` maps to HTTP 400.
