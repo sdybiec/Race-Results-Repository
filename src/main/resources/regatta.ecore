@@ -1,0 +1,1271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="regatta" nsURI="http://www.rowtown.org/RML/1.4.0" nsPrefix="rml">
+  <eClassifiers xsi:type="ecore:EClass" name="BreakActivity" eSuperTypes="#//TimeSlot">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"
+        defaultValueLiteral="Break"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" unique="false" eType="#//ActivityType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Athlete" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="gender" unique="false"
+        lowerBound="1" eType="#//Gender" unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateOfBirth" unique="false"
+        eType="#//Date" defaultValueLiteral="1900-01-01"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usraMemberNumber" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="beganRowing" unique="false"
+        eType="#//Date" defaultValueLiteral="1900-01-01"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rower" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="coxswain" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="athleteType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="schoolYear" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstName" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastName" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="organization" lowerBound="1"
+        eType="#//Organization" transient="true" eOpposite="#//Organization/athlete"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usraWaiverOnFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usraMembershipExpiration"
+        unique="false" eType="#//Date" defaultValueLiteral="1900-01-01"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usraInfoLastModified" unique="false"
+        eType="#//Date" defaultValueLiteral="1900-01-01"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mraMemberNumber" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="paperWaiverSubmitted" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="athleteId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="member" upperBound="-1"
+        eType="#//BaseMember" transient="true" eOpposite="#//BaseMember/athlete"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Contact" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addressLine1" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addressLine2" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="city" unique="false" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" unique="false" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="zip" unique="false" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="country" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="phone1" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="phone2" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstName" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastName" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transaction" ordered="false"
+        upperBound="-1" eType="#//Transaction" containment="true" resolveProxies="false"
+        eOpposite="#//Transaction/contact"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="organization" eType="#//Organization"
+        transient="true" eOpposite="#//Organization/contact"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="invoice" ordered="false"
+        upperBound="-1" eType="#//Invoice" containment="true" resolveProxies="false"
+        eOpposite="#//Invoice/contact"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="contactId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Crew" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="crewId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastYearOof" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="avgAge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="overrideComputedAverageAge"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="handicap" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="#//CrewStatusType"
+        defaultValueLiteral="eligible"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="passedWeighIn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="compositeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="member" upperBound="-1"
+        eType="#//Member" containment="true" resolveProxies="false" eOpposite="#//Member/crew"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="spare" upperBound="-1"
+        eType="#//SpareMember" containment="true" resolveProxies="false" eOpposite="#//SpareMember/crew"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="organization" lowerBound="1"
+        upperBound="-1" eType="#//Organization"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="seed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="subTeamId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="event" lowerBound="1" eType="#//Event"
+        transient="true" eOpposite="#//Event/crew"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bowNumberRC" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="channel" lowerBound="1"
+        eType="#//ChannelType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="submissionDate" unique="false"
+        lowerBound="1" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastModifiedDate" unique="false"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contact" lowerBound="1"
+        eType="#//Contact"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="averageAge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ageCategory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rank" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="waitlistQueuePriority"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="racingCrew" upperBound="-1"
+        eType="#//RacingCrew" resolveProxies="false" eOpposite="#//RacingCrew/crew"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DailySchedule" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" unique="false" eType="#//Date"
+        defaultValueLiteral="2004-01-01"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startTime" unique="false"
+        eType="#//Time" defaultValueLiteral="08:00:00"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activity" upperBound="-1"
+        eType="#//TimeSlot" containment="true" resolveProxies="false" eOpposite="#//TimeSlot/dailySchedule"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultTimeSlotDuration"
+        eType="#//Time" defaultValueLiteral="00:10:00"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regatta" lowerBound="1"
+        eType="#//Regatta" transient="true" eOpposite="#//Regatta/dailySchedule"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultBowNumberGap" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstBowNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Event" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="custom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="gender" lowerBound="1"
+        eType="#//GenderEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="athleteClass" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="boatSize" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sweep" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="coxed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="handicapped" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="format" lowerBound="1"
+        eType="#//StageFormatCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="finalRaceCourse" lowerBound="1"
+        eType="#//RaceCourse"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scratched" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="finalRaceDate" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="finalRaceTime" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="duration" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sequence" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="handicapAlgorithm" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="com.humanfactor.rw.handicapping.usrowing"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cost" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reqBirthday" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reqAlternates" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reqCoxswain" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reqBeganRowingDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reqSeed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crew" ordered="false" upperBound="-1"
+        eType="#//Crew" containment="true" eOpposite="#//Crew/event"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stage" ordered="false"
+        upperBound="-1" eType="#//Stage" containment="true" eOpposite="#//Stage/event"
+        eKeys="#//Stage/stageType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventNumber" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventTitle" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regatta" lowerBound="1"
+        eType="#//Regatta" transient="true" eOpposite="#//Regatta/event"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxEntriesPerClub" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reqCrewMembers" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxTotalEntries" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minCrewAge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxCrewAge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minCrewMemberAge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxCrewMemberAge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="affiliationCategory" eType="#//AffiliationEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ageCategory" eType="#//AgeEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="experienceCategory" eType="#//ExperienceEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shellClassCategory" eType="#//ShellClassEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weightCategory" eType="#//WeightEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allowAlternates" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="seedingCriteria" eType="#//SeedingCriteria"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="awardedTeamPoints" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LaunchSite" abstract="true" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="Main Dock Site"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstCallOffset" unique="false"
+        eType="#//Time" defaultValueLiteral="00:40:00"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="secondCallOffset" unique="false"
+        eType="#//Time" defaultValueLiteral="00:30:00"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastCallOffset" unique="false"
+        eType="#//Time" defaultValueLiteral="00:20:00"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimaryLaunchSite" eSuperTypes="#//LaunchSite">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="venue" eType="#//Venue"
+        eOpposite="#//Venue/primaryLaunchSite"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AlternateLaunchSite" eSuperTypes="#//LaunchSite">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crewSelectors" upperBound="-1"
+        eType="#//CrewSelector" containment="true" eOpposite="#//CrewSelector/alternateLaunchSite"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="venue" eType="#//Venue"
+        eOpposite="#//Venue/alternateLaunchSite"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CrewSelector" abstract="true" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="launchingCrews" lowerBound="1"
+        upperBound="-1" eType="#//Crew"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="alternateLaunchSite" eType="#//AlternateLaunchSite"
+        eOpposite="#//AlternateLaunchSite/crewSelectors"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrganizationCrewSelector" eSuperTypes="#//CrewSelector">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="organization" lowerBound="1"
+        eType="#//Organization"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventCrewSelector" eSuperTypes="#//CrewSelector">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="event" lowerBound="1" eType="#//Event"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventEntryLineItem" eSuperTypes="#//LineItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entry" lowerBound="1" eType="#//Crew"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LineItem" abstract="true" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="discount" eType="#//BigDecimal"
+        defaultValueLiteral="0.0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="quantity" eType="#//BigDecimal"
+        defaultValueLiteral="1.0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="invoice" eType="#//Invoice"
+        resolveProxies="false" eOpposite="#//Invoice/lineItem"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BaseMember" abstract="true" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="athlete" lowerBound="1"
+        eType="#//Athlete" resolveProxies="false" eOpposite="#//Athlete/member"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SpareMember" eSuperTypes="#//BaseMember">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crew" eType="#//Crew" eOpposite="#//Crew/spare"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Member" eSuperTypes="#//BaseMember">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="seat" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crew" eType="#//Crew" eOpposite="#//Crew/member"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Organization" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="city" unique="false" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" unique="false" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="country" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="athlete" ordered="false"
+        upperBound="-1" eType="#//Athlete" containment="true" resolveProxies="false"
+        eOpposite="#//Athlete/organization"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contact" ordered="false"
+        upperBound="-1" eType="#//Contact" containment="true" resolveProxies="false"
+        eOpposite="#//Contact/organization"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="abbreviatedName" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regatta" lowerBound="1"
+        eType="#//Regatta" transient="true" eOpposite="#//Regatta/organization"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" ordered="false" upperBound="-1"
+        eType="#//OrganizationCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="irisId" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="organizationId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bladeURL" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Payment" eSuperTypes="#//Transaction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="checkKey" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Penalty" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assessment" unique="false"
+        lowerBound="1" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Product" eSuperTypes="#//Offering"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Race" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceStatus" unique="false"
+        lowerBound="1" eType="#//RaceStatusType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="winningSplit" upperBound="-1"
+        eType="#//SplitType" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="backupWinningSplit" upperBound="-1"
+        eType="#//SplitType" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="racingCrew" ordered="false"
+        upperBound="-1" eType="#//RacingCrew" containment="true" eOpposite="#//RacingCrew/race"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceNumber" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sequence" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="raceActivity" eType="#//RaceActivity"
+        eOpposite="#//RaceActivity/race"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stage" eType="#//Stage"
+        transient="true" eOpposite="#//Stage/race"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="finishLynxResults" eType="#//FinishLynxResults"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultsReadinessType" eType="#//RaceResultsReadinessType"
+        unsettable="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RaceActivity" eSuperTypes="#//TimeSlot">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="race" lowerBound="1" eType="#//Race"
+        eOpposite="#//Race/raceActivity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bowNumberGap" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RaceCourse" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="length" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lengthUnits" lowerBound="1"
+        eType="#//CourseLengthUnits"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceStyle" lowerBound="1"
+        eType="#//EventFormatCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfLanes" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startingLaneNumber" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingMilestone" lowerBound="1"
+        upperBound="-1" eType="#//TimingMilestone" containment="true" resolveProxies="false"
+        eOpposite="#//TimingMilestone/raceCourse" eKeys="#//TimingMilestone/progressDistance"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="extendedLanePosition" eType="#//ExtendedLanePosition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="venue" eType="#//Venue"
+        eOpposite="#//Venue/raceCourse"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="handicapMultiplier" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stages" upperBound="-1"
+        eType="#//Stage" eOpposite="#//Stage/raceCourse"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RacingCrew" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" eType="#//Results"
+        containment="true" eOpposite="#//Results/racingCrew"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crew" lowerBound="1" eType="#//Crew"
+        eOpposite="#//Crew/racingCrew"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="laneNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="#//RacingCrewStatusType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="race" eType="#//Race" transient="true"
+        eOpposite="#//Race/racingCrew"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bowNumber" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="splitResults" upperBound="-1"
+        eType="#//SplitResult" eOpposite="#//SplitResult/racingCrew"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Refund" eSuperTypes="#//Transaction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="checkKey" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Regatta" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="abbreviatedName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="duration" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="regattaHomePage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="registeredUsRowing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultsUrl" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lifeCycleState" lowerBound="1"
+        eType="#//LifeCycleStateType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="inviteOnly" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allowPreview" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ltwtNames" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="false" unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scullNames" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mastersInfo" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="false" unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="normalizeHandicaps" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="locOrganization" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="locOrgUrl" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="locBillingAddress" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="venue" eType="#//Venue"
+        containment="true" resolveProxies="false" eOpposite="#//Venue/regatta"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="medalSet" eType="#//MedalSet"
+        containment="true" eOpposite="#//MedalSet/regatta"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="experienceCategories" upperBound="-1"
+        eType="#//ExperienceEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="genderCategories" upperBound="-1"
+        eType="#//GenderEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shellClassCategories" upperBound="-1"
+        eType="#//ShellClassEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="affiliationCategories"
+        upperBound="-1" eType="#//AffiliationEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ageCategories" upperBound="-1"
+        eType="#//AgeEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weightCategories" upperBound="-1"
+        eType="#//WeightEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceLengthCategories" upperBound="-1"
+        eType="#//RaceLengthEventCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="otherCategories" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="entryWindowOpenDate" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="entryCloseDate" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="entriesLockedDate" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="entryPacketUrl" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="waiverUrl" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="entryOvernightAddress"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="unknown"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="contactName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="contactEmail" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="contactPhone" eType="#//TelephoneNumberType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feeDue" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="baseFee" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="checkPayableTo" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="customProgressionSystem"
+        eType="#//ProgressionSystem" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="event" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Event" containment="true" resolveProxies="false"
+        eOpposite="#//Event/regatta" eKeys="#//Event/eventNumber">
+      <eAnnotations source="de.hub.emffrag">
+        <details key="fragments" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="organization" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Organization" containment="true"
+        resolveProxies="false" eOpposite="#//Organization/regatta" eKeys="#//Organization/name">
+      <eAnnotations source="de.hub.emffrag">
+        <details key="fragments" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dailySchedule" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//DailySchedule" containment="true"
+        resolveProxies="false" eOpposite="#//DailySchedule/regatta" eKeys="#//DailySchedule/date">
+      <eAnnotations source="de.hub.emffrag">
+        <details key="fragments" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startDate" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="private" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="roundHandicapToTenths"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hostOrganizationName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hostOrganizationHyperLink"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hostOrganizationHyperLinkDesc"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="teamPointsComputationClassName"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="com.humanfactor.rw.teampoints.usrowing"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxEntriesPerPacket" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="8"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scratchDeadline" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feeCap" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="handicapHomogenousRaces"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="logo" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/CDO/DBStore">
+        <details key="columnLength" value="1000000"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="banner" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/CDO/DBStore">
+        <details key="columnLength" value="1000000"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rMLVersion" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rMLRelease" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rMLModification" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingWorkstation" ordered="false"
+        upperBound="-1" eType="#//TimingWorkstation" containment="true" resolveProxies="false"
+        eOpposite="#//TimingWorkstation/regatta"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="server" ordered="false"
+        upperBound="-1" eType="#//Server" containment="true" resolveProxies="false"
+        eOpposite="#//Server/regatta"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="splitSharingService" ordered="false"
+        upperBound="-1" eType="#//SplitSharingService" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="singleEntryCost" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="doubleEntryCost" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pairWithoutCoxswainEntryCost"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pairWithCoxswainEntryCost"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fourWithCoxswainEntryCost"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fourWithoutCoxswainEntryCost"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="quadEntryCost" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eightEntryCost" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="octupleEntryCost" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceDesignType" eType="#//EventFormatCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="missingBowNumbers" ordered="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="raceResultsReportCollection"
+        eType="#//RaceResultsReportCollection" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preRaceReportCollection"
+        eType="#//PreRaceReportCollection" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="regattaId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activeLiveResultsConfig"
+        eType="#//LiveResultsConfig"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="liveResultsConfig" upperBound="-1"
+        eType="#//LiveResultsConfig" containment="true" resolveProxies="false" eOpposite="#//LiveResultsConfig/regatta"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeZone" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceSequenceDelimiter"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="-"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceSequenceLocation" eType="#//DecoratorLocation"
+        defaultValueLiteral="append"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceSequenceUnique" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Results" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="split" upperBound="-1"
+        eType="#//SplitType" containment="true" eOpposite="#//SplitType/results"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="backupSplit" upperBound="-1"
+        eType="#//SplitType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="penalty" upperBound="-1"
+        eType="#//Penalty" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="backupPenalty" upperBound="-1"
+        eType="#//Penalty" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="officialFinishTime" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rawFinishTime" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="officialOrderOfFinish"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="adjustedOrderOfFinish"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="racingCrew" eType="#//RacingCrew"
+        transient="true" eOpposite="#//RacingCrew/results"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SplitType" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="order" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingMilestone" eType="#//TimingMilestone"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" eType="#//Results"
+        transient="true" eOpposite="#//Results/split"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimeSlot" abstract="true" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="duration" eType="#//Time"
+        defaultValueLiteral="00:10:00"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fixedStartTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startTime" eType="#//Time"
+        defaultValueLiteral="08:00:00"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dailySchedule" eType="#//DailySchedule"
+        eOpposite="#//DailySchedule/activity"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimingMilestone" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="order" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="position" lowerBound="1"
+        eType="#//MilestoneCoursePosition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="progressDistance" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="raceCourse" eType="#//RaceCourse"
+        eOpposite="#//RaceCourse/timingMilestone"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="splitPublicationThreshold"
+        eType="#//SplitPublicationThresholdRule" defaultValueLiteral="approvedSplitAvailable"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expectedVersions" upperBound="3"
+        eType="#//CapturedResultsVersion"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="splitVarianceThreshold"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="250"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="splitApprovalFlow" eType="#//SplitApprovalFlow"
+        defaultValueLiteral="splitCheckerApproveResultsManagerFinalize"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="splitApprovalConfidenceThreshold"
+        eType="#//Confidence" defaultValueLiteral="high"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Transaction" abstract="true" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="amount" eType="#//BigDecimal"
+        defaultValueLiteral="0.0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="method" eType="#//TransactionMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="note" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="submittedBy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contact" eType="#//Contact"
+        eOpposite="#//Contact/transaction"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Venue" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bodyOfWater" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="waterType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="city" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" eType="#//UsaStateCode"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="postalCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="country" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="latitude" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="longitude" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="abbreviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="raceCourse" lowerBound="1"
+        upperBound="-1" eType="#//RaceCourse" containment="true" eOpposite="#//RaceCourse/venue"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="primaryLaunchSite" eType="#//PrimaryLaunchSite"
+        containment="true" eOpposite="#//PrimaryLaunchSite/venue"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="alternateLaunchSite" upperBound="-1"
+        eType="#//AlternateLaunchSite" containment="true" eOpposite="#//AlternateLaunchSite/venue"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regatta" eType="#//Regatta"
+        eOpposite="#//Regatta/venue"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Writeoff" eSuperTypes="#//Transaction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reason" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Stage" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stageType" eType="#//StageType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="race" ordered="false" upperBound="-1"
+        eType="#//Race" containment="true" eOpposite="#//Race/stage" eKeys="#//Race/raceNumber"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="event" lowerBound="1" eType="#//Event"
+        transient="true" eOpposite="#//Event/stage"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="format" lowerBound="1"
+        eType="#//StageFormatCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="advanceSelector" upperBound="-1"
+        eType="#//AdvanceSelector" containment="true" eOpposite="#//AdvanceSelector/stage"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="laneAssignmentMethod" lowerBound="1"
+        eType="#//LaneAssignmentMethod" defaultValueLiteral="middleOutLow"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="awards" ordered="false"
+        upperBound="-1" eType="#//Award" containment="true" eOpposite="#//Award/stage"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="useExtendedLane" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceAssignmentMethod" eType="#//RaceAssignmentMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceAssignmentOrder" eType="#//RaceAssignmentOrder"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceAssignmentStartingRace"
+        eType="#//RaceAssignmentStartingRace"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="samePlaceRankingMethod"
+        eType="#//SamePlaceRankingMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="winningTimeType" eType="#//WinningTimeType"
+        defaultValueLiteral="winningCrewTime"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="raceCourse" lowerBound="1"
+        eType="#//RaceCourse" eOpposite="#//RaceCourse/stages"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Invoice" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lineItem" ordered="false"
+        upperBound="-1" eType="#//LineItem" containment="true" resolveProxies="false"
+        eOpposite="#//LineItem/invoice"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="discount" eType="#//BigDecimal"
+        defaultValueLiteral="0.0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contact" eType="#//Contact"
+        eOpposite="#//Contact/invoice"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Offering" abstract="true" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unitCost" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Decimal"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OfferingLineItem" eSuperTypes="#//LineItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="offering" lowerBound="1"
+        eType="#//Offering"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Service" eSuperTypes="#//Offering"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AdvanceSelector" eSuperTypes="#//RacingCrewSelector">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetStage" eType="#//Stage"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stage" eType="#//Stage"
+        transient="true" eOpposite="#//Stage/advanceSelector"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Award" eSuperTypes="#//BaseAward">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="selectionCriteria" eType="#//AwardSelectionCriteriaType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="selectionCriteriaParameter"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stage" eType="#//Stage"
+        transient="true" eOpposite="#//Stage/awards"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MedalSet" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="medalSet" upperBound="-1"
+        eType="#//Medal" containment="true" eOpposite="#//Medal/medalSet"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="distributionRuleParameter"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="distributionRule" eType="#//MedalDistributionRuleType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regatta" eType="#//Regatta"
+        transient="true" eOpposite="#//Regatta/medalSet"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nonMedalingRaces" ordered="false"
+        upperBound="-1" eType="#//Race"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Medal" eSuperTypes="#//BaseAward">
+    <eOperations name="getPlace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="medalSet" eType="#//MedalSet"
+        eOpposite="#//MedalSet/medalSet"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BaseAward" abstract="true" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="recipientType" eType="#//AwardRecipientType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EliminateSelector" eSuperTypes="#//RacingCrewSelector"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RacingCrewSelector" abstract="true"
+      eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="selectionCriteria" eType="#//SelectionCriteriaType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberToSelect" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CapturedRace" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="race" eType="#//Race"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="capturedResult" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//CapturedResult" containment="true"
+        resolveProxies="false" eOpposite="#//CapturedResult/capturedRace"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingWorkstation" eType="#//TimingWorkstation"
+        eOpposite="#//TimingWorkstation/capturedRace"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CapturedResult" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bowNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comments" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="#//RacingCrewStatusType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="racingCrew" eType="#//RacingCrew"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastModifiedDate" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastModifiedTime" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="publishedDate" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="publishedTime" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="capturedRace" eType="#//CapturedRace"
+        eOpposite="#//CapturedRace/capturedResult"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="splitResult" eType="#//SplitResult"
+        eOpposite="#//SplitResult/capturedResult"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SplitResult" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eOperations name="getOrder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bowNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comments" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="#//RacingCrewStatusType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="racingCrew" eType="#//RacingCrew"
+        eOpposite="#//RacingCrew/splitResults"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingWorkstation" eType="#//TimingWorkstation"
+        eOpposite="#//TimingWorkstation/sequentialSplits"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="capturedResult" eType="#//CapturedResult"
+        eOpposite="#//CapturedResult/splitResult"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="approvalStatus" eType="#//ApprovalStatus"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="captureStatus" eType="#//CaptureStatus"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Computer" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dNSName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="localhost"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ipAddress" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="127.0.0.1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ResultsManagerWorkstation" eSuperTypes="#//Workstation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultsCollectionServerIpPort"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimingWorkstation" eSuperTypes="#//Workstation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingMilestone" lowerBound="1"
+        eType="#//TimingMilestone"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="syncTimeOffset" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="capturedRace" ordered="false"
+        upperBound="-1" eType="#//CapturedRace" containment="true" eOpposite="#//CapturedRace/timingWorkstation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="syncDateOffset" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sequentialSplits" upperBound="-1"
+        eType="#//SplitResult" containment="true" eOpposite="#//SplitResult/timingWorkstation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nextSplitIndex" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" lowerBound="1"
+        eType="#//CapturedResultsVersion"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regatta" lowerBound="1"
+        eType="#//Regatta" transient="true" eOpposite="#//Regatta/timingWorkstation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="splitCaptureTool" eType="#//SplitCaptureTool"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="User" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="phone1" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="phone2" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstName" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastName" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="userId" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SplitCheckerWorkstation" eSuperTypes="#//Workstation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timingMilestone" lowerBound="1"
+        eType="#//TimingMilestone"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regatta" lowerBound="1"
+        eType="#//Regatta" transient="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Workstation" eSuperTypes="#//Computer">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//User"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LiveResultsConfig" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="splitSharingService" eType="#//SplitSharingService"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regattaPublishingService"
+        eType="#//RegattaPublishingService"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regattaSharingService"
+        eType="#//RegattaSharingService"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regatta" eType="#//Regatta"
+        eOpposite="#//Regatta/liveResultsConfig"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Server" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="host" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="service" upperBound="-1"
+        eType="#//NetworkService" containment="true" eOpposite="#//NetworkService/server"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regatta" eType="#//Regatta"
+        eOpposite="#//Regatta/server"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RegattaPublishingService" eSuperTypes="#//ResilientNetworkService"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RegattaSharingService" eSuperTypes="#//ResilientNetworkService"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SplitSharingService" eSuperTypes="#//ResilientNetworkService"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ResilientNetworkService" abstract="true"
+      eSuperTypes="#//NetworkService"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NetworkService" abstract="true" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="port" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="80"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="server" eType="#//Server"
+        eOpposite="#//Server/service"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FinishLynxCrewImageLocation" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bowNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="imageCoordinate" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"
+        changeable="false" volatile="true" transient="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FinishLynxResults" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="capturedLinesPerSecond"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crewImageLocations" upperBound="-1"
+        eType="#//FinishLynxCrewImageLocation" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rowingDirection" eType="#//RowingDirectionType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Base64Binary"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PointScoringReport" eSuperTypes="reportdesigner.ecore#//BasicReport"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RaceResultsDetailDesign" eSuperTypes="reportdesigner.ecore#//DetailDesign">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="format" eType="#//StageFormatCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="handicapped" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceCoursePlotNextPageThreshold"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceCoursePlotNextPageHeight"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="raceCoursePlotSamePageHeight"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="printRaceCoursePlot" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ResultsReport" eSuperTypes="reportdesigner.ecore#//MasterDetailReport"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RaceResultsReportCollection" eSuperTypes="reportdesigner.ecore#//ReportsCollection">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="individualRaceResultsReport"
+        lowerBound="1" eType="#//ResultsReport"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PreRaceReportCollection" eSuperTypes="reportdesigner.ecore#//ReportsCollection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HeatSheetReport" eSuperTypes="reportdesigner.ecore#//BasicReport"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProgressionSystem" eSuperTypes="../../com.humanfactor.emf.identifiable.entity/model/identifiable.ecore#//IdentifiableInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="My Progression System"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minToAdvanceToNextStage"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="2"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="useBestTimesCriteria" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="includeRepechages" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeTrialHeatThreshold"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="37"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxSupportedEntries" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="100"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxAdvancingFromTimeTrial"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="36"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AwardSelectionCriteriaType">
+    <eLiterals name="placing"/>
+    <eLiterals name="percentOfWinningTime" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AwardRecipientType">
+    <eLiterals name="crewMembers"/>
+    <eLiterals name="crew" value="1"/>
+    <eLiterals name="organization" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MedalDistributionRuleType">
+    <eLiterals name="allTopPlacings"/>
+    <eLiterals name="entrantToMedalRatio" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CaptureStatus">
+    <eLiterals name="expected"/>
+    <eLiterals name="captured" value="1"/>
+    <eLiterals name="missed" value="2"/>
+    <eLiterals name="outlyer" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ActivityType">
+    <eLiterals name="lunch"/>
+    <eLiterals name="break" value="1"/>
+    <eLiterals name="meeting" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AffiliationEventCategory">
+    <eLiterals name="none"/>
+    <eLiterals name="highSchool" value="1"/>
+    <eLiterals name="corporate" value="2"/>
+    <eLiterals name="collegiate" value="3"/>
+    <eLiterals name="club" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AgeEventCategory">
+    <eLiterals name="none"/>
+    <eLiterals name="parentchild" value="1"/>
+    <eLiterals name="masters" value="2"/>
+    <eLiterals name="freshman" value="3"/>
+    <eLiterals name="junior" value="4"/>
+    <eLiterals name="youth" value="5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ChannelType">
+    <eLiterals name="online"/>
+    <eLiterals name="paper" value="1"/>
+    <eLiterals name="email" value="2"/>
+    <eLiterals name="phone" value="3"/>
+    <eLiterals name="raceday" value="4"/>
+    <eLiterals name="other" value="5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CourseLengthUnits">
+    <eLiterals name="meters"/>
+    <eLiterals name="miles" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CrewStatusType">
+    <eLiterals name="eligible"/>
+    <eLiterals name="scratched" value="1"/>
+    <eLiterals name="disqualified" value="2"/>
+    <eLiterals name="waitlist" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EventFormatCategory">
+    <eLiterals name="sprint"/>
+    <eLiterals name="head" value="1"/>
+    <eLiterals name="combo" value="2"/>
+    <eLiterals name="relay" value="3"/>
+    <eLiterals name="indoor" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ExperienceEventCategory">
+    <eLiterals name="none"/>
+    <eLiterals name="novice" value="1"/>
+    <eLiterals name="varsity" value="2"/>
+    <eLiterals name="juniorVarsity" value="3"/>
+    <eLiterals name="open" value="4"/>
+    <eLiterals name="frosh" value="5"/>
+    <eLiterals name="unrestricted" value="6"/>
+    <eLiterals name="intermediate" value="7"/>
+    <eLiterals name="championship" value="8"/>
+    <eLiterals name="elite" value="9"/>
+    <eLiterals name="coxswain" value="10"/>
+    <eLiterals name="senior" value="11"/>
+    <eLiterals name="recreational" value="12"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ExtendedLanePosition">
+    <eLiterals name="none"/>
+    <eLiterals name="low" value="1"/>
+    <eLiterals name="high" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Gender">
+    <eLiterals name="male"/>
+    <eLiterals name="female" value="1"/>
+    <eLiterals name="unknown" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="GenderEventCategory">
+    <eLiterals name="women"/>
+    <eLiterals name="men" value="1"/>
+    <eLiterals name="mixed" value="2"/>
+    <eLiterals name="girls" value="3"/>
+    <eLiterals name="boys" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LifeCycleStateType">
+    <eLiterals name="calendar"/>
+    <eLiterals name="evented" value="1"/>
+    <eLiterals name="entered" value="2"/>
+    <eLiterals name="raceday" value="3"/>
+    <eLiterals name="results" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MilestoneCoursePosition">
+    <eLiterals name="start"/>
+    <eLiterals name="midcourse" value="1"/>
+    <eLiterals name="finish" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OrganizationCategory">
+    <eLiterals name="university"/>
+    <eLiterals name="masters" value="1"/>
+    <eLiterals name="highSchool" value="2"/>
+    <eLiterals name="corporate" value="3"/>
+    <eLiterals name="elite" value="4"/>
+    <eLiterals name="open" value="5"/>
+    <eLiterals name="adaptive" value="6"/>
+    <eLiterals name="alumni" value="7"/>
+    <eLiterals name="junior" value="8"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RaceLengthEventCategory">
+    <eLiterals name="dash"/>
+    <eLiterals name="marathon" value="1"/>
+    <eLiterals name="sprint500m" value="2"/>
+    <eLiterals name="sprint1000m" value="3"/>
+    <eLiterals name="sprint1500m" value="4"/>
+    <eLiterals name="sprint2000m" value="5"/>
+    <eLiterals name="head5000m" value="6"/>
+    <eLiterals name="combo" value="7"/>
+    <eLiterals name="relay" value="8"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RaceStatusType">
+    <eLiterals name="official"/>
+    <eLiterals name="protested" value="1"/>
+    <eLiterals name="preliminary" value="2"/>
+    <eLiterals name="scratched" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RacingCrewStatusType">
+    <eLiterals name="eligible"/>
+    <eLiterals name="scratched" value="1"/>
+    <eLiterals name="disqualified" value="2"/>
+    <eLiterals name="protesting" value="3"/>
+    <eLiterals name="didNotFinish" value="4"/>
+    <eLiterals name="finished" value="5"/>
+    <eLiterals name="exhibition" value="6"/>
+    <eLiterals name="excluded" value="7"/>
+    <eLiterals name="didNotStart" value="8"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ShellClassEventCategory">
+    <eLiterals name="none"/>
+    <eLiterals name="recreational" value="1"/>
+    <eLiterals name="visuallyImpaired" value="2"/>
+    <eLiterals name="adaptive" value="3"/>
+    <eLiterals name="alden" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ShellType">
+    <eLiterals name="single"/>
+    <eLiterals name="pairWithCoxswain" value="1"/>
+    <eLiterals name="pairWithoutCoxswain" value="2"/>
+    <eLiterals name="double" value="3"/>
+    <eLiterals name="fourWithCoxswain" value="4"/>
+    <eLiterals name="fourWithoutCoxswain" value="5"/>
+    <eLiterals name="quadWithCoxswain" value="6"/>
+    <eLiterals name="quadWithoutCoxswain" value="7"/>
+    <eLiterals name="eight" value="8"/>
+    <eLiterals name="octuple" value="9"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TransactionMethod">
+    <eLiterals name="creditCard"/>
+    <eLiterals name="check" value="1"/>
+    <eLiterals name="cash" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="UsaStateCode">
+    <eLiterals name="AL"/>
+    <eLiterals name="AK" value="1"/>
+    <eLiterals name="AS" value="2"/>
+    <eLiterals name="AA" value="3"/>
+    <eLiterals name="AE" value="4"/>
+    <eLiterals name="AP" value="5"/>
+    <eLiterals name="AZ" value="6"/>
+    <eLiterals name="AR" value="7"/>
+    <eLiterals name="CA" value="8"/>
+    <eLiterals name="CO" value="9"/>
+    <eLiterals name="CT" value="10"/>
+    <eLiterals name="DE" value="11"/>
+    <eLiterals name="DC" value="12"/>
+    <eLiterals name="FM" value="13"/>
+    <eLiterals name="FL" value="14"/>
+    <eLiterals name="GA" value="15"/>
+    <eLiterals name="GU" value="16"/>
+    <eLiterals name="HI" value="17"/>
+    <eLiterals name="ID" value="18"/>
+    <eLiterals name="IL" value="19"/>
+    <eLiterals name="IN" value="20"/>
+    <eLiterals name="IA" value="21"/>
+    <eLiterals name="KS" value="22"/>
+    <eLiterals name="KY" value="23"/>
+    <eLiterals name="LA" value="24"/>
+    <eLiterals name="ME" value="25"/>
+    <eLiterals name="MH" value="26"/>
+    <eLiterals name="MD" value="27"/>
+    <eLiterals name="MA" value="28"/>
+    <eLiterals name="MI" value="29"/>
+    <eLiterals name="MN" value="30"/>
+    <eLiterals name="MS" value="31"/>
+    <eLiterals name="MO" value="32"/>
+    <eLiterals name="MT" value="33"/>
+    <eLiterals name="NE" value="34"/>
+    <eLiterals name="NV" value="35"/>
+    <eLiterals name="NH" value="36"/>
+    <eLiterals name="NJ" value="37"/>
+    <eLiterals name="NM" value="38"/>
+    <eLiterals name="NY" value="39"/>
+    <eLiterals name="NC" value="40"/>
+    <eLiterals name="ND" value="41"/>
+    <eLiterals name="MP" value="42"/>
+    <eLiterals name="OH" value="43"/>
+    <eLiterals name="OK" value="44"/>
+    <eLiterals name="OR" value="45"/>
+    <eLiterals name="PW" value="46"/>
+    <eLiterals name="PA" value="47"/>
+    <eLiterals name="PR" value="48"/>
+    <eLiterals name="RI" value="49"/>
+    <eLiterals name="SC" value="50"/>
+    <eLiterals name="SD" value="51"/>
+    <eLiterals name="TN" value="52"/>
+    <eLiterals name="TX" value="53"/>
+    <eLiterals name="UT" value="54"/>
+    <eLiterals name="VT" value="55"/>
+    <eLiterals name="VI" value="56"/>
+    <eLiterals name="WA" value="57"/>
+    <eLiterals name="WV" value="58"/>
+    <eLiterals name="WI" value="59"/>
+    <eLiterals name="WY" value="60"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="WeightEventCategory">
+    <eLiterals name="lightweight"/>
+    <eLiterals name="midweight" value="1"/>
+    <eLiterals name="flyweight" value="2"/>
+    <eLiterals name="heavyweight" value="3"/>
+    <eLiterals name="boys145" value="4"/>
+    <eLiterals name="boys160" value="5"/>
+    <eLiterals name="girls130" value="6"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SeverityLevel">
+    <eLiterals name="info"/>
+    <eLiterals name="warning" value="1"/>
+    <eLiterals name="error" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="StageType">
+    <eLiterals name="Heat" literal="heat"/>
+    <eLiterals name="TimeTrial" value="1" literal="time-trial"/>
+    <eLiterals name="Repechage" value="2" literal="repechage"/>
+    <eLiterals name="QuarterFinal" value="3" literal="quarter-final"/>
+    <eLiterals name="SemiFinal" value="4" literal="semi-final"/>
+    <eLiterals name="PetiteFinal" value="5" literal="petite-final"/>
+    <eLiterals name="Final" value="6" literal="final"/>
+    <eLiterals name="Flight" value="7" literal="flight"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SelectionCriteriaType">
+    <eLiterals name="manual"/>
+    <eLiterals name="top_time" value="1"/>
+    <eLiterals name="top_place" value="2"/>
+    <eLiterals name="next_place" value="3"/>
+    <eLiterals name="remaining_by_time" value="4" literal="remaining_by_time"/>
+    <eLiterals name="remaining_by_place" value="5"/>
+    <eLiterals name="next_best_time" value="6"/>
+    <eLiterals name="all" value="7"/>
+    <eLiterals name="all_except_last_place" value="8" literal="all_except_last_place"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="StageFormatCategory">
+    <eLiterals name="sprint"/>
+    <eLiterals name="head" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RowingDirectionType">
+    <eLiterals name="lefttoright"/>
+    <eLiterals name="righttoleft" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LaneAssignmentMethod">
+    <eLiterals name="middleOutLow"/>
+    <eLiterals name="middleOutHigh" value="1"/>
+    <eLiterals name="firstToLast" value="2"/>
+    <eLiterals name="lastToFirst" value="3"/>
+    <eLiterals name="middleOutLowAlternatingReverse" value="4" literal="middleOutLowAlternatingReverse"/>
+    <eLiterals name="middleOutHighAlternatingReverse" value="5" literal="middleOutHighAlternatingReverse"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RaceAssignmentMethod">
+    <eLiterals name="fastAgainstSlow"/>
+    <eLiterals name="sameSpeedsTogether" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RaceAssignmentOrder">
+    <eLiterals name="roundRobin"/>
+    <eLiterals name="alternatingReverse" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RaceAssignmentStartingRace">
+    <eLiterals name="alternatingFirstLast" value="2"/>
+    <eLiterals name="first"/>
+    <eLiterals name="last"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SeedingCriteria">
+    <eLiterals name="random"/>
+    <eLiterals name="crewListOrder" value="1"/>
+    <eLiterals name="crewRanking" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SamePlaceRankingMethod">
+    <eLiterals name="roundRobinRaceOrder"/>
+    <eLiterals name="alternatingReverseRaceOrder" value="1"/>
+    <eLiterals name="time" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RaceResultsReadinessType">
+    <eLiterals name="unedited"/>
+    <eLiterals name="partial" value="1"/>
+    <eLiterals name="complete" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ApprovalStatus">
+    <eLiterals name="candidate"/>
+    <eLiterals name="selected" value="1"/>
+    <eLiterals name="approved" value="2"/>
+    <eLiterals name="finalized" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SplitPublicationThresholdRule">
+    <eLiterals name="ApprovedSplitAvailable" literal="approvedSplitAvailable"/>
+    <eLiterals name="CheckedSplitAvailable" value="1" literal="checkedSplitAvailable"/>
+    <eLiterals name="ThreeRawSplitsAvailable" value="2" literal="threeRawSplitsAvailable"/>
+    <eLiterals name="TwoRawSplitsAvailable" value="3" literal="twoRawSplitsAvailable"/>
+    <eLiterals name="FirstRawSplitAvailable" value="4" literal="firstRawSplitAvailable"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="WinningTimeType">
+    <eLiterals name="winningCrewTime"/>
+    <eLiterals name="timeOfDay" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SplitApprovalFlow">
+    <eLiterals name="LiveCaptureApproveAndFinalize" literal="liveCaptureApproveAndFinalize"/>
+    <eLiterals name="ResultsManagerApproveAndFinalize" value="1" literal="resultsManagerApproveAndFinalize"/>
+    <eLiterals name="LiveCaptureApproveResultsManagerFinalize" value="2" literal="liveCaptureApproveResultsManagerFinalize"/>
+    <eLiterals name="SplitCheckerApproveAndFinalize" value="3" literal="splitCheckerApproveAndFinalize"/>
+    <eLiterals name="SplitCheckerApproveResultsManagerFinalize" value="4" literal="splitCheckerApproveResultsManagerFinalize"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SplitCaptureTool">
+    <eLiterals name="LiveCapture" literal="liveCapture"/>
+    <eLiterals name="FinishLynx" value="1" literal="finishLynx"/>
+    <eLiterals name="StopWatch" value="2" literal="stopWatch"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ServicePriority">
+    <eLiterals name="Primary" literal="primary"/>
+    <eLiterals name="Backup" value="1" literal="backup"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CapturedResultsVersion">
+    <eLiterals name="primary" literal="Primary"/>
+    <eLiterals name="firstBackup" value="1" literal="First Backup"/>
+    <eLiterals name="secondBackup" value="2" literal="Second Backup"/>
+    <eLiterals name="checked" value="3" literal="Checked"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Confidence">
+    <eLiterals name="high" value="3"/>
+    <eLiterals name="medium" value="2"/>
+    <eLiterals name="low" value="1"/>
+    <eLiterals name="indeterminate"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Date" instanceClassName="com.humanfactor.utils.datetime.castor.Date"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="TelephoneNumberType" instanceClassName="java.lang.String"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Time" instanceClassName="com.humanfactor.utils.datetime.castor.Time"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="ZipCodeType" instanceClassName="java.lang.String"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="BigDecimal" instanceClassName="java.math.BigDecimal"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="DecoratorLocation">
+    <eLiterals name="append"/>
+    <eLiterals name="prepend" value="1"/>
+  </eClassifiers>
+</ecore:EPackage>
