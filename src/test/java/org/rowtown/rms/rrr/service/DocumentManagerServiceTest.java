@@ -44,6 +44,9 @@ class DocumentManagerServiceTest {
     private TdiModelInspector tdiModelInspector;
 
     @Mock
+    private TdiValidationService tdiValidationService;
+
+    @Mock
     private VersionControlService versionControlService;
 
     @Mock

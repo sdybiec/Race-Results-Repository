@@ -31,6 +31,7 @@ public class DocumentManagerService {
     private final StartListDocumentRepository startListDocumentRepository;
     private final RaceResultsDocumentRepository raceResultsDocumentRepository;
     private final TdiModelInspector tdiModelInspector;
+    private final TdiValidationService tdiValidationService;
     private final VersionControlService versionControlService;
     private final DocumentMetadataRepository metadataRepository;
     private final DocumentTagRepository tagRepository;
@@ -42,6 +43,9 @@ public class DocumentManagerService {
      */
     @Transactional
     public DocumentResponse createDocument(DocumentRequest request) {
+        // Reject malformed/foreign models before doing any work (HTTP 400).
+        tdiValidationService.validate(request.getModelData(), SerializationFormat.XMI);
+
         // Build the correct document subtype and validate its key.
         Document document;
         if (request.getType() == DocumentType.START_LIST) {
@@ -125,6 +129,9 @@ public class DocumentManagerService {
                                           String changeDescription, SerializationFormat format) {
         Document document = documentRepository.findById(documentId)
             .orElseThrow(() -> new ResourceNotFoundException("Document not found: " + documentId));
+
+        // Reject malformed/foreign models before creating a version (HTTP 400).
+        tdiValidationService.validate(modelData, format);
 
         // Create new version
         Version newVersion = versionControlService.createVersion(documentId, modelData, author, changeDescription, format);

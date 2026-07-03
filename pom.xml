@@ -28,6 +28,11 @@
 		<emf.ecore.version>2.39.0</emf.ecore.version>
 		<emf.xmi.version>2.39.0</emf.xmi.version>
 		<emf.compare.version>3.5.3-SNAPSHOT</emf.compare.version>
+		<!-- Generated TDI (Timing Data Interchange) model artifact.
+		     Adjust these coordinates to match your locally installed tdi-model jar. -->
+		<tdi.model.groupId>org.rowtown</tdi.model.groupId>
+		<tdi.model.artifactId>tdi-model</tdi.model.artifactId>
+		<tdi.model.version>1.0.0</tdi.model.version>
         <hessian.version>4.0.66</hessian.version>
         <mqtt.version>5.4.13</mqtt.version>
     </properties>
@@ -107,6 +112,14 @@
             <groupId>org.eclipse.emf.compare</groupId>
             <artifactId>org.eclipse.emf.compare</artifactId>
             <version>${emf.compare.version}</version>
+        </dependency>
+
+		<!-- Generated TDI model classes (EMF). Install locally with `mvn install`
+		     from the Timing-Data-Interchange project, or publish to your registry. -->
+        <dependency>
+            <groupId>${tdi.model.groupId}</groupId>
+            <artifactId>${tdi.model.artifactId}</artifactId>
+            <version>${tdi.model.version}</version>
         </dependency>
 
 		<!-- Hessian RPC -->
