@@ -1,6 +1,7 @@
 package org.rowtown.rms.rrr.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -65,7 +66,7 @@ class DocumentLifecycleIntegrationTest {
             .description("Integration test document")
             .tags(Set.of("test", "integration"))
             .metadata(Map.of("testKey", "testValue"))
-            .modelData(SampleData.raceResultsModel("1a"))
+            .modelData(SampleData.raceResultsPreliminary())
             .build();
 
         MvcResult createResult = mockMvc.perform(post("/api/v1/documents")
@@ -89,23 +90,23 @@ class DocumentLifecycleIntegrationTest {
             .andExpect(jsonPath("$.documentId").value(documentId))
             .andExpect(jsonPath("$.regattaId").value("INTEGRATION_TEST_2025"));
 
-        // Step 3: Update the document (creates version 2)
+        // Step 3: Update the document to final results (creates version 2)
         // Ingest validation rejects models the generated TDI classes cannot load,
-        // so updates must carry loadable TDI models rather than placeholder text.
+        // so updates must carry loadable TDI models.
         mockMvc.perform(put("/api/v1/documents/" + documentId)
-                .param("changeDescription", "Second version")
+                .param("changeDescription", "Final results")
                 .param("format", SerializationFormat.XMI.name())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .content(SampleData.loadableModel("v2")))
+                .content(SampleData.raceResultsFinal()))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.latestVersion").value(2L));
 
-        // Step 4: Update again (creates version 3)
+        // Step 4: Update again with a correction (creates version 3)
         mockMvc.perform(put("/api/v1/documents/" + documentId)
-                .param("changeDescription", "Third version")
+                .param("changeDescription", "Correction: bow 3 disqualified")
                 .param("format", SerializationFormat.XMI.name())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .content(SampleData.loadableModel("v3")))
+                .content(SampleData.raceResultsCorrected()))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.latestVersion").value(3L));
 
@@ -127,10 +128,22 @@ class DocumentLifecycleIntegrationTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.versionNumber").value(2L));
 
-        // Step 7: Compare versions (skipped - requires valid XMI/EMF model data)
-        // The test uses plain text data, not valid XMI, so comparison would fail
-        // mockMvc.perform(get("/api/v1/documents/" + documentId + "/versions/1/compare/3"))
-        //     .andExpect(status().isOk());
+        // Step 7: Compare version 1 (preliminary) with version 3 (corrected).
+        // Both are real, loadable TDI models, so EMF Compare reports the actual
+        // differences (race status, crew timing/eligibility, added penalty).
+        MvcResult compareResult = mockMvc.perform(
+                get("/api/v1/documents/" + documentId + "/versions/1/compare/3"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.totalChanges").isNumber())
+            .andReturn();
+
+        org.rowtown.rms.rrr.dto.ModelDiff diff = objectMapper.readValue(
+            compareResult.getResponse().getContentAsString(),
+            org.rowtown.rms.rrr.dto.ModelDiff.class);
+        assertTrue(diff.getTotalChanges() > 0,
+            "preliminary and corrected results should differ");
+        assertNotNull(diff.getChanges());
+        assertFalse(diff.getChanges().isEmpty(), "diff should list the changes");
 
         // Step 8: Rollback to version 2
         mockMvc.perform(post("/api/v1/documents/" + documentId + "/versions/rollback")

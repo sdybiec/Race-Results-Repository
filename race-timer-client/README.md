@@ -122,6 +122,12 @@ LocalDocument saved = client.saveRaceResults(
 System.out.println("Saved locally with ID: " + saved.getLocalId());
 ```
 
+> **Models are validated before they are saved.** `saveRaceResults` and
+> `updateRaceResults` load the model with the generated TDI classes and throw
+> `IllegalArgumentException` if it cannot be loaded (bad XMI, or not a TDI model).
+> This mirrors the server's fail-fast ingest policy, so an unusable capture is
+> rejected immediately instead of being queued for a sync the server would reject.
+
 ### 5. Update Race Results
 
 ```java

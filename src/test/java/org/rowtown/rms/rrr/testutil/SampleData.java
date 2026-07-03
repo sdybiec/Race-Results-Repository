@@ -20,6 +20,17 @@ public final class SampleData {
     public static final String STOTESBURY_2024_START_LIST =
         "Stotesbury-2024-05-17-race-start-master-updated-startlist.tdi";
 
+    /**
+     * Small, realistic Race Results fixtures for race {@code 1a}, forming a
+     * natural version progression: {@code preliminary} (crews entered, race
+     * scheduled) &rarr; {@code final} (crews finished, race official) &rarr;
+     * {@code corrected} (one crew disqualified with a penalty). Comparing any two
+     * exercises EMF Compare with meaningful, matchable differences.
+     */
+    public static final String RACE_RESULTS_1A_PRELIMINARY = "race-results-1a-preliminary.tdi";
+    public static final String RACE_RESULTS_1A_FINAL = "race-results-1a-final.tdi";
+    public static final String RACE_RESULTS_1A_CORRECTED = "race-results-1a-corrected.tdi";
+
     private SampleData() {
     }
 
@@ -49,6 +60,27 @@ public final class SampleData {
     }
 
     /**
+     * @return preliminary Race Results for race 1a (crews entered, not yet raced)
+     */
+    public static byte[] raceResultsPreliminary() {
+        return bytes(RACE_RESULTS_1A_PRELIMINARY);
+    }
+
+    /**
+     * @return final Race Results for race 1a (crews finished, race official)
+     */
+    public static byte[] raceResultsFinal() {
+        return bytes(RACE_RESULTS_1A_FINAL);
+    }
+
+    /**
+     * @return corrected Race Results for race 1a (one crew disqualified w/ penalty)
+     */
+    public static byte[] raceResultsCorrected() {
+        return bytes(RACE_RESULTS_1A_CORRECTED);
+    }
+
+    /**
      * Builds a minimal XMI Race Results model that carries the given race id, so
      * the server can derive {@code raceId} from it (see TdiModelInspector).
      *
@@ -63,20 +95,4 @@ public final class SampleData {
         return xmi.getBytes(java.nio.charset.StandardCharsets.UTF_8);
     }
 
-    /**
-     * Builds a minimal TDI model that loads cleanly into the generated classes,
-     * with the given marker embedded so successive versions differ in content.
-     *
-     * <p>Useful as an update payload: ingest validation rejects anything the
-     * generated classes cannot load, so tests must use loadable models rather
-     * than placeholder text.</p>
-     *
-     * @param marker distinguishing content for the version
-     * @return loadable XMI model bytes
-     */
-    public static byte[] loadableModel(String marker) {
-        String xmi = "<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
-            + "<tdi:TimingRegatta xmlns:tdi=\"http://www.rowtown.org/TDI/1.0.0\" shortName=\"" + marker + "\"/>\n";
-        return xmi.getBytes(java.nio.charset.StandardCharsets.UTF_8);
-    }
 }

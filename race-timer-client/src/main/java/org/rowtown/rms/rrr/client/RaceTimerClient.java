@@ -8,6 +8,7 @@ import org.rowtown.rms.rrr.client.mqtt.NotificationListener;
 import org.rowtown.rms.rrr.client.storage.LocalStorageManager;
 import org.rowtown.rms.rrr.client.sync.RaceResultsSyncEngine;
 import org.rowtown.rms.rrr.client.sync.StartListSyncEngine;
+import org.rowtown.rms.rrr.client.util.TdiModelValidator;
 
 import java.util.List;
 import java.util.Optional;
@@ -172,6 +173,10 @@ public class RaceTimerClient implements AutoCloseable {
      * @return Saved local document
      */
     public LocalDocument saveRaceResults(String milestoneId, String author, byte[] modelData) {
+        // Fail fast: reject models the generated TDI classes cannot load, matching
+        // the server's ingest policy, so unusable captures never enter the queue.
+        TdiModelValidator.validateLoadable(modelData);
+
         log.info("Saving race results for milestone: {}", milestoneId);
         LocalDocument doc = raceResultsSync.saveLocal(milestoneId, author, modelData);
 
@@ -191,6 +196,8 @@ public class RaceTimerClient implements AutoCloseable {
      * @return Updated local document
      */
     public LocalDocument updateRaceResults(Long localId, byte[] modelData) {
+        TdiModelValidator.validateLoadable(modelData);
+
         log.info("Updating race results: {}", localId);
         LocalDocument doc = raceResultsSync.updateLocal(localId, modelData);
 

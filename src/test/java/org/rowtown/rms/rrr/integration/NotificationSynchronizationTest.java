@@ -334,7 +334,7 @@ class NotificationSynchronizationTest {
         mockMvc.perform(put("/api/v1/documents/" + doc.getDocumentId())
                 .param("changeDescription", "Updated start list")
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .content(org.rowtown.rms.rrr.testutil.SampleData.loadableModel("v2")))
+                .content(org.rowtown.rms.rrr.testutil.SampleData.raceResultsFinal()))
             .andExpect(status().isOk());
 
         // Wait for both notifications

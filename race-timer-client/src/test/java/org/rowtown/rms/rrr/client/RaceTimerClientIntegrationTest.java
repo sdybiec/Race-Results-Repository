@@ -10,6 +10,7 @@ import org.rowtown.rms.rrr.client.api.RepositoryClient;
 import org.rowtown.rms.rrr.client.model.LocalDocument;
 import org.rowtown.rms.rrr.client.model.SyncStatus;
 import org.rowtown.rms.rrr.client.sync.RaceResultsSyncEngine;
+import org.rowtown.rms.rrr.client.testutil.SampleModels;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,7 +74,7 @@ class RaceTimerClientIntegrationTest {
         client = new RaceTimerClient(config("http://localhost:8080"));
 
         // Act 1: Save race results while offline
-        byte[] resultsData = "finish line results".getBytes();
+        byte[] resultsData = SampleModels.raceResults("1a");
         LocalDocument saved = client.saveRaceResults("finish", AUTHOR, resultsData);
 
         // Assert 1: Document saved locally
@@ -91,7 +92,7 @@ class RaceTimerClientIntegrationTest {
         assertEquals(saved.getLocalId(), allResults.get(0).getLocalId());
 
         // Act 3: Update the race results
-        byte[] updatedData = "updated finish line results".getBytes();
+        byte[] updatedData = SampleModels.raceResults("1a");
         LocalDocument updated = client.updateRaceResults(saved.getLocalId(), updatedData);
 
         // Assert 3: Document updated locally
@@ -110,9 +111,9 @@ class RaceTimerClientIntegrationTest {
         client = new RaceTimerClient(config("http://localhost:8080"));
 
         // Act: Save multiple race results for different milestones
-        client.saveRaceResults("finish", AUTHOR, "finish data".getBytes());
-        client.saveRaceResults("halfway", AUTHOR, "halfway data".getBytes());
-        client.saveRaceResults("start", AUTHOR, "start data".getBytes());
+        client.saveRaceResults("finish", AUTHOR, SampleModels.raceResults("1a"));
+        client.saveRaceResults("halfway", AUTHOR, SampleModels.raceResults("1a"));
+        client.saveRaceResults("start", AUTHOR, SampleModels.raceResults("1a"));
 
         // Assert: All documents saved
         List<LocalDocument> allResults = client.getAllRaceResults();
@@ -132,8 +133,8 @@ class RaceTimerClientIntegrationTest {
         client = new RaceTimerClient(config("http://localhost:8080"));
 
         // Save some pending results
-        client.saveRaceResults("finish", AUTHOR, "data".getBytes());
-        client.saveRaceResults("start", AUTHOR, "data".getBytes());
+        client.saveRaceResults("finish", AUTHOR, SampleModels.raceResults("1a"));
+        client.saveRaceResults("start", AUTHOR, SampleModels.raceResults("1a"));
 
         // Act
         RaceTimerClient.ClientStatus status = client.getStatus();
@@ -153,8 +154,8 @@ class RaceTimerClientIntegrationTest {
         // SECOND_BACKUP) would be produced by separate client instances.
         client = new RaceTimerClient(config("http://localhost:8080"));
 
-        client.saveRaceResults("finish", AUTHOR, "primary data".getBytes());
-        client.saveRaceResults("start", AUTHOR, "more data".getBytes());
+        client.saveRaceResults("finish", AUTHOR, SampleModels.raceResults("1a"));
+        client.saveRaceResults("start", AUTHOR, SampleModels.raceResults("1a"));
 
         List<LocalDocument> allResults = client.getAllRaceResults();
         assertEquals(2, allResults.size());
@@ -166,7 +167,7 @@ class RaceTimerClientIntegrationTest {
         client = new RaceTimerClient(config("http://localhost:8080"));
 
         // Save a document
-        client.saveRaceResults("finish", AUTHOR, "data".getBytes());
+        client.saveRaceResults("finish", AUTHOR, SampleModels.raceResults("1a"));
 
         // Act: Try to sync while offline
         RaceResultsSyncEngine.SyncResult result = client.syncRaceResults();
@@ -184,7 +185,7 @@ class RaceTimerClientIntegrationTest {
         client = new RaceTimerClient(config("http://localhost:8080"));
 
         // Save some data
-        client.saveRaceResults("finish", AUTHOR, "data".getBytes());
+        client.saveRaceResults("finish", AUTHOR, SampleModels.raceResults("1a"));
 
         // Act: Close client
         client.close();
@@ -192,6 +193,18 @@ class RaceTimerClientIntegrationTest {
         // Assert: Database file should exist (data persisted)
         File dbFile = new File(testDbPath);
         assertTrue(dbFile.exists());
+    }
+
+    @Test
+    void saveRaceResults_RejectsUnloadableModel() {
+        // Fail-fast: a model the generated TDI classes cannot load is rejected at
+        // capture time rather than queued for a sync the server would reject.
+        client = new RaceTimerClient(config("http://localhost:8080"));
+
+        assertThrows(IllegalArgumentException.class,
+            () -> client.saveRaceResults("finish", AUTHOR, "not a TDI model".getBytes()));
+
+        assertEquals(0, client.getPendingRaceResultsCount());
     }
 
     @Test

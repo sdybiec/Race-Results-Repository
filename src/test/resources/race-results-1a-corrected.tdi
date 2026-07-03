@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<tdi:TimingRegatta xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:tdi="http://www.rowtown.org/TDI/1.0.0" regattaId="Stotesbury Cup Regatta" day="17" month="5" year="2024" shortName="Stotesbury Cup Regatta">
+  <timingStation raceCourseId="1500 Meter Head Course" milestoneId="Finish Line" position="finish" progressDistance="1500.0"/>
+  <timingRace eventId="1" stageId="time-trial" raceId="1a" name="1a Girls Junior Double  Time Trial" raceNumber="1a" progressionRule="Top 18 Places to Semi-Finals" timingMethod="staggeredStart" status="official" shellType="double" scheduledDate="2024-05-17" scheduledTime="08:00">
+    <timingRacingCrew bowOrLaneNumber="1" name="Denis Morris  (K. McKimm)" statusId="eligible" strokeName="K. McKimm" timingStatus="finished" eligibilityStatus="eligible"/>
+    <timingRacingCrew bowOrLaneNumber="2" name="Hockaday  (A. Cuban)" statusId="eligible" strokeName="A. Cuban" timingStatus="finished" eligibilityStatus="eligible"/>
+    <timingRacingCrew bowOrLaneNumber="3" name="St. Michael  (K. Egorova)" statusId="disqualified" strokeName="K. Egorova" timingStatus="finished" eligibilityStatus="disqualified">
+      <penalty type="buoyViolation" name="Buoy Violation" code="BV" description="Crossed the buoy line in the finish sprint" assessment="1"/>
+    </timingRacingCrew>
+  </timingRace>
+</tdi:TimingRegatta>
