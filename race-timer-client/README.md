@@ -61,8 +61,9 @@ import org.rowtown.rms.rrr.client.RaceTimerClient.ClientConfig;
 
 // Configure the client
 ClientConfig config = new ClientConfig(
-    "HEAD2025",                           // regattaId
-    "timer001",                           // timerId
+    "Stotesbury Cup Regatta",             // regattaId (regatta name)
+    "2024-05-17",                         // regattaStartDate (ISO-8601); part of the regatta key
+    "PRIMARY",                            // timer role: PRIMARY | FIRST_BACKUP | SECOND_BACKUP
     "http://localhost:8080",              // serverUrl
     "tcp://localhost:1883",               // mqttBrokerUrl
     "./data/race-timer.db",               // localDatabasePath
@@ -111,11 +112,11 @@ client.enableAutoSync(5);
 // These will be queued for upload when online
 byte[] resultsData = captureTimingData(); // Your timing data
 
+// The timer role comes from the client config; the raceId is derived from the model.
 LocalDocument saved = client.saveRaceResults(
-    "finish",          // milestoneId
-    "primary",         // versionType (primary, firstBackup, secondBackup)
-    "timer001",        // author
-    resultsData        // EMF model data
+    "Finish Line",     // milestoneId
+    "timer@club.org",  // author
+    resultsData        // EMF model data (XMI; must identify its race)
 );
 
 System.out.println("Saved locally with ID: " + saved.getLocalId());
@@ -170,8 +171,9 @@ public class RaceTimerExample {
     public static void main(String[] args) {
         // Configure client
         ClientConfig config = new ClientConfig(
-            "HEAD2025",
-            "timer001",
+            "Stotesbury Cup Regatta",
+            "2024-05-17",
+            "PRIMARY",
             "http://localhost:8080",
             "tcp://localhost:1883",
             "./race-timer.db",
@@ -194,7 +196,7 @@ public class RaceTimerExample {
             byte[] results = createRaceResults(); // Your method
 
             LocalDocument saved = client.saveRaceResults(
-                "finish", "primary", "timer001", results
+                "Finish Line", "timer@club.org", results
             );
 
             System.out.println("Results saved locally: " + saved.getLocalId());
@@ -271,10 +273,11 @@ The client maintains a SQLite database with the following structure:
 local_id            INTEGER PRIMARY KEY
 server_id           INTEGER
 regatta_id          TEXT NOT NULL
-timer_id            TEXT
+regatta_start_date  TEXT
+race_id             TEXT
 milestone_id        TEXT
+timer               TEXT
 document_type       TEXT NOT NULL
-version_type        TEXT
 author              TEXT NOT NULL
 description         TEXT
 created_at          TEXT
@@ -286,7 +289,7 @@ last_synced_at      TEXT
 last_sync_error     TEXT
 retry_count         INTEGER DEFAULT 0
 model_data          BLOB
-serialization_format TEXT DEFAULT 'JSON'
+serialization_format TEXT DEFAULT 'XMI'
 local_created_at    TEXT NOT NULL
 ```
 
@@ -323,8 +326,7 @@ boolean startListNeedsSync()           // Check if update needed
 
 #### Race Results Operations
 ```java
-LocalDocument saveRaceResults(String milestoneId, String versionType,
-                              String author, byte[] modelData)
+LocalDocument saveRaceResults(String milestoneId, String author, byte[] modelData)
 LocalDocument updateRaceResults(Long localId, byte[] modelData)
 SyncResult syncRaceResults()
 List<LocalDocument> getAllRaceResults()
@@ -345,8 +347,9 @@ void syncAll()                         // Sync everything
 
 ```java
 ClientConfig config = new ClientConfig(
-    String regattaId,          // e.g., "HEAD2025"
-    String timerId,            // e.g., "timer001"
+    String regattaId,          // regatta name, e.g., "Stotesbury Cup Regatta"
+    String regattaStartDate,   // ISO-8601, e.g., "2024-05-17" (part of the regatta key)
+    String timer,              // this timer's role: "PRIMARY" | "FIRST_BACKUP" | "SECOND_BACKUP"
     String serverUrl,          // e.g., "http://api.example.com"
     String mqttBrokerUrl,      // e.g., "tcp://mqtt.example.com:1883"
     String localDatabasePath,  // e.g., "./data/timer.db"
@@ -401,7 +404,7 @@ if (!result.isSuccess()) {
 3. **Check sync status** before critical operations
 4. **Handle offline scenarios** gracefully
 5. **Monitor pending count** to ensure data isn't stuck
-6. **Use appropriate version types** (primary, firstBackup, secondBackup)
+6. **Configure the timer role** per client instance (PRIMARY, FIRST_BACKUP, SECOND_BACKUP)
 7. **Keep JWT tokens secure** and refresh as needed
 
 ## Testing

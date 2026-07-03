@@ -39,8 +39,9 @@ import { RaceTimerProvider } from '@rowtown/race-timer-client-web';
 
 function App() {
   const config = {
-    regattaId: 'HOSR2025',
-    timerId: 'timer-001',
+    regattaId: 'Stotesbury Cup Regatta',   // regatta name
+    regattaStartDate: '2024-05-17',        // ISO-8601; part of the regatta key
+    timer: 'PRIMARY',                      // this timer's role: PRIMARY | FIRST_BACKUP | SECOND_BACKUP
     serverUrl: 'https://api.example.com',
     mqttBrokerUrl: 'wss://mqtt.example.com:8083/mqtt',
     jwtToken: 'your-jwt-token',
@@ -73,11 +74,11 @@ function TimerComponent() {
       /* Your EMF model data */
     }));
 
+    // The timer role comes from the provider config; raceId is derived from the model.
     saveRaceResults(
-      'finish',           // milestoneId
-      'primary',          // versionType
-      'timer-001',        // author
-      modelData           // base64-encoded model data
+      'Finish Line',      // milestoneId
+      'timer@club.org',   // author
+      modelData           // base64-encoded XMI model data (must identify its race)
     );
   };
 
@@ -148,7 +149,7 @@ function AdvancedComponent() {
         Refresh Start List
       </button>
 
-      <button onClick={() => save('finish', 'primary', 'timer001', modelData)}>
+      <button onClick={() => save('Finish Line', 'timer@club.org', modelData)}>
         Save Result
       </button>
 
@@ -170,8 +171,9 @@ You can use the client directly without React:
 import { RaceTimerClient } from '@rowtown/race-timer-client-web';
 
 const client = new RaceTimerClient({
-  regattaId: 'HOSR2025',
-  timerId: 'timer-001',
+  regattaId: 'Stotesbury Cup Regatta',
+  regattaStartDate: '2024-05-17',
+  timer: 'PRIMARY',
   serverUrl: 'https://api.example.com',
   mqttBrokerUrl: 'wss://mqtt.example.com:8083/mqtt',
   jwtToken: 'your-jwt-token',
@@ -189,9 +191,8 @@ console.log('Start List:', startList);
 
 // Save race results
 const doc = client.saveRaceResults(
-  'finish',
-  'primary',
-  'timer-001',
+  'Finish Line',
+  'timer@club.org',
   btoa(JSON.stringify(modelData))
 );
 console.log('Saved:', doc.localId);
@@ -232,7 +233,7 @@ Hook that provides access to the full client context.
   syncStartList: () => Promise<boolean>;
   syncRaceResults: () => Promise<SyncResult>;
   syncAll: () => Promise<void>;
-  saveRaceResults: (milestoneId, versionType, author, modelData) => LocalDocument;
+  saveRaceResults: (milestoneId, author, modelData) => LocalDocument;
   updateRaceResults: (localId, modelData) => LocalDocument;
   refreshStatus: () => Promise<void>;
 }
@@ -264,7 +265,7 @@ Hook for managing Race Results.
   pendingCount: number;
   loading: boolean;
   error: Error | null;
-  save: (milestoneId, versionType, author, modelData) => LocalDocument;
+  save: (milestoneId, author, modelData) => LocalDocument;
   update: (localId, modelData) => LocalDocument;
   sync: () => Promise<SyncResult>;
   refresh: () => void;
@@ -333,8 +334,9 @@ function StorageIndicator() {
 
 ```typescript
 interface ClientConfig {
-  regattaId: string;        // Regatta identifier
-  timerId: string;          // Timer identifier
+  regattaId: string;        // Regatta name
+  regattaStartDate: string; // ISO-8601 (yyyy-MM-dd); part of the regatta key
+  timer: TimerRole;         // this timer's role: 'PRIMARY' | 'FIRST_BACKUP' | 'SECOND_BACKUP'
   serverUrl: string;        // Repository API URL
   mqttBrokerUrl: string;    // MQTT broker URL (WebSocket)
   jwtToken: string;         // JWT authentication token
@@ -347,11 +349,12 @@ interface ClientConfig {
 interface LocalDocument {
   localId: string;                      // Local unique ID
   serverId?: number;                    // Server document ID
-  regattaId: string;                    // Regatta ID
-  timerId?: string;                     // Timer ID (Race Results)
-  milestoneId?: string;                 // Milestone (e.g., "finish")
+  regattaId: string;                    // Regatta name
+  regattaStartDate: string;             // Regatta start date (ISO-8601)
+  raceId?: string;                      // Race ID (Race Results), derived from the model
+  milestoneId?: string;                 // Milestone (e.g., "Finish Line")
   documentType: 'START_LIST' | 'RACE_RESULTS';
-  versionType?: string;                 // "primary", "firstBackup", etc.
+  timer?: TimerRole;                    // 'PRIMARY' | 'FIRST_BACKUP' | 'SECOND_BACKUP'
   author?: string;                      // Document author
   description?: string;                 // Description
   localVersion: number;                 // Local version number
@@ -446,7 +449,7 @@ function SmartComponent() {
 
   const handleSave = () => {
     // Always save locally first
-    const doc = saveRaceResults(milestoneId, versionType, author, modelData);
+    const doc = saveRaceResults(milestoneId, author, modelData);
 
     if (status.online) {
       // Will auto-sync if online
