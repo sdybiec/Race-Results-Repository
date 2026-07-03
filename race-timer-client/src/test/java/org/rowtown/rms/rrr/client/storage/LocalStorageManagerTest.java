@@ -41,10 +41,11 @@ class LocalStorageManagerTest {
         // Create test document
         LocalDocument doc = LocalDocument.builder()
             .regattaId("TEST2025")
-            .timerId("timer001")
+            .regattaStartDate("2024-05-17")
+            .raceId("1a")
             .milestoneId("finish")
             .documentType("RACE_RESULTS")
-            .versionType("primary")
+            .timer("PRIMARY")
             .author("test@example.com")
             .description("Test document")
             .createdAt(LocalDateTime.now())
@@ -52,7 +53,7 @@ class LocalStorageManagerTest {
             .localVersion(1L)
             .syncStatus(SyncStatus.PENDING)
             .modelData("test data".getBytes())
-            .serializationFormat("JSON")
+            .serializationFormat("XMI")
             .build();
 
         // Save document
@@ -66,7 +67,7 @@ class LocalStorageManagerTest {
         Optional<LocalDocument> found = storage.findById(saved.getLocalId());
         assertTrue(found.isPresent());
         assertEquals("TEST2025", found.get().getRegattaId());
-        assertEquals("timer001", found.get().getTimerId());
+        assertEquals("PRIMARY", found.get().getTimer());
         assertEquals(SyncStatus.PENDING, found.get().getSyncStatus());
     }
 

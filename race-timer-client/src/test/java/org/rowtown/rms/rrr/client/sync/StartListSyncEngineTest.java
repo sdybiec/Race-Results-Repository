@@ -34,10 +34,11 @@ class StartListSyncEngineTest {
 
     private StartListSyncEngine syncEngine;
     private static final String REGATTA_ID = "TEST2025";
+    private static final String START_DATE = "2024-05-17";
 
     @BeforeEach
     void setUp() {
-        syncEngine = new StartListSyncEngine(storage, apiClient, REGATTA_ID);
+        syncEngine = new StartListSyncEngine(storage, apiClient, REGATTA_ID, START_DATE);
     }
 
     @Test
@@ -57,7 +58,7 @@ class StartListSyncEngineTest {
     void synchronize_NoStartListOnServer_ReturnsFalse() throws IOException {
         // Arrange
         when(apiClient.isServerReachable()).thenReturn(true);
-        when(apiClient.getStartList(REGATTA_ID)).thenReturn(null);
+        when(apiClient.getStartList(REGATTA_ID, START_DATE)).thenReturn(null);
 
         // Act
         boolean result = syncEngine.synchronize();
@@ -80,7 +81,7 @@ class StartListSyncEngineTest {
         serverDoc.latestVersion = 1L;
         serverDoc.modelData = "start list data".getBytes();
 
-        when(apiClient.getStartList(REGATTA_ID)).thenReturn(serverDoc);
+        when(apiClient.getStartList(REGATTA_ID, START_DATE)).thenReturn(serverDoc);
         when(storage.findByRegattaAndType(REGATTA_ID, "START_LIST"))
             .thenReturn(Collections.emptyList());
 
@@ -122,7 +123,7 @@ class StartListSyncEngineTest {
         serverDoc.latestVersion = 2L;
         serverDoc.modelData = "new data".getBytes();
 
-        when(apiClient.getStartList(REGATTA_ID)).thenReturn(serverDoc);
+        when(apiClient.getStartList(REGATTA_ID, START_DATE)).thenReturn(serverDoc);
         when(storage.findByRegattaAndType(REGATTA_ID, "START_LIST"))
             .thenReturn(List.of(localDoc));
 
@@ -154,7 +155,7 @@ class StartListSyncEngineTest {
         serverDoc.documentId = 1L;
         serverDoc.latestVersion = 1L;
 
-        when(apiClient.getStartList(REGATTA_ID)).thenReturn(serverDoc);
+        when(apiClient.getStartList(REGATTA_ID, START_DATE)).thenReturn(serverDoc);
         when(storage.findByRegattaAndType(REGATTA_ID, "START_LIST"))
             .thenReturn(List.of(localDoc));
 
@@ -183,7 +184,7 @@ class StartListSyncEngineTest {
         serverDoc.latestVersion = 2L;
         serverDoc.modelData = "data".getBytes();
 
-        when(apiClient.getStartList(REGATTA_ID)).thenReturn(serverDoc);
+        when(apiClient.getStartList(REGATTA_ID, START_DATE)).thenReturn(serverDoc);
         when(storage.findByRegattaAndType(REGATTA_ID, "START_LIST"))
             .thenReturn(List.of(localDoc));
         when(storage.save(any())).thenThrow(new RuntimeException("Database error"));

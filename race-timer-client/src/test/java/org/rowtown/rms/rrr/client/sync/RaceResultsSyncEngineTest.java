@@ -33,21 +33,22 @@ class RaceResultsSyncEngineTest {
 
     private RaceResultsSyncEngine syncEngine;
     private static final String REGATTA_ID = "TEST2025";
-    private static final String TIMER_ID = "timer001";
+    private static final String START_DATE = "2024-05-17";
+    private static final String TIMER = "PRIMARY";
 
     @BeforeEach
     void setUp() {
-        syncEngine = new RaceResultsSyncEngine(storage, apiClient, REGATTA_ID, TIMER_ID);
+        syncEngine = new RaceResultsSyncEngine(storage, apiClient, REGATTA_ID, START_DATE, TIMER);
     }
 
     @Test
     void saveLocal_CreatesNewDocument() {
         // Arrange
-        byte[] modelData = "race results data".getBytes();
+        byte[] modelData = "<timingRace raceId=\"1a\"/>".getBytes();
         LocalDocument savedDoc = LocalDocument.builder()
             .localId(1L)
             .regattaId(REGATTA_ID)
-            .timerId(TIMER_ID)
+            .timer(TIMER)
             .milestoneId("finish")
             .syncStatus(SyncStatus.PENDING)
             .build();
@@ -55,14 +56,15 @@ class RaceResultsSyncEngineTest {
         when(storage.save(any())).thenReturn(savedDoc);
 
         // Act
-        LocalDocument result = syncEngine.saveLocal("finish", "primary", "author", modelData);
+        LocalDocument result = syncEngine.saveLocal("finish", "author", modelData);
 
         // Assert
         assertNotNull(result);
         assertEquals(1L, result.getLocalId());
         verify(storage, times(1)).save(argThat(doc ->
             doc.getMilestoneId().equals("finish") &&
-            doc.getVersionType().equals("primary") &&
+            doc.getTimer().equals("PRIMARY") &&
+            "1a".equals(doc.getRaceId()) &&
             doc.getSyncStatus() == SyncStatus.PENDING
         ));
     }
@@ -142,10 +144,11 @@ class RaceResultsSyncEngineTest {
         LocalDocument localDoc = LocalDocument.builder()
             .localId(1L)
             .regattaId(REGATTA_ID)
-            .timerId(TIMER_ID)
+            .regattaStartDate(START_DATE)
+            .raceId("1a")
+            .timer(TIMER)
             .milestoneId("finish")
             .documentType("RACE_RESULTS")
-            .versionType("primary")
             .author("author")
             .syncStatus(SyncStatus.PENDING)
             .modelData("data".getBytes())
@@ -185,7 +188,8 @@ class RaceResultsSyncEngineTest {
             .localId(1L)
             .serverId(100L) // Already has server ID
             .regattaId(REGATTA_ID)
-            .timerId(TIMER_ID)
+            .regattaStartDate(START_DATE)
+            .timer(TIMER)
             .documentType("RACE_RESULTS")
             .syncStatus(SyncStatus.PENDING)
             .modelData("updated data".getBytes())
@@ -223,7 +227,8 @@ class RaceResultsSyncEngineTest {
         LocalDocument localDoc = LocalDocument.builder()
             .localId(1L)
             .regattaId(REGATTA_ID)
-            .timerId(TIMER_ID)
+            .regattaStartDate(START_DATE)
+            .timer(TIMER)
             .documentType("RACE_RESULTS")
             .syncStatus(SyncStatus.PENDING)
             .retryCount(0)
@@ -256,7 +261,8 @@ class RaceResultsSyncEngineTest {
         LocalDocument doc1 = LocalDocument.builder()
             .localId(1L)
             .regattaId(REGATTA_ID)
-            .timerId(TIMER_ID)
+            .regattaStartDate(START_DATE)
+            .timer(TIMER)
             .documentType("RACE_RESULTS")
             .syncStatus(SyncStatus.PENDING)
             .build();
@@ -264,7 +270,8 @@ class RaceResultsSyncEngineTest {
         LocalDocument doc2 = LocalDocument.builder()
             .localId(2L)
             .regattaId(REGATTA_ID)
-            .timerId(TIMER_ID)
+            .regattaStartDate(START_DATE)
+            .timer(TIMER)
             .documentType("RACE_RESULTS")
             .syncStatus(SyncStatus.PENDING)
             .build();
@@ -300,7 +307,8 @@ class RaceResultsSyncEngineTest {
         LocalDocument ourDoc = LocalDocument.builder()
             .localId(1L)
             .regattaId(REGATTA_ID)
-            .timerId(TIMER_ID)
+            .regattaStartDate(START_DATE)
+            .timer(TIMER)
             .documentType("RACE_RESULTS")
             .syncStatus(SyncStatus.PENDING)
             .build();
@@ -308,7 +316,8 @@ class RaceResultsSyncEngineTest {
         LocalDocument otherTimerDoc = LocalDocument.builder()
             .localId(2L)
             .regattaId(REGATTA_ID)
-            .timerId("timer002")
+            .regattaStartDate(START_DATE)
+            .timer("FIRST_BACKUP")
             .documentType("RACE_RESULTS")
             .syncStatus(SyncStatus.PENDING)
             .build();
@@ -319,26 +328,26 @@ class RaceResultsSyncEngineTest {
         RaceResultsSyncEngine.SyncResult result = syncEngine.synchronizePending();
 
         // Assert
-        assertEquals(1, result.totalDocuments); // Only our timer's doc
+        assertEquals(1, result.totalDocuments); // Only our timer role's doc
     }
 
     @Test
     void getPendingCount_ReturnsCorrectCount() {
         // Arrange
         LocalDocument pending1 = LocalDocument.builder()
-            .timerId(TIMER_ID)
+            .timer(TIMER)
             .documentType("RACE_RESULTS")
             .syncStatus(SyncStatus.PENDING)
             .build();
 
         LocalDocument pending2 = LocalDocument.builder()
-            .timerId(TIMER_ID)
+            .timer(TIMER)
             .documentType("RACE_RESULTS")
             .syncStatus(SyncStatus.FAILED)
             .build();
 
         LocalDocument otherTimer = LocalDocument.builder()
-            .timerId("other")
+            .timer("SECOND_BACKUP")
             .documentType("RACE_RESULTS")
             .syncStatus(SyncStatus.PENDING)
             .build();
@@ -349,22 +358,22 @@ class RaceResultsSyncEngineTest {
         int count = syncEngine.getPendingCount();
 
         // Assert
-        assertEquals(2, count); // Only this timer's pending docs
+        assertEquals(2, count); // Only this timer role's pending docs
     }
 
     @Test
     void getAllLocal_ReturnsOnlyThisTimersDocuments() {
         // Arrange
         LocalDocument ourDoc1 = LocalDocument.builder()
-            .timerId(TIMER_ID)
+            .timer(TIMER)
             .build();
 
         LocalDocument ourDoc2 = LocalDocument.builder()
-            .timerId(TIMER_ID)
+            .timer(TIMER)
             .build();
 
         LocalDocument otherDoc = LocalDocument.builder()
-            .timerId("other")
+            .timer("SECOND_BACKUP")
             .build();
 
         when(storage.findByRegattaAndType(REGATTA_ID, "RACE_RESULTS"))
@@ -375,6 +384,6 @@ class RaceResultsSyncEngineTest {
 
         // Assert
         assertEquals(2, result.size());
-        assertTrue(result.stream().allMatch(doc -> TIMER_ID.equals(doc.getTimerId())));
+        assertTrue(result.stream().allMatch(doc -> TIMER.equals(doc.getTimer())));
     }
 }

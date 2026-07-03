@@ -14,12 +14,8 @@ import org.rowtown.rms.rrr.client.sync.RaceResultsSyncEngine;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
 
 /**
  * Integration test for RaceTimerClient.
@@ -35,26 +31,26 @@ class RaceTimerClientIntegrationTest {
     private String testDbPath;
 
     private static final String REGATTA_ID = "INTEGRATION_TEST_2025";
-    private static final String TIMER_ID = "timer001";
+    private static final String START_DATE = "2025-05-17";
+    private static final String TIMER = "PRIMARY";
+    private static final String AUTHOR = "timer@example.com";
+
+    private RaceTimerClient.ClientConfig config(String serverUrl) {
+        return new RaceTimerClient.ClientConfig(
+            REGATTA_ID,
+            START_DATE,
+            TIMER,
+            serverUrl,
+            "tcp://localhost:1883",
+            testDbPath,
+            "test-jwt-token"
+        );
+    }
 
     @BeforeEach
     void setUp() {
         // Use temporary database for testing
         testDbPath = "target/test-db-" + System.currentTimeMillis() + ".db";
-
-        // We'll inject the mock API client after construction
-        // For now, create a config
-        RaceTimerClient.ClientConfig config = new RaceTimerClient.ClientConfig(
-            REGATTA_ID,
-            TIMER_ID,
-            "http://localhost:8080",
-            "tcp://localhost:1883",
-            testDbPath,
-            "test-jwt-token"
-        );
-
-        // Note: In a real integration test, we'd need dependency injection
-        // For this test, we'll work with the real client but test offline scenarios
     }
 
     @AfterEach
@@ -72,34 +68,19 @@ class RaceTimerClientIntegrationTest {
 
     @Test
     void offlineWorkflow_SaveAndRetrieveRaceResults() throws IOException {
-        // This test uses a real client with mocked server interactions
-        // to verify offline-first behavior
-
-        // Arrange
-        RaceTimerClient.ClientConfig config = new RaceTimerClient.ClientConfig(
-            REGATTA_ID,
-            TIMER_ID,
-            "http://localhost:8080", // Server won't be reachable
-            "tcp://localhost:1883",
-            testDbPath,
-            "test-jwt-token"
-        );
-
-        client = new RaceTimerClient(config);
+        // This test uses a real client with an unreachable server to verify
+        // offline-first behavior.
+        client = new RaceTimerClient(config("http://localhost:8080"));
 
         // Act 1: Save race results while offline
         byte[] resultsData = "finish line results".getBytes();
-        LocalDocument saved = client.saveRaceResults(
-            "finish",
-            "primary",
-            "timer001",
-            resultsData
-        );
+        LocalDocument saved = client.saveRaceResults("finish", AUTHOR, resultsData);
 
         // Assert 1: Document saved locally
         assertNotNull(saved);
         assertNotNull(saved.getLocalId());
         assertEquals("finish", saved.getMilestoneId());
+        assertEquals(TIMER, saved.getTimer());
         assertEquals(SyncStatus.PENDING, saved.getSyncStatus());
 
         // Act 2: Retrieve all race results
@@ -126,51 +107,21 @@ class RaceTimerClientIntegrationTest {
 
     @Test
     void multipleDocuments_OfflineStorage() {
-        // Arrange
-        RaceTimerClient.ClientConfig config = new RaceTimerClient.ClientConfig(
-            REGATTA_ID,
-            TIMER_ID,
-            "http://localhost:8080",
-            "tcp://localhost:1883",
-            testDbPath,
-            "test-jwt-token"
-        );
-
-        client = new RaceTimerClient(config);
+        client = new RaceTimerClient(config("http://localhost:8080"));
 
         // Act: Save multiple race results for different milestones
-        LocalDocument finish = client.saveRaceResults(
-            "finish",
-            "primary",
-            "timer001",
-            "finish data".getBytes()
-        );
-
-        LocalDocument halfway = client.saveRaceResults(
-            "halfway",
-            "primary",
-            "timer001",
-            "halfway data".getBytes()
-        );
-
-        LocalDocument start = client.saveRaceResults(
-            "start",
-            "primary",
-            "timer001",
-            "start data".getBytes()
-        );
+        client.saveRaceResults("finish", AUTHOR, "finish data".getBytes());
+        client.saveRaceResults("halfway", AUTHOR, "halfway data".getBytes());
+        client.saveRaceResults("start", AUTHOR, "start data".getBytes());
 
         // Assert: All documents saved
         List<LocalDocument> allResults = client.getAllRaceResults();
         assertEquals(3, allResults.size());
 
         // Verify each milestone
-        assertTrue(allResults.stream()
-            .anyMatch(doc -> "finish".equals(doc.getMilestoneId())));
-        assertTrue(allResults.stream()
-            .anyMatch(doc -> "halfway".equals(doc.getMilestoneId())));
-        assertTrue(allResults.stream()
-            .anyMatch(doc -> "start".equals(doc.getMilestoneId())));
+        assertTrue(allResults.stream().anyMatch(doc -> "finish".equals(doc.getMilestoneId())));
+        assertTrue(allResults.stream().anyMatch(doc -> "halfway".equals(doc.getMilestoneId())));
+        assertTrue(allResults.stream().anyMatch(doc -> "start".equals(doc.getMilestoneId())));
 
         // All should be pending
         assertEquals(3, client.getPendingRaceResultsCount());
@@ -178,21 +129,11 @@ class RaceTimerClientIntegrationTest {
 
     @Test
     void clientStatus_OfflineMode() {
-        // Arrange
-        RaceTimerClient.ClientConfig config = new RaceTimerClient.ClientConfig(
-            REGATTA_ID,
-            TIMER_ID,
-            "http://localhost:8080",
-            "tcp://localhost:1883",
-            testDbPath,
-            "test-jwt-token"
-        );
-
-        client = new RaceTimerClient(config);
+        client = new RaceTimerClient(config("http://localhost:8080"));
 
         // Save some pending results
-        client.saveRaceResults("finish", "primary", "timer001", "data".getBytes());
-        client.saveRaceResults("start", "primary", "timer001", "data".getBytes());
+        client.saveRaceResults("finish", AUTHOR, "data".getBytes());
+        client.saveRaceResults("start", AUTHOR, "data".getBytes());
 
         // Act
         RaceTimerClient.ClientStatus status = client.getStatus();
@@ -206,70 +147,26 @@ class RaceTimerClientIntegrationTest {
     }
 
     @Test
-    void versionType_DifferentBackups() {
-        // Arrange
-        RaceTimerClient.ClientConfig config = new RaceTimerClient.ClientConfig(
-            REGATTA_ID,
-            TIMER_ID,
-            "http://localhost:8080",
-            "tcp://localhost:1883",
-            testDbPath,
-            "test-jwt-token"
-        );
+    void raceResults_CarryConfiguredTimerRole() {
+        // A client instance is fixed to one timer role (see ClientConfig); every
+        // document it saves carries that role. Different roles (FIRST_BACKUP,
+        // SECOND_BACKUP) would be produced by separate client instances.
+        client = new RaceTimerClient(config("http://localhost:8080"));
 
-        client = new RaceTimerClient(config);
+        client.saveRaceResults("finish", AUTHOR, "primary data".getBytes());
+        client.saveRaceResults("start", AUTHOR, "more data".getBytes());
 
-        // Act: Save different version types for same milestone
-        LocalDocument primary = client.saveRaceResults(
-            "finish",
-            "primary",
-            "timer001",
-            "primary data".getBytes()
-        );
-
-        LocalDocument firstBackup = client.saveRaceResults(
-            "finish",
-            "firstBackup",
-            "timer002",
-            "backup1 data".getBytes()
-        );
-
-        LocalDocument secondBackup = client.saveRaceResults(
-            "finish",
-            "secondBackup",
-            "timer003",
-            "backup2 data".getBytes()
-        );
-
-        // Assert: All three versions saved
         List<LocalDocument> allResults = client.getAllRaceResults();
-        assertEquals(3, allResults.size());
-
-        // Verify version types
-        assertTrue(allResults.stream()
-            .anyMatch(doc -> "primary".equals(doc.getVersionType())));
-        assertTrue(allResults.stream()
-            .anyMatch(doc -> "firstBackup".equals(doc.getVersionType())));
-        assertTrue(allResults.stream()
-            .anyMatch(doc -> "secondBackup".equals(doc.getVersionType())));
+        assertEquals(2, allResults.size());
+        assertTrue(allResults.stream().allMatch(doc -> TIMER.equals(doc.getTimer())));
     }
 
     @Test
     void synchronization_FailsGracefully_WhenOffline() {
-        // Arrange
-        RaceTimerClient.ClientConfig config = new RaceTimerClient.ClientConfig(
-            REGATTA_ID,
-            TIMER_ID,
-            "http://localhost:8080",
-            "tcp://localhost:1883",
-            testDbPath,
-            "test-jwt-token"
-        );
-
-        client = new RaceTimerClient(config);
+        client = new RaceTimerClient(config("http://localhost:8080"));
 
         // Save a document
-        client.saveRaceResults("finish", "primary", "timer001", "data".getBytes());
+        client.saveRaceResults("finish", AUTHOR, "data".getBytes());
 
         // Act: Try to sync while offline
         RaceResultsSyncEngine.SyncResult result = client.syncRaceResults();
@@ -284,20 +181,10 @@ class RaceTimerClientIntegrationTest {
 
     @Test
     void closeClient_CleansUpResources() {
-        // Arrange
-        RaceTimerClient.ClientConfig config = new RaceTimerClient.ClientConfig(
-            REGATTA_ID,
-            TIMER_ID,
-            "http://localhost:8080",
-            "tcp://localhost:1883",
-            testDbPath,
-            "test-jwt-token"
-        );
-
-        client = new RaceTimerClient(config);
+        client = new RaceTimerClient(config("http://localhost:8080"));
 
         // Save some data
-        client.saveRaceResults("finish", "primary", "timer001", "data".getBytes());
+        client.saveRaceResults("finish", AUTHOR, "data".getBytes());
 
         // Act: Close client
         client.close();
@@ -305,24 +192,11 @@ class RaceTimerClientIntegrationTest {
         // Assert: Database file should exist (data persisted)
         File dbFile = new File(testDbPath);
         assertTrue(dbFile.exists());
-
-        // Subsequent operations should fail or handle gracefully
-        // (In production code, we'd add state checking)
     }
 
     @Test
     void isOnline_ReturnsFalse_WhenServerUnreachable() {
-        // Arrange
-        RaceTimerClient.ClientConfig config = new RaceTimerClient.ClientConfig(
-            REGATTA_ID,
-            TIMER_ID,
-            "http://localhost:9999", // Non-existent server
-            "tcp://localhost:1883",
-            testDbPath,
-            "test-jwt-token"
-        );
-
-        client = new RaceTimerClient(config);
+        client = new RaceTimerClient(config("http://localhost:9999"));
 
         // Act
         boolean online = client.isOnline();
