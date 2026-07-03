@@ -53,38 +53,37 @@ Once registered, `deserialize(...)` returns the generated types (e.g.
 `TdiValidationService` validates submitted models before they are stored. It is
 controlled by two properties:
 
+**Fail-fast policy.** A model that the generated TDI classes cannot load is
+unusable elsewhere in the timing system, so it is **rejected at ingest** rather
+than stored. Every accepted document is therefore guaranteed to load into the
+generated classes.
+
 | Property | Default | Behavior |
 |---|---|---|
-| `rrr.tdi.validation.enabled` | `true` | When `false`, validation is skipped entirely (fully opaque). |
-| `rrr.tdi.validation.strict` | `false` | When `true`, require a clean typed load and reject models with EMF `ERROR`-level problems (HTTP 400). |
+| `rrr.tdi.validation.enabled` | `true` | When `false`, validation is skipped entirely (fully opaque; no load guarantee). |
+| `rrr.tdi.validation.strict` | `false` | When `true`, additionally reject models that load but have EMF `ERROR`-level problems (HTTP 400). |
 
-**Default is lenient.** A payload is accepted if it *either*:
+With validation enabled (default), a payload is rejected with HTTP 400 unless it:
 
-1. loads cleanly into the generated classes (then EMF `Diagnostician` runs;
-   structural problems are logged, not rejected), **or**
-2. is a well-formed XML document whose root is in the TDI namespace
-   (`http://www.rowtown.org/TDI/1.0.0`), checked with StAX via
-   `TdiModelInspector` — no dependency on the generated datatype converters.
+1. loads into the generated classes (a failed typed load — bad XML, or a value
+   the generated datatype converters reject — is rejected), **and**
+2. is in the TDI namespace (`http://www.rowtown.org/TDI/1.0.0`).
 
-Only payloads that are neither (not well-formed XML, or a foreign namespace) are
-rejected with HTTP 400.
-
-This two-tier check is deliberate. Real documents can be valid TDI yet fail a
-*typed* load for two independent reasons:
-
-- **Omitted fields** — a start list legitimately omits result-only required
-  features (e.g. `TimingStation.position`, `TimingStation.progressDistance`).
-- **Datatype/version skew** — the generated model's datatype converters can
-  reject otherwise-valid values (observed: the generated `LocalDate` converter
-  rejecting an ISO date such as `2024-05-17`). EMF aborts the whole load in that
-  case.
-
-Because storage is byte-opaque, such documents must still be accepted. Strict
-mode is available for pipelines whose producers emit fully-populated,
-cleanly-loadable models.
+Once loaded, EMF `Diagnostician` runs. Structural problems (e.g. a start list
+omitting result-only required features such as `TimingStation.position`) are
+logged but not rejected in the default mode; `strict=true` rejects them too.
 
 Rejections are raised as `IllegalArgumentException`, which
 `GlobalExceptionHandler` maps to HTTP 400.
+
+> **Loadability depends on the generated model.** The generated datatype
+> converters must be able to parse every value your producers emit. If a
+> converter is unimplemented or stricter than the data (observed: the generated
+> `LocalDate`/`LocalTime` converters fall through to `EFactoryImpl` and reject
+> ISO values such as `2024-05-17`), EMF aborts the whole load and the document is
+> rejected. Fix such converters in the `tdi-model` project (regenerate with
+> `@generated NOT` conversion methods), otherwise valid real-world documents
+> cannot be ingested.
 
 > Generated *custom* invariants (from a generated `…Validator`) do not run in a
 > standalone (non-OSGi) runtime unless the validator is registered in

@@ -330,10 +330,11 @@ class NotificationSynchronizationTest {
         Thread.sleep(500);
 
         // Step 2: Update Start List (triggers another notification)
+        // Ingest validation requires a loadable TDI model, not placeholder text.
         mockMvc.perform(put("/api/v1/documents/" + doc.getDocumentId())
                 .param("changeDescription", "Updated start list")
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .content("Version 2 data".getBytes()))
+                .content(org.rowtown.rms.rrr.testutil.SampleData.loadableModel("v2")))
             .andExpect(status().isOk());
 
         // Wait for both notifications

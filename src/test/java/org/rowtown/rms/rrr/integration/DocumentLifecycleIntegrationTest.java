@@ -90,11 +90,13 @@ class DocumentLifecycleIntegrationTest {
             .andExpect(jsonPath("$.regattaId").value("INTEGRATION_TEST_2025"));
 
         // Step 3: Update the document (creates version 2)
+        // Ingest validation rejects models the generated TDI classes cannot load,
+        // so updates must carry loadable TDI models rather than placeholder text.
         mockMvc.perform(put("/api/v1/documents/" + documentId)
                 .param("changeDescription", "Second version")
                 .param("format", SerializationFormat.XMI.name())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .content("Updated model data".getBytes()))
+                .content(SampleData.loadableModel("v2")))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.latestVersion").value(2L));
 
@@ -103,7 +105,7 @@ class DocumentLifecycleIntegrationTest {
                 .param("changeDescription", "Third version")
                 .param("format", SerializationFormat.XMI.name())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .content("Third version model data".getBytes()))
+                .content(SampleData.loadableModel("v3")))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.latestVersion").value(3L));
 

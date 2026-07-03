@@ -3,8 +3,6 @@ package org.rowtown.rms.rrr.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import org.rowtown.rms.rrr.config.TdiModelConfig;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -67,38 +65,5 @@ public class TdiModelInspector {
             log.debug("Could not parse model as XMI to extract raceId: {}", e.getMessage());
         }
         return null;
-    }
-
-    /**
-     * Lightweight, schema-agnostic check that the payload is a well-formed XML
-     * document whose root element is in the TDI namespace.
-     *
-     * <p>Unlike typed EMF deserialization, this does not depend on the generated
-     * model's datatype converters, so it accepts real documents that are valid
-     * TDI but that the generated classes cannot fully load (e.g. due to
-     * model/data version skew). Used as the lenient fallback for ingest
-     * validation.</p>
-     *
-     * @return {@code true} if the root element's namespace is the TDI namespace
-     */
-    public boolean isTdiDocument(byte[] modelData) {
-        if (modelData == null || modelData.length == 0) {
-            return false;
-        }
-        try {
-            XMLStreamReader reader = XML_INPUT_FACTORY.createXMLStreamReader(new ByteArrayInputStream(modelData));
-            try {
-                while (reader.hasNext()) {
-                    if (reader.next() == XMLStreamConstants.START_ELEMENT) {
-                        return TdiModelConfig.TDI_NS_URI.equals(reader.getNamespaceURI());
-                    }
-                }
-            } finally {
-                reader.close();
-            }
-        } catch (XMLStreamException e) {
-            log.debug("Model data is not well-formed XML: {}", e.getMessage());
-        }
-        return false;
     }
 }

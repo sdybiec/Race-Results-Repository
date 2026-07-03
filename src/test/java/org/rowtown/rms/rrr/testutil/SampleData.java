@@ -62,4 +62,21 @@ public final class SampleData {
             + "</tdi:TimingRegatta>\n";
         return xmi.getBytes(java.nio.charset.StandardCharsets.UTF_8);
     }
+
+    /**
+     * Builds a minimal TDI model that loads cleanly into the generated classes,
+     * with the given marker embedded so successive versions differ in content.
+     *
+     * <p>Useful as an update payload: ingest validation rejects anything the
+     * generated classes cannot load, so tests must use loadable models rather
+     * than placeholder text.</p>
+     *
+     * @param marker distinguishing content for the version
+     * @return loadable XMI model bytes
+     */
+    public static byte[] loadableModel(String marker) {
+        String xmi = "<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
+            + "<tdi:TimingRegatta xmlns:tdi=\"http://www.rowtown.org/TDI/1.0.0\" shortName=\"" + marker + "\"/>\n";
+        return xmi.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+    }
 }

@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.rowtown.rms.rrr.config.TdiModelConfig;
 import org.rowtown.rms.rrr.domain.SerializationFormat;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,24 +18,24 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class TdiValidationServiceTest {
 
-    private static final Path SAMPLE_START_LIST = Path.of(
-        "src/test/resources/Stotesbury-2024-05-17-race-start-master-updated-startlist.tdi");
+    /** A minimal TDI model that loads cleanly into the generated classes. */
+    private static final byte[] LOADABLE_MODEL = (
+        "<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
+        + "<tdi:TimingRegatta xmlns:tdi=\"" + TdiModelConfig.TDI_NS_URI + "\" regattaId=\"Test\">\n"
+        + "  <timingRace raceId=\"1a\"/>\n"
+        + "</tdi:TimingRegatta>\n").getBytes(StandardCharsets.UTF_8);
 
     private TdiValidationService validationService(boolean enabled, boolean strict) {
         EPackage tdiPackage = new TdiModelConfig().tdiPackage();
         ModelSerializationService serialization = new ModelSerializationService(List.of(tdiPackage));
-        return new TdiValidationService(serialization, new TdiModelInspector(), enabled, strict);
+        return new TdiValidationService(serialization, enabled, strict);
     }
 
     @Test
-    void validate_RealStartList_LenientMode_Accepts() throws Exception {
+    void validate_LoadableModel_Accepts() {
         TdiValidationService validation = validationService(true, false);
-        byte[] data = Files.readAllBytes(SAMPLE_START_LIST);
 
-        // A real start list may omit result-only fields, and the generated model's
-        // datatype converters may reject otherwise-valid values (version skew).
-        // Lenient mode must still accept a well-formed TDI document.
-        assertDoesNotThrow(() -> validation.validate(data, SerializationFormat.XMI));
+        assertDoesNotThrow(() -> validation.validate(LOADABLE_MODEL, SerializationFormat.XMI));
     }
 
     @Test
@@ -44,8 +43,20 @@ class TdiValidationServiceTest {
         TdiValidationService validation = validationService(true, false);
         byte[] garbage = "this is not an XMI document".getBytes();
 
+        // Fail-fast: anything the generated classes cannot load is rejected.
         assertThrows(IllegalArgumentException.class,
             () -> validation.validate(garbage, SerializationFormat.XMI));
+    }
+
+    @Test
+    void validate_ForeignNamespace_Rejected() {
+        TdiValidationService validation = validationService(true, false);
+        byte[] foreign = (
+            "<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
+            + "<other xmlns=\"http://example.org/other\"/>\n").getBytes(StandardCharsets.UTF_8);
+
+        assertThrows(IllegalArgumentException.class,
+            () -> validation.validate(foreign, SerializationFormat.XMI));
     }
 
     @Test
