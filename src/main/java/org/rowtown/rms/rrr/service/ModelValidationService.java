@@ -5,28 +5,32 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.rowtown.rms.rrr.config.RmlModelConfig;
 import org.rowtown.rms.rrr.config.TdiModelConfig;
+import org.rowtown.rms.rrr.domain.DocumentType;
 import org.rowtown.rms.rrr.domain.SerializationFormat;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Validates submitted TDI (Timing Data Interchange) models on ingest, using the
- * generated EMF model.
+ * Validates submitted EMF models on ingest, per document type, using the
+ * generated models.
  *
- * <p><strong>Fail-fast policy.</strong> A model that the generated TDI classes
- * cannot load is unusable elsewhere in the timing system, so it is rejected at
- * ingest rather than stored. Every accepted document is therefore guaranteed to
- * load into the generated classes.</p>
+ * <p><strong>Fail-fast policy.</strong> A model that the generated classes
+ * cannot load is unusable elsewhere in the system, so it is rejected at ingest
+ * rather than stored. The model must also be in the namespace expected for its
+ * document type, which prevents cross-type payloads (e.g. an RML model submitted
+ * as race results).</p>
  *
- * <p>Behavior is controlled by two properties:</p>
+ * <p>Controlled by two properties:</p>
  * <ul>
- *   <li>{@code rrr.tdi.validation.enabled=false} &mdash; skip entirely (bytes
- *       are treated as opaque; no load guarantee).</li>
- *   <li>{@code enabled=true, strict=false} (default) &mdash; the payload must
- *       load into the generated classes and be in the TDI namespace. Structural
+ *   <li>{@code rrr.tdi.validation.enabled=false} &mdash; skip entirely (opaque
+ *       bytes; no load guarantee).</li>
+ *   <li>{@code enabled=true, strict=false} (default) &mdash; must load into the
+ *       generated classes and match the expected namespace; structural
  *       ({@link Diagnostician}) problems are logged but not rejected.</li>
  *   <li>{@code enabled=true, strict=true} &mdash; additionally reject models
  *       that load but have {@link Diagnostic#ERROR}-level problems.</li>
@@ -37,13 +41,20 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
-public class TdiValidationService {
+public class ModelValidationService {
+
+    /** Expected metamodel namespace per document type. */
+    private static final Map<DocumentType, String> EXPECTED_NS_URI = Map.of(
+        DocumentType.START_LIST, TdiModelConfig.TDI_NS_URI,
+        DocumentType.RACE_RESULTS, TdiModelConfig.TDI_NS_URI,
+        DocumentType.RML, RmlModelConfig.RML_NS_URI
+    );
 
     private final ModelSerializationService serializationService;
     private final boolean enabled;
     private final boolean strict;
 
-    public TdiValidationService(
+    public ModelValidationService(
             ModelSerializationService serializationService,
             @Value("${rrr.tdi.validation.enabled:true}") boolean enabled,
             @Value("${rrr.tdi.validation.strict:false}") boolean strict) {
@@ -53,13 +64,13 @@ public class TdiValidationService {
     }
 
     /**
-     * Validate model bytes. No-op when validation is disabled.
+     * Validate model bytes for the given document type. No-op when disabled.
      *
      * @throws IllegalArgumentException if the payload cannot be loaded by the
-     *         generated TDI classes, is not a TDI model, or (in strict mode) has
-     *         ERROR-level problems.
+     *         generated classes, is in the wrong namespace for its type, or (in
+     *         strict mode) has ERROR-level problems.
      */
-    public void validate(byte[] modelData, SerializationFormat format) {
+    public void validate(byte[] modelData, SerializationFormat format, DocumentType type) {
         if (!enabled) {
             return;
         }
@@ -67,37 +78,37 @@ public class TdiValidationService {
             throw new IllegalArgumentException("Model data is required");
         }
 
-        // Fail-fast: the model MUST load into the generated TDI classes.
+        // Fail-fast: the model MUST load into the generated classes.
         EObject root;
         try {
             root = serializationService.deserializeToEObject(modelData, format);
         } catch (Exception ex) {
             throw new IllegalArgumentException(
-                "Model cannot be loaded by the generated TDI classes and would be "
-                    + "unusable in the timing system: " + ex.getMessage(), ex);
+                "Model cannot be loaded by the generated classes and would be unusable: "
+                    + ex.getMessage(), ex);
         }
         if (root == null) {
-            throw new IllegalArgumentException(
-                "Model data did not contain a loadable TDI model object");
+            throw new IllegalArgumentException("Model data did not contain a loadable model object");
         }
 
         EPackage ePackage = root.eClass().getEPackage();
         String nsUri = ePackage != null ? ePackage.getNsURI() : null;
-        if (!TdiModelConfig.TDI_NS_URI.equals(nsUri)) {
+        String expected = EXPECTED_NS_URI.get(type);
+        if (expected != null && !expected.equals(nsUri)) {
             throw new IllegalArgumentException(
-                "Model is not a TDI model (expected namespace " + TdiModelConfig.TDI_NS_URI
-                    + " but was " + nsUri + ")");
+                "Model namespace " + nsUri + " does not match the expected namespace "
+                    + expected + " for document type " + type);
         }
 
         Diagnostic diagnostic = Diagnostician.INSTANCE.validate(root);
         if (diagnostic.getSeverity() >= Diagnostic.ERROR) {
             String summary = summarize(diagnostic);
             if (strict) {
-                throw new IllegalArgumentException("TDI model failed validation: " + summary);
+                throw new IllegalArgumentException("Model failed validation: " + summary);
             }
-            log.warn("TDI model has validation errors (accepted; strict mode off): {}", summary);
+            log.warn("Model has validation errors (accepted; strict mode off): {}", summary);
         } else if (diagnostic.getSeverity() >= Diagnostic.WARNING) {
-            log.debug("TDI model validation warnings: {}", summarize(diagnostic));
+            log.debug("Model validation warnings: {}", summarize(diagnostic));
         }
     }
 

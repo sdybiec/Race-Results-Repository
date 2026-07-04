@@ -13,7 +13,9 @@ import org.rowtown.rms.rrr.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,7 +33,9 @@ public class DocumentManagerService {
     private final StartListDocumentRepository startListDocumentRepository;
     private final RaceResultsDocumentRepository raceResultsDocumentRepository;
     private final TdiModelInspector tdiModelInspector;
-    private final TdiValidationService tdiValidationService;
+    private final EmfDocumentInspector emfDocumentInspector;
+    private final ModelValidationService modelValidationService;
+    private final RegattaDefinitionDocumentRepository regattaDefinitionDocumentRepository;
     private final VersionControlService versionControlService;
     private final DocumentMetadataRepository metadataRepository;
     private final DocumentTagRepository tagRepository;
@@ -43,16 +47,25 @@ public class DocumentManagerService {
      */
     @Transactional
     public DocumentResponse createDocument(DocumentRequest request) {
-        // Reject malformed/foreign models before doing any work (HTTP 400).
-        tdiValidationService.validate(request.getModelData(), SerializationFormat.XMI);
+        // Reject malformed / wrong-namespace models before doing any work (400).
+        DocumentType type = request.getType();
+        modelValidationService.validate(request.getModelData(), SerializationFormat.XMI, type);
 
         // Build the correct document subtype and validate its key.
         Document document;
-        if (request.getType() == DocumentType.START_LIST) {
+        if (type == DocumentType.START_LIST) {
             validateStartListCreation(request);
             StartListDocument startList = new StartListDocument();
             applyCommonFields(startList, request);
             document = startList;
+        } else if (type == DocumentType.RML) {
+            // The regatta key (name + start date) is derived from the RML model
+            // itself and is authoritative.
+            RegattaDefinitionDocument rml = new RegattaDefinitionDocument();
+            applyCommonFields(rml, request);
+            applyRmlDerivedKey(rml, request);
+            validateRmlCreation(rml);
+            document = rml;
         } else {
             // Race Results: raceId is derived from the submitted model, not the client.
             String raceId = tdiModelInspector.extractRaceId(request.getModelData());
@@ -130,8 +143,8 @@ public class DocumentManagerService {
         Document document = documentRepository.findById(documentId)
             .orElseThrow(() -> new ResourceNotFoundException("Document not found: " + documentId));
 
-        // Reject malformed/foreign models before creating a version (HTTP 400).
-        tdiValidationService.validate(modelData, format);
+        // Reject malformed / wrong-namespace models before creating a version (400).
+        modelValidationService.validate(modelData, format, document.getDocumentType());
 
         // Create new version
         Version newVersion = versionControlService.createVersion(documentId, modelData, author, changeDescription, format);
@@ -203,6 +216,64 @@ public class DocumentManagerService {
         document.setAuthor(request.getAuthor());
         document.setDescription(request.getDescription());
         document.setLatestVersion(0L);
+        // Record the metamodel namespace so each document is self-describing.
+        document.setModelNsUri(emfDocumentInspector.rootNamespace(request.getModelData()));
+    }
+
+    /**
+     * Derive the regatta key (name + start date) from the RML model and set it as
+     * authoritative, rejecting any client-supplied value that disagrees.
+     */
+    private void applyRmlDerivedKey(RegattaDefinitionDocument rml, DocumentRequest request) {
+        byte[] modelData = request.getModelData();
+        String name = emfDocumentInspector.rootAttribute(modelData, "name");
+        String startDateRaw = emfDocumentInspector.rootAttribute(modelData, "startDate");
+        if (name == null || startDateRaw == null) {
+            throw new IllegalArgumentException(
+                "RML model must specify 'name' and 'startDate' on the root Regatta element");
+        }
+        LocalDate startDate = parseRegattaStartDate(startDateRaw);
+
+        // Server-authoritative: reject if a client-supplied key disagrees with the model.
+        if (request.getRegattaId() != null && !name.equals(request.getRegattaId())) {
+            throw new IllegalArgumentException(String.format(
+                "regattaId '%s' does not match the RML model's regatta name '%s'",
+                request.getRegattaId(), name));
+        }
+        if (request.getRegattaStartDate() != null && !startDate.equals(request.getRegattaStartDate())) {
+            throw new IllegalArgumentException(String.format(
+                "regattaStartDate '%s' does not match the RML model's startDate '%s'",
+                request.getRegattaStartDate(), startDate));
+        }
+
+        rml.setRegattaId(name);
+        rml.setRegattaStartDate(startDate);
+    }
+
+    /**
+     * Parse the RML root {@code startDate} attribute into a {@link LocalDate}.
+     * The value is a custom EMF datatype; ISO-8601 (yyyy-MM-dd) is expected.
+     */
+    private LocalDate parseRegattaStartDate(String raw) {
+        try {
+            return LocalDate.parse(raw.trim());
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException(
+                "Could not parse RML regatta startDate '" + raw + "' (expected ISO-8601 yyyy-MM-dd)");
+        }
+    }
+
+    /**
+     * Validate RML creation: at most one Regatta Definition per regatta edition.
+     */
+    private void validateRmlCreation(RegattaDefinitionDocument rml) {
+        regattaDefinitionDocumentRepository
+            .findByRegattaIdAndRegattaStartDate(rml.getRegattaId(), rml.getRegattaStartDate())
+            .ifPresent(existing -> {
+                throw new ConflictException(String.format(
+                    "Regatta Definition (RML) already exists for regatta '%s' on %s",
+                    rml.getRegattaId(), rml.getRegattaStartDate()));
+            });
     }
 
     /**
@@ -287,6 +358,7 @@ public class DocumentManagerService {
             .type(document.getDocumentType())
             .regattaId(document.getRegattaId())
             .regattaStartDate(document.getRegattaStartDate())
+            .modelNsUri(document.getModelNsUri())
             .author(document.getAuthor())
             .createdAt(document.getCreatedAt())
             .latestVersion(document.getLatestVersion())

@@ -51,6 +51,12 @@ public abstract class Document {
     @Column(name = "regatta_start_date", nullable = false)
     private LocalDate regattaStartDate;
 
+    // The nsURI of the EMF metamodel this document's model data conforms to
+    // (e.g. http://www.rowtown.org/TDI/1.0.0). Derived from the model, it makes
+    // each document self-describing and carries the model version for migration.
+    @Column(name = "model_ns_uri")
+    private String modelNsUri;
+
     @Column(name = "author", nullable = false)
     private String author;
 

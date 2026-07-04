@@ -14,5 +14,12 @@ public enum DocumentType {
      * Race Results - timing data captured by timers including crossing times
      * and crew identifications.
      */
-    RACE_RESULTS
+    RACE_RESULTS,
+
+    /**
+     * Regatta Definition - the RML (Regatta Modeling Language) document that
+     * describes a regatta edition (venue, events, categories, schedule, dates).
+     * Client-produced and client-consumed; one per regatta edition.
+     */
+    RML
 }

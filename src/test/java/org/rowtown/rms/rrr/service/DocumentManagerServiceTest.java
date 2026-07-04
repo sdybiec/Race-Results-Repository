@@ -11,6 +11,7 @@ import org.rowtown.rms.rrr.domain.TimerRole;
 import org.rowtown.rms.rrr.domain.entity.Document;
 import org.rowtown.rms.rrr.domain.entity.DocumentOwnership;
 import org.rowtown.rms.rrr.domain.entity.RaceResultsDocument;
+import org.rowtown.rms.rrr.domain.entity.RegattaDefinitionDocument;
 import org.rowtown.rms.rrr.domain.entity.StartListDocument;
 import org.rowtown.rms.rrr.dto.DocumentRequest;
 import org.rowtown.rms.rrr.dto.DocumentResponse;
@@ -23,6 +24,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 /**
@@ -44,7 +46,13 @@ class DocumentManagerServiceTest {
     private TdiModelInspector tdiModelInspector;
 
     @Mock
-    private TdiValidationService tdiValidationService;
+    private EmfDocumentInspector emfDocumentInspector;
+
+    @Mock
+    private ModelValidationService modelValidationService;
+
+    @Mock
+    private RegattaDefinitionDocumentRepository regattaDefinitionDocumentRepository;
 
     @Mock
     private VersionControlService versionControlService;
@@ -149,6 +157,78 @@ class DocumentManagerServiceTest {
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () ->
             documentManagerService.createDocument(testRequest));
+    }
+
+    @Test
+    void createDocument_Rml_DerivesKeyFromModel() {
+        // Arrange: an RML request where the client omits the key; the server
+        // derives it from the model's root Regatta name/startDate.
+        DocumentRequest rmlRequest = DocumentRequest.builder()
+            .type(DocumentType.RML)
+            .author("admin@example.com")
+            .description("Regatta definition")
+            .modelData("<rml/>".getBytes())
+            .build();
+
+        when(emfDocumentInspector.rootAttribute(any(), eq("name")))
+            .thenReturn("Stotesbury Cup Regatta");
+        when(emfDocumentInspector.rootAttribute(any(), eq("startDate")))
+            .thenReturn("2024-05-17");
+        when(regattaDefinitionDocumentRepository.findByRegattaIdAndRegattaStartDate(any(), any()))
+            .thenReturn(Optional.empty());
+
+        RegattaDefinitionDocument saved = new RegattaDefinitionDocument();
+        saved.setDocumentId(7L);
+        saved.setRegattaId("Stotesbury Cup Regatta");
+        saved.setRegattaStartDate(LocalDate.of(2024, 5, 17));
+        when(documentRepository.save(any(RegattaDefinitionDocument.class))).thenReturn(saved);
+
+        // Act
+        DocumentResponse result = documentManagerService.createDocument(rmlRequest);
+
+        // Assert: key derived from the model and persisted.
+        assertEquals(7L, result.getDocumentId());
+        verify(documentRepository).save(argThat(d ->
+            "Stotesbury Cup Regatta".equals(d.getRegattaId())
+                && LocalDate.of(2024, 5, 17).equals(d.getRegattaStartDate())));
+    }
+
+    @Test
+    void createDocument_Rml_RejectsKeyMismatch() {
+        // Client-supplied regattaId disagrees with the model's regatta name.
+        DocumentRequest rmlRequest = DocumentRequest.builder()
+            .type(DocumentType.RML)
+            .regattaId("Wrong Name")
+            .author("admin@example.com")
+            .modelData("<rml/>".getBytes())
+            .build();
+
+        when(emfDocumentInspector.rootAttribute(any(), eq("name")))
+            .thenReturn("Stotesbury Cup Regatta");
+        when(emfDocumentInspector.rootAttribute(any(), eq("startDate")))
+            .thenReturn("2024-05-17");
+
+        assertThrows(IllegalArgumentException.class,
+            () -> documentManagerService.createDocument(rmlRequest));
+    }
+
+    @Test
+    void createDocument_RmlConflict() {
+        DocumentRequest rmlRequest = DocumentRequest.builder()
+            .type(DocumentType.RML)
+            .author("admin@example.com")
+            .modelData("<rml/>".getBytes())
+            .build();
+
+        when(emfDocumentInspector.rootAttribute(any(), eq("name")))
+            .thenReturn("Stotesbury Cup Regatta");
+        when(emfDocumentInspector.rootAttribute(any(), eq("startDate")))
+            .thenReturn("2024-05-17");
+        when(regattaDefinitionDocumentRepository.findByRegattaIdAndRegattaStartDate(any(), any()))
+            .thenReturn(Optional.of(new RegattaDefinitionDocument()));
+
+        assertThrows(ConflictException.class,
+            () -> documentManagerService.createDocument(rmlRequest));
     }
 
     @Test

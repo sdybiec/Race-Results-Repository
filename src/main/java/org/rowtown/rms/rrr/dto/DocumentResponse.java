@@ -39,6 +39,10 @@ public class DocumentResponse {
             example = "2024-05-17")
     private LocalDate regattaStartDate;
 
+    @Schema(description = "Namespace URI of the EMF metamodel this document conforms to",
+            example = "http://www.rowtown.org/TDI/1.0.0")
+    private String modelNsUri;
+
     @Schema(description = "Race identifier (Race Results only), derived from the model",
             example = "1a")
     private String raceId;
