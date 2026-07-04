@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="reportdesigner" nsURI="http://www.rowtown.org/ReportDesign/1.0.1"
+    nsPrefix="reportDesign">
+  <eClassifiers xsi:type="ecore:EClass" name="ReportsCollection">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reports" upperBound="-1"
+        eType="#//Report" containment="true" resolveProxies="false" eOpposite="#//Report/reportsCollection"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="colors" upperBound="-1"
+        eType="#//RGBColor" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pageSizes" upperBound="-1"
+        eType="#//PageDimensions" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fonts" upperBound="-1"
+        eType="#//Font" containment="true" resolveProxies="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Report" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataSource" eType="#//DataSource"
+        containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="masterDesign" eType="#//MasterDesign"
+        containment="true" resolveProxies="false" eOpposite="#//MasterDesign/report"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastModified" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reportsCollection" eType="#//ReportsCollection"
+        eOpposite="#//ReportsCollection/reports"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataSource">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
+        eType="#//Field" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variables" upperBound="-1"
+        eType="#//Variable" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//Parameter" containment="true" resolveProxies="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Field" eSuperTypes="#//NamedClass"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//NamedClass"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//NamedClass"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Design">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MasterDesign" eSuperTypes="#//Design">
+    <eOperations name="computeColumnWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pageDimensions" eType="#//PageDimensions"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fontStyles" upperBound="-1"
+        eType="#//Style" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultFontStyle" eType="#//Style"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pageOrientation" eType="#//PageOrientation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="titleArea" lowerBound="1"
+        eType="#//TitleArea" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="report" eType="#//Report"
+        transient="true" eOpposite="#//Report/masterDesign"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="groupDesign" upperBound="-1"
+        eType="#//GroupDesign" containment="true" eOpposite="#//GroupDesign/masterDesign"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PageDimensions">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pageWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pageHeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="topMargin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bottomMargin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="leftMargin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rightMargin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="horizontalSpacing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Style">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="font" eType="#//Font"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="opacityMode" eType="#//Opacity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="foregroundColor" eType="#//RGBColor"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="backgroundColor" eType="#//RGBColor"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TitleArea">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="title" lowerBound="1" eType="#//TitleElement"
+        containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subtitle" lowerBound="1"
+        eType="#//SubtitleElement" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="logoImage" eType="#//LogoImage"
+        containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shellImage" eType="#//ShellImage"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TitleElement" eSuperTypes="#//TextReportElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubtitleElement" eSuperTypes="#//TextReportElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TextReportElement" abstract="true" eSuperTypes="#//ReportElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fontStyle" eType="#//Style"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="textAlignment" eType="#//TextAlignment"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ImageElement" abstract="true" eSuperTypes="#//ReportElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="imageWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="imageHeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="horizontalAlignment" eType="#//HorizontalAlignment"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="verticalAlignment" eType="#//VerticalAlignment"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReportElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LogoImage" eSuperTypes="#//ImageElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ShellImage" eSuperTypes="#//ImageElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GroupDesign" eSuperTypes="#//Design">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fontStyle" eType="#//Style"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="textAlignment" eType="#//TextAlignment"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="masterDesign" eType="#//MasterDesign"
+        eOpposite="#//MasterDesign/groupDesign"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BasicReport" abstract="true" eSuperTypes="#//Report">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="detailDesign" eType="#//DetailDesign"
+        containment="true" resolveProxies="false" eOpposite="#//DetailDesign/basicReport"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MasterDetailReport" abstract="true"
+      eSuperTypes="#//Report">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="detailDesigns" eType="#//DetailDesigns"
+        containment="true" resolveProxies="false" eOpposite="#//DetailDesigns/masterDetailReport"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DetailDesigns">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="detailDataSource" eType="#//DataSource"
+        containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="detailDesign" upperBound="-1"
+        eType="#//DetailDesign" containment="true" resolveProxies="false" eOpposite="#//DetailDesign/detailDesigns"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="masterDetailReport" eType="#//MasterDetailReport"
+        transient="true" eOpposite="#//MasterDetailReport/detailDesigns"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DetailDesign" eSuperTypes="#//Design">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
+        eType="#//ReportColumn" containment="true" resolveProxies="false" eOpposite="#//ReportColumn/design"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnHeaderHeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnHeaderY" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="detailHeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="detailY" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="alternatingBarBackgroundColor"
+        eType="#//RGBColor"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="detailDesigns" eType="#//DetailDesigns"
+        transient="true" eOpposite="#//DetailDesigns/detailDesign"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="basicReport" eType="#//BasicReport"
+        eOpposite="#//BasicReport/detailDesign"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReportColumn">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="header" eType="#//HeaderElement"
+        containment="true" resolveProxies="false" eOpposite="#//HeaderElement/column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="detail" eType="#//DetailElement"
+        containment="true" resolveProxies="false" eOpposite="#//DetailElement/column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="design" eType="#//DetailDesign"
+        transient="true" eOpposite="#//DetailDesign/columns"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BaseElement" abstract="true">
+    <eOperations name="getX" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fontStyle" eType="#//Style"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="textAlignment" eType="#//TextAlignment"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="styledText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DetailElement" eSuperTypes="#//BaseElement">
+    <eOperations name="getTextExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stretchWithOverflow" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stretchType" eType="#//StretchType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataSource" eType="#//NamedClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" eType="#//ReportColumn"
+        transient="true" eOpposite="#//ReportColumn/detail"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Font">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bold" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="italic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="screenFontFamily" eType="#//ScreenFontFamily"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pdfFontFamily" eType="#//PdfFontFamily"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HeaderElement" abstract="true" eSuperTypes="#//BaseElement">
+    <eOperations name="getTextExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rotated" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" eType="#//ReportColumn"
+        transient="true" eOpposite="#//ReportColumn/header"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TitleHeaderElement" eSuperTypes="#//HeaderElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpressionHeaderElement" eSuperTypes="#//HeaderElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="textExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedClass" abstract="true">
+    <eOperations name="toExpressionString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RGBColor">
+    <eOperations name="toHexString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="red" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="green" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="blue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PdfFontFamily">
+    <eLiterals name="Helvetica"/>
+    <eLiterals name="Courier" value="4"/>
+    <eLiterals name="Symbol" value="12"/>
+    <eLiterals name="HelveticaBold" value="1" literal="Helvetica-Bold"/>
+    <eLiterals name="HelveticaOblique" value="2" literal="Helvetica-Oblique"/>
+    <eLiterals name="HelveticaBoldOblique" value="3" literal="Helvetica-BoldOblique"/>
+    <eLiterals name="CourierBold" value="5" literal="Courier-Bold"/>
+    <eLiterals name="CourierOblique" value="6" literal="Courier-Oblique"/>
+    <eLiterals name="CourierBoldOblique" value="7" literal="Courier-BoldOblique"/>
+    <eLiterals name="TimesRoman" value="8" literal="Times-Roman"/>
+    <eLiterals name="TimesBold" value="9" literal="Times-Bold"/>
+    <eLiterals name="TimesItalic" value="10" literal="Times-Italic"/>
+    <eLiterals name="TimesBoldItalic" value="11" literal="Times-BoldItalic"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ScreenFontFamily">
+    <eLiterals name="Arial"/>
+    <eLiterals name="CourierNew" value="1"/>
+    <eLiterals name="TimesNewRoman" value="2"/>
+    <eLiterals name="Symbol" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="StretchType">
+    <eLiterals name="NoStretch"/>
+    <eLiterals name="RelativeToTallestObject" value="1"/>
+    <eLiterals name="RelativeToBandHeight" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TextAlignment">
+    <eLiterals name="Left"/>
+    <eLiterals name="Right" value="1"/>
+    <eLiterals name="Center" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="HorizontalAlignment">
+    <eLiterals name="Left"/>
+    <eLiterals name="Center" value="1"/>
+    <eLiterals name="Right" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="VerticalAlignment">
+    <eLiterals name="Top"/>
+    <eLiterals name="Middle" value="1"/>
+    <eLiterals name="Bottom" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Opacity">
+    <eLiterals name="Opaque"/>
+    <eLiterals name="Transparent" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PageOrientation">
+    <eLiterals name="Portrait"/>
+    <eLiterals name="Landscape" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ReportType">
+    <eLiterals name="MultipleRaceResultsChronological"/>
+    <eLiterals name="MultipleRaceResultsGroupedByEvent" value="1"/>
+    <eLiterals name="IndividualRaceResults" value="2"/>
+  </eClassifiers>
+</ecore:EPackage>
