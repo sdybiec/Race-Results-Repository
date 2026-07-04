@@ -7,7 +7,10 @@ import org.rowtown.rms.rrr.client.model.LocalDocument;
 import org.rowtown.rms.rrr.client.mqtt.NotificationListener;
 import org.rowtown.rms.rrr.client.storage.LocalStorageManager;
 import org.rowtown.rms.rrr.client.sync.RaceResultsSyncEngine;
+import org.rowtown.rms.rrr.client.sync.RmlSyncEngine;
 import org.rowtown.rms.rrr.client.sync.StartListSyncEngine;
+import org.rowtown.rms.rrr.client.util.RmlKeyExtractor;
+import org.rowtown.rms.rrr.client.util.RmlModelValidator;
 import org.rowtown.rms.rrr.client.util.TdiModelValidator;
 
 import java.util.List;
@@ -33,6 +36,7 @@ public class RaceTimerClient implements AutoCloseable {
     private final NotificationListener mqttListener;
     private final StartListSyncEngine startListSync;
     private final RaceResultsSyncEngine raceResultsSync;
+    private final RmlSyncEngine rmlSync;
     private final ScheduledExecutorService scheduler;
 
     private final String regattaId;
@@ -67,6 +71,7 @@ public class RaceTimerClient implements AutoCloseable {
         // Initialize sync engines
         this.startListSync = new StartListSyncEngine(storage, apiClient, regattaId, regattaStartDate);
         this.raceResultsSync = new RaceResultsSyncEngine(storage, apiClient, regattaId, regattaStartDate, timer);
+        this.rmlSync = new RmlSyncEngine(storage, apiClient, regattaId, regattaStartDate);
 
         // Initialize scheduler for auto-sync
         this.scheduler = Executors.newScheduledThreadPool(1);
@@ -90,6 +95,7 @@ public class RaceTimerClient implements AutoCloseable {
             mqttListener.connect();
 
             // Perform initial synchronization
+            syncRegattaDefinition();
             syncStartList();
 
             log.info("Race Timer Client started successfully");
@@ -233,13 +239,67 @@ public class RaceTimerClient implements AutoCloseable {
         return raceResultsSync.getPendingCount();
     }
 
+    // ========== Regatta Definition (RML) Operations ==========
+
+    /**
+     * Download the Regatta Definition (RML) for this edition from the server.
+     *
+     * @return true if a definition was downloaded/refreshed
+     */
+    public boolean syncRegattaDefinition() {
+        log.info("Syncing Regatta Definition");
+        return rmlSync.synchronize();
+    }
+
+    /**
+     * Get the local Regatta Definition (RML), if available.
+     */
+    public Optional<LocalDocument> getRegattaDefinition() {
+        return rmlSync.getLocal();
+    }
+
+    /**
+     * Save (create or replace) the Regatta Definition locally and push it to the
+     * server when online. The regatta key is derived from the RML model.
+     *
+     * @param modelData Serialized RML model data
+     * @param author Author
+     * @return Saved local document
+     */
+    public LocalDocument saveRegattaDefinition(byte[] modelData, String author) {
+        // Fail fast: reject models the generated RML classes cannot load.
+        RmlModelValidator.validateLoadable(modelData);
+
+        String derivedRegattaId = RmlKeyExtractor.extractRegattaName(modelData);
+        String derivedStartDate = RmlKeyExtractor.extractRegattaStartDate(modelData);
+        log.info("Saving Regatta Definition for '{}' on {}", derivedRegattaId, derivedStartDate);
+
+        LocalDocument doc = rmlSync.saveLocal(modelData, author, derivedRegattaId, derivedStartDate);
+
+        if (apiClient.isServerReachable()) {
+            scheduler.execute(rmlSync::push);
+        }
+        return doc;
+    }
+
+    /**
+     * Delete the Regatta Definition locally and on the server.
+     *
+     * @return true if deleted
+     */
+    public boolean deleteRegattaDefinition() {
+        log.info("Deleting Regatta Definition");
+        return rmlSync.delete();
+    }
+
     // ========== Combined Operations ==========
 
     /**
-     * Synchronize everything (Start List + Race Results).
+     * Synchronize everything (Regatta Definition + Start List + Race Results).
      */
     public void syncAll() {
         log.info("Syncing all data");
+        syncRegattaDefinition();
         syncStartList();
         syncRaceResults();
     }
@@ -280,13 +340,17 @@ public class RaceTimerClient implements AutoCloseable {
      */
     private void setupNotificationHandler() {
         mqttListener.addChangeHandler(event -> {
-            log.info("Received Start List change notification: {}", event.eventType);
+            log.info("Received change notification: {} ({})", event.eventType, event.documentType);
 
-            // Refresh Start List when notified of changes
+            // Refresh the affected document when notified of changes.
             if ("START_LIST".equals(event.documentType)) {
                 log.info("Refreshing Start List due to server change (version: {})",
                     event.versionNumber);
                 startListSync.forceRefresh();
+            } else if ("RML".equals(event.documentType)) {
+                log.info("Refreshing Regatta Definition due to server change (version: {})",
+                    event.versionNumber);
+                rmlSync.forceRefresh();
             }
         });
     }

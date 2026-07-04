@@ -70,12 +70,15 @@ public class NotificationListener {
 
         mqttClient.connect(options);
 
-        // Subscribe to Start List changes for this regatta
-        String topic = "regatta/" + regattaId + "/startlist";
-        mqttClient.subscribe(topic, 1);
+        // Subscribe to Start List and Regatta Definition (RML) changes for this
+        // regatta. Handlers route by the documentType in the message payload.
+        String startListTopic = "regatta/" + regattaId + "/startlist";
+        String rmlTopic = "regatta/" + regattaId + "/regatta-definition";
+        mqttClient.subscribe(startListTopic, 1);
+        mqttClient.subscribe(rmlTopic, 1);
 
         connected = true;
-        log.info("Connected to MQTT broker and subscribed to: {}", topic);
+        log.info("Connected to MQTT broker and subscribed to: {}, {}", startListTopic, rmlTopic);
     }
 
     /**

@@ -148,6 +148,8 @@ public class MqttPublishingService {
             topic.append("/startlist");
         } else if (event.getDocumentType() == DocumentType.RACE_RESULTS) {
             topic.append("/results/").append(event.getTimerId());
+        } else if (event.getDocumentType() == DocumentType.RML) {
+            topic.append("/regatta-definition");
         }
 
         return topic.toString();

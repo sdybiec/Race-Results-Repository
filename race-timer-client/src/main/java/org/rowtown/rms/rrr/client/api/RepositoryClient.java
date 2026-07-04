@@ -82,6 +82,59 @@ public class RepositoryClient {
     }
 
     /**
+     * Get the Regatta Definition (RML) for a regatta edition (name + start date).
+     *
+     * @param regattaId the regatta name
+     * @param regattaStartDate the regatta start date (ISO-8601, e.g. 2024-05-17)
+     */
+    public DocumentResponse getRegattaDefinition(String regattaId, String regattaStartDate) throws IOException {
+        String url = baseUrl + "/api/v1/documents/search"
+                     + "?regattaId=" + enc(regattaId)
+                     + "&regattaStartDate=" + enc(regattaStartDate)
+                     + "&type=RML&matchType=EXACT";
+
+        Request request = new Request.Builder()
+            .url(url)
+            .addHeader("Authorization", "Bearer " + jwtToken)
+            .get()
+            .build();
+
+        try (Response response = httpClient.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Failed to get regatta definition: " + response);
+            }
+
+            SearchResults results = objectMapper.readValue(
+                response.body().string(), SearchResults.class);
+
+            if (results.results != null && !results.results.isEmpty()) {
+                return getDocument(results.results.get(0).documentId);
+            }
+
+            return null;
+        }
+    }
+
+    /**
+     * Delete a document by ID.
+     */
+    public void deleteDocument(Long documentId) throws IOException {
+        String url = baseUrl + "/api/v1/documents/" + documentId;
+
+        Request request = new Request.Builder()
+            .url(url)
+            .addHeader("Authorization", "Bearer " + jwtToken)
+            .delete()
+            .build();
+
+        try (Response response = httpClient.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Failed to delete document: " + response.code() + " " + response.message());
+            }
+        }
+    }
+
+    /**
      * Get a document by ID.
      */
     public DocumentResponse getDocument(Long documentId) throws IOException {

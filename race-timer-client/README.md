@@ -339,12 +339,26 @@ List<LocalDocument> getAllRaceResults()
 int getPendingRaceResultsCount()
 ```
 
+#### Regatta Definition (RML) Operations
+```java
+boolean syncRegattaDefinition()                          // Download from server
+Optional<LocalDocument> getRegattaDefinition()           // Get local copy
+LocalDocument saveRegattaDefinition(byte[] modelData, String author) // Save + push
+boolean deleteRegattaDefinition()                        // Delete local + server
+```
+
+The RML (Regatta Modeling Language) document defines a regatta edition and is
+one-per-edition. `saveRegattaDefinition` validates that the model loads into the
+generated RML classes (fail-fast) and derives the regatta key (name + start
+date) from the model itself. The client also refreshes its local copy when it
+receives an RML change notification.
+
 #### Status Methods
 ```java
 boolean isOnline()                     // Check server connectivity
 boolean isMqttConnected()              // Check MQTT connection
 ClientStatus getStatus()               // Get comprehensive status
-void syncAll()                         // Sync everything
+void syncAll()                         // Sync everything (RML + Start List + Results)
 ```
 
 ## Configuration

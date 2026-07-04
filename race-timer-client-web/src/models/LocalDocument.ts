@@ -23,8 +23,8 @@ export interface LocalDocument {
   /** Milestone identifier (Race Results: "Start Line", "Finish Line", etc.) */
   milestoneId?: string;
 
-  /** Document type: "START_LIST" or "RACE_RESULTS" */
-  documentType: 'START_LIST' | 'RACE_RESULTS';
+  /** Document type. RML (regatta definition) is managed by the Java client only. */
+  documentType: 'START_LIST' | 'RACE_RESULTS' | 'RML';
 
   /** Timer role (Race Results only) */
   timer?: TimerRole;

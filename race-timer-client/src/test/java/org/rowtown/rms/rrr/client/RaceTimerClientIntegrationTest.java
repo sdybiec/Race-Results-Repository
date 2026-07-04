@@ -208,6 +208,24 @@ class RaceTimerClientIntegrationTest {
     }
 
     @Test
+    void saveRegattaDefinition_RejectsUnloadableModel() {
+        // Fail-fast: a model the generated RML classes cannot load is rejected at
+        // capture time, mirroring the server's ingest policy.
+        client = new RaceTimerClient(config("http://localhost:8080"));
+
+        assertThrows(IllegalArgumentException.class,
+            () -> client.saveRegattaDefinition("not an RML model".getBytes(), AUTHOR));
+
+        assertTrue(client.getRegattaDefinition().isEmpty());
+    }
+
+    @Test
+    void getRegattaDefinition_EmptyWhenNoneStored() {
+        client = new RaceTimerClient(config("http://localhost:8080"));
+        assertTrue(client.getRegattaDefinition().isEmpty());
+    }
+
+    @Test
     void isOnline_ReturnsFalse_WhenServerUnreachable() {
         client = new RaceTimerClient(config("http://localhost:9999"));
 
