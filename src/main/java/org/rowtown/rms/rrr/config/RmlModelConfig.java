@@ -1,10 +1,11 @@
 package org.rowtown.rms.rrr.config;
 
-import com.humanfactor.rw.model.regatta.RegattaPackage;
-import com.humanfactor.rw.model.reportdesigner.ReportdesignerPackage;
 import org.eclipse.emf.ecore.EPackage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.humanfactor.rw.model.regatta.RegattaPackage;
+import com.humanfactor.rw.model.reportdesigner.ReportDesignerPackage;
 
 /**
  * Wires the generated RML (Regatta Modeling Language) EMF model — and the
@@ -51,6 +52,6 @@ public class RmlModelConfig {
      */
     @Bean
     public EPackage reportDesignPackage() {
-        return ReportdesignerPackage.eINSTANCE;
+        return ReportDesignerPackage.eINSTANCE;
     }
 }
