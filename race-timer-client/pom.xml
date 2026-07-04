@@ -29,6 +29,9 @@
         <tdi.model.groupId>org.rowtown.rms.tdi</tdi.model.groupId>
         <tdi.model.artifactId>tdi-model</tdi.model.artifactId>
         <tdi.model.version>1.0.1</tdi.model.version>
+        <rml.model.groupId>com.humanfactor.rw.model.regatta</rml.model.groupId>
+        <rml.model.artifactId>rml-model</rml.model.artifactId>
+        <rml.model.version>1.0.0</rml.model.version>
     </properties>
 
     <dependencies>
@@ -85,6 +88,14 @@
             <groupId>${tdi.model.groupId}</groupId>
             <artifactId>${tdi.model.artifactId}</artifactId>
             <version>${tdi.model.version}</version>
+        </dependency>
+        
+        <!-- Generated RML model classes (EMF). Install locally with `mvn install`
+             from the Regatta Markup Language project, or publish to your registry. -->
+        <dependency>
+            <groupId>${rml.model.groupId}</groupId>
+            <artifactId>${rml.model.artifactId}</artifactId>
+            <version>${rml.model.version}</version>
         </dependency>
 
         <!-- JSON Processing -->
