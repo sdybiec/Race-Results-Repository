@@ -31,6 +31,14 @@ public final class SampleData {
     public static final String RACE_RESULTS_1A_FINAL = "race-results-1a-final.tdi";
     public static final String RACE_RESULTS_1A_CORRECTED = "race-results-1a-corrected.tdi";
 
+    /**
+     * Real RML (Regatta Definition) fixtures. FSRA-2024 is RML/1.4.0 (matches the
+     * generated {@code rml-model}); Stotesbury-2014 is an older RML/1.2.0 document
+     * (useful for exercising version-skew behavior).
+     */
+    public static final String RML_FSRA_2024 = "FSRA-Sculling-Championships-2024.rml";
+    public static final String RML_STOTESBURY_2014 = "Stotesbury-Cup-Regatta-2014-05-16.rml";
+
     private SampleData() {
     }
 
@@ -78,6 +86,20 @@ public final class SampleData {
      */
     public static byte[] raceResultsCorrected() {
         return bytes(RACE_RESULTS_1A_CORRECTED);
+    }
+
+    /**
+     * @return the FSRA Sculling Championships 2024 RML document (RML/1.4.0)
+     */
+    public static byte[] fsraRegattaDefinition() {
+        return bytes(RML_FSRA_2024);
+    }
+
+    /**
+     * @return the Stotesbury Cup Regatta 2014 RML document (older RML/1.2.0)
+     */
+    public static byte[] stotesburyRegattaDefinition2014() {
+        return bytes(RML_STOTESBURY_2014);
     }
 
     /**

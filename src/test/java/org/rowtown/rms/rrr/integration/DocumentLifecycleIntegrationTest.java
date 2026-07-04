@@ -225,6 +225,58 @@ class DocumentLifecycleIntegrationTest {
     }
 
     @Test
+    void rmlRegattaDefinitionWorkflow() throws Exception {
+        // A real RML (Regatta Definition) document, RML/1.4.0, matching the
+        // generated rml-model. The client derives and sends the key; the server
+        // re-derives it from the model and cross-checks.
+        byte[] rmlModel = SampleData.fsraRegattaDefinition();
+        assertTrue(rmlModel.length > 1000, "sample RML should be loaded");
+
+        DocumentRequest rmlRequest = DocumentRequest.builder()
+            .type(DocumentType.RML)
+            .regattaId("FSRA Sculling Championships")
+            .regattaStartDate(java.time.LocalDate.of(2024, 4, 13))
+            .author("regatta@floridarowing.org")
+            .description("FSRA Sculling Championships 2024 - regatta definition")
+            .modelData(rmlModel)
+            .build();
+
+        MvcResult result = mockMvc.perform(post("/api/v1/documents")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(rmlRequest)))
+            .andExpect(status().isCreated())
+            .andReturn();
+
+        DocumentResponse rml = objectMapper.readValue(
+            result.getResponse().getContentAsString(),
+            DocumentResponse.class);
+
+        assertNotNull(rml.getDocumentId());
+        assertEquals(DocumentType.RML, rml.getType());
+        // Key derived from the model (name + startDate on the root Regatta).
+        assertEquals("FSRA Sculling Championships", rml.getRegattaId());
+        assertEquals(java.time.LocalDate.of(2024, 4, 13), rml.getRegattaStartDate());
+        // Self-describing metamodel namespace recorded from the model.
+        assertEquals("http://www.rowtown.org/RML/1.4.0", rml.getModelNsUri());
+
+        // Full model payload round-trips through storage.
+        MvcResult fetched = mockMvc.perform(get("/api/v1/documents/" + rml.getDocumentId()))
+            .andExpect(status().isOk())
+            .andReturn();
+        DocumentResponse retrieved = objectMapper.readValue(
+            fetched.getResponse().getContentAsString(),
+            DocumentResponse.class);
+        assertArrayEquals(rmlModel, retrieved.getModelData(),
+            "stored RML model should round-trip unchanged");
+
+        // Only one RML per regatta edition.
+        mockMvc.perform(post("/api/v1/documents")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(rmlRequest)))
+            .andExpect(status().isConflict());
+    }
+
+    @Test
     void multipleTimersWorkflow() throws Exception {
         // Create Race Results for timer001
         DocumentRequest timer1Request = DocumentRequest.builder()
