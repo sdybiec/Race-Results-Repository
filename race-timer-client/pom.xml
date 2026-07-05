@@ -37,6 +37,10 @@
         <datetime.utils.groupId>com.humanfactor.utils.datetime</datetime.utils.groupId>
         <datetime.utils.artifactId>datetime-utils</datetime.utils.artifactId>
         <datetime.utils.version>1.0.6</datetime.utils.version>
+        
+        <emf.notificationgatherer.groupId>com.humanfactor.emf.notificationgatherer</emf.notificationgatherer.groupId>
+        <emf.notificationgatherer.artifactId>emf-notification-gatherer</emf.notificationgatherer.artifactId>
+        <emf.notificationgatherer.version>1.0.3</emf.notificationgatherer.version>
     </properties>
 
     <dependencies>
@@ -109,6 +113,12 @@
             <groupId>${datetime.utils.groupId}</groupId>
             <artifactId>${datetime.utils.artifactId}</artifactId>
             <version>${datetime.utils.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>${emf.notificationgatherer.groupId}</groupId>
+            <artifactId>${emf.notificationgatherer.artifactId}</artifactId>
+            <version>${emf.notificationgatherer.version}</version>
         </dependency>
 
         <!-- JSON Processing -->
