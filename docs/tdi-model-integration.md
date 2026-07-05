@@ -117,6 +117,32 @@ the document's `nsURI` matching a registered generated package.
   mismatch only affects typed operations (deserialize/diff/validate), never the
   ability to store or return a document's bytes.
 
+## Loading older versions & upgrade-and-persist
+
+Loading of older stored versions is delegated to the `ModelResourceSetFactory`
+seam (see above): supplying an upgrading `ResourceSet` lets `ModelSerializationService`
+load-and-upgrade any stored version to the current one, transparently to
+validation, comparison, and read APIs.
+
+Because a multi-stage upgrade copies the model and would be re-paid on every
+load, `ModelUpgradePersistenceService` writes the upgraded form back so the cost
+is paid once:
+
+- **Detection** — a document needs upgrade when its stored `model_ns_uri` is not
+  the current namespace for its type (`CurrentModelNamespaces` is the single
+  source of truth, shared with validation).
+- **Lazy trigger** — read paths (`getDocument`) call `requestUpgradeAsync`, which
+  upgrades off the hot path in a background executor, deduplicated per document.
+  The read itself is unaffected.
+- **Batch trigger** — `POST /api/v1/admin/models/upgrade?type=…` (admin only)
+  drains all older-version documents of a type, e.g. after publishing a new model.
+- **Persistence** — the upgraded bytes are appended as a **new, system-authored
+  version** ("Auto-upgrade `from` → `to`"); the original version is retained for
+  audit, `model_ns_uri` is advanced to current, and provenance
+  (`upgradedFrom`/`upgradedTo`/`upgradedAt`) is recorded in metadata.
+- **Safety** — each upgrade runs in its own transaction, re-checks the version
+  under the transaction (idempotent), and never persists a failed/partial upgrade.
+
 ## Client considerations
 
 - The **Java client** (`race-timer-client`) may also depend on `tdi-model` to

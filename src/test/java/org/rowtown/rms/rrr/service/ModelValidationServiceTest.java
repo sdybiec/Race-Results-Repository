@@ -28,7 +28,7 @@ class ModelValidationServiceTest {
         EPackage tdiPackage = new TdiModelConfig().tdiPackage();
         ModelSerializationService serialization = new ModelSerializationService(
             new DefaultModelResourceSetFactory(List.of(tdiPackage)));
-        return new ModelValidationService(serialization, enabled, strict);
+        return new ModelValidationService(serialization, new CurrentModelNamespaces(), enabled, strict);
     }
 
     @Test

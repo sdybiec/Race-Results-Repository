@@ -35,6 +35,7 @@ public class DocumentManagerService {
     private final TdiModelInspector tdiModelInspector;
     private final EmfDocumentInspector emfDocumentInspector;
     private final ModelValidationService modelValidationService;
+    private final ModelUpgradePersistenceService modelUpgradePersistenceService;
     private final RegattaDefinitionDocumentRepository regattaDefinitionDocumentRepository;
     private final VersionControlService versionControlService;
     private final DocumentMetadataRepository metadataRepository;
@@ -178,6 +179,12 @@ public class DocumentManagerService {
             version = versionControlService.getVersion(documentId, versionNumber);
         } else {
             version = versionControlService.getLatestVersion(documentId);
+        }
+
+        // If the stored model is on an older metamodel version, upgrade-and-persist
+        // it in the background so the cost is paid once, not on every read.
+        if (modelUpgradePersistenceService.needsUpgrade(document)) {
+            modelUpgradePersistenceService.requestUpgradeAsync(documentId);
         }
 
         return toDocumentResponse(document, version.getModelSnapshot());

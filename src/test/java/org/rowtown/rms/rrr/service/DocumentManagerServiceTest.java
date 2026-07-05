@@ -52,6 +52,9 @@ class DocumentManagerServiceTest {
     private ModelValidationService modelValidationService;
 
     @Mock
+    private ModelUpgradePersistenceService modelUpgradePersistenceService;
+
+    @Mock
     private RegattaDefinitionDocumentRepository regattaDefinitionDocumentRepository;
 
     @Mock

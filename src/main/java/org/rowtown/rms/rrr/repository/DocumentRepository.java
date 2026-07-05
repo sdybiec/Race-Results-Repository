@@ -1,5 +1,6 @@
 package org.rowtown.rms.rrr.repository;
 
+import org.rowtown.rms.rrr.domain.DocumentType;
 import org.rowtown.rms.rrr.domain.entity.Document;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -31,4 +32,13 @@ public interface DocumentRepository extends JpaRepository<Document, Long>, JpaSp
      * Search documents by author.
      */
     List<Document> findByAuthorContainingIgnoreCase(String author);
+
+    /**
+     * Ids of documents of the given type whose stored model namespace is not the
+     * current one — i.e. candidates for upgrade-and-persist.
+     */
+    @Query("SELECT d.documentId FROM Document d "
+        + "WHERE d.documentType = :type AND d.modelNsUri IS NOT NULL AND d.modelNsUri <> :currentNsUri")
+    List<Long> findIdsNeedingUpgrade(@Param("type") DocumentType type,
+                                     @Param("currentNsUri") String currentNsUri);
 }

@@ -5,14 +5,11 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Diagnostician;
-import org.rowtown.rms.rrr.config.RmlModelConfig;
-import org.rowtown.rms.rrr.config.TdiModelConfig;
 import org.rowtown.rms.rrr.domain.DocumentType;
 import org.rowtown.rms.rrr.domain.SerializationFormat;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -43,22 +40,18 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ModelValidationService {
 
-    /** Expected metamodel namespace per document type. */
-    private static final Map<DocumentType, String> EXPECTED_NS_URI = Map.of(
-        DocumentType.START_LIST, TdiModelConfig.TDI_NS_URI,
-        DocumentType.RACE_RESULTS, TdiModelConfig.TDI_NS_URI,
-        DocumentType.RML, RmlModelConfig.RML_NS_URI
-    );
-
     private final ModelSerializationService serializationService;
+    private final CurrentModelNamespaces namespaces;
     private final boolean enabled;
     private final boolean strict;
 
     public ModelValidationService(
             ModelSerializationService serializationService,
+            CurrentModelNamespaces namespaces,
             @Value("${rrr.tdi.validation.enabled:true}") boolean enabled,
             @Value("${rrr.tdi.validation.strict:false}") boolean strict) {
         this.serializationService = serializationService;
+        this.namespaces = namespaces;
         this.enabled = enabled;
         this.strict = strict;
     }
@@ -93,7 +86,7 @@ public class ModelValidationService {
 
         EPackage ePackage = root.eClass().getEPackage();
         String nsUri = ePackage != null ? ePackage.getNsURI() : null;
-        String expected = EXPECTED_NS_URI.get(type);
+        String expected = namespaces.currentNsUri(type);
         if (expected != null && !expected.equals(nsUri)) {
             throw new IllegalArgumentException(
                 "Model namespace " + nsUri + " does not match the expected namespace "
