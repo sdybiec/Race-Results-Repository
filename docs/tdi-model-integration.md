@@ -40,10 +40,17 @@ strictly more robust than typed access for that one job.
    generated package/class names differ, change **only** `TdiModelConfig` and the
    `pom.xml` properties.
 
-3. **Per-`ResourceSet` registration** — `ModelSerializationService` registers all
-   `EPackage` beans into each `ResourceSet`'s local package registry (not the
-   global `EPackage.Registry.INSTANCE`). A fresh `ResourceSet` per call keeps the
-   service thread-safe and avoids JVM-wide mutable state, so tests stay isolated.
+3. **Per-`ResourceSet` registration** — `ModelSerializationService` obtains each
+   `ResourceSet` from a `ModelResourceSetFactory`. The default factory
+   (`DefaultModelResourceSetFactory`) registers all `EPackage` beans into the
+   `ResourceSet`'s local package registry (not the global
+   `EPackage.Registry.INSTANCE`). A fresh `ResourceSet` per call keeps the service
+   thread-safe and avoids JVM-wide mutable state, so tests stay isolated.
+
+   The factory is the single seam for model loading: supply an alternative
+   `ModelResourceSetFactory` bean (e.g. one backed by an `UpgradingResourceSet`
+   that loads and auto-upgrades older model versions) and it overrides the default
+   (`@ConditionalOnMissingBean`) with no change to any service.
 
 Once registered, `deserialize(...)` returns the generated types (e.g.
 `TimingRegatta`) and EMF Compare produces feature-accurate diffs.

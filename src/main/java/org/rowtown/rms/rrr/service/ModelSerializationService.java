@@ -5,8 +5,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.rowtown.rms.rrr.domain.SerializationFormat;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +13,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 /**
  * Service for serializing and deserializing EMF models.
  *
- * <p>Any model {@link EPackage} beans in the context (e.g. the generated TDI
- * package from {@link org.rowtown.rms.rrr.config.TdiModelConfig}) are registered
- * per-{@link ResourceSet}. This lets XMI load into the generated (typed) classes
- * instead of failing on an unknown {@code nsURI}, and keeps registration local
- * rather than mutating the global {@link EPackage.Registry#INSTANCE}.</p>
+ * <p>The {@link ResourceSet} used for each operation is supplied by a
+ * {@link ModelResourceSetFactory}, so how models are loaded (including support
+ * for older versions via an upgrading {@code ResourceSet}) can be swapped without
+ * touching this service. The default factory registers the generated model
+ * {@link EPackage}s per-{@link ResourceSet}.</p>
  *
  * <p>A fresh {@link ResourceSet} is created per call, so the service is
  * thread-safe (EMF resources are not).</p>
@@ -32,30 +29,14 @@ import java.util.List;
 @Service
 public class ModelSerializationService {
 
-    private final List<EPackage> modelPackages;
+    private final ModelResourceSetFactory resourceSetFactory;
 
-    /**
-     * @param modelPackages all model {@link EPackage} beans; Spring injects an
-     *                      empty list when none are present, in which case only
-     *                      dynamic/core EMF models can be handled.
-     */
-    public ModelSerializationService(List<EPackage> modelPackages) {
-        this.modelPackages = modelPackages;
+    public ModelSerializationService(ModelResourceSetFactory resourceSetFactory) {
+        this.resourceSetFactory = resourceSetFactory;
     }
 
-    /**
-     * Create a ResourceSet configured for XMI with all model packages registered.
-     */
     private ResourceSet newResourceSet() {
-        ResourceSet resourceSet = new ResourceSetImpl();
-        resourceSet.getResourceFactoryRegistry()
-            .getExtensionToFactoryMap()
-            .put("*", new XMIResourceFactoryImpl());
-
-        for (EPackage pkg : modelPackages) {
-            resourceSet.getPackageRegistry().put(pkg.getNsURI(), pkg);
-        }
-        return resourceSet;
+        return resourceSetFactory.newResourceSet();
     }
 
     /**
