@@ -96,6 +96,14 @@ class ModelUpgradePersistenceServiceTest {
     }
 
     @Test
+    void requestUpgradeIfNeeded_CurrentDoc_DoesNothing() {
+        when(documentRepository.findById(1L)).thenReturn(Optional.of(rmlDoc(CURRENT_RML_NS)));
+
+        assertFalse(service.requestUpgradeIfNeeded(1L));
+        verifyNoInteractions(versionControlService);
+    }
+
+    @Test
     void upgradeDocument_AlreadyCurrent_NoOp() {
         when(documentRepository.findById(1L)).thenReturn(Optional.of(rmlDoc(CURRENT_RML_NS)));
 

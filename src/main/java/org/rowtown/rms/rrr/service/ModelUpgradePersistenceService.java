@@ -113,6 +113,21 @@ public class ModelUpgradePersistenceService {
     }
 
     /**
+     * Request a deferred upgrade for a document only if it is on an older version.
+     * Convenient for read paths that have the document id but not the entity.
+     *
+     * @return true if an upgrade was requested
+     */
+    public boolean requestUpgradeIfNeeded(Long documentId) {
+        Document document = documentRepository.findById(documentId).orElse(null);
+        if (document == null || !needsUpgrade(document)) {
+            return false;
+        }
+        requestUpgradeAsync(documentId);
+        return true;
+    }
+
+    /**
      * Upgrade a single document in its own transaction.
      *
      * @return true if a new (current-version) version was written

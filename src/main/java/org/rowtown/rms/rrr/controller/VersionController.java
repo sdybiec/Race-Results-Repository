@@ -13,6 +13,7 @@ import org.rowtown.rms.rrr.dto.VersionInfo;
 import org.rowtown.rms.rrr.service.AuthorizationService;
 import org.rowtown.rms.rrr.service.DocumentManagerService;
 import org.rowtown.rms.rrr.service.ModelComparisonService;
+import org.rowtown.rms.rrr.service.ModelUpgradePersistenceService;
 import org.rowtown.rms.rrr.service.VersionControlService;
 import org.rowtown.rms.rrr.domain.entity.Version;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,7 @@ public class VersionController {
     private final VersionControlService versionControlService;
     private final ModelComparisonService comparisonService;
     private final DocumentManagerService documentService;
+    private final ModelUpgradePersistenceService modelUpgradePersistenceService;
     private final AuthorizationService authorizationService;
 
     @GetMapping
@@ -131,6 +133,10 @@ public class VersionController {
         ModelDiff diff = comparisonService.compareModels(
             version1.getModelSnapshot(), version1.getSnapshotFormat(),
             version2.getModelSnapshot(), version2.getSnapshotFormat());
+
+        // Comparing an older-version document loaded (and upgraded) it in memory;
+        // opportunistically persist the upgrade so it is paid only once.
+        modelUpgradePersistenceService.requestUpgradeIfNeeded(documentId);
 
         return ResponseEntity.ok(diff);
     }
